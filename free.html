@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • Free 7-Day Starter Protocol</title>
+<meta name="description" content="Begin your journey with Queen Elyria. A free 7-day protocol for curious submissives — one command per day. No purchase necessary.">
+<meta property="og:title" content="Queen's Empire • Free 7-Day Starter Protocol">
+<meta property="og:description" content="One command per day. Seven days. Your first step into her world.">
+<style>
+  :root {--gold:#C9A84C;--gold-light:#e8cc6e;--bg:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:Georgia,'Times New Roman',serif;min-height:100vh;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;}
+
+  .page{max-width:680px;margin:0 auto;padding:60px 24px;text-align:center;}
+
+  .crown{width:64px;height:64px;margin:0 auto 24px;position:relative;}
+  .crown img{width:100%;height:100%;object-fit:contain;}
+
+  h1{font-size:36px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;}
+  .subtitle{font-size:16px;color:var(--text-muted);font-style:italic;margin-bottom:32px;}
+
+  .offer-box{border:2px solid var(--gold);padding:40px 28px;margin-bottom:36px;position:relative;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);}
+  .offer-box::before{content:'';position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+  .offer-box h2{font-size:20px;color:var(--gold-light);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;position:relative;z-index:1;}
+  .offer-box .desc{font-size:14px;color:var(--text-muted);line-height:1.8;max-width:480px;margin:0 auto 20px;position:relative;z-index:1;}
+
+  .day-preview{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:28px;position:relative;z-index:1;}
+  .day-dot{aspect-ratio:1;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-muted);font-weight:bold;}
+  .day-dot:first-child{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.06);}
+
+  .quote{font-size:13px;color:var(--text-muted);font-style:italic;margin-bottom:24px;position:relative;z-index:1;}
+  .quote span{color:var(--gold);}
+
+  /* Email form */
+  .form-wrap{max-width:420px;margin:0 auto;position:relative;z-index:1;}
+  .form-row{display:flex;gap:10px;margin-bottom:10px;}
+  .form-row input{flex:1;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:12px 16px;font-size:14px;font-family:Georgia,serif;border-radius:0;}
+  .form-row input:focus{outline:none;border-color:var(--gold);}
+  .form-row input::placeholder{color:var(--text-dim);font-style:italic;}
+  .btn{background:var(--gold);color:#09090b;border:none;padding:12px 28px;font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:Georgia,serif;transition:all 0.2s;}
+  .btn:hover{background:var(--gold-light);}
+  .form-note{font-size:10px;color:var(--text-dim);margin-top:8px;}
+
+  .ornament{color:var(--gold);font-size:10px;letter-spacing:4px;opacity:0.4;margin:32px 0;}
+
+  .what-you-get{text-align:left;max-width:440px;margin:0 auto 36px;}
+  .what-you-get h3{font-size:13px;color:var(--gold);text-transform:uppercase;letter-spacing:3px;margin-bottom:14px;text-align:center;}
+  .what-you-get ul{list-style:none;}
+  .what-you-get li{font-size:13px;color:var(--text-muted);padding:6px 0;padding-left:20px;position:relative;line-height:1.6;}
+  .what-you-get li::before{content:'✦';position:absolute;left:0;color:var(--gold);font-size:8px;top:8px;}
+
+  .consent-block{border:1.5px solid #C9A84C;padding:24px 20px;margin-top:40px;text-align:center;position:relative;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);}
+  .consent-block::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+  .consent-block .c-title{font-size:16px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:10px;position:relative;z-index:1;}
+  .consent-block .c-text{font-size:11px;color:#b8943a;line-height:1.7;position:relative;z-index:1;}
+
+  .hidden{display:none;}
+  #successMsg{background:var(--bg-card);border:1px solid var(--gold);padding:24px;margin-top:20px;}
+  #successMsg h3{color:var(--gold);margin-bottom:8px;}
+  #successMsg p{color:var(--text-muted);font-size:13px;}
+
+  @media(max-width:500px){
+    .day-preview{grid-template-columns:repeat(4,1fr);}
+    .form-row{flex-direction:column;}
+    h1{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="crown">
+    <img src="https://queensempire.vercel.app/crown-transparent.png" alt="Queen's Crown" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#b8960f);display:flex;align-items:center;justify-content:center;font-size:28px;color:#09090b;margin:0 auto;>♛</div>'">
+  </div>
+
+  <h1>Begin Your Surrender</h1>
+  <p class="subtitle">A free 7-day protocol from Queen Elyria</p>
+
+  <div class="offer-box">
+    <h2>The First Seven Days</h2>
+    <p class="desc">One command per day. Seven days. No purchase. No commitment. Just you, her voice, and the first steps into a world you've been curious about.</p>
+
+    <div class="day-preview">
+      <div class="day-dot">1</div><div class="day-dot">2</div><div class="day-dot">3</div>
+      <div class="day-dot">4</div><div class="day-dot">5</div><div class="day-dot">6</div>
+      <div class="day-dot">7</div>
+    </div>
+
+    <p class="quote">"You've been wondering what it feels like. <span>Stop wondering.</span>"</p>
+    <p style="font-size:12px;color:var(--text-dim);position:relative;z-index:1;">— Queen Elyria</p>
+  </div>
+
+  <div class="what-you-get">
+    <h3>What's Inside</h3>
+    <ul>
+      <li>One audio command per day — Queen Elyria's voice in your ears</li>
+      <li>A printable daily reflection page to track your responses</li>
+      <li>Guidance on safe words, limits, and communication</li>
+      <li>The complete SSC/RACK framework explained simply</li>
+      <li>Day 7: A personal invitation to explore deeper</li>
+    </ul>
+  </div>
+
+  <!-- Email capture form -->
+  <div id="formArea">
+    <form id="signupForm" class="form-wrap" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <input type="email" id="email" placeholder="Your email address" required>
+        <button type="submit" class="btn">Claim Your Protocol</button>
+      </div>
+      <p class="form-note">Instant download. No spam. Unsubscribe anytime. 18+ only.</p>
+    </form>
+  </div>
+
+  <div id="successMsg" class="hidden">
+    <h3>✦ Your protocol is ready</h3>
+    <p style="margin-bottom:12px;">Queen Elyria awaits. Check your email — the first command arrives within minutes.</p>
+    <p style="font-size:11px;color:var(--text-dim);">While you wait, explore the full collection at <a href="https://queensempireco.etsy.com" style="color:var(--gold);">queensempireco.etsy.com</a></p>
+  </div>
+
+  <div class="ornament">✦ &ensp; ⬖ &ensp; ✦</div>
+
+  <div class="consent-block">
+    <div class="c-title">Consent &amp; Safety Notice</div>
+    <div class="c-text">
+      All scenarios and language are intended strictly as fantasy roleplay between consenting adults.<br>
+      Safe words always apply: ● RED = Stop immediately. ● YELLOW = Check-in.<br>
+      SSC / RACK frameworks. Never exceed negotiated limits. 18+ only.
+    </div>
+  </div>
+
+</div>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  // TODO: Connect to email service (ConvertKit, Mailchimp, or Formspree)
+  // For now, show success and store locally
+  document.getElementById('formArea').classList.add('hidden');
+  document.getElementById('successMsg').classList.remove('hidden');
+  console.log('Signup:', email);
+  // When connected: POST to email service API
+}
+</script>
+</body>
+</html>
