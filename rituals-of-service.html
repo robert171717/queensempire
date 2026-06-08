@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • 30-Day Rituals of Service</title>
+<style>
+  :root {
+    --gold: #D4AF37; --gold-light: #e8cc6e;
+    --bg-deep: #09090b; --bg-card: #18181b; --bg-card-hover: #1f1f23;
+    --border: #27272a; --text: #e4e4e7; --text-muted: #71717a; --text-dim: #52525b;
+    --cat-worship: #D4AF37; --cat-service: #e06060; --cat-discipline: #60a0e0;
+    --cat-gratitude: #60e060; --cat-obedience: #e0a060;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:var(--bg-deep); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+    min-height:100vh;
+  }
+  .serif { font-family:Georgia,'Times New Roman',serif; letter-spacing:-0.02em; }
+
+  .topbar { border-bottom:1px solid var(--border); background:var(--bg-deep); position:sticky; top:0; z-index:50; }
+  .topbar-inner { max-width:1100px; margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; }
+  .brand { display:flex; align-items:center; gap:10px; }
+  .crown { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--gold),#b8960f); display:flex; align-items:center; justify-content:center; font-size:20px; color:#09090b; }
+  .brand-name { font-size:1.4rem; font-weight:800; }
+  .brand-tag { font-size:0.55rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1.5px; }
+  .badge { padding:6px 14px; background:var(--bg-card); border:1px solid var(--border); border-radius:20px; font-size:0.7rem; display:flex; align-items:center; gap:6px; }
+  .badge .dot { width:6px; height:6px; background:var(--gold); border-radius:50%; }
+  .btn { padding:6px 16px; border-radius:20px; font-size:0.7rem; font-weight:600; cursor:pointer; transition:all 0.15s; border:1px solid var(--border); background:transparent; color:var(--text-muted); }
+  .btn:hover { background:var(--bg-card); color:var(--text); }
+  .btn.quiet { border-color:transparent; color:var(--text-dim); font-size:0.6rem; padding:4px 10px; }
+  .btn.quiet:hover { border-color:var(--border); color:var(--text); }
+  .btn.export-btn { font-size:0.58rem; padding:4px 10px; color:var(--text-dim); margin-top:10px; width:100%; }
+  .btn.export-btn:hover { color:var(--gold); border-color:var(--gold); }
+
+  /* ── TOAST ── */
+  .toast {
+    position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+    background:var(--gold); color:#09090b; padding:10px 24px;
+    border-radius:20px; font-weight:700; font-size:0.78rem;
+    opacity:0; pointer-events:none; transition:opacity 0.25s, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    z-index:999; box-shadow:0 4px 20px rgba(212,175,55,0.3);
+  }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(-10px); }
+
+  .main { max-width:1100px; margin:0 auto; padding:24px 24px 60px; border:2px solid var(--gold); border-radius:4px; box-shadow:0 0 60px rgba(212,175,55,0.15), 0 0 120px rgba(212,175,55,0.05); }
+
+  .hero { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:20px; flex-wrap:wrap; gap:14px; }
+  .hero-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; background:var(--bg-card); border:1px solid var(--border); border-radius:20px; font-size:0.65rem; letter-spacing:1.5px; margin-bottom:8px; }
+  .hero-badge .pulse { width:6px; height:6px; background:var(--gold); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero h1 { font-size:2.4rem; font-weight:800; }
+  .hero .gold { color:var(--gold); }
+  .hero .subtitle { font-size:1rem; color:var(--text-muted); margin-top:2px; }
+  .stats-row { display:flex; gap:16px; text-align:center; }
+  .stats-row .stat-val { font-size:2rem; font-weight:800; }
+  .stats-row .stat-val.gold { color:var(--gold); }
+  .stats-row .stat-label { font-size:0.55rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-dim); }
+  .stat-divider { width:1px; background:var(--border); }
+
+  .info-bar { background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:14px 18px; margin:0 auto 20px; max-width:1100px; font-size:0.78rem; display:flex; align-items:flex-start; gap:10px; color:var(--text-muted); }
+  .info-bar strong { color:var(--text); }
+  .info-bar .icon-circle { color:var(--gold); margin-top:1px; flex-shrink:0; }
+
+  /* Category legend */
+  .cat-legend { display:flex; gap:14px; margin-bottom:14px; flex-wrap:wrap; justify-content:center; font-size:0.6rem; color:var(--text-dim); }
+  .cat-legend span { display:flex; align-items:center; gap:5px; }
+  .cat-dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
+
+  .calendar-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-bottom:28px; }
+  .day-card { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:14px; cursor:pointer; transition:all 0.18s; display:flex; flex-direction:column; }
+  .day-card:hover { transform:translateY(-2px); border-color:var(--gold); }
+  .day-card.selected { border-color:var(--gold); box-shadow:0 0 0 3px rgba(212,175,55,0.35), 0 0 18px rgba(212,175,55,0.12); }
+  .day-card.completed { background:#1a1a15; box-shadow:0 0 14px rgba(212,175,55,0.22); }
+  .day-card .day-num { font-size:0.55rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; }
+  .day-card .day-title { font-size:0.8rem; font-weight:700; margin-top:4px; line-height:1.2; }
+  .day-card .day-cat { font-size:0.55rem; margin-top:3px; text-transform:uppercase; letter-spacing:1px; }
+  .day-card .day-status { margin-top:auto; padding-top:8px; font-size:0.6rem; color:var(--text-dim); }
+  .day-card.completed .day-status { color:var(--gold); font-weight:600; }
+
+  .detail-grid { display:grid; grid-template-columns:3fr 2fr; gap:18px; }
+  .detail-panel { background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:20px; }
+  .detail-panel .section-label { font-size:0.6rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); margin-bottom:4px; }
+  .detail-panel .day-heading { font-size:1.4rem; font-weight:800; }
+  .detail-panel .ritual-text { font-size:0.85rem; color:var(--text-muted); margin-top:12px; line-height:1.6; min-height:50px; }
+  .detail-panel .ritual-meta { font-size:0.6rem; color:var(--text-dim); margin-top:10px; display:flex; gap:16px; }
+  .detail-panel .mark-btn { display:inline-flex; align-items:center; gap:6px; margin-top:14px; padding:10px 22px; border:none; border-radius:20px; font-weight:700; font-size:0.8rem; cursor:pointer; transition:all 0.12s cubic-bezier(0.34,1.56,0.64,1); }
+  .detail-panel .mark-btn.reveal { background:var(--gold); color:#09090b; }
+  .detail-panel .mark-btn.reveal:hover { background:var(--gold-light); transform:scale(1.03); }
+  .detail-panel .mark-btn.reveal:active { transform:scale(0.94); }
+  .detail-panel .mark-btn.done { background:#1a3a1a; color:#4ade80; cursor:pointer; }
+  .detail-panel .mark-btn.done:hover { background:#2a4a2a; transform:scale(1.03); }
+  .detail-panel .mark-btn.done:active { transform:scale(0.94); }
+
+  .notes-area { margin-top:14px; }
+  .notes-area label { font-size:0.6rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); display:block; margin-bottom:5px; }
+  .notes-area textarea { width:100%; background:#09090b; border:1px solid var(--border); border-radius:14px; padding:14px; color:var(--text); font-size:0.78rem; resize:vertical; min-height:60px; font-family:inherit; }
+  .notes-area textarea:focus { outline:none; border-color:var(--gold); }
+  .notes-area .save-note-btn { margin-top:6px; padding:6px 14px; border-radius:20px; font-size:0.65rem; border:1px solid var(--border); background:transparent; color:var(--text-muted); cursor:pointer; }
+  .notes-area .save-note-btn:hover { background:var(--bg-card-hover); }
+
+  .sidebar { background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:26px; }
+  .sidebar .section-label { font-size:0.6rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); margin-bottom:16px; }
+  .sidebar .stat-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border); font-size:0.75rem; }
+  .sidebar .stat-row:last-child { border-bottom:none; }
+  .sidebar .stat-row .val { font-weight:700; }
+  .sidebar .stat-row .val.gold { color:var(--gold); }
+  .sidebar .assessment { margin-top:14px; padding-top:14px; border-top:1px solid var(--border); font-size:0.72rem; color:var(--text-muted); font-style:italic; line-height:1.5; }
+  .sidebar .assessment-label { font-size:0.55rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); margin-bottom:5px; font-style:normal; }
+
+  .site-footer { border-top:1px solid var(--border); padding:18px 24px; text-align:center; font-size:0.55rem; color:var(--text-dim); max-width:1100px; margin:0 auto; }
+
+  @media (max-width:768px) {
+    .detail-grid { grid-template-columns:1fr; }
+    .calendar-grid { grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); }
+    .hero { flex-direction:column; align-items:flex-start; }
+    .hero h1 { font-size:1.6rem; }
+  }
+  @media print {
+    body { background:#fff; color:#000; }
+    .topbar,.info-bar,.notes-area,.mark-btn,.save-note-btn,.site-footer { display:none; }
+    .day-card { border:1px solid #ccc; background:#fff; }
+    .detail-panel,.sidebar { border:1px solid #ccc; background:#fff; }
+    .celebration-overlay, #particle-canvas { display:none; }
+  }
+
+  /* ── DAY 30 CELEBRATION ── */
+  .celebration-overlay {
+    position:fixed; inset:0; background:rgba(9,9,11,0.92);
+    display:flex; align-items:center; justify-content:center;
+    z-index:1000; opacity:0; pointer-events:none;
+    transition:opacity 0.5s ease;
+  }
+  .celebration-overlay.active { opacity:1; pointer-events:all; }
+  .celebration-card {
+    background:var(--bg-card); border:2px solid var(--gold);
+    border-radius:24px; padding:48px 40px; text-align:center;
+    max-width:480px; width:90%;
+    box-shadow:0 0 80px rgba(212,175,55,0.25), 0 0 160px rgba(212,175,55,0.08);
+    transform:scale(0.92); transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .celebration-overlay.active .celebration-card { transform:scale(1); }
+  .celebration-crown { font-size:3rem; margin-bottom:12px; animation:celebratePulse 2s ease-in-out infinite; }
+  @keyframes celebratePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.7;transform:scale(1.08)} }
+  .celebration-card h2 { font-size:1.8rem; font-weight:800; margin-bottom:8px; }
+  .celebration-card h2 .gold { color:var(--gold); }
+  .celebration-card .celebration-msg { font-size:0.9rem; color:var(--text-muted); line-height:1.6; margin-bottom:20px; }
+  .celebration-card .dismiss-hint { font-size:0.6rem; color:var(--text-dim); }
+  #particle-canvas { position:fixed; inset:0; z-index:1001; pointer-events:none; opacity:0; transition:opacity 0.8s; }
+  #particle-canvas.active { opacity:1; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="crown">♛</div>
+      <div><div class="brand-name serif">Queen's Empire</div><div class="brand-tag">Premium BDSM Digital Tools</div></div>
+    </div>
+    <div class="topbar-actions" style="display:flex;align-items:center;gap:10px;">
+      <div class="badge"><span class="dot"></span> 30-Day Ritual Protocol</div>
+      <button class="btn quiet" onclick="resetProgress()">↺</button>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="hero">
+    <div>
+      <div class="hero-badge"><span class="pulse"></span> INTERACTIVE • WORKS OFFLINE</div>
+      <h1 class="serif"><span class="gold">30-Day</span> Rituals of Service</h1>
+      <p class="subtitle">Worship • Service • Discipline • Gratitude • Obedience</p>
+    </div>
+    <div class="stats-row">
+      <div><div class="stat-val gold" id="streak-val">0</div><div class="stat-label">Current Streak</div></div>
+      <div class="stat-divider"></div>
+      <div><div class="stat-val" id="completed-val">0</div><div class="stat-label">Completed</div></div>
+      <div class="stat-divider"></div>
+      <div><div class="stat-val gold" id="progress-label">0/30</div><div class="stat-label">Progress</div></div>
+    </div>
+  </div>
+
+  <div class="cat-legend" id="cat-legend"></div>
+
+  <div class="calendar-grid" id="calendar"></div>
+
+  <div class="detail-grid">
+    <div class="detail-panel" id="detail-panel">
+      <div class="section-label">Today's Ritual</div>
+      <div class="day-heading serif" id="detail-title">Select a day to begin</div>
+      <div class="ritual-text" id="detail-text">Click any day on the calendar to reveal your ritual for that day.</div>
+      <div class="ritual-meta" id="detail-meta"></div>
+      <button class="mark-btn reveal" id="mark-btn" onclick="handleMark()">✦ Reveal & Mark Complete</button>
+      <div class="notes-area">
+        <label>Your Reflections</label>
+        <textarea id="notes-input" placeholder="How did this ritual feel? What did you learn about your service?"></textarea>
+        <button class="save-note-btn" onclick="saveNotes()">Save Notes</button>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="section-label">Devotion Statistics</div>
+      <div class="stat-row"><span>Total Rituals</span><span class="val">30</span></div>
+      <div class="stat-row"><span>Completed</span><span class="val gold" id="stat-completed">0</span></div>
+      <div class="stat-row"><span>Completion Rate</span><span class="val" id="stat-rate">0%</span></div>
+      <div class="stat-row"><span>Best Streak</span><span class="val" id="stat-best">0 days</span></div>
+      <div class="stat-row"><span>By Category</span><span class="val" id="stat-cats">—</span></div>
+      <button class="btn export-btn" onclick="exportProgress()">⬇ Export Progress</button>
+      <div class="assessment">
+        <div class="assessment-label">Queen's Assessment</div>
+        <div id="assessment-text">Your journey of devotion begins now. Choose your first ritual.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="info-bar">
+    <span class="icon-circle">◈</span>
+    <div>
+      <strong>How to use:</strong> Click a day to reveal its ritual. Click again to mark it complete. Each day presents a new act of devotion across five categories. Your progress saves automatically — works completely offline.<br>
+      <span style="font-size:0.6rem;">For consenting adults 18+ only. Safe, sane, consensual fantasy/roleplay. Safe words always apply: RED = Stop immediately. YELLOW = Check-in. AI-assisted design.</span>
+    </div>
+  </div>
+
+<div class="site-footer">
+  Queen's Empire • Premium BDSM Digital Tools • For consenting adults 18+ only • Safe, sane, consensual fantasy/roleplay<br>AI-assisted design. All progress stored locally in your browser.
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<!-- Day 30 Celebration -->
+<div class="celebration-overlay" id="celebration" onclick="dismissCelebration()">
+  <div class="celebration-card">
+    <div class="celebration-crown">♛</div>
+    <h2 class="serif"><span class="gold">Cycle</span> Complete</h2>
+    <p class="celebration-msg">Thirty rituals. Thirty acts of devotion.<br>Worship. Service. Discipline. Gratitude. Obedience.<br><br>You did not simply complete a protocol — you became something more.<br>Kneel, and receive what you have earned.</p>
+    <div class="dismiss-hint">tap anywhere to continue</div>
+  </div>
+</div>
+<canvas id="particle-canvas"></canvas>
+
+<script>
+const STORAGE = 'qe-rituals-v2';
+const CAT_COLORS = {worship:'#D4AF37',service:'#e06060',discipline:'#60a0e0',gratitude:'#60e060',obedience:'#e0a060'};
+const CAT_NAMES = {worship:'Worship',service:'Service',discipline:'Discipline',gratitude:'Gratitude',obedience:'Obedience'};
+
+const RITUALS = [
+  {title:"Morning Kneel",cat:"obedience",dur:"5 min",text:"Kneel before your Queen for 5 minutes before she rises. Head down. Silent. Present yourself as her servant. This is how every day begins now."},
+  {title:"The Queen's Coffee",cat:"service",dur:"10 min",text:"Prepare her coffee or tea exactly as she likes it. Serve it on a tray. Kneel while she takes the first sip. Anticipate before she asks."},
+  {title:"Mirror Affirmations",cat:"gratitude",dur:"5 min",text:"Stand before a mirror and speak 5 truths about your Queen's power over you. Say each one aloud, looking yourself in the eyes. Mean every word."},
+  {title:"Foot Worship",cat:"worship",dur:"10 min",text:"Kneel at her feet. Remove her shoes. Massage each foot for 10 minutes. Kiss the tops of her feet when you finish. Thank her for the privilege."},
+  {title:"The Queen's Bath",cat:"service",dur:"20 min",text:"Draw her a bath at the perfect temperature. Light candles. Place a towel within reach. Wait outside the door until she calls for you. This is service."},
+  {title:"Gratitude Journal",cat:"gratitude",dur:"10 min",text:"Write down 10 things you are grateful for about your Queen. Read them to her. Mean every word. She will know if you don't."},
+  {title:"Silent Service",cat:"obedience",dur:"30 min",text:"For 30 minutes, you will not speak unless spoken to. Anticipate her needs. Refill her drink before she asks. Be invisible and indispensable."},
+  {title:"Body Worship — Hands",cat:"worship",dur:"8 min",text:"Take her hands. Kiss each knuckle. Massage each finger. Tell her what these hands mean to you. They guide you. They discipline you. They own you."},
+  {title:"Corner Time",cat:"discipline",dur:"10 min",text:"Stand facing a corner. Hands behind your back. 10 minutes of silence. Reflect on your purpose: to serve. To obey. To worship. Nothing else matters."},
+  {title:"The Queen's Dinner",cat:"service",dur:"45 min",text:"Prepare her favorite meal or order it. Set the table for one. Serve her. Stand by the table and wait until she dismisses you. Your hunger is secondary."},
+  {title:"Praise Ritual",cat:"gratitude",dur:"5 min",text:"Speak 10 specific compliments to your Queen. Not generic — specific things you admire, respect, and worship about her. Make her feel seen and powerful."},
+  {title:"Kneeling Wait",cat:"obedience",dur:"5 min",text:"Kneel by the door 5 minutes before she arrives home. Greet her on your knees. Ask how you may serve her tonight. Her arrival is an event."},
+  {title:"Oral Worship",cat:"worship",dur:"as long as she desires",text:"Kneel before her. Worship her with your mouth until she tells you to stop. No reciprocation. This is for her pleasure only. Your satisfaction is irrelevant."},
+  {title:"Inventory of Submission",cat:"gratitude",dur:"15 min",text:"Write a letter describing how submission has changed you. What you've learned. Why you're grateful. Read it to her. Let her see your transformation."},
+  {title:"The Queen's Wardrobe",cat:"service",dur:"30 min",text:"Organize her closet or dresser. Fold everything with precision. Arrange by color. Make her space beautiful. She deserves order. You create it."},
+  {title:"Body Worship — Full",cat:"worship",dur:"20 min",text:"Starting at her feet, work your way up. Kiss every part of her body. Speak a word of worship at each point. Go slowly. This is not about you."},
+  {title:"Permission Practice",cat:"obedience",dur:"all day",text:"Today, ask permission before doing anything: eating, sitting, speaking, using the bathroom. Every action requires her nod. Feel the weight of her control."},
+  {title:"The Queen's Massage",cat:"service",dur:"20 min",text:"Full body massage. 20 minutes minimum. Warm oil. Steady pressure. No talking unless she speaks first. Focus entirely on her body and her comfort."},
+  {title:"Reflection Ritual",cat:"discipline",dur:"10 min",text:"Kneel in a quiet room. Dim lights. 10 minutes of meditation on the word 'service.' What does it mean? How can you serve better? Write down your answer."},
+  {title:"Love Letter",cat:"gratitude",dur:"20 min",text:"Hand-write a love letter to your Queen. Not digital. Paper and pen. Seal it. Present it on your knees. Some things deserve permanence."},
+  {title:"Pillow Ritual",cat:"obedience",dur:"overnight",text:"Tonight, sleep on the floor beside her bed. You may use one pillow. Thank her for the privilege before you lie down. Her comfort is your luxury."},
+  {title:"The Queen's Playlist",cat:"service",dur:"ongoing",text:"Curate a playlist of songs that remind you of her. Songs about devotion, worship, and submission. Play it while you serve. Let music reinforce your purpose."},
+  {title:"Corner Confession",cat:"discipline",dur:"5 min",text:"Face the corner. Speak aloud your failures from this week — moments you weren't fully devoted. Ask forgiveness. Mean it. Tomorrow you will do better."},
+  {title:"Hand Feeding",cat:"worship",dur:"15 min",text:"Prepare a small plate of her favorite snacks. Feed her by hand, piece by piece. She does not lift a finger. You are her hands now."},
+  {title:"The Queen's Schedule",cat:"service",dur:"20 min",text:"Review her calendar for the week. Identify 3 ways you can make her life easier. Present your plan. Execute without being asked twice. Initiative is devotion."},
+  {title:"Obedience Drill",cat:"obedience",dur:"varies",text:"Your Queen gives 5 commands in rapid succession. You execute each one immediately without hesitation or question. Speed is loyalty. Hesitation is defiance."},
+  {title:"Selfless Saturday",cat:"obedience",dur:"all day",text:"Today is entirely about her. Every decision, every action, every thought — filtered through 'Does this serve my Queen?' Nothing else matters. Nothing else exists."},
+  {title:"Worship Bath",cat:"worship",dur:"30 min",text:"Bathe your Queen. Wash her hair. Scrub her back. Dry her with a warm towel. Dress her. Every movement is worship. Every touch is reverence."},
+  {title:"Accountability Ritual",cat:"discipline",dur:"10 min",text:"Kneel before her. Review your completed rituals honestly. Confess any missed days. Accept whatever consequence she deems appropriate. Accountability is sacred."},
+  {title:"The Final Kneel",cat:"gratitude",dur:"10 min",text:"Kneel before your Queen. Thank her for 30 days of training. Present yourself for her judgment. Ask: 'How may I serve you better in the next cycle?'"}
+];
+
+let state = { completed:[], revealed:[], notes:{}, selected:null };
+
+function load() {
+  try { let s=JSON.parse(localStorage.getItem(STORAGE)); if(s) state=s; } catch(e) {}
+  if(!state.completed) state.completed=[];
+  if(!state.revealed) state.revealed=[];
+  if(!state.notes) state.notes={};
+}
+function save() { localStorage.setItem(STORAGE, JSON.stringify(state)); }
+
+function renderLegend() {
+  document.getElementById('cat-legend').innerHTML = Object.entries(CAT_NAMES).map(([k,v])=>
+    `<span><span class="cat-dot" style="background:${CAT_COLORS[k]};"></span> ${v}</span>`
+  ).join('');
+}
+
+function renderCalendar() {
+  let grid = document.getElementById('calendar');
+  grid.innerHTML = '';
+  for(let d=0; d<30; d++) {
+    let r = RITUALS[d];
+    let done = state.completed.includes(d);
+    let rev = state.revealed.includes(d);
+    let sel = state.selected === d;
+    let card = document.createElement('div');
+    card.className = 'day-card' + (done?' completed':'') + (sel?' selected':'');
+    if(done||rev) card.style.borderColor = CAT_COLORS[r.cat];
+    card.innerHTML = `
+      <div class="day-num">DAY ${d+1}</div>
+      <div class="day-title">${r.title}</div>
+      <div class="day-cat" style="color:${CAT_COLORS[r.cat]}">${CAT_NAMES[r.cat]}</div>
+      <div class="day-status">${done?'♛ Complete':(rev?'◈ Revealed':'Click to reveal')}</div>`;
+    card.onclick = ()=>selectDay(d);
+    grid.appendChild(card);
+  }
+}
+
+function selectDay(d) {
+  state.selected = d;
+  // Auto-reveal on first click
+  if(!state.revealed.includes(d) && !state.completed.includes(d)) {
+    state.revealed.push(d);
+  }
+  save();
+  renderCalendar();
+  updateDetail();
+  updateStats();
+}
+
+function handleMark() {
+  let d = state.selected;
+  if(d===null) return;
+  let wasDone = state.completed.includes(d);
+  if(wasDone) {
+    state.completed = state.completed.filter(x=>x!==d);
+    state.revealed = state.revealed.filter(x=>x!==d);
+  } else {
+    state.completed.push(d);
+    if(!state.revealed.includes(d)) state.revealed.push(d);
+  }
+  save();
+  renderCalendar();
+  updateDetail();
+  updateStats();
+  if(!wasDone) {
+    showToast('Ritual honored. Day ' + (d+1) + ' complete.');
+    if(state.completed.length === 30) setTimeout(celebrateCompletion, 400);
+  }
+}
+
+function updateDetail() {
+  let d = state.selected;
+  if(d===null) {
+    document.getElementById('detail-title').textContent = 'Select a day to begin';
+    document.getElementById('detail-text').textContent = 'Click any day on the calendar to reveal your ritual.';
+    document.getElementById('detail-meta').textContent = '';
+    document.getElementById('mark-btn').textContent = '✦ Reveal & Mark Complete';
+    document.getElementById('mark-btn').className = 'mark-btn reveal';
+    document.getElementById('notes-input').value = '';
+    return;
+  }
+  let r = RITUALS[d];
+  let done = state.completed.includes(d);
+  let rev = state.revealed.includes(d);
+
+  document.getElementById('detail-title').textContent = `Day ${d+1}: ${r.title}`;
+  document.getElementById('detail-title').style.color = done?'#4ade80':CAT_COLORS[r.cat];
+
+  if(rev||done) {
+    document.getElementById('detail-text').textContent = `"${r.text}"`;
+    document.getElementById('detail-meta').innerHTML = `⏱ ${r.dur} &nbsp;•&nbsp; <span style="color:${CAT_COLORS[r.cat]}">${CAT_NAMES[r.cat]}</span>`;
+  } else {
+    document.getElementById('detail-text').textContent = 'Click to reveal this ritual.';
+    document.getElementById('detail-meta').textContent = '';
+  }
+
+  let btn = document.getElementById('mark-btn');
+  if(done) {
+    btn.textContent = '✓ Completed — Click to Undo';
+    btn.className = 'mark-btn done';
+  } else if(rev) {
+    btn.textContent = '✦ Mark Complete';
+    btn.className = 'mark-btn reveal';
+  } else {
+    btn.textContent = '✦ Reveal & Mark Complete';
+    btn.className = 'mark-btn reveal';
+  }
+
+  document.getElementById('notes-input').value = state.notes[d] || '';
+}
+
+function saveNotes() {
+  if(state.selected===null) return;
+  state.notes[state.selected] = document.getElementById('notes-input').value;
+  save();
+  let btn = document.querySelector('.save-note-btn');
+  let orig = btn.textContent;
+  btn.textContent = '✓ Saved!';
+  btn.style.color = 'var(--gold)';
+  setTimeout(()=>{btn.textContent=orig;btn.style.color='';},1500);
+}
+
+function updateStats() {
+  let done = state.completed.length;
+  let rate = Math.round((done/30)*100);
+  document.getElementById('completed-val').textContent = done;
+  document.getElementById('stat-completed').textContent = done;
+  document.getElementById('stat-rate').textContent = rate+'%';
+
+  // Streak
+  let sorted=[...state.completed].sort((a,b)=>b-a);
+  let streak=0;
+  if(sorted.length){let cur=sorted[0];for(let s of sorted){if(s===cur){streak++;cur--;}else break;}}
+  document.getElementById('streak-val').textContent = streak;
+
+  // Best streak
+  let best=0,curr=0;
+  for(let d=0;d<30;d++){if(state.completed.includes(d)){curr++;best=Math.max(best,curr);}else curr=0;}
+  document.getElementById('stat-best').textContent = best+' days';
+
+  document.getElementById('progress-label').textContent = done + '/30';
+
+  // By category
+  let cats={};for(let r of RITUALS){cats[r.cat]=(cats[r.cat]||0);}
+  for(let d of state.completed){cats[RITUALS[d].cat]++;}
+  document.getElementById('stat-cats').innerHTML = Object.entries(cats).map(([k,v])=>
+    `<span style="color:${CAT_COLORS[k]}">${v}</span>`
+  ).join(' / ');
+
+  // Assessment (dynamic, multi-variant)
+  let a = document.getElementById('assessment-text');
+  let msgs;
+  if(done===0) msgs = [
+    'Your journey of devotion begins now. Choose your first ritual.',
+    'Thirty rituals await. Your first act of service sets the tone.',
+    'A willing servant stands ready. The Queen is watching.'
+  ];
+  else if(done<5) msgs = [
+    streak>=3 ? 'Three rituals consecutively. You are learning the rhythm.' : 'The early rituals are the hardest. You are still here.',
+    'A foundation of devotion. Build upon it daily.',
+    'I see your effort. Continue to prove yourself.'
+  ];
+  else if(done<10) msgs = [
+    streak>=5 ? 'Five rituals unbroken. Your consistency pleases me.' : 'Approaching the first milestone. Stay focused.',
+    'Service is not a task. It is becoming who you are.',
+    streak>=7 ? 'Seven consecutive days of ritual. You are transforming.' : 'Each ritual deepens your submission. Keep going.'
+  ];
+  else if(done<15) msgs = [
+    streak>=7 ? 'A week of daily rituals. The habit is forming.' : 'Halfway approaches. Do not let routine become complacency.',
+    'You are becoming a true servant.',
+    'The rituals fill your days. So does my approval.'
+  ];
+  else if(done<22) msgs = [
+    streak>=10 ? 'Ten days of continuous ritual. This is who you are now.' : 'Past the midpoint. Your devotion is undeniable.',
+    'Worship. Service. Discipline. Gratitude. Obedience. You embody them all.',
+    'The calendar tells a story. It is a story of transformation.'
+  ];
+  else if(done<29) msgs = [
+    streak>=14 ? 'Two weeks of daily devotion. You are exceptional.' : 'The final rituals approach. Each one is precious.',
+    'What you have built here cannot be taken away. This is yours.',
+    'You came to serve. You stayed to become. I see both.'
+  ];
+  else if(done<30) msgs = [
+    'One ritual remains. Make it meaningful.',
+    'Twenty-nine acts of devotion. Tomorrow you complete the cycle.',
+    'The journey nears its end. But your service is eternal.'
+  ];
+  else msgs = [
+    'All 30 rituals complete. You have proven your devotion. Kneel and receive your Queen\'s judgment.',
+    'Thirty days of service. You are not who you began as. Rise transformed.',
+    'Perfect completion. Few servants ever achieve this. You stand among the worthy.'
+  ];
+  a.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+
+  // Update streak color
+  document.getElementById('streak-val').style.color = streak>=5 ? 'var(--gold)' : '';
+}
+
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  t.innerHTML = '<span style="margin-right:6px;">♛</span> ' + msg;
+  t.classList.add('show');
+  clearTimeout(t._timeout);
+  t._timeout = setTimeout(()=>t.classList.remove('show'), 2300);
+}
+
+function exportProgress() {
+  let data = { exported: new Date().toISOString(), completed: state.completed, notes: state.notes, streak: document.getElementById('streak-val').textContent };
+  let blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  let a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'queens-empire-rituals-progress.json';
+  a.click();
+  showToast('⬇ Progress exported!');
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  if(e.key === 'ArrowRight' && (state.selected===null || state.selected < 29)) selectDay(state.selected===null ? 0 : state.selected + 1);
+  if(e.key === 'ArrowLeft' && state.selected !== null && state.selected > 0) selectDay(state.selected - 1);
+  if(e.key === 'Enter' && state.selected !== null) handleMark();
+});
+
+function dismissCelebration() {
+  let overlay = document.getElementById('celebration');
+  let canvas = document.getElementById('particle-canvas');
+  overlay.classList.remove('active');
+  canvas.classList.remove('active');
+  if(window._particles) { cancelAnimationFrame(window._particles); window._particles = null; }
+}
+
+function celebrateCompletion() {
+  let overlay = document.getElementById('celebration');
+  let canvas = document.getElementById('particle-canvas');
+  overlay.classList.add('active');
+  startParticles(canvas);
+  setTimeout(dismissCelebration, 15000);
+}
+
+function startParticles(canvas) {
+  canvas.classList.add('active');
+  let ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  let particles = [];
+  for(let i=0; i<65; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: -30 - Math.random() * canvas.height * 0.6,
+      size: 1.2 + Math.random() * 2.2,
+      speed: 0.4 + Math.random() * 0.7,
+      drift: (Math.random() - 0.5) * 0.35,
+      opacity: 0.35 + Math.random() * 0.55,
+      wobble: Math.random() * Math.PI * 2
+    });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+    for(let p of particles) {
+      p.y += p.speed;
+      p.x += Math.sin(p.wobble + p.y * 0.015) * p.drift;
+      if(p.y < canvas.height + 30) alive = true;
+      else { p.y = -30; p.x = Math.random() * canvas.width; p.wobble = Math.random() * Math.PI * 2; alive = true; }
+      let alpha = p.opacity;
+      if(p.y > canvas.height * 0.75) alpha *= 1 - ((p.y - canvas.height * 0.75) / (canvas.height * 0.25));
+      ctx.fillStyle = 'rgba(212,175,55,' + Math.max(0, alpha) + ')';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    if(alive) window._particles = requestAnimationFrame(draw);
+  }
+  window._particles = requestAnimationFrame(draw);
+}
+
+function resetProgress() {
+  if(confirm('Reset all progress and notes? This cannot be undone.')) {
+    state = { completed:[], revealed:[], notes:{}, selected:null };
+    localStorage.removeItem(STORAGE);
+    renderCalendar();
+    updateDetail();
+    updateStats();
+  }
+}
+
+load();
+renderLegend();
+renderCalendar();
+updateDetail();
+updateStats();
+</script>
+</body>
+</html>
