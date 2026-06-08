@@ -30,22 +30,8 @@
   .badge .dot { width:6px; height:6px; background:var(--gold); border-radius:50%; }
   .btn { padding:6px 16px; border-radius:20px; font-size:0.7rem; font-weight:600; cursor:pointer; transition:all 0.15s; border:1px solid var(--border); background:transparent; color:var(--text-muted); }
   .btn:hover { background:var(--bg-card); color:var(--text); }
-  .btn.quiet { border-color:transparent; color:var(--text-dim); font-size:0.6rem; padding:4px 10px; }
-  .btn.quiet:hover { border-color:var(--border); color:var(--text); }
-  .btn.export-btn { font-size:0.58rem; padding:4px 10px; color:var(--text-dim); margin-top:10px; width:100%; }
-  .btn.export-btn:hover { color:var(--gold); border-color:var(--gold); }
 
-  /* ── TOAST ── */
-  .toast {
-    position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
-    background:var(--gold); color:#09090b; padding:10px 24px;
-    border-radius:20px; font-weight:700; font-size:0.78rem;
-    opacity:0; pointer-events:none; transition:opacity 0.25s, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-    z-index:999; box-shadow:0 4px 20px rgba(212,175,55,0.3);
-  }
-  .toast.show { opacity:1; transform:translateX(-50%) translateY(-10px); }
-
-  .main { max-width:1100px; margin:0 auto; padding:24px 24px 60px; border:2px solid var(--gold); border-radius:4px; box-shadow:0 0 60px rgba(212,175,55,0.15), 0 0 120px rgba(212,175,55,0.05); }
+  .main { max-width:1100px; margin:0 auto; padding:24px 24px 60px; }
 
   .hero { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:20px; flex-wrap:wrap; gap:14px; }
   .hero-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; background:var(--bg-card); border:1px solid var(--border); border-radius:20px; font-size:0.65rem; letter-spacing:1.5px; margin-bottom:8px; }
@@ -60,7 +46,7 @@
   .stats-row .stat-label { font-size:0.55rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-dim); }
   .stat-divider { width:1px; background:var(--border); }
 
-  .info-bar { background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:14px 18px; margin:0 auto 20px; max-width:1100px; font-size:0.78rem; display:flex; align-items:flex-start; gap:10px; color:var(--text-muted); }
+  .info-bar { background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:14px 18px; margin-bottom:20px; font-size:0.78rem; display:flex; align-items:flex-start; gap:10px; color:var(--text-muted); }
   .info-bar strong { color:var(--text); }
   .info-bar .icon-circle { color:var(--gold); margin-top:1px; flex-shrink:0; }
 
@@ -71,14 +57,13 @@
 
   .calendar-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-bottom:28px; }
   .day-card { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:14px; cursor:pointer; transition:all 0.18s; display:flex; flex-direction:column; }
-  .day-card:hover { transform:translateY(-2px); border-color:var(--gold); }
-  .day-card.selected { border-color:var(--gold); box-shadow:0 0 0 3px rgba(212,175,55,0.35), 0 0 18px rgba(212,175,55,0.12); }
-  .day-card.completed { background:#1a1a15; box-shadow:0 0 14px rgba(212,175,55,0.22); }
+  .day-card:hover { transform:translateY(-2px); }
+  .day-card.selected { box-shadow:0 0 0 2px rgba(212,175,55,0.2); }
+  .day-card.completed { background:#1a1a15; }
   .day-card .day-num { font-size:0.55rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; }
   .day-card .day-title { font-size:0.8rem; font-weight:700; margin-top:4px; line-height:1.2; }
   .day-card .day-cat { font-size:0.55rem; margin-top:3px; text-transform:uppercase; letter-spacing:1px; }
   .day-card .day-status { margin-top:auto; padding-top:8px; font-size:0.6rem; color:var(--text-dim); }
-  .day-card.completed .day-status { color:var(--gold); font-weight:600; }
 
   .detail-grid { display:grid; grid-template-columns:3fr 2fr; gap:18px; }
   .detail-panel { background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:20px; }
@@ -86,13 +71,11 @@
   .detail-panel .day-heading { font-size:1.4rem; font-weight:800; }
   .detail-panel .ritual-text { font-size:0.85rem; color:var(--text-muted); margin-top:12px; line-height:1.6; min-height:50px; }
   .detail-panel .ritual-meta { font-size:0.6rem; color:var(--text-dim); margin-top:10px; display:flex; gap:16px; }
-  .detail-panel .mark-btn { display:inline-flex; align-items:center; gap:6px; margin-top:14px; padding:10px 22px; border:none; border-radius:20px; font-weight:700; font-size:0.8rem; cursor:pointer; transition:all 0.12s cubic-bezier(0.34,1.56,0.64,1); }
+  .detail-panel .mark-btn { display:inline-flex; align-items:center; gap:6px; margin-top:14px; padding:10px 22px; border:none; border-radius:20px; font-weight:700; font-size:0.8rem; cursor:pointer; transition:all 0.15s; }
   .detail-panel .mark-btn.reveal { background:var(--gold); color:#09090b; }
-  .detail-panel .mark-btn.reveal:hover { background:var(--gold-light); transform:scale(1.03); }
-  .detail-panel .mark-btn.reveal:active { transform:scale(0.94); }
+  .detail-panel .mark-btn.reveal:hover { background:var(--gold-light); }
   .detail-panel .mark-btn.done { background:#1a3a1a; color:#4ade80; cursor:pointer; }
-  .detail-panel .mark-btn.done:hover { background:#2a4a2a; transform:scale(1.03); }
-  .detail-panel .mark-btn.done:active { transform:scale(0.94); }
+  .detail-panel .mark-btn.done:hover { background:#2a4a2a; }
 
   .notes-area { margin-top:14px; }
   .notes-area label { font-size:0.6rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); display:block; margin-bottom:5px; }
@@ -101,9 +84,9 @@
   .notes-area .save-note-btn { margin-top:6px; padding:6px 14px; border-radius:20px; font-size:0.65rem; border:1px solid var(--border); background:transparent; color:var(--text-muted); cursor:pointer; }
   .notes-area .save-note-btn:hover { background:var(--bg-card-hover); }
 
-  .sidebar { background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:26px; }
-  .sidebar .section-label { font-size:0.6rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); margin-bottom:16px; }
-  .sidebar .stat-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border); font-size:0.75rem; }
+  .sidebar { background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:20px; }
+  .sidebar .section-label { font-size:0.6rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); margin-bottom:12px; }
+  .sidebar .stat-row { display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border); font-size:0.75rem; }
   .sidebar .stat-row:last-child { border-bottom:none; }
   .sidebar .stat-row .val { font-weight:700; }
   .sidebar .stat-row .val.gold { color:var(--gold); }
@@ -123,33 +106,7 @@
     .topbar,.info-bar,.notes-area,.mark-btn,.save-note-btn,.site-footer { display:none; }
     .day-card { border:1px solid #ccc; background:#fff; }
     .detail-panel,.sidebar { border:1px solid #ccc; background:#fff; }
-    .celebration-overlay, #particle-canvas { display:none; }
   }
-
-  /* ── DAY 30 CELEBRATION ── */
-  .celebration-overlay {
-    position:fixed; inset:0; background:rgba(9,9,11,0.92);
-    display:flex; align-items:center; justify-content:center;
-    z-index:1000; opacity:0; pointer-events:none;
-    transition:opacity 0.5s ease;
-  }
-  .celebration-overlay.active { opacity:1; pointer-events:all; }
-  .celebration-card {
-    background:var(--bg-card); border:2px solid var(--gold);
-    border-radius:24px; padding:48px 40px; text-align:center;
-    max-width:480px; width:90%;
-    box-shadow:0 0 80px rgba(212,175,55,0.25), 0 0 160px rgba(212,175,55,0.08);
-    transform:scale(0.92); transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
-  }
-  .celebration-overlay.active .celebration-card { transform:scale(1); }
-  .celebration-crown { font-size:3rem; margin-bottom:12px; animation:celebratePulse 2s ease-in-out infinite; }
-  @keyframes celebratePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.7;transform:scale(1.08)} }
-  .celebration-card h2 { font-size:1.8rem; font-weight:800; margin-bottom:8px; }
-  .celebration-card h2 .gold { color:var(--gold); }
-  .celebration-card .celebration-msg { font-size:0.9rem; color:var(--text-muted); line-height:1.6; margin-bottom:20px; }
-  .celebration-card .dismiss-hint { font-size:0.6rem; color:var(--text-dim); }
-  #particle-canvas { position:fixed; inset:0; z-index:1001; pointer-events:none; opacity:0; transition:opacity 0.8s; }
-  #particle-canvas.active { opacity:1; }
 </style>
 </head>
 <body>
@@ -162,7 +119,7 @@
     </div>
     <div class="topbar-actions" style="display:flex;align-items:center;gap:10px;">
       <div class="badge"><span class="dot"></span> 30-Day Ritual Protocol</div>
-      <button class="btn quiet" onclick="resetProgress()">↺</button>
+      <button class="btn" onclick="resetProgress()">↺ Reset</button>
     </div>
   </div>
 </div>
@@ -178,8 +135,14 @@
       <div><div class="stat-val gold" id="streak-val">0</div><div class="stat-label">Current Streak</div></div>
       <div class="stat-divider"></div>
       <div><div class="stat-val" id="completed-val">0</div><div class="stat-label">Completed</div></div>
-      <div class="stat-divider"></div>
-      <div><div class="stat-val gold" id="progress-label">0/30</div><div class="stat-label">Progress</div></div>
+    </div>
+  </div>
+
+  <div class="info-bar">
+    <span class="icon-circle">◈</span>
+    <div>
+      <strong>How to use:</strong> Click a day to reveal its ritual. Click again to mark it complete. Each day presents a new act of devotion across five categories. Your progress saves automatically — works completely offline.<br>
+      <span style="font-size:0.6rem;">For consenting adults 18+ only. Safe, sane, consensual fantasy/roleplay. Safe words always apply: RED = Stop immediately. YELLOW = Check-in. AI-assisted design.</span>
     </div>
   </div>
 
@@ -207,7 +170,6 @@
       <div class="stat-row"><span>Completion Rate</span><span class="val" id="stat-rate">0%</span></div>
       <div class="stat-row"><span>Best Streak</span><span class="val" id="stat-best">0 days</span></div>
       <div class="stat-row"><span>By Category</span><span class="val" id="stat-cats">—</span></div>
-      <button class="btn export-btn" onclick="exportProgress()">⬇ Export Progress</button>
       <div class="assessment">
         <div class="assessment-label">Queen's Assessment</div>
         <div id="assessment-text">Your journey of devotion begins now. Choose your first ritual.</div>
@@ -216,31 +178,9 @@
   </div>
 </div>
 
-  <div class="info-bar">
-    <span class="icon-circle">◈</span>
-    <div>
-      <strong>How to use:</strong> Click a day to reveal its ritual. Click again to mark it complete. Each day presents a new act of devotion across five categories. Your progress saves automatically — works completely offline.<br>
-      <span style="font-size:0.6rem;">For consenting adults 18+ only. Safe, sane, consensual fantasy/roleplay. Safe words always apply: RED = Stop immediately. YELLOW = Check-in. AI-assisted design.</span>
-    </div>
-  </div>
-
 <div class="site-footer">
   Queen's Empire • Premium BDSM Digital Tools • For consenting adults 18+ only • Safe, sane, consensual fantasy/roleplay<br>AI-assisted design. All progress stored locally in your browser.
 </div>
-
-<!-- Toast notification -->
-<div class="toast" id="toast"></div>
-
-<!-- Day 30 Celebration -->
-<div class="celebration-overlay" id="celebration" onclick="dismissCelebration()">
-  <div class="celebration-card">
-    <div class="celebration-crown">♛</div>
-    <h2 class="serif"><span class="gold">Cycle</span> Complete</h2>
-    <p class="celebration-msg">Thirty rituals. Thirty acts of devotion.<br>Worship. Service. Discipline. Gratitude. Obedience.<br><br>You did not simply complete a protocol — you became something more.<br>Kneel, and receive what you have earned.</p>
-    <div class="dismiss-hint">tap anywhere to continue</div>
-  </div>
-</div>
-<canvas id="particle-canvas"></canvas>
 
 <script>
 const STORAGE = 'qe-rituals-v2';
@@ -311,7 +251,7 @@ function renderCalendar() {
       <div class="day-num">DAY ${d+1}</div>
       <div class="day-title">${r.title}</div>
       <div class="day-cat" style="color:${CAT_COLORS[r.cat]}">${CAT_NAMES[r.cat]}</div>
-      <div class="day-status">${done?'♛ Complete':(rev?'◈ Revealed':'Click to reveal')}</div>`;
+      <div class="day-status">${done?'✦ Complete':(rev?'◈ Revealed':'Click to reveal')}</div>`;
     card.onclick = ()=>selectDay(d);
     grid.appendChild(card);
   }
@@ -332,8 +272,7 @@ function selectDay(d) {
 function handleMark() {
   let d = state.selected;
   if(d===null) return;
-  let wasDone = state.completed.includes(d);
-  if(wasDone) {
+  if(state.completed.includes(d)) {
     state.completed = state.completed.filter(x=>x!==d);
     state.revealed = state.revealed.filter(x=>x!==d);
   } else {
@@ -344,10 +283,6 @@ function handleMark() {
   renderCalendar();
   updateDetail();
   updateStats();
-  if(!wasDone) {
-    showToast('Ritual honored. Day ' + (d+1) + ' complete.');
-    if(state.completed.length === 30) setTimeout(celebrateCompletion, 400);
-  }
 }
 
 function updateDetail() {
@@ -420,8 +355,6 @@ function updateStats() {
   for(let d=0;d<30;d++){if(state.completed.includes(d)){curr++;best=Math.max(best,curr);}else curr=0;}
   document.getElementById('stat-best').textContent = best+' days';
 
-  document.getElementById('progress-label').textContent = done + '/30';
-
   // By category
   let cats={};for(let r of RITUALS){cats[r.cat]=(cats[r.cat]||0);}
   for(let d of state.completed){cats[RITUALS[d].cat]++;}
@@ -429,131 +362,15 @@ function updateStats() {
     `<span style="color:${CAT_COLORS[k]}">${v}</span>`
   ).join(' / ');
 
-  // Assessment (dynamic, multi-variant)
+  // Assessment
   let a = document.getElementById('assessment-text');
-  let msgs;
-  if(done===0) msgs = [
-    'Your journey of devotion begins now. Choose your first ritual.',
-    'Thirty rituals await. Your first act of service sets the tone.',
-    'A willing servant stands ready. The Queen is watching.'
-  ];
-  else if(done<5) msgs = [
-    streak>=3 ? 'Three rituals consecutively. You are learning the rhythm.' : 'The early rituals are the hardest. You are still here.',
-    'A foundation of devotion. Build upon it daily.',
-    'I see your effort. Continue to prove yourself.'
-  ];
-  else if(done<10) msgs = [
-    streak>=5 ? 'Five rituals unbroken. Your consistency pleases me.' : 'Approaching the first milestone. Stay focused.',
-    'Service is not a task. It is becoming who you are.',
-    streak>=7 ? 'Seven consecutive days of ritual. You are transforming.' : 'Each ritual deepens your submission. Keep going.'
-  ];
-  else if(done<15) msgs = [
-    streak>=7 ? 'A week of daily rituals. The habit is forming.' : 'Halfway approaches. Do not let routine become complacency.',
-    'You are becoming a true servant.',
-    'The rituals fill your days. So does my approval.'
-  ];
-  else if(done<22) msgs = [
-    streak>=10 ? 'Ten days of continuous ritual. This is who you are now.' : 'Past the midpoint. Your devotion is undeniable.',
-    'Worship. Service. Discipline. Gratitude. Obedience. You embody them all.',
-    'The calendar tells a story. It is a story of transformation.'
-  ];
-  else if(done<29) msgs = [
-    streak>=14 ? 'Two weeks of daily devotion. You are exceptional.' : 'The final rituals approach. Each one is precious.',
-    'What you have built here cannot be taken away. This is yours.',
-    'You came to serve. You stayed to become. I see both.'
-  ];
-  else if(done<30) msgs = [
-    'One ritual remains. Make it meaningful.',
-    'Twenty-nine acts of devotion. Tomorrow you complete the cycle.',
-    'The journey nears its end. But your service is eternal.'
-  ];
-  else msgs = [
-    'All 30 rituals complete. You have proven your devotion. Kneel and receive your Queen\'s judgment.',
-    'Thirty days of service. You are not who you began as. Rise transformed.',
-    'Perfect completion. Few servants ever achieve this. You stand among the worthy.'
-  ];
-  a.textContent = msgs[Math.floor(Math.random() * msgs.length)];
-
-  // Update streak color
-  document.getElementById('streak-val').style.color = streak>=5 ? 'var(--gold)' : '';
-}
-
-function showToast(msg) {
-  let t = document.getElementById('toast');
-  t.innerHTML = '<span style="margin-right:6px;">♛</span> ' + msg;
-  t.classList.add('show');
-  clearTimeout(t._timeout);
-  t._timeout = setTimeout(()=>t.classList.remove('show'), 2300);
-}
-
-function exportProgress() {
-  let data = { exported: new Date().toISOString(), completed: state.completed, notes: state.notes, streak: document.getElementById('streak-val').textContent };
-  let blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
-  let a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'queens-empire-rituals-progress.json';
-  a.click();
-  showToast('⬇ Progress exported!');
-}
-
-// Keyboard navigation
-document.addEventListener('keydown', function(e) {
-  if(e.key === 'ArrowRight' && (state.selected===null || state.selected < 29)) selectDay(state.selected===null ? 0 : state.selected + 1);
-  if(e.key === 'ArrowLeft' && state.selected !== null && state.selected > 0) selectDay(state.selected - 1);
-  if(e.key === 'Enter' && state.selected !== null) handleMark();
-});
-
-function dismissCelebration() {
-  let overlay = document.getElementById('celebration');
-  let canvas = document.getElementById('particle-canvas');
-  overlay.classList.remove('active');
-  canvas.classList.remove('active');
-  if(window._particles) { cancelAnimationFrame(window._particles); window._particles = null; }
-}
-
-function celebrateCompletion() {
-  let overlay = document.getElementById('celebration');
-  let canvas = document.getElementById('particle-canvas');
-  overlay.classList.add('active');
-  startParticles(canvas);
-  setTimeout(dismissCelebration, 15000);
-}
-
-function startParticles(canvas) {
-  canvas.classList.add('active');
-  let ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  let particles = [];
-  for(let i=0; i<65; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: -30 - Math.random() * canvas.height * 0.6,
-      size: 1.2 + Math.random() * 2.2,
-      speed: 0.4 + Math.random() * 0.7,
-      drift: (Math.random() - 0.5) * 0.35,
-      opacity: 0.35 + Math.random() * 0.55,
-      wobble: Math.random() * Math.PI * 2
-    });
-  }
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let alive = false;
-    for(let p of particles) {
-      p.y += p.speed;
-      p.x += Math.sin(p.wobble + p.y * 0.015) * p.drift;
-      if(p.y < canvas.height + 30) alive = true;
-      else { p.y = -30; p.x = Math.random() * canvas.width; p.wobble = Math.random() * Math.PI * 2; alive = true; }
-      let alpha = p.opacity;
-      if(p.y > canvas.height * 0.75) alpha *= 1 - ((p.y - canvas.height * 0.75) / (canvas.height * 0.25));
-      ctx.fillStyle = 'rgba(212,175,55,' + Math.max(0, alpha) + ')';
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    if(alive) window._particles = requestAnimationFrame(draw);
-  }
-  window._particles = requestAnimationFrame(draw);
+  if(done===0) a.textContent='Your journey of devotion begins now. Choose your first ritual.';
+  else if(done<7) a.textContent='Early steps. Consistency in small rituals builds the foundation of great service.';
+  else if(done<15) a.textContent='You are developing discipline. The rituals are becoming habit. This is the path.';
+  else if(done<22) a.textContent='Strong devotion. Your Queen notices the change in you. Keep proving yourself.';
+  else if(done<29) a.textContent='Exceptional commitment. Few reach this level of consistent service. You are rare.';
+  else if(done<30) a.textContent='One ritual remains. You have nearly completed the full cycle. Finish strong.';
+  else a.textContent='All 30 rituals complete. You have proven your devotion. Kneel and receive your Queen\\'s judgment.';
 }
 
 function resetProgress() {

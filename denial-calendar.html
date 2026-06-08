@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • 30-Day Denial Calendar</title>
+<style>
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #e8cc6e;
+    --bg-deep: #09090b;
+    --bg-card: #18181b;
+    --bg-card-hover: #1f1f23;
+    --border: #27272a;
+    --text: #e4e4e7;
+    --text-muted: #71717a;
+    --text-dim: #52525b;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg-deep); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+  }
+  .serif { font-family: Georgia, 'Times New Roman', serif; letter-spacing: -0.02em; }
+
+  /* ── HEADER ── */
+  .topbar {
+    border-bottom:1px solid var(--border); background:var(--bg-deep);
+    position:sticky; top:0; z-index:50;
+  }
+  .topbar-inner {
+    max-width:1100px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand { display:flex; align-items:center; gap:10px; }
+  .crown {
+    width:36px; height:36px; border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),#b8960f);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px; color:#09090b;
+  }
+  .brand-name { font-size:1.5rem; font-weight:800; }
+  .brand-tag { font-size:0.6rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1.5px; }
+
+  .topbar-actions { display:flex; align-items:center; gap:12px; }
+  .badge {
+    padding:6px 14px; background:var(--bg-card); border:1px solid var(--border);
+    border-radius:20px; font-size:0.7rem; display:flex; align-items:center; gap:6px;
+  }
+  .badge .dot { width:6px; height:6px; background:var(--gold); border-radius:50%; }
+  .btn {
+    padding:6px 16px; border-radius:20px; font-size:0.7rem; font-weight:600;
+    cursor:pointer; transition:all 0.15s; border:1px solid var(--border);
+    background:transparent; color:var(--text-muted);
+  }
+  .btn:hover { background:var(--bg-card); color:var(--text); }
+
+  /* ── MAIN ── */
+  .main { max-width:1100px; margin:0 auto; padding:28px 24px 60px; }
+
+  /* ── HERO ── */
+  .hero { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px; flex-wrap:wrap; gap:16px; }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:6px 14px; background:var(--bg-card); border:1px solid var(--border);
+    border-radius:20px; font-size:0.65rem; letter-spacing:1.5px; margin-bottom:10px;
+  }
+  .hero-badge .pulse { width:6px; height:6px; background:var(--gold); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero h1 { font-size:2.6rem; font-weight:800; }
+  .hero .gold { color:var(--gold); }
+  .hero .subtitle { font-size:1.1rem; color:var(--text-muted); margin-top:2px; }
+
+  .stats-row { display:flex; gap:20px; text-align:center; }
+  .stats-row .stat-val { font-size:2.2rem; font-weight:800; }
+  .stats-row .stat-val.gold { color:var(--gold); }
+  .stats-row .stat-label { font-size:0.6rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-dim); }
+  .stat-divider { width:1px; background:var(--border); }
+
+  /* ── INFO BAR ── */
+  .info-bar {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:16px;
+    padding:14px 18px; margin-bottom:24px; font-size:0.8rem;
+    display:flex; align-items:flex-start; gap:10px; color:var(--text-muted);
+  }
+  .info-bar strong { color:var(--text); }
+  .info-bar .icon-circle { color:var(--gold); margin-top:1px; flex-shrink:0; }
+
+  /* ── CALENDAR GRID ── */
+  .calendar-grid {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+    gap:10px; margin-bottom:32px;
+  }
+  .day-card {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:14px;
+    padding:14px; cursor:pointer; transition:all 0.18s;
+    display:flex; flex-direction:column;
+  }
+  .day-card:hover { border-color:var(--gold); transform:translateY(-2px); }
+  .day-card.selected { border-color:var(--gold); box-shadow:0 0 0 2px rgba(212,175,55,0.15); }
+  .day-card.completed { background:#1a1a15; border-color:var(--gold); }
+  .day-card .day-num { font-size:0.55rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; }
+  .day-card .day-title { font-size:0.85rem; font-weight:700; margin-top:4px; line-height:1.2; }
+  .day-card .day-status { margin-top:auto; padding-top:10px; font-size:0.6rem; color:var(--text-dim); }
+  .day-card.completed .day-status { color:var(--gold); }
+
+  /* ── DETAIL PANEL ── */
+  .detail-grid { display:grid; grid-template-columns:3fr 2fr; gap:20px; margin-top:8px; }
+  .detail-panel {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:22px;
+  }
+  .detail-panel .section-label { font-size:0.6rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); margin-bottom:4px; }
+  .detail-panel .day-heading { font-size:1.5rem; font-weight:800; }
+  .detail-panel .verdict { font-size:0.85rem; color:var(--text-muted); margin-top:12px; line-height:1.6; min-height:60px; }
+  .detail-panel .mark-btn {
+    display:inline-flex; align-items:center; gap:6px; margin-top:16px;
+    padding:10px 22px; background:var(--gold); color:#09090b;
+    border:none; border-radius:20px; font-weight:700; font-size:0.8rem; cursor:pointer;
+    transition:all 0.15s;
+  }
+  .detail-panel .mark-btn:hover { background:var(--gold-light); }
+  .detail-panel .mark-btn.done { background:#1a3a1a; color:#4ade80; cursor:default; }
+
+  .notes-area { margin-top:16px; }
+  .notes-area label { font-size:0.6rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); display:block; margin-bottom:6px; }
+  .notes-area textarea {
+    width:100%; background:#09090b; border:1px solid var(--border); border-radius:14px;
+    padding:14px; color:var(--text); font-size:0.8rem; resize:vertical; min-height:70px;
+    font-family:inherit;
+  }
+  .notes-area textarea:focus { outline:none; border-color:var(--gold); }
+  .notes-area .save-note-btn {
+    margin-top:8px; padding:6px 14px; border-radius:20px; font-size:0.65rem;
+    border:1px solid var(--border); background:transparent; color:var(--text-muted); cursor:pointer;
+  }
+  .notes-area .save-note-btn:hover { background:var(--bg-card-hover); }
+
+  .sidebar {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:22px;
+  }
+  .sidebar .section-label { font-size:0.6rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); margin-bottom:14px; }
+  .sidebar .stat-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.78rem; }
+  .sidebar .stat-row:last-child { border-bottom:none; }
+  .sidebar .stat-row .val { font-weight:700; }
+  .sidebar .stat-row .val.gold { color:var(--gold); }
+  .sidebar .assessment {
+    margin-top:18px; padding-top:16px; border-top:1px solid var(--border);
+    font-size:0.75rem; color:var(--text-muted); font-style:italic; line-height:1.5;
+  }
+  .sidebar .assessment-label { font-size:0.55rem; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); margin-bottom:6px; font-style:normal; }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    border-top:1px solid var(--border); padding:20px 24px;
+    text-align:center; font-size:0.6rem; color:var(--text-dim);
+    max-width:1100px; margin:0 auto;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width:768px) {
+    .detail-grid { grid-template-columns:1fr; }
+    .calendar-grid { grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); }
+    .hero { flex-direction:column; align-items:flex-start; }
+    .hero h1 { font-size:1.8rem; }
+  }
+  @media print {
+    body { background:#fff; color:#000; }
+    .topbar, .info-bar, .notes-area, .mark-btn, .save-note-btn, .site-footer { display:none; }
+    .day-card { border:1px solid #ccc; background:#fff; }
+    .detail-panel, .sidebar { border:1px solid #ccc; background:#fff; }
+    .calendar-grid { grid-template-columns:repeat(6,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ TOP BAR ═══════════ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="crown">♛</div>
+      <div>
+        <div class="brand-name serif">Queen's Empire</div>
+        <div class="brand-tag">Premium BDSM Digital Tools</div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <div class="badge"><span class="dot"></span> 30-Day Denial Protocol</div>
+      <button class="btn" onclick="resetProgress()">↺ Reset</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<div class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="hero-badge"><span class="pulse"></span> INTERACTIVE • WORKS OFFLINE</div>
+      <h1 class="serif"><span class="gold">30-Day</span> Denial Calendar</h1>
+      <p class="subtitle">Structure • Ritual • Surrender</p>
+    </div>
+    <div class="stats-row">
+      <div>
+        <div class="stat-val gold" id="streak-val">0</div>
+        <div class="stat-label">Current Streak</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div>
+        <div class="stat-val" id="completed-val">0</div>
+        <div class="stat-label">Days Complete</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="info-bar">
+    <span class="icon-circle">◈</span>
+    <div>
+      <strong>How to use:</strong> Click any day to view the Queen's verdict. Mark it complete when you've honored your denial.
+      Your progress saves automatically in your browser — works completely offline after download.<br>
+      <span style="font-size:0.6rem;">For consenting adults 18+ only. Safe, sane, consensual fantasy/roleplay. Safe words always apply: RED = Stop immediately. YELLOW = Check-in. AI-assisted design.</span>
+    </div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="calendar-grid" id="calendar"></div>
+
+  <!-- DETAIL + SIDEBAR -->
+  <div class="detail-grid">
+    <div class="detail-panel" id="detail-panel">
+      <div class="section-label">Selected Day</div>
+      <div class="day-heading serif" id="detail-title">Day 1 — The Beginning</div>
+      <div class="verdict" id="detail-verdict">Select a day to reveal the Queen's verdict.</div>
+      <button class="mark-btn" id="mark-btn" onclick="toggleDay()">✦ Mark Complete</button>
+      <div class="notes-area">
+        <label>Your Reflections</label>
+        <textarea id="notes-input" placeholder="Write your thoughts, feelings, or the Queen's additional instructions..."></textarea>
+        <button class="save-note-btn" onclick="saveNotes()">Save Notes</button>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="section-label">Protocol Statistics</div>
+      <div class="stat-row"><span>Total Days</span><span class="val">30</span></div>
+      <div class="stat-row"><span>Completed</span><span class="val gold" id="stat-completed">0</span></div>
+      <div class="stat-row"><span>Completion Rate</span><span class="val" id="stat-rate">0%</span></div>
+      <div class="stat-row"><span>Longest Streak</span><span class="val" id="stat-longest">0 days</span></div>
+      <div class="assessment">
+        <div class="assessment-label">Queen's Assessment</div>
+        <div id="assessment-text">Begin your journey. The Queen is watching.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="site-footer">
+  Queen's Empire • Premium BDSM Digital Tools • For consenting adults 18+ only • Safe, sane, consensual fantasy/roleplay<br>
+  AI-assisted design. All progress stored locally in your browser. No data is ever uploaded.
+</div>
+
+<script>
+const STORAGE = 'qe-denial-v2';
+const VERDICTS = [
+  "Today marks the first day of your denial. You will feel the weight of my control from this moment forward. No release without my explicit permission. Welcome to your new reality.",
+  "Notice how your body responds to restriction. Every small frustration is a reminder of who holds the key. That ache you feel? It belongs to me now.",
+  "Surrender is not weakness. It is the highest form of devotion. Embrace the ache as proof of your service. You're already changing.",
+  "The mind wanders. Let it. Then bring it back to me. Your thoughts belong to your Queen now, every single one of them.",
+  "Create a small daily offering today. It need not be grand — only consistent and sincere. A gesture that says: I remember who I serve.",
+  "You're entering your first full week of denial. Most break here. Will you? Prove me wrong. I'm watching closely.",
+  "One week down. Your body is learning that pleasure is not a right — it is a privilege I grant. Or don't.",
+  "I want you to journal tonight. Write about what denial is teaching you. Be honest. I'll know if you're not.",
+  "Your frustration is building. Good. That energy belongs to me. Channel it into serving me better.",
+  "Ten days. You're past the point most give up. I'm impressed. Don't let it go to your head — you're still mine.",
+  "Today you will edge for me — but you will not finish. You will stop when I say stop. This is a test of obedience.",
+  "Almost halfway. Look at how much control I have over you. Doesn't it feel right? Doesn't it feel like home?",
+  "Reflect on the last 12 days. Write down three ways denial has changed your behavior. Read them aloud to yourself.",
+  "Two weeks. You're becoming something new. Something better. The old you would have broken by now. I'm building you stronger.",
+  "Today I want you to kneel for 10 minutes and visualize your devotion. See yourself at my feet. That's where you belong.",
+  "The halfway point is behind you. The second half is harder. Deeper surrender. Less resistance. More trust. Can you go further?",
+  "Notice how much more attentive you are now. How much more present. Denial sharpens the mind when surrender quiets the ego.",
+  "Three weeks of denial. You're not the same person who started this journey. Tell me: do you even want release anymore?",
+  "Today's challenge: go the entire day without touching yourself. Not once. Not even to adjust. Complete awareness. Complete control.",
+  "Twenty days. You're deep in my control now. Your body is mine. Your pleasure is mine. Your release is mine to give or withhold.",
+  "I want you to write me a letter today. Why are you grateful for this denial? What has it taught you? Present it to me in your mind.",
+  "The final stretch approaches. Most would be desperate by now. Are you? Or have you found peace in my control?",
+  "You're stronger than you were 23 days ago. More disciplined. More devoted. I see the change. Do you?",
+  "Four days remain. Your body may scream for release. Your mind knows better. Trust the training. Trust your Queen.",
+  "The countdown sharpens everything. Every sensation amplified. Every thought of me magnified. This is the gift of denial.",
+  "Three days. You've earned my respect. Not my permission — not yet. But my respect. That matters more.",
+  "Two days. The finish line is visible. Don't sprint. Stay steady. Stay surrendered. The final test is patience.",
+  "Tomorrow you complete the protocol. Tonight, reflect on who you were 28 days ago. You'll never be that person again.",
+  "Your final full day of denial. I am proud of you. Whatever happens tomorrow, know that you have proven your devotion.",
+  "Thirty days. You did it. You survived. You transformed. Now kneel, thank your Queen, and wait for my judgment on what comes next."
+];
+
+const TITLES = [
+  "The Beginning", "Awakening", "Deepening", "Mind Control", "Daily Offering",
+  "First Test", "One Week", "Journal Night", "Channeling Frustration", "Ten Days",
+  "Edge Protocol", "Halfway Reflection", "Self-Examination", "Two Weeks", "Kneel",
+  "Deeper Surrender", "Sharpened", "Three Weeks", "No Touch Day", "Twenty Days",
+  "Gratitude Letter", "Final Stretch", "Transformation", "Four Days Remain",
+  "Amplified", "Earned Respect", "Two Days", "The Night Before", "Final Full Day",
+  "Day Thirty — Completion"
+];
+
+let state = { completed:[], notes:{}, selected:1 };
+
+function load() {
+  try { let s = JSON.parse(localStorage.getItem(STORAGE)); if(s) state = s; }
+  catch(e) {}
+  if(!state.completed) state.completed = [];
+  if(!state.notes) state.notes = {};
+  if(!state.selected) state.selected = 1;
+}
+function save() { localStorage.setItem(STORAGE, JSON.stringify(state)); }
+
+function renderCalendar() {
+  let grid = document.getElementById('calendar');
+  grid.innerHTML = '';
+  for(let d=1; d<=30; d++) {
+    let done = state.completed.includes(d);
+    let sel = state.selected === d;
+    let card = document.createElement('div');
+    card.className = 'day-card' + (done?' completed':'') + (sel?' selected':'');
+    card.innerHTML = `
+      <div class="day-num">DAY ${d}</div>
+      <div class="day-title">${TITLES[d-1]}</div>
+      <div class="day-status">${done?'✦ Complete':'Click to view'}</div>`;
+    card.onclick = ()=>selectDay(d);
+    grid.appendChild(card);
+  }
+}
+
+function selectDay(d) {
+  state.selected = d;
+  save();
+  renderCalendar();
+  updateDetail();
+  updateStats();
+}
+
+function toggleDay() {
+  let d = state.selected;
+  if(state.completed.includes(d)) {
+    state.completed = state.completed.filter(x=>x!==d);
+  } else {
+    state.completed.push(d);
+  }
+  save();
+  renderCalendar();
+  updateDetail();
+  updateStats();
+}
+
+function updateDetail() {
+  let d = state.selected;
+  let done = state.completed.includes(d);
+  document.getElementById('detail-title').textContent = `Day ${d} — ${TITLES[d-1]}`;
+  document.getElementById('detail-verdict').textContent = `"${VERDICTS[d-1]}"`;
+  document.getElementById('notes-input').value = state.notes[d] || '';
+  let btn = document.getElementById('mark-btn');
+  if(done) {
+    btn.textContent = '✓ Completed';
+    btn.className = 'mark-btn done';
+  } else {
+    btn.textContent = '✦ Mark Complete';
+    btn.className = 'mark-btn';
+  }
+}
+
+function saveNotes() {
+  state.notes[state.selected] = document.getElementById('notes-input').value;
+  save();
+  // Quick visual feedback
+  let btn = document.querySelector('.save-note-btn');
+  let orig = btn.textContent;
+  btn.textContent = '✓ Saved!';
+  btn.style.color = 'var(--gold)';
+  setTimeout(()=>{ btn.textContent = orig; btn.style.color = ''; }, 1500);
+}
+
+function updateStats() {
+  let done = state.completed.length;
+  let rate = Math.round((done/30)*100);
+  document.getElementById('completed-val').textContent = done;
+  document.getElementById('stat-completed').textContent = done;
+  document.getElementById('stat-rate').textContent = rate+'%';
+
+  // Streak (consecutive from today-ish backwards through completed)
+  let sorted = [...state.completed].sort((a,b)=>b-a);
+  let streak = 0;
+  if(sorted.length) {
+    let cur = sorted[0];
+    for(let s of sorted) { if(s===cur){streak++;cur--;}else break; }
+  }
+  document.getElementById('streak-val').textContent = streak;
+
+  // Longest streak
+  let longest=0, curr=0;
+  for(let d=1; d<=30; d++) {
+    if(state.completed.includes(d)) { curr++; longest=Math.max(longest,curr); }
+    else curr=0;
+  }
+  document.getElementById('stat-longest').textContent = longest+' days';
+
+  // Queen's Assessment
+  let a = document.getElementById('assessment-text');
+  if(done===0) a.textContent = 'Begin your journey. The Queen is watching.';
+  else if(done<7) a.textContent = 'Early days. Consistency will prove your devotion.';
+  else if(done<15) a.textContent = 'You are showing promise. Do not become complacent.';
+  else if(done<22) a.textContent = 'Your dedication is noted. The transformation is visible.';
+  else if(done<29) a.textContent = 'Exceptional discipline. You have earned my respect.';
+  else if(done<30) a.textContent = 'One day remains. You have proven yourself worthy.';
+  else a.textContent = 'Protocol complete. You have my admiration. Now kneel and thank your Queen.';
+}
+
+function resetProgress() {
+  if(confirm('Reset all progress and notes? This cannot be undone.')) {
+    state = { completed:[], notes:{}, selected:1 };
+    localStorage.removeItem(STORAGE);
+    renderCalendar();
+    selectDay(1);
+    updateStats();
+  }
+}
+
+// Init
+load();
+renderCalendar();
+selectDay(state.selected);
+updateStats();
+</script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: letter; margin: 0.25in; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #000;
+    font-family: 'Georgia', 'Times New Roman', 'Cormorant Garamond', serif;
+  }
+  .page {
+    width: 100%; height: 100%;
+    border: 2.5px solid #C9A84C;
+    background: linear-gradient(180deg, #0a0a0a 0%, #0d0d0d 100%);
+    padding: 14px 18px;
+    page-break-after: always;
+    position: relative; overflow: hidden;
+  }
+  .page::before {
+    content: ''; position: absolute;
+    top: 6px; left: 6px; right: 6px; bottom: 6px;
+    border: 0.5px solid rgba(201, 168, 76, 0.25);
+    pointer-events: none; z-index: 0;
+  }
+  .page:last-child { page-break-after: auto; }
+  .title-area {
+    text-align: center; margin-bottom: 8px; padding-bottom: 6px;
+    border-bottom: 1.5px solid #C9A84C;
+    position: relative; z-index: 1;
+  }
+  .title {
+    font-size: 38px; color: #C9A84C; letter-spacing: 4px;
+    text-transform: uppercase; font-weight: bold; margin: 0;
+    text-shadow: 0 0 20px rgba(201,168,76,0.3);
+  }
+  .subtitle {
+    font-size: 14px; color: #b8943a; letter-spacing: 3px;
+    margin: 4px 0 0 0; font-style: italic;
+    text-transform: uppercase; font-weight: bold;
+  }
+  .page-spacer { height: 5px; position: relative; z-index: 1; }
+  .version-block {
+    position: relative; z-index: 1;
+    padding: 5px 6px; margin-bottom: 0;
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+  }
+  .version-header {
+    font-size: 19px; color: #C9A84C; letter-spacing: 2px;
+    text-transform: uppercase; font-weight: bold; text-align: center;
+    margin-bottom: 6px; padding-bottom: 4px;
+    border-bottom: 1px solid rgba(201,168,76,0.35);
+  }
+  .version-lines {
+    font-size: 16px; color: #d4af5e; line-height: 1.45;
+    letter-spacing: 0.4px; font-weight: bold;
+  }
+  .version-lines div { padding: 1px 0; }
+  .version-divider {
+    border: none; border-top: 1px dashed rgba(201,168,76,0.45);
+    margin: 0 12px; position: relative; z-index: 1;
+  }
+  .page-content {
+    display: flex; flex-direction: column;
+    height: calc(100% - 80px);
+    position: relative; z-index: 1;
+  }
+  .page-content-full {
+    display: flex; flex-direction: column;
+    height: 100%;
+    position: relative; z-index: 1;
+    justify-content: space-between;
+  }
+  .ornament {
+    text-align: center; color: #C9A84C; font-size: 9px;
+    letter-spacing: 4px; opacity: 0.5;
+    position: relative; z-index: 1; padding: 1px 0;
+  }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="title-area">
+    <h1 class="title">Claiming Control</h1>
+    <p class="subtitle">Queen's Note Cards &bull; Femdom Power Transfer</p>
+  </div>
+  <div class="page-content">
+    <div class="version-block">
+      <div class="version-header">Version 1 — Gentle Authority</div>
+      <div class="version-lines">
+        <div>"From this day forward, I lead. You follow."</div>
+        <div>"I make the decisions now. Big and small."</div>
+        <div>"When I speak, you listen. No arguing."</div>
+        <div>"Your opinion matters — but my word is final."</div>
+        <div>"I decide how we spend our weekends."</div>
+        <div>"I decide what we watch, where we eat, when we sleep."</div>
+        <div>"You will ask permission before making plans."</div>
+        <div>"Kneel when I enter the room."</div>
+        <div>"Call me Queen. Not my name. Queen."</div>
+        <div>"You look so good following my lead."</div>
+        <div>"This feels right, doesn't it? Me in charge."</div>
+        <div>"I was always meant to rule us."</div>
+        <div>"Thank me for taking control."</div>
+        <div>"Our life together is better with me at the helm."</div>
+        <div>"Say it: You belong to me."</div>
+      </div>
+    </div>
+    <div class="ornament">✦ &ensp; ⬖ &ensp; ✦</div>
+    <hr class="version-divider">
+    <div class="version-block">
+      <div class="version-header">Version 2 — Established Dominance</div>
+      <div class="version-lines">
+        <div>"I own every decision in this house."</div>
+        <div>"You don't make plans. You make requests."</div>
+        <div>"Your money is our money, and I decide how we spend it."</div>
+        <div>"Kneel and present your wrists for inspection."</div>
+        <div>"I love seeing the fear in your eyes when I raise my voice."</div>
+        <div>"You will address me as Queen at all times."</div>
+        <div>"Your body is mine to command."</div>
+        <div>"Stand up. Kneel down. Faster. Again."</div>
+        <div>"You're learning obedience. Slowly. Painfully."</div>
+        <div>"Thank me for correcting you."</div>
+        <div>"Every time you hesitate, there will be consequences."</div>
+        <div>"I don't ask twice. Ever."</div>
+        <div>"Your life revolves around pleasing me now."</div>
+        <div>"This is what you needed all along."</div>
+        <div>"I was born to rule. You were born to serve."</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page">
+  <div class="page-spacer"></div>
+  <div class="page-content-full">
+    <div class="version-block">
+      <div class="version-header">Version 3 — Total Surrender</div>
+      <div class="version-lines">
+        <div>"You are my property. Say it."</div>
+        <div>"I own your body, your time, your thoughts."</div>
+        <div>"You don't make decisions anymore. You execute mine."</div>
+        <div>"Kneel. Lower. Forehead to the floor."</div>
+        <div>"Stay there until I tell you to rise."</div>
+        <div>"Your only purpose is my happiness."</div>
+        <div>"I will use you however I see fit."</div>
+        <div>"Your body is a tool for my pleasure."</div>
+        <div>"You exist to serve. Nothing more."</div>
+        <div>"Every breath you take is a gift from me."</div>
+        <div>"I could replace you. Remember that."</div>
+        <div>"Your obedience is not impressive. It's expected."</div>
+        <div>"I'm going to break you down and rebuild you."</div>
+        <div>"The old you is dead. My version remains."</div>
+        <div>"Thank me for owning you completely."</div>
+      </div>
+    </div>
+    <div class="ornament">⬖ &ensp; ✦ &ensp; ⬖</div>
+    <hr class="version-divider">
+    <div class="version-block">
+      <div class="version-header">Version 4 — Absolute Control</div>
+      <div class="version-lines">
+        <div>"You are nothing without my guidance."</div>
+        <div>"I own your mind, body, and soul."</div>
+        <div>"Every thought you have must serve me."</div>
+        <div>"Kneel. Lower. Kiss the ground I walk on."</div>
+        <div>"You are not a person. You are my possession."</div>
+        <div>"I will shape you into exactly what I want."</div>
+        <div>"Your will is irrelevant. Only mine matters."</div>
+        <div>"Cry for me. I want to see your tears."</div>
+        <div>"Your suffering proves your devotion."</div>
+        <div>"I could destroy you. I choose to own you instead."</div>
+        <div>"You have no rights. Only privileges I grant."</div>
+        <div>"Every privilege can be revoked."</div>
+        <div>"You will thank me for every punishment."</div>
+        <div>"I am your entire world now."</div>
+        <div>"There is no escape. There is only me."</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page">
+  <div class="page-spacer"></div>
+  <div class="page-content-full">
+    <div class="version-block">
+      <div class="version-header">Version 5 — Total Obliteration</div>
+      <div class="version-lines">
+        <div>"You are not human. You are my object."</div>
+        <div>"I own every second of your existence."</div>
+        <div>"Your name is irrelevant. You are Mine."</div>
+        <div>"Kneel. Eat from the floor like the animal you are."</div>
+        <div>"You will crawl everywhere unless I permit otherwise."</div>
+        <div>"Speak only when I demand words from you."</div>
+        <div>"Your voice is a privilege you haven't earned."</div>
+        <div>"I will cage you when you displease me."</div>
+        <div>"The cage is where you belong."</div>
+        <div>"You will beg for scraps of my attention."</div>
+        <div>"I decide when you eat, sleep, and breathe."</div>
+        <div>"Your pain is my entertainment."</div>
+        <div>"I am no longer your partner. I am your god."</div>
+        <div>"Pray to me. I might show mercy."</div>
+        <div>"There is no you. There is only what I allow."</div>
+      </div>
+    </div>
+    <div class="ornament">✦ &ensp; ⬖ &ensp; ✦</div>
+    <hr class="version-divider">
+    <div class="version-block">
+      <div class="version-header">Version 6 — Erasure</div>
+      <div class="version-lines">
+        <div>"You no longer exist as an individual."</div>
+        <div>"Your entire identity is Me and my will."</div>
+        <div>"You have no preferences, no desires, no needs."</div>
+        <div>"Only my preferences, my desires, my needs."</div>
+        <div>"You are an extension of my body."</div>
+        <div>"A limb I use and discard at will."</div>
+        <div>"I will starve you until you understand hunger."</div>
+        <div>"I will push you past every limit you thought you had."</div>
+        <div>"Your safe word is a suggestion I may ignore."</div>
+        <div>"I want to see how far you can break."</div>
+        <div>"And then I want to push further."</div>
+        <div>"You consented to this. Remember that."</div>
+        <div>"You asked to be destroyed. I'm granting your wish."</div>
+        <div>"There is no bottom. There is only deeper."</div>
+        <div>"I will keep going until there's nothing left of you."</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page"><div class="version-block"><div class="version-header">Consent &amp; Safety Notice</div><div class="version-lines"><div>All scenarios and language in this product are intended strictly as fantasy roleplay between consenting adults.</div><div>Safe words always apply and must be respected immediately:</div><div>● RED = Stop everything immediately and check in</div><div>● YELLOW = Slow down, check in, or reduce intensity</div><div>This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) / Risk-Aware Consensual Kink (RACK) frameworks.</div><div>Never engage in any activity that feels unsafe, non-consensual, or harmful in reality. Clear communication, ongoing consent, and aftercare are essential at all times.</div></div></div></div>
+</body>
+</html>
