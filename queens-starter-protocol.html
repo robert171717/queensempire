@@ -7,58 +7,62 @@
 <style>
   :root {
     --gold:#D4AF37;--gold-light:#e8cc6e;--bg-deep:#09090b;--bg-card:#18181b;
-    --border:#27272a;--text:#e4e4e7;--text-muted:#71717a;--text-dim:#52525b;
+    --border:#27272a;--text:#e4e4e7;--text-muted:#a1a1aa;--text-dim:#71717a;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--bg-deep);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;}
-  .serif{font-family:Georgia,'Times New Roman',serif;letter-spacing:-0.02em;}
+  body{background:var(--bg-deep);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;line-height:1.6;}
+  .serif{font-family:Georgia,'Times New Roman',serif;}
 
   .topbar{border-bottom:1px solid var(--border);background:var(--bg-deep);position:sticky;top:0;z-index:50;}
   .topbar-inner{max-width:800px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
   .brand{display:flex;align-items:center;gap:10px;}
-  .crown{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#b8960f);display:flex;align-items:center;justify-content:center;font-size:17px;color:#09090b;}
-  .brand-name{font-size:1.2rem;font-weight:800;}
+  .brand img{width:28px;height:28px;}
+  .brand-name{font-size:1.1rem;font-weight:800;}
 
-  .main{max-width:800px;margin:0 auto;padding:28px 24px 60px;}
+  .main{max-width:800px;margin:0 auto;padding:36px 24px 60px;}
 
-  .hero{text-align:center;margin-bottom:28px;}
-  .hero-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;font-size:0.6rem;letter-spacing:1.5px;margin-bottom:12px;}
-  .hero h1{font-size:2.2rem;font-weight:800;margin-bottom:6px;}
+  .hero{text-align:center;margin-bottom:40px;}
+  .hero-badge{display:inline-block;padding:6px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;font-size:0.7rem;letter-spacing:2px;color:var(--gold);margin-bottom:16px;}
+  .hero h1{font-size:2rem;font-weight:800;margin-bottom:8px;line-height:1.2;}
   .hero .gold{color:var(--gold);}
-  .hero .subtitle{font-size:0.9rem;color:var(--text-muted);max-width:500px;margin:0 auto;}
+  .hero .subtitle{font-size:0.95rem;color:var(--text-muted);max-width:520px;margin:0 auto;}
 
-  .day-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
-  .day-item{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:16px 20px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:16px;}
-  .day-item:hover{border-color:var(--gold);}
-  .day-item.expanded{border-color:var(--gold);background:#1a1a15;}
-  .day-num{width:40px;height:40px;border-radius:50%;background:var(--bg-deep);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9rem;flex-shrink:0;}
-  .day-item.expanded .day-num{border-color:var(--gold);color:var(--gold);}
-  .day-info{flex:1;}
-  .day-info .day-title{font-weight:700;font-size:0.9rem;}
-  .day-info .day-cat{font-size:0.6rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
-  .day-info .day-text{font-size:0.78rem;color:var(--text-muted);margin-top:8px;line-height:1.55;display:none;}
-  .day-item.expanded .day-text{display:block;}
-  .day-arrow{color:var(--text-dim);font-size:0.7rem;transition:transform 0.2s;}
-  .day-item.expanded .day-arrow{transform:rotate(90deg);color:var(--gold);}
+  .days-section{margin-bottom:44px;}
+  .days-section > p{font-size:0.8rem;color:var(--text-dim);text-align:center;margin-bottom:24px;text-transform:uppercase;letter-spacing:3px;}
 
-  .cta-section{background:linear-gradient(135deg,#1a1a10,#1a1a15);border:2px solid var(--gold);border-radius:20px;padding:28px 24px;text-align:center;margin-bottom:24px;}
-  .cta-section h2{font-size:1.5rem;font-weight:800;margin-bottom:8px;}
-  .cta-section p{font-size:0.8rem;color:var(--text-muted);margin-bottom:16px;line-height:1.5;}
+  .day-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin-bottom:14px;}
+  .day-header{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+  .day-num{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:var(--gold);flex-shrink:0;}
+  .day-title-area{flex:1;}
+  .day-title-area h3{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:3px;}
+  .day-cat{font-size:0.65rem;text-transform:uppercase;letter-spacing:2px;font-weight:700;}
+  .day-body{font-size:0.9rem;color:var(--text-muted);line-height:1.65;padding-left:58px;}
+
+  /* divider between days */
+  .section-divider{display:flex;align-items:center;gap:12px;margin:36px 0 28px;}
+  .section-divider::before,.section-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+  .section-divider span{font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:3px;}
+
+  .cta-section{background:linear-gradient(135deg,#1a1a10,#1a1a15);border:2px solid var(--gold);border-radius:20px;padding:32px 24px;text-align:center;margin-bottom:28px;}
+  .cta-section h2{font-size:1.5rem;font-weight:800;margin-bottom:10px;}
+  .cta-section > p{font-size:0.85rem;color:var(--text-muted);margin-bottom:20px;line-height:1.55;}
   .cta-products{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
-  .cta-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:left;}
-  .cta-card .cta-name{font-weight:700;font-size:0.85rem;}
-  .cta-card .cta-price{color:var(--gold);font-weight:700;font-size:0.9rem;margin-top:4px;}
-  .cta-card .cta-desc{font-size:0.65rem;color:var(--text-dim);margin-top:4px;}
+  .cta-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:left;}
+  .cta-card .cta-name{font-weight:700;font-size:0.9rem;}
+  .cta-card .cta-price{color:var(--gold);font-weight:700;font-size:0.95rem;margin-top:4px;}
+  .cta-card .cta-desc{font-size:0.7rem;color:var(--text-dim);margin-top:4px;line-height:1.45;}
 
-  .email-cta{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:18px 20px;text-align:center;}
-  .email-cta p{font-size:0.75rem;color:var(--text-muted);margin-bottom:8px;}
-  .email-cta .fake-input{display:inline-flex;align-items:center;gap:8px;background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:0.7rem;color:var(--text-dim);}
+  .email-cta{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:20px;text-align:center;margin-bottom:12px;}
+  .email-cta p{font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;}
+  .email-cta .fake-input{display:inline-flex;align-items:center;gap:8px;background:var(--bg-deep);border:1px solid var(--border);border-radius:20px;padding:10px 18px;font-size:0.75rem;color:var(--text-dim);}
 
-  .site-footer{border-top:1px solid var(--border);padding:16px 24px;text-align:center;font-size:0.55rem;color:var(--text-dim);max-width:800px;margin:0 auto;}
+  .site-footer{border-top:1px solid var(--border);padding:18px 24px;text-align:center;font-size:0.6rem;color:var(--text-dim);max-width:800px;margin:0 auto;line-height:1.7;}
 
   @media(max-width:600px){
     .cta-products{grid-template-columns:1fr;}
-    .hero h1{font-size:1.6rem;}
+    .hero h1{font-size:1.5rem;}
+    .day-body{padding-left:0;margin-top:8px;}
+    .day-card{padding:18px 16px;}
   }
 </style>
 </head>
@@ -67,23 +71,108 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
-      <div class="crown">♛</div>
+      <img src="crown-icon.png" alt="Queen's Empire">
       <div class="brand-name serif">Queen's Empire</div>
     </div>
-    <div style="font-size:0.6rem;color:var(--text-dim);">FREE STARTER PROTOCOL</div>
+    <div style="font-size:0.6rem;color:var(--text-dim);">FREE PROTOCOL</div>
   </div>
 </div>
 
 <div class="main">
+
+  <!-- HERO -->
   <div class="hero">
     <div class="hero-badge">✦ COMPLIMENTARY EDITION</div>
     <h1 class="serif">The Queen's <span class="gold">7-Day</span> Starter Protocol</h1>
-    <p class="subtitle">A taste of structured devotion. Seven days of rituals, denial prompts, and power exchange to begin your journey.</p>
+    <p class="subtitle">A structured introduction to ritual, service, and power exchange. Seven days of guided practice — all visible at once. No taps, no tricks.</p>
   </div>
 
-  <div class="day-list" id="day-list"></div>
-  <p style="font-size:0.65rem;color:var(--text-dim);text-align:center;margin-top:-4px;">Tap each day to reveal the ritual ▼</p>
+  <!-- DAYS — all fully visible -->
+  <div class="days-section">
+    <p>Your First Week</p>
 
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">1</div>
+        <div class="day-title-area">
+          <h3>Day 1 — The Beginning</h3>
+          <div class="day-cat" style="color:#e0a060;">OBEDIENCE</div>
+        </div>
+      </div>
+      <div class="day-body">Kneel for 5 minutes in silence. Present yourself to your Queen (or to the idea of her). Say aloud: "I am here to serve. I am here to obey. I am yours." This is how it begins.</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">2</div>
+        <div class="day-title-area">
+          <h3>Day 2 — First Ritual</h3>
+          <div class="day-cat" style="color:#e06060;">SERVICE</div>
+        </div>
+      </div>
+      <div class="day-body">Prepare her favorite drink exactly as she likes it. If you don't have a Queen yet, prepare it as an offering — a gesture of the service you wish to give. Serve it on a tray. Kneel while you imagine her taking the first sip.</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">3</div>
+        <div class="day-title-area">
+          <h3>Day 3 — Gratitude</h3>
+          <div class="day-cat" style="color:#60c060;">GRATITUDE</div>
+        </div>
+      </div>
+      <div class="day-body">Write down 5 things you are grateful for about your Queen — real or aspired. Speak them aloud. Mean every word. Gratitude is the foundation of devotion.</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">4</div>
+        <div class="day-title-area">
+          <h3>Day 4 — Denial</h3>
+          <div class="day-cat" style="color:#D4AF37;">DENIAL</div>
+        </div>
+      </div>
+      <div class="day-body">Today you will not touch yourself. Not once. Not even to adjust. Complete awareness. Complete control. Notice how the restriction sharpens your attention. This is the gift of denial.</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">5</div>
+        <div class="day-title-area">
+          <h3>Day 5 — Worship</h3>
+          <div class="day-cat" style="color:#D4AF37;">WORSHIP</div>
+        </div>
+      </div>
+      <div class="day-body">If you have a partner: worship a part of her body for 10 minutes — her feet, her hands, her shoulders. If solo: meditate on the word "worship." What does it mean to revere someone completely?</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">6</div>
+        <div class="day-title-area">
+          <h3>Day 6 — Reflection</h3>
+          <div class="day-cat" style="color:#60a0e0;">DISCIPLINE</div>
+        </div>
+      </div>
+      <div class="day-body">Face a corner or a blank wall. Stand for 5 minutes in silence. Reflect on your purpose. Ask yourself: "How can I serve better? What resistance remains in me? What am I still holding back?"</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num">7</div>
+        <div class="day-title-area">
+          <h3>Day 7 — The Final Kneel</h3>
+          <div class="day-cat" style="color:#60c060;">GRATITUDE</div>
+        </div>
+      </div>
+      <div class="day-body">Kneel one final time. Thank your Queen — real, imagined, or future — for these 7 days of training. Ask yourself: "Am I ready for more?" If the answer is yes, the full 30-day protocol awaits.</div>
+    </div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="section-divider"><span>Continue the Journey</span></div>
+
+  <!-- CTA -->
   <div class="cta-section">
     <h2 class="serif">Ready for the <span class="gold">Full Experience?</span></h2>
     <p>This was 7 days. The full protocols contain 30 days of structured rituals, daily Queen's verdicts, interactive trackers, streak counters, and reflection journals — all in premium black-and-gold design.</p>
@@ -96,7 +185,7 @@
       <div class="cta-card">
         <div class="cta-name">30-Day Rituals of Service</div>
         <div class="cta-price">$24.99</div>
-        <div class="cta-desc">30 unique daily rituals across Worship, Service, Discipline, Gratitude & Obedience — click-to-reveal with streak tracking.</div>
+        <div class="cta-desc">30 unique daily rituals across Worship, Service, Discipline, Gratitude & Obedience — all fully visible, no tapping required.</div>
       </div>
     </div>
     <div style="margin-top:12px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
@@ -111,54 +200,23 @@
         <div class="cta-desc">6-version escalation decks: Claiming Control, Cuckold Confessions, Worship Training, Punishment Deck, Slave Contracts.</div>
       </div>
     </div>
-    <p style="font-size:0.7rem;color:var(--text-dim);margin-top:12px;">Available on Etsy — search "Queen's Empire BDSM"</p>
+    <p style="font-size:0.75rem;color:var(--text-dim);margin-top:14px;">Available on Etsy — search "Queen's Empire BDSM"</p>
   </div>
 
+  <!-- EMAIL -->
   <div class="email-cta">
     <p><strong>Want the next free protocol before anyone else?</strong></p>
-    <p style="font-size:0.7rem;color:var(--text-muted);">Join the Queen's inner circle. Get exclusive releases, subscriber-only rituals, and first access to new products — all free.</p>
+    <p style="font-size:0.75rem;color:var(--text-muted);">Join the Queen's inner circle. Get exclusive releases, subscriber-only rituals, and first access to new products — all free.</p>
     <div class="fake-input">✉️ Enter your email for exclusive protocols &amp; early access</div>
-    <p style="font-size:0.55rem;color:var(--text-dim);margin-top:6px;">No spam. No sharing. 18+ only. Unsubscribe anytime. We'll never sell your information.</p>
+    <p style="font-size:0.6rem;color:var(--text-dim);margin-top:8px;">No spam. No sharing. 18+ only. Unsubscribe anytime.</p>
   </div>
+
 </div>
 
 <div class="site-footer">
   Queen's Empire • Premium BDSM Digital Tools • For consenting adults 18+ only<br>
-  Safe, sane, consensual fantasy/roleplay • Safe words always apply: RED = Stop immediately. YELLOW = Check-in. • AI-assisted design
+  Safe, sane, consensual fantasy/roleplay • Safe words always apply: RED = Stop immediately. YELLOW = Check-in.
 </div>
 
-<script>
-const DAYS = [
-  {title:"Day 1 — The Beginning",cat:"OBEDIENCE",catColor:"#e0a060",text:"Kneel for 5 minutes in silence. Present yourself to your Queen (or to the idea of her). Say aloud: 'I am here to serve. I am here to obey. I am yours.' This is how it begins."},
-  {title:"Day 2 — First Ritual",cat:"SERVICE",catColor:"#e06060",text:"Prepare her favorite drink exactly as she likes it. If you don't have a Queen yet, prepare it as an offering — a gesture of the service you wish to give. Serve it on a tray. Kneel while you imagine her taking the first sip."},
-  {title:"Day 3 — Gratitude",cat:"GRATITUDE",catColor:"#60e060",text:"Write down 5 things you are grateful for about your Queen — real or aspired. Speak them aloud. Mean every word. Gratitude is the foundation of devotion."},
-  {title:"Day 4 — Denial",cat:"DENIAL",catColor:"#D4AF37",text:"Today you will not touch yourself. Not once. Not even to adjust. Complete awareness. Complete control. Notice how the restriction sharpens your attention. This is the gift of denial."},
-  {title:"Day 5 — Worship",cat:"WORSHIP",catColor:"#D4AF37",text:"If you have a partner: worship a part of her body for 10 minutes — her feet, her hands, her shoulders. If solo: meditate on the word 'worship.' What does it mean to revere someone completely?"},
-  {title:"Day 6 — Reflection",cat:"DISCIPLINE",catColor:"#60a0e0",text:"Face a corner or a blank wall. Stand for 5 minutes in silence. Reflect on your purpose. Ask yourself: 'How can I serve better? What resistance remains in me? What am I still holding back?'"},
-  {title:"Day 7 — The Final Kneel",cat:"GRATITUDE",catColor:"#60e060",text:"Kneel one final time. Thank your Queen — real, imagined, or future — for these 7 days of training. Ask yourself: 'Am I ready for more?' If the answer is yes, the full 30-day protocol awaits."}
-];
-
-let expanded = 0; /* Day 1 visible by default */
-let list = document.getElementById('day-list');
-DAYS.forEach((d,i)=>{
-  let item = document.createElement('div');
-  item.className = 'day-item';
-  item.innerHTML = `
-    <div class="day-num">${i+1}</div>
-    <div class="day-info">
-      <div class="day-title">${d.title}</div>
-      <div class="day-cat" style="color:${d.catColor}">${d.cat}</div>
-      <div class="day-text">${d.text}</div>
-    </div>
-    <div class="day-arrow">▶</div>`;
-  item.onclick = ()=>{
-    if(expanded===i){expanded=null;}else{expanded=i;}
-    document.querySelectorAll('.day-item').forEach((el,j)=>{
-      el.classList.toggle('expanded',j===expanded);
-    });
-  };
-  list.appendChild(item);
-});
-</script>
 </body>
 </html>
