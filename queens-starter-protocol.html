@@ -82,6 +82,7 @@
   </div>
 
   <div class="day-list" id="day-list"></div>
+  <p style="font-size:0.65rem;color:var(--text-dim);text-align:center;margin-top:-4px;">Tap each day to reveal the ritual ▼</p>
 
   <div class="cta-section">
     <h2 class="serif">Ready for the <span class="gold">Full Experience?</span></h2>
@@ -137,7 +138,7 @@ const DAYS = [
   {title:"Day 7 — The Final Kneel",cat:"GRATITUDE",catColor:"#60e060",text:"Kneel one final time. Thank your Queen — real, imagined, or future — for these 7 days of training. Ask yourself: 'Am I ready for more?' If the answer is yes, the full 30-day protocol awaits."}
 ];
 
-let expanded = null;
+let expanded = 0; /* Day 1 visible by default */
 let list = document.getElementById('day-list');
 DAYS.forEach((d,i)=>{
   let item = document.createElement('div');
