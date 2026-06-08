@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • Scene Scripts</title>
+<style>
+  :root { --gold:#D4AF37;--gold-light:#e8cc6e;--bg:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:Georgia,'Times New Roman',serif;min-height:100vh;line-height:1.7;}
+  @page { size: letter; margin: 0.5in; }
+  @media print { body { -webkit-print-color-adjust:exact;print-color-adjust:exact; } .no-print{display:none;} }
+
+  .container{max-width:800px;margin:0 auto;padding:48px 24px;}
+
+  .cover{text-align:center;padding:60px 0;border:2.5px solid #C9A84C;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);margin-bottom:40px;position:relative;}
+  .cover::before{content:'';position:absolute;top:8px;left:8px;right:8px;bottom:8px;border:0.5px solid rgba(201,168,76,0.2);pointer-events:none;}
+  .cover h1{font-size:42px;color:#C9A84C;letter-spacing:5px;text-transform:uppercase;font-weight:bold;text-shadow:0 0 20px rgba(201,168,76,0.3);margin-bottom:12px;}
+  .cover .subtitle{font-size:16px;color:#b8943a;letter-spacing:3px;font-style:italic;}
+  .cover .ornament{color:#C9A84C;font-size:12px;letter-spacing:6px;opacity:0.5;margin:20px 0;}
+
+  .scene{border:1px solid var(--border);background:var(--bg-card);padding:36px 28px;margin:32px 0;page-break-inside:avoid;}
+  .scene-title{font-size:24px;color:var(--gold);text-align:center;text-transform:uppercase;letter-spacing:3px;margin-bottom:6px;}
+  .scene-subtitle{font-size:13px;color:var(--text-muted);text-align:center;letter-spacing:2px;margin-bottom:28px;font-style:italic;}
+  .scene-meta{display:flex;justify-content:center;gap:24px;margin-bottom:24px;font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:2px;}
+
+  .role-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;font-weight:bold;}
+  .role-label.queen{color:var(--gold);}
+  .role-label.sub{color:var(--text-muted);}
+
+  .line{margin-bottom:16px;padding-left:20px;border-left:2px solid transparent;line-height:1.6;}
+  .line.queen{border-left-color:var(--gold);}
+  .line.sub{border-left-color:rgba(201,168,76,0.2);}
+  .line .speaker{font-size:10px;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;}
+  .line.queen .speaker{color:var(--gold);}
+  .line.sub .speaker{color:var(--text-dim);}
+  .line .dialogue{font-size:16px;font-style:italic;}
+  .line .direction{font-size:12px;color:var(--text-dim);margin-top:4px;font-style:normal;}
+
+  .scene-divider{text-align:center;color:var(--gold);font-size:14px;letter-spacing:8px;margin:40px 0;opacity:0.4;}
+  .notes{background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);padding:20px;margin-top:24px;}
+  .notes h4{font-size:12px;color:var(--gold-light);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;}
+  .notes p{font-size:13px;color:var(--text-muted);font-style:italic;line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="cover">
+  <h1>Scene Scripts</h1>
+  <p class="subtitle">Queen's Empire • Five Call-and-Response Power Exchange Scenes</p>
+  <div class="ornament">✦ &ensp; ⬖ &ensp; ✦</div>
+  <p style="color:var(--text-muted);font-size:14px;margin-top:16px;">Complete dialogue for five scenes. Read aloud. Adapt freely. Make them yours.</p>
+</div>
+
+<!-- SCENE 1: THE INSPECTION -->
+<div class="scene">
+  <div class="scene-title">The Inspection</div>
+  <div class="scene-subtitle">Ritual body inspection — formal, thorough, reverent</div>
+  <div class="scene-meta"><span>Duration: 8-10 min</span><span>Tone: Formal</span><span>Roles: Queen / Subject</span></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Stand in the center of the room. Feet shoulder-width. Arms at your sides. Eyes forward."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"You are about to be inspected. Every inch. Every detail. There is nowhere to hide."</div><div class="direction">Circle slowly. Let them hear your footsteps behind them.</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Remove your clothing. One piece at a time. Fold each item. Place it at your feet."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Slower. This is not a race. I want to watch you become bare for me."</div></div>
+
+  <div class="role-label sub">Subject</div>
+  <div class="line sub"><div class="speaker">Subject</div><div class="dialogue">"Yes, my Queen."</div></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Good. Now — hands behind your back. Shoulders back. Present yourself."</div><div class="direction">Begin the inspection. Walk around them. Touch nothing yet.</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Your posture is acceptable. Your breathing is too fast. Slow it down. You are safe here."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"I'm going to touch you now. You will not move unless I tell you to move."</div><div class="direction">Place one finger at the base of their neck. Draw it slowly down their spine.</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"You're trembling. Good. That means you're present."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Turn around. Face me. Look at me."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"You are beautiful like this. Bare. Vulnerable. Mine. Say it."</div></div>
+
+  <div class="role-label sub">Subject</div>
+  <div class="line sub"><div class="speaker">Subject</div><div class="dialogue">"I am bare. I am vulnerable. I am yours."</div></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Kneel. The inspection is complete. You passed."</div><div class="direction">Place your hand on their head.</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"You may kiss my hand in thanks."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Good. Now stay there. Catch your breath. You did well."</div></div>
+
+  <div class="notes"><h4>Scene Notes</h4><p>This scene works best with deliberate pacing. Let silences stretch. The power is in the waiting, not the words. If your subject shows signs of deep subspace, transition into aftercare immediately — this script can drop someone fast.</p></div>
+</div>
+
+<div class="scene-divider">✦ ⬖ ✦</div>
+
+<!-- SCENE 2: THE INTERROGATION -->
+<div class="scene">
+  <div class="scene-title">The Interrogation</div>
+  <div class="scene-subtitle">Intense questioning — probing, demanding, psychological</div>
+  <div class="scene-meta"><span>Duration: 10-15 min</span><span>Tone: Intense</span><span>Roles: Queen / Prisoner</span></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Sit. Hands on the table where I can see them. Do not look away from me."</div><div class="direction">Sit across from them. Maintain eye contact. Do not break it.</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"You know why you're here. Don't pretend you don't."</div></div>
+
+  <div class="role-label sub">Prisoner</div>
+  <div class="line sub"><div class="speaker">Prisoner</div><div class="dialogue">"I don't — I'm not sure what you mean."</div></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Lying already. We've barely started. Tell me what you did."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"I know everything. The question is whether you have the courage to admit it."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Look at me. Not at the table. Not at your hands. At me."</div></div>
+
+  <div class="role-label sub">Prisoner</div>
+  <div class="line sub"><div class="speaker">Prisoner</div><div class="dialogue">"I... I disobeyed."</div></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Louder. I want to hear every syllable."</div></div>
+
+  <div class="role-label sub">Prisoner</div>
+  <div class="line sub"><div class="speaker">Prisoner</div><div class="dialogue">"I disobeyed you. I touched myself without permission."</div></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"When? Where? Be specific. Every detail."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"I'm going to sit here until you've told me everything. We have all night."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Describe exactly what you did. I want to hear you say it. Every word. Every action."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Did you think about me while you did it? Did you imagine me catching you?"</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"You wanted to be caught. That's why you're here. You wanted this conversation."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Stand up. Hands behind your back. You've confessed. Now you face consequences."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"But first — thank me. Thank me for caring enough to interrogate you."</div></div>
+
+  <div class="role-label sub">Prisoner</div>
+  <div class="line sub"><div class="speaker">Prisoner</div><div class="dialogue">"Thank you. For caring. For making me tell the truth."</div></div>
+
+  <div class="notes"><h4>Scene Notes</h4><p>The interrogation works best when the "crime" is real — a small rule broken, a task forgotten. The power comes from genuine confession. Stay cold but never cruel. If the prisoner becomes genuinely distressed, break character: "Pause. I'm here. You're safe." Scene intensity must serve connection, not damage it.</p></div>
+</div>
+
+<div class="scene-divider">✦ ⬖ ✦</div>
+
+<!-- SCENE 3: THE WORSHIP -->
+<div class="scene">
+  <div class="scene-title">The Worship</div>
+  <div class="scene-subtitle">Guided body worship — slow, reverent, devotional</div>
+  <div class="scene-meta"><span>Duration: 12-15 min</span><span>Tone: Reverent</span><span>Roles: Queen / Worshipper</span></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"I'm going to sit here. You're going to kneel before me. And you're going to worship."</div><div class="direction">Sit comfortably. Arrange yourself so different parts of your body are accessible.</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Start with my feet. Remove my shoes. Slowly. Like you're unwrapping something sacred."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Kiss the top of each foot. Not a peck. A real kiss. I want to feel your lips."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Tell me what you feel. Right now. In this moment."</div></div>
+
+  <div class="role-label sub">Worshipper</div>
+  <div class="line sub"><div class="speaker">Worshipper</div><div class="dialogue">"Gratitude. Humility. I feel small in the best way."</div></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Good. Now my ankles. My calves. Work your way up. Every inch gets attention."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Slower. You're rushing. Worship is not a task to complete. It's a state to inhabit."</div><div class="direction">Close your eyes. Let them work. Let yourself receive.</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"My hands next. Each finger. The palm. The back. Show me what my hands mean to you."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"These hands guide you. Correct you. Reward you. They deserve your full attention."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Now look up at me. Stop touching. Just look."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"That's the face you worship. Remember it when you're alone. Remember who you kneel for."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"I accept your worship. You may rest your head on my knee now."</div></div>
+
+  <div class="notes"><h4>Scene Notes</h4><p>The worship scene is about receiving. Let yourself be worshipped without guilt. You deserve this. The worshipper's reward is your pleasure at being venerated. If receiving is difficult for you, start with five minutes and build tolerance over time. Receiving is a skill.</p></div>
+</div>
+
+<div class="scene-divider">✦ ⬖ ✦</div>
+
+<!-- SCENE 4: THE PUNISHMENT -->
+<div class="scene">
+  <div class="scene-title">The Punishment</div>
+  <div class="scene-subtitle">Formal correction — structured, measured, restorative</div>
+  <div class="scene-meta"><span>Duration: 10-12 min</span><span>Tone: Stern</span><span>Roles: Queen / Offender</span></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"You know why you're here. You broke a rule. A rule you agreed to. A rule designed to keep you safe and serving well."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Tell me what you did. In your own words. Take full ownership."</div></div>
+
+  <div class="role-label sub">Offender</div>
+  <div class="line sub"><div class="speaker">Offender</div><div class="dialogue">"I [describe the infraction]. I knew it was wrong. I did it anyway. I'm sorry."</div></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Sorry is a start. It's not enough. What should the consequence be?"</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"No. Don't look at the floor. Look at me. You face me when you're being corrected."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"You will receive [number] strikes. You will count each one. You will thank me after each one."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"This is not revenge. This is correction. The slate is clean when we're done."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Position yourself."</div></div>
+
+  <div class="role-label sub">Offender</div>
+  <div class="line sub"><div class="speaker">Offender</div><div class="dialogue">"One. Thank you, my Queen."</div></div>
+  <div class="line sub"><div class="speaker">Offender</div><div class="dialogue">"Two. Thank you, my Queen."</div></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"[After the final strike] It's done. The debt is paid."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Come here. Let me hold you. You took your punishment well. I'm proud of you."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"This is the real correction — not the pain, but the forgiveness after. Do you feel it?"</div></div>
+
+  <div class="role-label sub">Offender</div>
+  <div class="line sub"><div class="speaker">Offender</div><div class="dialogue">"Yes. I feel clean. I feel forgiven."</div></div>
+
+  <div class="notes"><h4>Scene Notes</h4><p>Punishment must always end with reconnection. The corrective act is not complete until the offender is held, forgiven, and reintegrated. Never leave someone in the punished state. The arc is: infraction → confession → consequence → forgiveness → closeness. Every time.</p></div>
+</div>
+
+<div class="scene-divider">✦ ⬖ ✦</div>
+
+<!-- SCENE 5: THE COLLARING -->
+<div class="scene">
+  <div class="scene-title">The Collaring</div>
+  <div class="scene-subtitle">Formal collaring ceremony — sacred, binding, eternal</div>
+  <div class="scene-meta"><span>Duration: 8-10 min</span><span>Tone: Sacred</span><span>Roles: Queen / Supplicant</span></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Kneel. This is not a request. This is the beginning of something permanent."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"You have served. You have grown. You have proven yourself worthy of my collar."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Do you understand what this means? This is not a toy. This is not a phase. This is a vow."</div></div>
+
+  <div class="role-label sub">Supplicant</div>
+  <div class="line sub"><div class="speaker">Supplicant</div><div class="dialogue">"I understand. I am ready. I have wanted this for so long."</div></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Then speak your vows. From your heart. No script. Just truth."</div></div>
+
+  <div class="role-label sub">Supplicant</div>
+  <div class="line sub"><div class="speaker">Supplicant</div><div class="dialogue">"[Speak personal vows of service, devotion, commitment]"</div></div>
+
+  <div class="role-label queen">Queen</div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"I accept your vows. And I make mine in return. I will guide you. Protect you. Challenge you. Honor the gift of your submission."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"This collar is the symbol of my ownership and my responsibility. You will wear it with pride."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Lower your head."</div><div class="direction">Place the collar around their neck. Fasten it slowly. Let them feel every second.</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Rise. You are collared. You are mine. This is forever."</div></div>
+  <div class="line queen"><div class="speaker">Queen</div><div class="dialogue">"Kiss me. Seal the vow."</div></div>
+
+  <div class="notes"><h4>Scene Notes</h4><p>This is the most emotionally significant scene in this collection. Do not perform it casually. The collaring should mark a genuine milestone in your dynamic — not a first-date activity. The vows should be personal and real. If you use a physical collar, choose one that can be worn comfortably and removed safely. The symbolism is in the commitment, not the hardware.</p></div>
+</div>
+
+<div class="cover" style="margin-top:40px;">
+  <div class="ornament">✦ &ensp; ⬖ &ensp; ✦</div>
+  <p class="subtitle">More at queensempireco.etsy.com</p>
+  <p style="color:var(--text-dim);font-size:10px;margin-top:20px;">For consenting adults 18+ only. Fantasy roleplay. Safe words always apply: RED = Stop immediately. YELLOW = Check-in. All scenes exist within SSC/RACK frameworks. Adapt to your dynamic. Never exceed negotiated limits.</p>
+</div>
+
+</div>
+</body>
+</html>
