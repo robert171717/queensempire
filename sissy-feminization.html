@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: letter; margin: 0.25in; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #000;
+    font-family: 'Georgia', 'Times New Roman', 'Cormorant Garamond', serif;
+  }
+  .page {
+    width: 100%; height: 100%;
+    border: 2.5px solid #C9A84C;
+    background: linear-gradient(180deg, #0a0a0a 0%, #0d0d0d 100%);
+    padding: 14px 18px;
+    page-break-after: always;
+    position: relative; overflow: hidden;
+  }
+  .page::before {
+    content: ''; position: absolute;
+    top: 6px; left: 6px; right: 6px; bottom: 6px;
+    border: 0.5px solid rgba(201, 168, 76, 0.25);
+    pointer-events: none; z-index: 0;
+  }
+  .page:last-child { page-break-after: auto; }
+  .title-area {
+    text-align: center; margin-bottom: 8px; padding-bottom: 6px;
+    border-bottom: 1.5px solid #C9A84C;
+    position: relative; z-index: 1;
+  }
+  .title {
+    font-size: 38px; color: #C9A84C; letter-spacing: 4px;
+    text-transform: uppercase; font-weight: bold; margin: 0;
+    text-shadow: 0 0 20px rgba(201,168,76,0.3);
+  }
+  .subtitle {
+    font-size: 14px; color: #b8943a; letter-spacing: 3px;
+    margin: 4px 0 0 0; font-style: italic;
+    text-transform: uppercase; font-weight: bold;
+  }
+  .page-spacer { height: 5px; position: relative; z-index: 1; }
+  .version-block {
+    position: relative; z-index: 1;
+    padding: 5px 6px; margin-bottom: 0;
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+  }
+  .version-header {
+    font-size: 19px; color: #C9A84C; letter-spacing: 2px;
+    text-transform: uppercase; font-weight: bold; text-align: center;
+    margin-bottom: 6px; padding-bottom: 4px;
+    border-bottom: 1px solid rgba(201,168,76,0.35);
+  }
+  .version-lines {
+    font-size: 16px; color: #d4af5e; line-height: 1.45;
+    letter-spacing: 0.4px; font-weight: bold;
+  }
+  .version-lines div { padding: 1px 0; }
+  .version-divider {
+    border: none; border-top: 1px dashed rgba(201,168,76,0.45);
+    margin: 0 12px; position: relative; z-index: 1;
+  }
+  .page-content {
+    display: flex; flex-direction: column;
+    height: calc(100% - 80px);
+    position: relative; z-index: 1;
+  }
+  .page-content-full {
+    display: flex; flex-direction: column;
+    height: 100%;
+    position: relative; z-index: 1;
+    justify-content: space-between;
+  }
+  .ornament {
+    text-align: center; color: #C9A84C; font-size: 9px;
+    letter-spacing: 4px; opacity: 0.5;
+    position: relative; z-index: 1; padding: 1px 0;
+  }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="title-area">
+    <h1 class="title">Sissy Feminization</h1>
+    <p class="subtitle">Queen's Note Cards &bull; Feminization Training Protocol</p>
+  </div>
+  <div class="page-content">
+    <div class="version-block">
+      <div class="version-header">Version 1 — Gentle Feminization</div>
+      <div class="version-lines">
+        <div>"Today you begin your transformation."</div>
+        <div>"I want to see the feminine side you've been hiding."</div>
+        <div>"Put this on for me. Just soft things. Satin. Silk."</div>
+        <div>"Let me see you in something that flows."</div>
+        <div>"Shave your legs. Smooth skin is beautiful skin."</div>
+        <div>"I picked out a shade of pink for your toes."</div>
+        <div>"Sit with your legs together. Like a lady."</div>
+        <div>"Your hands are too rough. We'll fix that."</div>
+        <div>"Let your hair grow. I want to run my fingers through it."</div>
+        <div>"You blush so prettily when I call you beautiful."</div>
+        <div>"Say it: I want to be pretty for you."</div>
+        <div>"Good girl. That wasn't so hard, was it?"</div>
+        <div>"Look at yourself in the mirror. Really look."</div>
+        <div>"That's not a man looking back anymore, is it?"</div>
+        <div>"This is just the beginning, sweet thing."</div>
+      </div>
+    </div>
+    <div class="ornament">✦ &ensp; ⬖ &ensp; ✦</div>
+    <hr class="version-divider">
+    <div class="version-block">
+      <div class="version-header">Version 2 — Soft Feminization</div>
+      <div class="version-lines">
+        <div>"We're going shopping. For you. The real you."</div>
+        <div>"Panties first. Something lace. Something delicate."</div>
+        <div>"A bra that fits your body — padded, pretty, pink."</div>
+        <div>"Stockings. Garters. The things real women wear."</div>
+        <div>"A dress that hugs in all the right places."</div>
+        <div>"Heels. Not high yet. But heels nonetheless."</div>
+        <div>"Your walk is changing. I can see it already."</div>
+        <div>"You move differently in silk. Softer. Prettier."</div>
+        <div>"I'm going to teach you to do your makeup."</div>
+        <div>"Foundation first. Then blush. Then lips."</div>
+        <div>"A soft pink lip. Nothing aggressive."</div>
+        <div>"You're going to be my pretty little project."</div>
+        <div>"From now on, at home, you dress for me."</div>
+        <div>"No more jeans. No more boxers."</div>
+        <div>"Only what I choose. And I choose feminine."</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page">
+  <div class="page-spacer"></div>
+  <div class="page-content-full">
+    <div class="version-block">
+      <div class="version-header">Version 3 — Full Feminization</div>
+      <div class="version-lines">
+        <div>"Your wardrobe is mine to curate now."</div>
+        <div>"I've thrown out everything masculine you owned."</div>
+        <div>"You will dress as a woman every single day."</div>
+        <div>"Skirts, dresses, blouses — these are your clothes now."</div>
+        <div>"Your name is changing. Choose something soft."</div>
+        <div>"Dani. Sasha. Lola. Something that fits your new face."</div>
+        <div>"You will answer to nothing else."</div>
+        <div>"I'm booking you a wax. Everything below the neck."</div>
+        <div>"Smooth from brow to toe. Like a proper girl."</div>
+        <div>"Your voice is too deep. We'll work on that."</div>
+        <div>"Higher. Softer. Let it float, don't push it down."</div>
+        <div>"Your gestures are still masculine. Watch me."</div>
+        <div>"Wrists loose. Fingers together. Less space, more grace."</div>
+        <div>"You're becoming something beautiful."</div>
+        <div>"And you have no say in the matter."</div>
+      </div>
+    </div>
+    <div class="ornament">⬖ &ensp; ✦ &ensp; ⬖</div>
+    <hr class="version-divider">
+    <div class="version-block">
+      <div class="version-header">Version 4 — Forced Feminization</div>
+      <div class="version-lines">
+        <div>"You don't get to resist anymore."</div>
+        <div>"Every morning you will present yourself for inspection."</div>
+        <div>"Makeup done. Outfit approved. Posture checked."</div>
+        <div>"If a single hair is out of place, you will be punished."</div>
+        <div>"I will make you more feminine than any woman you've known."</div>
+        <div>"Your old self is dying. I'm killing it on purpose."</div>
+        <div>"That man you used to be? He was a costume."</div>
+        <div>"This — the smooth skin, the soft lips, the curves — is real."</div>
+        <div>"I want you to cry when you look in the mirror."</div>
+        <div>"Not from sadness. From the beauty of what you're becoming."</div>
+        <div>"You will practice your feminine voice for one hour daily."</div>
+        <div>"Record yourself. Listen back. Cringe. Improve. Repeat."</div>
+        <div>"You will learn to walk in six-inch heels."</div>
+        <div>"If you stumble, you start over."</div>
+        <div>"I am not asking. I am telling. You will obey."</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page">
+  <div class="page-spacer"></div>
+  <div class="page-content-full">
+    <div class="version-block">
+      <div class="version-header">Version 5 — Total Sissification</div>
+      <div class="version-lines">
+        <div>"You are no longer male in any meaningful way."</div>
+        <div>"Your old name is dead. Never speak it again."</div>
+        <div>"You will introduce yourself with your feminine name to everyone."</div>
+        <div>"Your identification, your mail, your world — all hers now."</div>
+        <div>"I am taking you out in public. In a dress. In heels. In full makeup."</div>
+        <div>"You will hold my hand like a girlfriend, not a boyfriend."</div>
+        <div>"Let them stare. Let them whisper. You are mine to display."</div>
+        <div>"If a man holds the door for you, you will thank him sweetly."</div>
+        <div>"If a man flirts with you, you will blush and look away."</div>
+        <div>"You're learning what it means to be desired as a woman."</div>
+        <div>"It's terrifying, isn't it? Good. That's the point."</div>
+        <div>"You will attend brunch with my friends. As my girlfriend."</div>
+        <div>"They will use your new name. They will use she and her."</div>
+        <div>"You are not playing a role anymore."</div>
+        <div>"You are a sissy. This is who you are now."</div>
+      </div>
+    </div>
+    <div class="ornament">✦ &ensp; ⬖ &ensp; ✦</div>
+    <hr class="version-divider">
+    <div class="version-block">
+      <div class="version-header">Version 6 — Permanent Feminization</div>
+      <div class="version-lines">
+        <div>"There is no going back. The door is sealed."</div>
+        <div>"You will pursue every procedure I approve."</div>
+        <div>"Laser first. Every follicle. Permanent smoothness."</div>
+        <div>"Hormones if I decide. Your body will change for me."</div>
+        <div>"Your chest will soften. Your shape will shift."</div>
+        <div>"You will learn to move with new weight, new curves."</div>
+        <div>"Surgery if I wish it. Whatever it takes."</div>
+        <div>"Your male identity is erased. Legally. Socially. Completely."</div>
+        <div>"Your documents will reflect the woman you've become."</div>
+        <div>"You will never wear men's clothing again."</div>
+        <div>"You will never use a men's restroom again."</div>
+        <div>"You will never be called sir or he or him again."</div>
+        <div>"Every person in your life will know you as female."</div>
+        <div>"This is not a phase. This is not a game."</div>
+        <div>"You are mine. You are feminine. You are forever changed."</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page"><div class="version-block"><div class="version-header">Consent &amp; Safety Notice</div><div class="version-lines"><div>All scenarios and language in this product are intended strictly as fantasy roleplay between consenting adults.</div><div>Safe words always apply and must be respected immediately:</div><div>● RED = Stop everything immediately and check in</div><div>● YELLOW = Slow down, check in, or reduce intensity</div><div>This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) / Risk-Aware Consensual Kink (RACK) frameworks.</div><div>Never engage in any activity that feels unsafe, non-consensual, or harmful in reality. Clear communication, ongoing consent, and aftercare are essential at all times.</div><div>Feminization play, like all BDSM dynamics, exists strictly within negotiated boundaries. Gender expression and identity in fantasy do not dictate or diminish real-world identity. All play is reversible, negotiable, and subject to enthusiastic consent.</div></div></div></div>
+</body>
+</html>
