@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • Personalized Commands</title>
+<style>
+  :root { --gold:#D4AF37;--gold-light:#e8cc6e;--bg:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:Georgia,'Times New Roman',serif;min-height:100vh;line-height:1.7;}
+  .serif{font-family:Georgia,'Times New Roman',serif;}
+
+  .container{max-width:800px;margin:0 auto;padding:48px 24px;}
+
+  .setup{text-align:center;margin-bottom:40px;border:2px solid var(--gold);background:linear-gradient(180deg,#0a0a0a,#0d0d0d);padding:48px 24px;position:relative;}
+  .setup::before{content:'';position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:0.5px solid rgba(201,168,76,0.2);pointer-events:none;}
+  .setup h1{font-size:32px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;text-shadow:0 0 20px rgba(201,168,76,0.3);}
+  .setup p{color:var(--text-muted);font-size:14px;margin-bottom:20px;font-style:italic;}
+  .setup input{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:12px 20px;font-size:18px;text-align:center;width:280px;font-family:Georgia,serif;border-radius:0;margin-bottom:4px;}
+  .setup input:focus{outline:none;border-color:var(--gold-light);box-shadow:0 0 12px rgba(201,168,76,0.15);}
+  .setup .hint{font-size:11px;color:var(--text-dim);margin-top:4px;}
+  .setup button{background:linear-gradient(135deg,var(--gold),#b39028);border:none;color:#08080b;padding:12px 36px;font-size:14px;font-weight:bold;cursor:pointer;margin-top:16px;font-family:Georgia,serif;letter-spacing:2px;text-transform:uppercase;transition:all 0.2s;}
+  .setup button:hover{background:linear-gradient(135deg,var(--gold-light),var(--gold));}
+
+  .prompts{display:none;}
+  .prompts.active{display:block;}
+
+  .section-label{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:4px;text-align:center;margin:36px 0 16px;}
+  .ornament{text-align:center;color:var(--gold);font-size:12px;letter-spacing:6px;opacity:0.3;margin:32px 0;}
+
+  .command-card{background:var(--bg-card);border:1px solid var(--border);padding:24px 28px;margin-bottom:12px;transition:border-color 0.2s;}
+  .command-card:hover{border-color:rgba(201,168,76,0.3);}
+  .command-card .tag{font-size:9px;text-transform:uppercase;letter-spacing:3px;margin-bottom:8px;display:inline-block;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);border-radius:12px;}
+  .command-card .cmd{font-size:18px;color:var(--gold-light);font-style:italic;line-height:1.5;font-weight:bold;}
+  .command-card .cmd .name-insert{color:var(--gold);text-decoration:underline;text-decoration-color:rgba(201,168,76,0.3);text-underline-offset:4px;}
+
+  .footer-note{text-align:center;margin-top:48px;font-size:10px;color:var(--text-dim);line-height:1.8;}
+
+  @media print { body { -webkit-print-color-adjust:exact;print-color-adjust:exact; } .setup{display:none;} }
+  @media(max-width:600px){.setup h1{font-size:22px;}.setup input{width:200px;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="setup" id="setup">
+  <h1 class="serif">Personalized Commands</h1>
+  <p>Type a name below. Every command in this deck will speak directly to them.</p>
+  <input type="text" id="nameInput" placeholder="Enter a name..." maxlength="20" autofocus>
+  <div class="hint">Pet name, scene name, or real name — your choice</div>
+  <button onclick="personalize()">✦ Generate My Deck</button>
+</div>
+
+<div class="prompts" id="prompts">
+
+  <div class="section-label">Commands</div>
+
+  <div class="command-card">
+    <div class="tag" style="color:#e0a060;">OBEDIENCE</div>
+    <div class="cmd">Kneel, <span class="name-insert" data-default="pet">_____</span>. Right now. I won't ask twice.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#e06060;">SERVICE</div>
+    <div class="cmd">Bring me my drink, <span class="name-insert" data-default="darling">_____</span>. Exactly how I like it. You know the way.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#D4AF37;">DENIAL</div>
+    <div class="cmd">Not tonight, <span class="name-insert" data-default="sweet thing">_____</span>. Hands off. You know the rules.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#60c060;">PRAISE</div>
+    <div class="cmd">Good <span class="name-insert" data-default="boy">_____</span>. You've earned my approval today. Wear it well.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#e0a060;">OBEDIENCE</div>
+    <div class="cmd">Look at me, <span class="name-insert" data-default="pup">_____</span>. When I speak, your eyes are on mine.</div>
+  </div>
+
+  <div class="ornament">✦ ⬖ ✦</div>
+  <div class="section-label">Affirmations</div>
+
+  <div class="command-card">
+    <div class="tag" style="color:#60a0e0;">DEVOTION</div>
+    <div class="cmd">You belong to me, <span class="name-insert" data-default="love">_____</span>. Not to the world. Not to your doubts. To me.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#60c060;">WORTH</div>
+    <div class="cmd"><span class="name-insert" data-default="Precious one">_____</span>, you are worthy of my time. Worthy of my attention. Start believing it.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#60a0e0;">DEVOTION</div>
+    <div class="cmd">Every day you serve me, <span class="name-insert" data-default="darling">_____</span>, you become more of who you're meant to be.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#D4AF37;">POWER</div>
+    <div class="cmd">I chose you, <span class="name-insert" data-default="sweet one">_____</span>. Out of everyone. Remember that when doubt creeps in.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#60c060;">WORTH</div>
+    <div class="cmd">You are enough, <span class="name-insert" data-default="my pet">_____</span>. Your submission is a gift. I treasure it. I treasure you.</div>
+  </div>
+
+  <div class="ornament">✦ ⬖ ✦</div>
+  <div class="section-label">Correction &amp; Discipline</div>
+
+  <div class="command-card">
+    <div class="tag" style="color:#e06060;">CORRECTION</div>
+    <div class="cmd"><span class="name-insert" data-default="pup">_____</span>, you know what you did. Explain yourself. Now.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#e06060;">CORRECTION</div>
+    <div class="cmd">That was beneath you, <span class="name-insert" data-default="darling">_____</span>. We both know it. Do better tomorrow.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#e0a060;">RESTORATION</div>
+    <div class="cmd">It's forgiven, <span class="name-insert" data-default="sweet one">_____</span>. Come here. The correction is over. You're still mine.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#e0a060;">RESTORATION</div>
+    <div class="cmd">I correct you because I see your potential, <span class="name-insert" data-default="love">_____</span>. I wouldn't bother otherwise.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#60a0e0;">DISCIPLINE</div>
+    <div class="cmd">Count them out loud, <span class="name-insert" data-default="pet">_____</span>. Every one. Let me hear your voice.</div>
+  </div>
+
+  <div class="ornament">✦ ⬖ ✦</div>
+  <div class="section-label">Intimate Moments</div>
+
+  <div class="command-card">
+    <div class="tag" style="color:#D4AF37;">WORSHIP</div>
+    <div class="cmd">Kiss me like you mean it, <span class="name-insert" data-default="love">_____</span>. Like your entire world is on my lips.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#D4AF37;">WORSHIP</div>
+    <div class="cmd">You may touch me now, <span class="name-insert" data-default="darling">_____</span>. Gently. Like I'm made of something sacred.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#e06060;">CONTROL</div>
+    <div class="cmd">Don't stop, <span class="name-insert" data-default="sweet thing">_____</span>. Not until I say. And I haven't said.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#60c060;">AFTERCARE</div>
+    <div class="cmd">Rest now, <span class="name-insert" data-default="precious one">_____</span>. You did beautifully. Let me hold you.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#60c060;">AFTERCARE</div>
+    <div class="cmd">I've got you, <span class="name-insert" data-default="my pet">_____</span>. Breathe. You're safe. You're home. You're mine.</div>
+  </div>
+
+  <div class="ornament">✦ ⬖ ✦</div>
+  <div class="section-label">Daily Rituals</div>
+
+  <div class="command-card">
+    <div class="tag" style="color:#60a0e0;">MORNING</div>
+    <div class="cmd">Good morning, <span class="name-insert" data-default="darling">_____</span>. Today you will serve me well. I can feel it.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#60a0e0;">MORNING</div>
+    <div class="cmd">Rise, <span class="name-insert" data-default="sleepy one">_____</span>. My coffee won't make itself, and you have a Queen to please.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#60a0e0;">EVENING</div>
+    <div class="cmd">Tell me about your day, <span class="name-insert" data-default="love">_____</span>. I want to hear everything. Leave nothing out.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#60a0e0;">EVENING</div>
+    <div class="cmd">Goodnight, <span class="name-insert" data-default="my pet">_____</span>. Dream of me. Dream of serving. Tomorrow we begin again.</div>
+  </div>
+  <div class="command-card">
+    <div class="tag" style="color:#D4AF37;">DEVOTION</div>
+    <div class="cmd">Kneel before bed, <span class="name-insert" data-default="darling">_____</span>. Five minutes of gratitude. For me. For us. For this life we're building.</div>
+  </div>
+
+  <div class="footer-note">
+    Queen's Empire • Premium Digital Tools<br>
+    For consenting adults 18+ only. Fantasy roleplay within SSC/RACK frameworks.<br>
+    Safe words always apply: RED = Stop immediately. YELLOW = Check-in.<br>
+    Your name stays on your device. Nothing is ever sent anywhere.
+  </div>
+
+</div>
+
+</div>
+
+<script>
+function personalize() {
+  const name = document.getElementById('nameInput').value.trim();
+  if (!name) return;
+
+  document.querySelectorAll('.name-insert').forEach(el => {
+    el.textContent = name;
+  });
+
+  document.getElementById('setup').style.display = 'none';
+  document.getElementById('prompts').classList.add('active');
+
+  try {
+    localStorage.setItem('qe-personalized-name', name);
+  } catch(e) {}
+}
+
+// Restore saved name on reload
+(function() {
+  try {
+    const saved = localStorage.getItem('qe-personalized-name');
+    if (saved) {
+      document.getElementById('nameInput').value = saved;
+      personalize();
+    }
+  } catch(e) {}
+})();
+</script>
+</body>
+</html>

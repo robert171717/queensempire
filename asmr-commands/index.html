@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • ASMR Domination</title>
+<style>
+  :root { --gold:#D4AF37;--gold-light:#e8cc6e;--bg:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .serif{font-family:Georgia,'Times New Roman',serif;}
+
+  .container{max-width:640px;margin:0 auto;padding:40px 24px 60px;}
+
+  .hero{text-align:center;margin-bottom:40px;}
+  .hero .crown{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#b8960f);display:flex;align-items:center;justify-content:center;font-size:22px;color:#09090b;margin:0 auto 16px;}
+  .hero h1{font-size:28px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;}
+  .hero p{font-size:14px;color:var(--text-muted);font-style:italic;max-width:420px;margin:0 auto;}
+
+  .instructions{background:var(--bg-card);border:1px solid var(--border);padding:20px 24px;margin-bottom:32px;border-radius:12px;}
+  .instructions h3{font-size:12px;color:var(--gold);text-transform:uppercase;letter-spacing:3px;margin-bottom:8px;}
+  .instructions p{font-size:13px;color:var(--text-muted);line-height:1.6;}
+
+  .track{background:var(--bg-card);border:1px solid var(--border);padding:18px 20px;margin-bottom:8px;border-radius:10px;display:flex;align-items:center;gap:16px;transition:all 0.2s;cursor:pointer;}
+  .track:hover{border-color:rgba(201,168,76,0.3);background:#14141c;}
+  .track.playing{border-color:var(--gold);background:#1a1a15;}
+  .track-num{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:bold;color:var(--text-dim);flex-shrink:0;transition:all 0.2s;}
+  .track.playing .track-num{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.08);}
+  .track-info{flex:1;min-width:0;}
+  .track-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;}
+  .track-duration{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;}
+  .track-tag{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);padding:3px 10px;border:1px solid rgba(201,168,76,0.2);border-radius:12px;white-space:nowrap;}
+
+  .player-bar{position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;gap:16px;z-index:100;}
+  .player-bar .now-playing{flex:1;min-width:0;}
+  .player-bar .np-title{font-size:13px;font-weight:600;color:var(--text);}
+  .player-bar .np-tag{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;}
+  .player-bar button{background:none;border:1px solid var(--gold);color:var(--gold);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+  .player-bar button:hover{background:var(--gold);color:#09090b;}
+
+  .footer-note{text-align:center;margin-top:40px;font-size:10px;color:var(--text-dim);line-height:1.8;}
+
+  @media(max-width:500px){
+    .track{padding:14px 16px;gap:12px;}
+    .track-tag{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div class="crown">♛</div>
+  <h1 class="serif">ASMR Domination</h1>
+  <p>Ten whispered commands in binaural audio. Wear headphones. Close your eyes. Let my voice inside your mind.</p>
+</div>
+
+<div class="instructions">
+  <h3>How to Experience</h3>
+  <p>Headphones required. These tracks use spatial audio — the voice moves from ear to ear. Darkness improves the effect. Lie down. Breathe slowly. Let the commands wash over you. Do not resist. Resistance is noise. Surrender is silence.</p>
+</div>
+
+<div id="trackList">
+  <!-- Populated by JS -->
+</div>
+
+<div class="footer-note">
+  Queen's Empire • Premium Audio Tools<br>
+  For consenting adults 18+ only. Fantasy roleplay within SSC/RACK frameworks.<br>
+  Safe words always apply: RED = Stop. YELLOW = Pause. This audio is not hypnosis — it is atmosphere.<br>
+  All content stays on your device. Nothing is sent anywhere.
+</div>
+
+</div>
+
+<div class="player-bar" id="playerBar" style="display:none;">
+  <div class="now-playing">
+    <div class="np-title" id="npTitle"></div>
+    <div class="np-tag" id="npTag"></div>
+  </div>
+  <button id="playBtn" onclick="togglePlay()">▶</button>
+  <button onclick="stopAudio()">■</button>
+</div>
+
+<audio id="audio" preload="none"></audio>
+
+<script>
+const TRACKS = [
+  {num:1, title:"Kneel", tag:"OBEDIENCE", duration:"0:45", file:"track-01-kneel.mp3"},
+  {num:2, title:"Breathe", tag:"RELAXATION", duration:"0:50", file:"track-02-breathe.mp3"},
+  {num:3, title:"You Belong to Me", tag:"OWNERSHIP", duration:"0:55", file:"track-03-belong.mp3"},
+  {num:4, title:"Hands Off", tag:"DENIAL", duration:"0:40", file:"track-04-hands-off.mp3"},
+  {num:5, title:"Good Pet", tag:"PRAISE", duration:"0:45", file:"track-05-good-pet.mp3"},
+  {num:6, title:"Look at Me", tag:"EYE CONTACT", duration:"0:40", file:"track-06-look-at-me.mp3"},
+  {num:7, title:"You May Touch", tag:"PERMISSION", duration:"0:50", file:"track-07-touch.mp3"},
+  {num:8, title:"Count for Me", tag:"DISCIPLINE", duration:"0:45", file:"track-08-count.mp3"},
+  {num:9, title:"Come Back to Me", tag:"AFTERCARE", duration:"0:55", file:"track-09-aftercare.mp3"},
+  {num:10, title:"Sleep", tag:"RELEASE", duration:"1:00", file:"track-10-sleep.mp3"}
+];
+
+let currentTrack = -1;
+const audio = document.getElementById('audio');
+const playerBar = document.getElementById('playerBar');
+
+TRACKS.forEach((t,i) => {
+  const div = document.createElement('div');
+  div.className = 'track';
+  div.innerHTML = `
+    <div class="track-num">${t.num}</div>
+    <div class="track-info">
+      <div class="track-title">${t.title}</div>
+      <div class="track-duration">${t.duration}</div>
+    </div>
+    <div class="track-tag">${t.tag}</div>`;
+  div.onclick = () => playTrack(i);
+  document.getElementById('trackList').appendChild(div);
+});
+
+function playTrack(i) {
+  document.querySelectorAll('.track').forEach((el,j) => el.classList.toggle('playing', j===i));
+  currentTrack = i;
+  audio.src = TRACKS[i].file;
+  audio.play().catch(() => {});
+  playerBar.style.display = 'flex';
+  document.getElementById('npTitle').textContent = TRACKS[i].title;
+  document.getElementById('npTag').textContent = TRACKS[i].tag;
+  document.getElementById('playBtn').textContent = '⏸';
+  audio.onended = () => {
+    document.getElementById('playBtn').textContent = '▶';
+    if (i < TRACKS.length - 1) setTimeout(() => playTrack(i+1), 1500);
+  };
+}
+
+function togglePlay() {
+  if (!audio.src && currentTrack < 0) { playTrack(0); return; }
+  if (audio.paused) { audio.play(); document.getElementById('playBtn').textContent = '⏸'; }
+  else { audio.pause(); document.getElementById('playBtn').textContent = '▶'; }
+}
+
+function stopAudio() {
+  audio.pause(); audio.currentTime = 0; audio.src = '';
+  document.querySelectorAll('.track').forEach(el => el.classList.remove('playing'));
+  playerBar.style.display = 'none';
+  document.getElementById('playBtn').textContent = '▶';
+  currentTrack = -1;
+}
+</script>
+</body>
+</html>
