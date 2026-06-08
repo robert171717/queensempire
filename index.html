@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free 7-Day Starter Protocol | Queen's Empire</title>
+<meta name="description" content="Start your journey with structure and intention. Get the Queen's Empire 7-Day Starter Protocol — a free introduction to ritual, service, and power exchange.">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #D4AF37;
+    --gold-pale: #e8d5a0;
+    --bg-deep: #09090b;
+    --bg-card: #0f0f13;
+    --bg-card-hover: #141419;
+    --border: #1f1f26;
+    --border-gold: rgba(201, 168, 76, 0.25);
+    --text: #e4e4e7;
+    --text-muted: #a1a1aa;
+    --text-dim: #71717a;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .serif {
+    font-family: Georgia, 'Times New Roman', serif;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── GOLD DIVIDER ── */
+  .gold-divider {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-crown {
+    font-size: 48px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    color: var(--gold-light);
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero-sub {
+    font-size: clamp(16px, 2.5vw, 19px);
+    color: var(--text-muted);
+    max-width: 520px;
+    margin: 0 auto 32px;
+    position: relative;
+  }
+  .btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), #b8960f);
+    color: #0a0a0c;
+    padding: 14px 36px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: all 0.25s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.2);
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+  }
+  .btn-outline:hover {
+    background: rgba(201,168,76,0.08);
+    color: var(--gold-light);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+  section + section { padding-top: 0; }
+
+  .section-label {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 11px;
+    color: var(--gold);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .section-title {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    font-size: 15px;
+  }
+
+  /* ── WHAT YOU RECEIVE ── */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .day-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+  .day-card:hover {
+    border-color: var(--border-gold);
+  }
+  .day-num {
+    font-size: 28px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .day-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .day-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* ── FEATURES ── */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .feature {
+    text-align: center;
+    padding: 20px;
+  }
+  .feature-icon { font-size: 28px; margin-bottom: 8px; }
+  .feature-label { font-size: 13px; color: var(--text-muted); }
+
+  /* ── EMAIL CAPTURE ── */
+  .capture-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    border-radius: 12px;
+    padding: 48px 32px;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .capture-box h3 {
+    color: var(--gold-light);
+    margin-bottom: 8px;
+  }
+  .capture-box p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .form-group input {
+    padding: 12px 16px;
+    background: var(--bg-deep);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 14px;
+    transition: border-color 0.3s;
+  }
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  .form-note {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 12px;
+  }
+
+  /* ── UPSELL ── */
+  .upsell-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .upsell-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 24px;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .upsell-card:hover {
+    border-color: var(--border-gold);
+    transform: translateY(-2px);
+  }
+  .upsell-card h4 {
+    color: var(--gold-light);
+    margin-bottom: 4px;
+  }
+  .upsell-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 8px 0;
+  }
+  .upsell-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 48px 24px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+  footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  footer a:hover { color: var(--gold-light); }
+  footer .brand { color: var(--gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .hero { padding: 48px 20px 40px; }
+    .capture-box { padding: 32px 20px; }
+    .days-grid { grid-template-columns: 1fr 1fr; }
+    .days-grid .day-card:last-child { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-crown">👑</div>
+  <h1 class="serif">Start Your Journey<br>with Structure &amp; Intention</h1>
+  <p class="hero-sub">Get the Queen's Empire 7-Day Starter Protocol — a free, guided introduction to ritual, service, and power exchange. No experience needed.</p>
+  <a href="#get-it" class="btn">Get the Free Protocol</a>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ── WHAT YOU RECEIVE ── -->
+<section>
+  <div class="section-label">Your First Week</div>
+  <h2 class="section-title serif">What You'll Receive</h2>
+  <p class="section-sub">Seven days of guided rituals. Open in any browser. Works offline. Completely free.</p>
+
+  <div class="days-grid">
+    <div class="day-card">
+      <div class="day-num serif">1</div>
+      <div class="day-label">Day One</div>
+      <div class="day-title">Foundation</div>
+    </div>
+    <div class="day-card">
+      <div class="day-num serif">2</div>
+      <div class="day-label">Day Two</div>
+      <div class="day-title">Ritual</div>
+    </div>
+    <div class="day-card">
+      <div class="day-num serif">3</div>
+      <div class="day-label">Day Three</div>
+      <div class="day-title">Service</div>
+    </div>
+    <div class="day-card">
+      <div class="day-num serif">4</div>
+      <div class="day-label">Day Four</div>
+      <div class="day-title">Discipline</div>
+    </div>
+    <div class="day-card">
+      <div class="day-num serif">5</div>
+      <div class="day-label">Day Five</div>
+      <div class="day-title">Worship</div>
+    </div>
+    <div class="day-card">
+      <div class="day-num serif">6</div>
+      <div class="day-label">Day Six</div>
+      <div class="day-title">Power</div>
+    </div>
+    <div class="day-card">
+      <div class="day-num serif">7</div>
+      <div class="day-label">Day Seven</div>
+      <div class="day-title">Reflection</div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-label">Instant download</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <div class="feature-label">Works offline</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📱</div>
+      <div class="feature-label">Any device</div>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🎨</div>
+      <div class="feature-label">Premium design</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EMAIL CAPTURE ── -->
+<section id="get-it">
+  <div class="capture-box">
+    <h3 class="serif">Get Instant Access</h3>
+    <p>Enter your email and receive the protocol immediately. Plus, early access to new tools and subscriber-only content.</p>
+    <form action="https://formspree.io/f/CHANGE_ME" method="POST">
+      <div class="form-group">
+        <input type="text" name="name" placeholder="Your name (optional)" autocomplete="name">
+        <input type="email" name="email" placeholder="Your email address" required autocomplete="email">
+        <button type="submit" class="btn">Download Free Protocol</button>
+      </div>
+    </form>
+    <p class="form-note">No spam. Unsubscribe anytime. For consenting adults 18+ only.</p>
+  </div>
+</section>
+
+<div class="gold-divider" style="margin-top:32px;"></div>
+
+<!-- ── UPSELL ── -->
+<section>
+  <div class="section-label">Go Deeper</div>
+  <h2 class="section-title serif">The Full Experience Awaits</h2>
+  <p class="section-sub">Loved the 7 days? These premium tools are built for the next level.</p>
+
+  <div class="upsell-grid">
+    <div class="upsell-card">
+      <h4 class="serif">30-Day Denial Calendar</h4>
+      <div class="upsell-price">$24.99</div>
+      <p class="upsell-desc">Interactive HTML tracker with daily Queen's verdicts, streak tracking, and live stats dashboard.</p>
+      <a href="https://queensempireco.etsy.com" class="btn-outline" style="font-size:13px;padding:10px 20px;">View on Etsy</a>
+    </div>
+    <div class="upsell-card">
+      <h4 class="serif">30-Day Rituals of Service</h4>
+      <div class="upsell-price">$24.99</div>
+      <p class="upsell-desc">30 daily rituals across Worship, Service, Discipline, Gratitude, and Obedience.</p>
+      <a href="https://queensempireco.etsy.com" class="btn-outline" style="font-size:13px;padding:10px 20px;">View on Etsy</a>
+    </div>
+    <div class="upsell-card">
+      <h4 class="serif">Denial Collection Bundle</h4>
+      <div class="upsell-price">$29.99</div>
+      <p class="upsell-desc">Denial Calendar + Chastity Commands note cards. Complete protocol system.</p>
+      <a href="https://queensempireco.etsy.com" class="btn-outline" style="font-size:13px;padding:10px 20px;">View on Etsy</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p class="brand serif">Queen's Empire</p>
+  <p style="margin:4px 0;">Premium Tools for Power Exchange</p>
+  <p style="margin-top:12px;">
+    <a href="https://queensempireco.etsy.com">Etsy Shop</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/robert171717/queensempire">Download</a>
+  </p>
+  <p style="margin-top:16px;font-size:12px;">For consenting adults 18+ only. All content is fantasy/roleplay for safe, sane, and consensual adult dynamics.</p>
+</footer>
+
+</body>
+</html>
