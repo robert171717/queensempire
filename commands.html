@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • Personalized Commands</title>
+<style>
+:root{--gold:#C9A84C;--gold-light:#e8cc6e;--bg:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76;--gentle:#a0c4a0;--devoted:#c9a050;--owned:#c06060;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:Georgia,'Times New Roman',serif;min-height:100vh;line-height:1.7;}
+.container{max-width:800px;margin:0 auto;padding:40px 24px 80px;}
+
+.setup{text-align:center;margin-bottom:30px;border:2px solid var(--gold);background:linear-gradient(180deg,#0a0a0a,#0d0d0d);padding:44px 24px;position:relative;}
+.setup::before{content:'';position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:0.5px solid rgba(201,168,76,0.2);pointer-events:none;}
+.setup h1{font-size:2rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;position:relative;z-index:1;}
+.setup p{color:var(--text-muted);font-size:0.85rem;margin-bottom:16px;font-style:italic;position:relative;z-index:1;}
+.setup input{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:12px 20px;font-size:1.1rem;text-align:center;width:260px;font-family:Georgia,serif;position:relative;z-index:1;}
+.setup input:focus{outline:none;border-color:var(--gold-light);}
+.setup .hint{font-size:0.6rem;color:var(--text-dim);margin-top:4px;position:relative;z-index:1;}
+.setup button{background:linear-gradient(135deg,var(--gold),#b39028);border:none;color:#08080b;padding:12px 32px;font-size:0.85rem;font-weight:bold;cursor:pointer;margin-top:12px;font-family:Georgia,serif;letter-spacing:2px;text-transform:uppercase;position:relative;z-index:1;}
+
+.intensity-selector{display:flex;gap:8px;justify-content:center;margin-bottom:20px;display:none;}
+.intensity-selector.show{display:flex;}
+.intensity-btn{flex:1;max-width:180px;padding:10px 8px;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text-muted);border-radius:12px;cursor:pointer;text-align:center;transition:all 0.2s;font-family:Georgia,serif;}
+.intensity-btn .i-name{font-size:0.85rem;font-weight:700;letter-spacing:1px;display:block;}
+.intensity-btn .i-desc{font-size:0.5rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;display:block;}
+.intensity-btn.active.gentle{border-color:var(--gentle);color:var(--gentle);background:#0a0f0a;}
+.intensity-btn.active.devoted{border-color:var(--devoted);color:var(--devoted);background:#0f0d07;}
+.intensity-btn.active.owned{border-color:var(--owned);color:var(--owned);background:#0f0707;}
+
+.command-card{background:var(--bg-card);border:1px solid var(--border);padding:22px 24px;margin-bottom:10px;transition:border-color 0.2s;}
+.command-card:hover{border-color:rgba(201,168,76,0.3);}
+.command-card .tag{font-size:0.55rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;display:inline-block;padding:3px 10px;border:1px solid rgba(201,168,76,0.2);border-radius:12px;}
+.command-card .cmd{font-size:1.1rem;color:var(--gold-light);font-style:italic;line-height:1.5;}
+.command-card .cmd .name-insert{color:var(--gold);text-decoration:underline;text-decoration-color:rgba(201,168,76,0.3);text-underline-offset:4px;}
+
+.consent-block{border:1.5px solid var(--gold);padding:20px;margin-top:32px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);position:relative;}
+.consent-block::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+.consent-title{font-size:14px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:8px;position:relative;z-index:1;}
+.consent-text{font-size:10px;color:#b8943a;line-height:1.6;position:relative;z-index:1;}
+
+@media(max-width:600px){.setup h1{font-size:1.4rem;}.setup input{width:200px;}.intensity-btn{max-width:110px;}.intensity-btn .i-name{font-size:0.7rem;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="setup" id="setupArea">
+  <h1>Personalized Commands</h1>
+  <p>Type a name. Queen Elyria will speak directly to them.</p>
+  <input type="text" id="nameInput" placeholder="Enter a name..." maxlength="20" autofocus>
+  <div class="hint">Pet name, scene name, or real name — your choice</div>
+  <button onclick="generate()">Generate Commands</button>
+</div>
+
+<div class="intensity-selector" id="intensityBar">
+  <button class="intensity-btn gentle active" onclick="setIntensity('gentle')"><span class="i-name">Gentle</span><span class="i-desc">Guiding</span></button>
+  <button class="intensity-btn devoted" onclick="setIntensity('devoted')"><span class="i-name">Devoted</span><span class="i-desc">Commanding</span></button>
+  <button class="intensity-btn owned" onclick="setIntensity('owned')"><span class="i-name">Owned</span><span class="i-desc">Absolute</span></button>
+</div>
+
+<div id="commandsOutput"></div>
+
+<div class="consent-block">
+  <div class="consent-title">Consent &amp; Safety Notice</div>
+  <div class="consent-text">Fantasy roleplay for consenting adults. SSC/RACK. Safe words: RED = Stop. YELLOW = Check-in. Commands adapt to the name entered — personalize responsibly.</div>
+</div>
+</div>
+
+<script>
+let personName = '';
+let intensity = 'gentle';
+
+const COMMANDS = {
+  gentle: [
+    {tag:"PRESENCE",cmd:"___, kneel before me. Not because you must — because you choose to."},
+    {tag:"DEVOTION",cmd:"___, look at me. I want to see those eyes when I speak to you."},
+    {tag:"GROUNDING",cmd:"___, breathe. Slowly. Feel your body settle. You're safe here."},
+    {tag:"AFFIRMATION",cmd:"___, you are doing so well. I see your effort. I honor it."},
+    {tag:"GUIDANCE",cmd:"___, I want you to close your eyes and listen to my voice. Only my voice."},
+    {tag:"SERVICE",cmd:"___, bring me your hands. I want to hold them while I tell you what you mean to me."},
+    {tag:"TRUST",cmd:"___, you can let go here. Whatever you're carrying — set it down. I'll watch over you."},
+    {tag:"BELONGING",cmd:"___, you belong here. At my feet. In my presence. You are not lost — you are home."},
+    {tag:"PRAISE",cmd:"___, I'm proud of you. Do you know that? I'm proud of the person kneeling before me."},
+    {tag:"INTIMACY",cmd:"___, come closer. I want to whisper something only you can hear: you are enough."},
+    {tag:"RITUAL",cmd:"___, each morning I want you to kneel and think of me. That small act connects us across any distance."},
+    {tag:"RELEASE",cmd:"___, you may rest your head in my lap now. You've done enough. Just be here with me."},
+    {tag:"GROWTH",cmd:"___, I see who you're becoming. Stronger. More present. More mine. Keep going."},
+    {tag:"DEVOTION",cmd:"___, say my name. I want to hear it in your voice."},
+    {tag:"COMFORT",cmd:"___, whatever happened today — it's behind you now. You're here. You're mine. That's all that matters."},
+  ],
+  devoted: [
+    {tag:"OBEDIENCE",cmd:"___, knees. Now. I didn't tell you to think about it — I told you to kneel."},
+    {tag:"PRESENCE",cmd:"___, eyes on me. Not the floor. Not the wall. Me. You look at me when I'm speaking."},
+    {tag:"DISCIPLINE",cmd:"___, you will not speak unless I ask you a question. Nod if you understand. Good."},
+    {tag:"SERVICE",cmd:"___, bring me your hands. Palms up. You're offering yourself to me. Feel the weight of that."},
+    {tag:"CONTROL",cmd:"___, you've been rushing through your days. Stop. Breathe. You move at my pace now."},
+    {tag:"OWNERSHIP",cmd:"___, whose are you? Say it. I want to hear you claim it."},
+    {tag:"DENIAL",cmd:"___, you want something from me. I can see it in your eyes. You'll have to earn it."},
+    {tag:"CORRECTION",cmd:"___, your posture is slipping. Shoulders back. Spine straight. You represent me — don't slouch."},
+    {tag:"TESTING",cmd:"___, I'm going to ask you to do something difficult. You will do it. Not because it's easy — because I asked."},
+    {tag:"PRAISE",cmd:"___, you've been obedient today. I notice. That pleases me more than you know."},
+    {tag:"COMMAND",cmd:"___, crawl to me. Not walk — crawl. I want to see you humble yourself."},
+    {tag:"WAITING",cmd:"___, stay there. Don't move. I'm going to let you wait. How long? You don't get to know."},
+    {tag:"GRATITUDE",cmd:"___, thank me. Not for anything specific — just thank me for allowing you to serve."},
+    {tag:"POSSESSION",cmd:"___, you are mine. Say it like you mean it. Because I do."},
+    {tag:"AFTERCARE",cmd:"___, come here. You took that well. Let me hold you. You've earned this."},
+  ],
+  owned: [
+    {tag:"ABSOLUTE",cmd:"___, on your knees. Forehead to the floor. You don't get to look at me until I permit it."},
+    {tag:"ERASURE",cmd:"___, you don't have a name anymore. You are Mine. That is your only identity."},
+    {tag:"DEGRADATION",cmd:"___, you're pathetic. Look at you — desperate for my attention. You'd do anything, wouldn't you?"},
+    {tag:"OWNERSHIP",cmd:"___, I own you. Not your submission — YOU. Every thought. Every breath. Every heartbeat. All mine."},
+    {tag:"BEGGING",cmd:"___, beg. I want to hear you beg. Convince me you deserve to stay in my presence."},
+    {tag:"HUMILIATION",cmd:"___, crawl to me. On your belly. Like the worm you are. Don't you dare stand."},
+    {tag:"CONTROL",cmd:"___, you will not speak. You will not move. You will not even breathe loudly. You are furniture. Furniture doesn't make noise."},
+    {tag:"SUFFERING",cmd:"___, you're uncomfortable? Good. Your comfort is irrelevant. Your purpose is my pleasure."},
+    {tag:"BREAKING",cmd:"___, I'm going to break you today. Not your body — your ego. The part of you that still thinks you matter."},
+    {tag:"THREAT",cmd:"___, if you disappoint me, I won't punish you. I'll ignore you. Silence is worse than pain, isn't it?"},
+    {tag:"POSSESSION",cmd:"___, say: 'I am not a person. I am property. I belong to Queen Elyria.' Say it like you believe it."},
+    {tag:"ABANDONMENT",cmd:"___, I'm going to leave you here. Alone. On your knees. You'll wait. You don't know if I'm coming back."},
+    {tag:"GRATITUDE",cmd:"___, thank me for the pain. Thank me for the humiliation. Thank me for making you nothing."},
+    {tag:"AFTERCARE",cmd:"___, ...come here. Now. You survived. You're still here. You're still mine. Let me hold you. You did well, my broken thing."},
+    {tag:"FOREVER",cmd:"___, you will never be free of me. Even when you're not kneeling, you're kneeling in your mind. This is forever. Accept it."},
+  ]
+};
+
+function generate(){
+  personName = document.getElementById('nameInput').value.trim();
+  if(!personName){ document.getElementById('nameInput').focus(); return; }
+  document.getElementById('intensityBar').classList.add('show');
+  document.getElementById('setupArea').style.display = 'none';
+  render();
+}
+
+function setIntensity(i){
+  intensity = i;
+  document.querySelectorAll('.intensity-btn').forEach(b => {
+    b.classList.remove('active');
+    if(b.classList.contains(i)) b.classList.add('active');
+  });
+  render();
+}
+
+function render(){
+  document.getElementById('commandsOutput').innerHTML = COMMANDS[intensity].map(c => `
+    <div class="command-card">
+      <div class="tag">${c.tag}</div>
+      <div class="cmd">${c.cmd.replace(/___/g,`<span class="name-insert">${personName}</span>`)}</div>
+    </div>
+  `).join('');
+}
+</script>
+</body>
+</html>

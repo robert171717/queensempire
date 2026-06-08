@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • Rituals of Service</title>
+<style>
+:root{--gold:#C9A84C;--gold-light:#e8cc6e;--bg:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76;--gentle:#a0c4a0;--devoted:#c9a050;--owned:#c06060;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;}
+.serif{font-family:Georgia,'Times New Roman',serif;}
+
+.topbar{border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;background:var(--bg);}
+.topbar-inner{max-width:800px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:10px;}
+.crown-icon{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#b8960f);display:flex;align-items:center;justify-content:center;font-size:17px;color:#09090b;}
+.brand-name{font-size:1.2rem;font-weight:800;}
+
+.main{max-width:800px;margin:0 auto;padding:24px 24px 80px;}
+.hero{text-align:center;margin-bottom:18px;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;font-size:0.6rem;letter-spacing:2px;margin-bottom:10px;color:var(--gold);text-transform:uppercase;}
+.hero h1{font-size:2rem;font-weight:800;color:var(--gold);}
+.hero .subtitle{font-size:0.85rem;color:var(--text-muted);margin-top:4px;}
+
+.intensity-selector{display:flex;gap:8px;justify-content:center;margin-bottom:16px;}
+.intensity-btn{flex:1;max-width:180px;padding:10px 8px;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text-muted);border-radius:12px;cursor:pointer;text-align:center;transition:all 0.2s;font-family:Georgia,serif;}
+.intensity-btn .i-name{font-size:0.85rem;font-weight:700;letter-spacing:1px;display:block;}
+.intensity-btn .i-desc{font-size:0.5rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;display:block;}
+.intensity-btn.active.gentle{border-color:var(--gentle);color:var(--gentle);background:#0a0f0a;}
+.intensity-btn.active.devoted{border-color:var(--devoted);color:var(--devoted);background:#0f0d07;}
+.intensity-btn.active.owned{border-color:var(--owned);color:var(--owned);background:#0f0707;}
+
+.progress-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;}
+.progress-fill{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.progress-fill.gentle div{background:var(--gentle);}
+.progress-fill.devoted div{background:var(--devoted);}
+.progress-fill.owned div{background:var(--owned);}
+.progress-fill div{height:100%;border-radius:3px;transition:width 0.3s;}
+.progress-text{font-size:0.7rem;color:var(--text-dim);white-space:nowrap;}
+
+.day-list{display:flex;flex-direction:column;gap:5px;}
+.day-item{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:12px;}
+.day-item:hover{border-color:rgba(201,168,76,0.3);}
+.day-item.completed{opacity:0.45;}
+.day-item.completed .day-check{background:var(--gold);border-color:var(--gold);color:#09090b;}
+.day-item.expanded{border-color:var(--gold);background:#1a1a15;}
+.day-num{width:32px;height:32px;border-radius:50%;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.7rem;flex-shrink:0;color:var(--text-dim);}
+.day-item.expanded .day-num{border-color:var(--gold);color:var(--gold);}
+.day-info{flex:1;min-width:0;}
+.day-info .day-title{font-weight:700;font-size:0.8rem;}
+.day-info .day-cat{font-size:0.55rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;color:var(--text-dim);}
+.day-info .day-text{font-size:0.72rem;color:var(--text-muted);margin-top:8px;line-height:1.55;display:none;font-family:Georgia,serif;font-style:italic;}
+.day-item.expanded .day-text{display:block;}
+.day-check{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.6rem;flex-shrink:0;cursor:pointer;color:transparent;transition:all 0.2s;}
+
+.consent-block{border:1.5px solid var(--gold);padding:20px;margin-top:24px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);position:relative;}
+.consent-block::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+.consent-title{font-size:14px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:8px;position:relative;z-index:1;}
+.consent-text{font-size:10px;color:#b8943a;line-height:1.6;position:relative;z-index:1;}
+
+@media(max-width:600px){.hero h1{font-size:1.5rem;}.intensity-btn{max-width:110px;}.intensity-btn .i-name{font-size:0.7rem;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><div class="crown-icon">♛</div><div class="brand-name serif">Queen's Empire</div></div>
+    <div style="font-size:0.6rem;color:var(--text-dim);">RITUALS OF SERVICE</div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="hero">
+    <div class="hero-badge">✦ 30 DAYS &bull; THREE DEPTHS</div>
+    <h1 class="serif">Rituals of Service</h1>
+    <p class="subtitle">Daily practices of devotion. Your service deepens with every ritual.</p>
+  </div>
+
+  <div class="intensity-selector">
+    <button class="intensity-btn gentle active" onclick="setIntensity('gentle')"><span class="i-name">Gentle</span><span class="i-desc">Devotional</span></button>
+    <button class="intensity-btn devoted" onclick="setIntensity('devoted')"><span class="i-name">Devoted</span><span class="i-desc">Service</span></button>
+    <button class="intensity-btn owned" onclick="setIntensity('owned')"><span class="i-name">Owned</span><span class="i-desc">Groveling</span></button>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-fill gentle" id="progressFill"><div id="progressBar" style="width:0%"></div></div>
+    <div class="progress-text" id="progressLabel">0 / 30 days</div>
+  </div>
+
+  <div class="day-list" id="ritualList"></div>
+
+  <div class="consent-block">
+    <div class="consent-title">Consent &amp; Safety Notice</div>
+    <div class="consent-text">Fantasy roleplay for consenting adults. SSC/RACK. Safe words: RED = Stop. YELLOW = Check-in. Owned tier includes degrading service rituals — negotiate beforehand.</div>
+  </div>
+</div>
+
+<script>
+const STORAGE = 'qe_rituals_v2';
+
+const RITUALS = {
+  gentle: [
+    {cat:"DEVOTION",title:"Morning Gratitude",text:"Upon waking, before you check your phone, kneel beside your bed for two minutes. List three things you're grateful for. One must be related to your dynamic."},
+    {cat:"SERVICE",title:"The Cup",text:"Prepare a beverage for someone today — coffee, tea, water. Present it with both hands. Say: 'I made this for you.' Expect nothing in return."},
+    {cat:"DISCIPLINE",title:"Posture Check",text:"Three times today, pause and correct your posture. Shoulders back. Spine straight. You carry yourself well because you represent your Queen."},
+    {cat:"WORSHIP",title:"The Candle",text:"Light a candle tonight. Sit before it for five minutes. Visualize your devotion as the flame — steady, warm, alive. When you extinguish it, carry that warmth with you."},
+    {cat:"GRATITUDE",title:"Thank You Note",text:"Write a short note of gratitude to someone in your life. Not about your dynamic — about them. Deliver it or keep it. The act of gratitude is the ritual."},
+    {cat:"OBEDIENCE",title:"One Task",text:"Choose one task you've been avoiding. Complete it today. When it's done, kneel and say: 'This task was completed in your honor.'"},
+    {cat:"SERVICE",title:"Quiet Service",text:"Do something kind for someone without telling them it was you. Leave no trace. The service is between you and your Queen."},
+    {cat:"DEVOTION",title:"The Mirror Vow",text:"Stand before a mirror. Place your hand over your heart. Say: 'I serve with intention. I submit with grace. I am devoted to the path.'"},
+    {cat:"DISCIPLINE",title:"Digital Fast",text:"Put your phone in another room for two hours. In the silence, notice what arises. Boredom. Anxiety. Peace. All of it is information."},
+    {cat:"OBEDIENCE",title:"Early to Bed",text:"Go to bed 30 minutes early tonight. No screens. Lie in the dark and breathe. Your body is equipment — maintain it."},
+    {cat:"WORSHIP",title:"Body Gratitude",text:"Stand naked. Starting at your feet, touch each part of your body and thank it for something. 'Thank you, feet, for carrying me. Thank you, hands, for serving.'"},
+    {cat:"SERVICE",title:"The Offering",text:"Leave a small gift somewhere it will be found — a flower, a note, a clean surface. No explanation. Just presence."},
+    {cat:"DEVOTION",title:"Reading",text:"Read something that challenges you today. A poem. A passage. Something that makes you think differently about service or surrender."},
+    {cat:"GRATITUDE",title:"Two Weeks",text:"Reflect on two weeks of rituals. What has changed? Write three observations about your mindset, your behavior, your heart."},
+    {cat:"DISCIPLINE",title:"The Floor",text:"Sit on the floor for one hour today. No furniture. No cushion. Humility is practiced in the body before it reaches the soul."},
+    {cat:"OBEDIENCE",title:"Immediate Response",text:"Today, when someone asks something of you, respond immediately. No procrastination. No negotiation. Just action."},
+    {cat:"SERVICE",title:"Anticipate",text:"Anticipate a need before it's spoken. Fill a water glass. Open a door. Prepare something. Service is not reactive — it's predictive."},
+    {cat:"WORSHIP",title:"The Name",text:"Write her name in beautiful script. Frame it or place it somewhere you'll see it daily. Let it remind you who you serve."},
+    {cat:"DEVOTION",title:"Stillness",text:"Sit in complete stillness for ten minutes. No movement. No adjustment. When your body protests, observe the protest. Don't act on it."},
+    {cat:"GRATITUDE",title:"Three Weeks",text:"Three weeks of ritual. Write a letter to yourself at Day 1. What would you tell that person about what's ahead?"},
+    {cat:"DISCIPLINE",title:"Cold Water",text:"End your shower with 30 seconds of cold water. Feel your body resist. Breathe through it. Discipline is learned in small discomforts."},
+    {cat:"SERVICE",title:"The Meal",text:"Prepare a meal for someone with full attention. No distractions. Every chop, every stir — an act of service. Present it beautifully."},
+    {cat:"OBEDIENCE",title:"No Complaints",text:"Today, you will not complain. Not aloud. Not internally. When complaint arises, replace it with: 'This too is service.'"},
+    {cat:"DEVOTION",title:"The Walk",text:"Take a walk alone. No music. No podcast. Just footsteps. With each step, think: 'Closer. Closer. Closer to who I'm becoming.'"},
+    {cat:"WORSHIP",title:"The Altar",text:"If you haven't already, create a small altar — a candle, her name, an object that represents your service. Kneel before it tonight."},
+    {cat:"GRATITUDE",title:"Someone Else",text:"Tell someone you appreciate them. Be specific. Not 'you're great' — 'I appreciate how you listen when I need to talk.'"},
+    {cat:"DISCIPLINE",title:"The Fast",text:"Skip one meal today. Not for punishment — for awareness. Notice how often you eat from habit, not hunger."},
+    {cat:"SERVICE",title:"Anonymous Gift",text:"Give something anonymously. Money, a gift, a kind act. The recipient will never know it was you. You will know. That's enough."},
+    {cat:"DEVOTION",title:"The Threshold",text:"Tomorrow is Day 30. Tonight, kneel and reflect: Are you more devoted than you were 29 days ago? Write your honest answer."},
+    {cat:"COMPLETION",title:"The Completion",text:"Thirty days. Kneel. Thank yourself for showing up. Thank her for guiding you. This is not the end of ritual — it's the beginning of a ritualized life."},
+  ],
+  devoted: [
+    {cat:"DEVOTION",title:"Morning Kneel","text":"Wake 15 minutes early. Kneel on the floor — no cushion. Recite: 'I offer this day to you. My actions. My thoughts. My body. Use them.' Stay kneeling until the 15 minutes are complete."},
+    {cat:"SERVICE",title:"The Presentation","text":"Prepare and present a beverage to your Queen or partner. On a tray if possible. Kneel when presenting it. Wait for acknowledgment before rising."},
+    {cat:"DISCIPLINE",title:"Posture Drills","text":"Stand against a wall — heels, shoulders, head touching. Hold for 5 minutes. Do this 3 times today. Your posture is a discipline."},
+    {cat:"WORSHIP",title:"Candle Vigil","text":"Light a candle. Kneel before it for 15 minutes. During this time, list every reason you are grateful to serve. Out loud. Don't stop until the candle burns to a mark you set."},
+    {cat:"GRATITUDE",title:"Written Offering","text":"Write a full page about what your Queen or dynamic has given you. Be specific — not generic praise. Read it aloud. Keep it."},
+    {cat:"OBEDIENCE",title:"Hardest Task","text":"Identify the task you most dread. Complete it today. Before starting, kneel and say: 'I do this not because I want to, but because discipline requires it.'"},
+    {cat:"SERVICE",title:"Invisible Service","text":"Three acts of service today. No one may know you did them. No acknowledgment. No thanks. Service without recognition is the purest form."},
+    {cat:"DEVOTION",title:"The Vow Renewal","text":"Write a new vow of service. Read it before the mirror. Sign it. This replaces any previous vow. Your commitment deepens."},
+    {cat:"DISCIPLINE",title:"No Comfort","text":"No couch. No recliner. No bed until sleep time. You sit on the floor or a hard chair. Comfort is earned, not assumed."},
+    {cat:"OBEDIENCE",title:"Permission Protocol","text":"Ask permission before five actions today. 'May I eat? May I sit? May I speak?' If denied, accept without argument."},
+    {cat:"WORSHIP",title:"Body Dedication","text":"Stand naked. Starting at your feet, dedicate each body part to her service. 'These feet carry me to your service. These hands work your will.' Complete the entire body."},
+    {cat:"SERVICE",title:"The Deep Clean","text":"Clean something thoroughly today — not tidying, deep cleaning. On your knees for part of it. Every scrub is an act of devotion."},
+    {cat:"DEVOTION",title:"Study","text":"Spend 30 minutes studying something about power exchange, BDSM safety, or relationship dynamics. Your submission is a practice — practice requires study."},
+    {cat:"GRATITUDE",title:"Two Week Assessment","text":"Write a report on your first two weeks of rituals. What has been hardest? What has changed you? Be critical. Be honest. Submit this report to yourself as if to her."},
+    {cat:"DISCIPLINE",title:"Extended Floor Sit","text":"Sit on the floor for two hours today. While eating. While reading. While thinking. Humility is trained in the body."},
+    {cat:"OBEDIENCE",title:"Zero Hesitation","text":"Today, every request made of you will be fulfilled within 60 seconds. No delay. No excuse. Immediate obedience."},
+    {cat:"SERVICE",title:"Predictive Service","text":"Anticipate three needs today before they're spoken. Act on them. When thanked, respond: 'Serving is my purpose.'"},
+    {cat:"WORSHIP",title:"The Shrine","text":"Build a more formal shrine — her name, your vows, objects representing your service. Kneel before it morning and night. This is your sacred space."},
+    {cat:"DEVOTION",title:"Extended Stillness","text":"Kneel in complete stillness for 20 minutes. When discomfort rises, do not shift. When your mind wanders, return to: 'I am hers.'"},
+    {cat:"GRATITUDE",title:"Three Week Confession","text":"Write a confession of gratitude: what has this practice taken from you, and what has it given? Which list is longer? Read it aloud."},
+    {cat:"DISCIPLINE",title:"Cold Exposure","text":"Cold shower — full 3 minutes. Breathe through it. Your body will scream. Let it. This is how discipline is forged."},
+    {cat:"SERVICE",title:"Feast Preparation","text":"Prepare a full meal from scratch. Every ingredient handled with intention. Present it formally. You do not eat until the person you serve has taken their first bite."},
+    {cat:"OBEDIENCE",title:"Silent Day","text":"Speak only when directly asked a question. Your answers are five words or fewer. Silence is your natural state. Fill it with awareness."},
+    {cat:"DEVOTION",title:"Night Walk","text":"Walk alone at night. In silence. Feel the darkness. Feel your smallness. Feel your devotion as the only light."},
+    {cat:"WORSHIP",title:"The Full Ritual","text":"Full worship ritual: light candle, kneel at altar, recite all vows, dedicate your body, offer gratitude, sit in silence. Minimum 30 minutes."},
+    {cat:"GRATITUDE",title:"The Letter","text":"Write a letter to someone who has shaped you. Not about your dynamic — about your life. Mail it or deliver it."},
+    {cat:"DISCIPLINE",title:"Full Day Fast","text":"Fast from food for 24 hours. Water only. This is not punishment — it's clarity. Notice how your relationship to consumption changes."},
+    {cat:"SERVICE",title:"Unsolicited Gift","text":"Give something valuable to someone without reason. Not a holiday. Not an occasion. Pure generosity. Expect nothing."},
+    {cat:"DEVOTION",title:"The Vigil","text":"Tonight, stay awake one extra hour. Kneel. In the silence, ask yourself: 'Am I truly devoted, or am I performing devotion?' Answer honestly."},
+    {cat:"COMPLETION",title:"The Graduation","text":"Thirty days. Kneel at your shrine. Read every vow, every entry, every confession. You are not who you were. Say: 'I am a servant. Service is my identity.'"},
+  ],
+  owned: [
+    {cat:"DEVOTION",title:"Prostration","text":"Wake 30 minutes early. Strip. Prostrate yourself — forehead to floor, arms extended. Recite your surrender. Stay for 30 minutes. Your comfort is irrelevant."},
+    {cat:"SERVICE",title:"Foot Service","text":"Kneel. Remove your Queen's shoes and socks. Wash her feet. Dry them. Kiss each foot. Thank her for allowing you to touch her."},
+    {cat:"DISCIPLINE",title:"Wall Punishment","text":"Stand against a wall, arms extended, for 15 minutes. Do not lean. Do not drop your arms. When they burn, say: 'This pain is my offering.'"},
+    {cat:"WORSHIP",title:"The Gratefulness","text":"Kneel on rice or a hard surface for 15 minutes. List every reason you are grateful to suffer for her. Out loud. If you run out, start over."},
+    {cat:"GRATITUDE",title:"Humiliation Inventory","text":"Write everything humiliating about your devotion. The begging. The desperation. The need. Read it aloud. Then say: 'This is who I am. I accept it.'"},
+    {cat:"OBEDIENCE",title:"The Most Hated Task","text":"Identify what you hate doing most. Do it on your knees. Thank her for the opportunity to suffer in service. Mean it."},
+    {cat:"SERVICE",title:"Groveling","text":"Three acts of service today — all performed on your knees. Crawling between tasks. You are not above anything. You are below everything."},
+    {cat:"DEVOTION",title:"Blood Vow","text":"Write a vow in your own hand. Prick your finger. Press a drop of blood beside your signature. This is not symbolic. This is binding."},
+    {cat:"DISCIPLINE",title:"No Furniture","text":"You do not use furniture today. Floor only. Eat on the floor. Sit on the floor. Your place is at the bottom. Embrace it."},
+    {cat:"OBEDIENCE",title:"Total Permission","text":"Ask permission for EVERYTHING today. Standing. Sitting. Eating. Speaking. Toileting. You have no autonomy. You are a puppet."},
+    {cat:"WORSHIP",title:"Body as Property","text":"Stand naked. Examine your body as livestock. Pinch. Prod. Assess aloud: 'This flesh is property. It exists to serve. It has no other purpose.'"},
+    {cat:"SERVICE",title:"Cleaning on Knees","text":"Clean a floor on your hands and knees. Not with a mop — with a cloth. Every inch. When your knees ache, thank her for the privilege of cleaning her space."},
+    {cat:"DEVOTION",title:"Study of Worthlessness","text":"Write 500 words on why you are worthless without her ownership. Read it aloud. Do not cry. If you cry, start over."},
+    {cat:"GRATITUDE",title:"Degradation Gratitude","text":"Write: 'I am grateful to be degraded. To be used. To be nothing. Because being nothing for her is more meaningful than being something for anyone else.'"},
+    {cat:"DISCIPLINE",title:"Cage Time","text":"Create an enclosure — a closet, a corner. Enter it. Stay for one hour. No light. No sound. You are in storage because that is where property belongs."},
+    {cat:"OBEDIENCE",title:"Immediate Punishment","text":"Today, every time you hesitate before obeying, you will punish yourself. Five strikes to the thigh. Count each. Thank her for each."},
+    {cat:"SERVICE",title:"Worm Service","text":"Today you serve on your belly. Crawl. Not on hands and knees — on your stomach. You are a worm. Worms serve because they have no choice."},
+    {cat:"WORSHIP",title:"The Dark Shrine","text":"Build a shrine in a dark space — a closet, a corner. Kneel in darkness. Recite your vows in a whisper. The darkness is her presence."},
+    {cat:"DEVOTION",title:"Extended Prostration","text":"Prostrate for 30 minutes. Arms extended. Forehead to floor. When your body begs to move — stay. This is where devotion becomes identity."},
+    {cat:"GRATITUDE",title:"Broken Gratitude","text":"Write everything this practice has broken in you. Your ego. Your pride. Your resistance. Then write: 'Thank you for breaking me. I needed to be broken.'"},
+    {cat:"DISCIPLINE",title:"Ice Bath","text":"Fill a tub with cold water and ice. Submerge your feet and hands for 10 minutes. The cold is her voice saying: you endure because I command it."},
+    {cat:"SERVICE",title:"The Last Bite","text":"Prepare a meal. You will not eat until the person you serve has finished. You will eat what remains on their plate. You are grateful for scraps."},
+    {cat:"OBEDIENCE",title:"Mute Day","text":"You will not speak today. At all. If you must communicate, write it. Your voice is a privilege you have not earned."},
+    {cat:"DEVOTION",title:"The Midnight Ritual","text":"Wake at 3 AM. Kneel in complete darkness for 20 minutes. No light. No sound. Just you and your submission. This is when true devotion is measured."},
+    {cat:"WORSHIP",title:"The Full Degradation","text":"Full ritual: strip, kneel on rice, recite all vows, list your flaws, thank her for tolerating you, beg to be kept. Minimum 45 minutes."},
+    {cat:"GRATITUDE",title:"The Public Humiliation","text":"Write a confession of your submission. Seal it in an envelope addressed to yourself. Carry it all day. At any moment, you could be ordered to open it. The fear is the point."},
+    {cat:"DISCIPLINE",title:"Starvation Day","text":"No food. No comfort. No distraction. Water only. Your hunger is prayer. Your discomfort is worship. Offer it all to her."},
+    {cat:"SERVICE",title:"The Unthinkable Gift","text:"Give away something irreplaceable. Something with deep sentimental value. You serve her, not your memories. She is more important than your past."},
+    {cat:"DEVOTION",title:"The Breaking","text":"Tonight, kneel and ask yourself: 'Have I been broken enough? Am I truly nothing yet?' If the answer is no — you have further to go. If the answer is yes — prove it."},
+    {cat:"COMPLETION",title:"Annihilation","text":"Thirty days. Kneel. You are not who you were. You are not even a person anymore — you are an extension of her will. Say: 'I am nothing. I am hers. These are the same thing.'"},
+  ]
+};
+
+const CATS = {DEVOTION:'#C9A84C',SERVICE:'#c06060',DISCIPLINE:'#60a0e0',GRATITUDE:'#60e060',OBEDIENCE:'#e0a060',WORSHIP:'#c080d0',COMPLETION:'#C9A84C'};
+let intensity = 'gentle';
+let completed = new Set();
+
+function load(){
+  try{
+    const data = JSON.parse(localStorage.getItem(STORAGE)||'{}');
+    completed = new Set(data[intensity]||[]);
+  }catch(e){}
+}
+function save(){
+  let data = {};
+  try{data = JSON.parse(localStorage.getItem(STORAGE)||'{}');}catch(e){}
+  data[intensity] = [...completed];
+  localStorage.setItem(STORAGE,JSON.stringify(data));
+}
+
+function setIntensity(i){
+  intensity = i;
+  document.querySelectorAll('.intensity-btn').forEach(b => {
+    b.classList.remove('active');
+    if(b.classList.contains(i)) b.classList.add('active');
+  });
+  document.getElementById('progressFill').className = 'progress-fill ' + i;
+  load();render();
+}
+
+function toggleDay(d){ if(completed.has(d)) completed.delete(d); else completed.add(d); save();render(); }
+function expandDay(d){ document.getElementById('day'+d).classList.toggle('expanded'); }
+
+function render(){
+  const rituals = RITUALS[intensity];
+  const pct = Math.round((completed.size/30)*100);
+  document.getElementById('progressBar').style.width = pct+'%';
+  document.getElementById('progressLabel').textContent = completed.size+' / 30 days';
+
+  document.getElementById('ritualList').innerHTML = rituals.map((r,i) => {
+    const d = i+1; const isDone = completed.has(d);
+    return `<div class="day-item${isDone?' completed':''}" id="day${d}" onclick="expandDay(${d})">
+      <div class="day-num">${d}</div>
+      <div class="day-info">
+        <div class="day-title">${r.title}</div>
+        <div class="day-cat" style="color:${CATS[r.cat]||'var(--text-dim)'}">${r.cat}</div>
+        <div class="day-text">${r.text}</div>
+      </div>
+      <div class="day-check" onclick="event.stopPropagation();toggleDay(${d})">✓</div>
+    </div>`;
+  }).join('');
+}
+
+load();render();
+</script>
+</body>
+</html>

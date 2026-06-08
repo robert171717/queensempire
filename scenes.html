@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • Scene Scripts</title>
+<style>
+:root{--gold:#C9A84C;--gold-light:#e8cc6e;--bg:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76;--gentle:#a0c4a0;--devoted:#c9a050;--owned:#c06060;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:Georgia,'Times New Roman',serif;min-height:100vh;line-height:1.7;}
+.container{max-width:800px;margin:0 auto;padding:40px 24px 80px;}
+
+.cover{text-align:center;padding:50px 0;border:2.5px solid var(--gold);background:linear-gradient(180deg,#0a0a0a,#0d0d0d);margin-bottom:20px;position:relative;}
+.cover::before{content:'';position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+.cover h1{font-size:2.2rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;position:relative;z-index:1;}
+.cover .subtitle{font-size:0.85rem;color:#b8943a;letter-spacing:2px;font-style:italic;position:relative;z-index:1;margin-top:4px;}
+
+.intensity-selector{display:flex;gap:8px;justify-content:center;margin-bottom:20px;position:sticky;top:12px;z-index:10;}
+.intensity-btn{flex:1;max-width:180px;padding:10px 8px;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text-muted);border-radius:12px;cursor:pointer;text-align:center;transition:all 0.2s;font-family:Georgia,serif;}
+.intensity-btn .i-name{font-size:0.85rem;font-weight:700;letter-spacing:1px;display:block;}
+.intensity-btn .i-desc{font-size:0.5rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;display:block;}
+.intensity-btn.active.gentle{border-color:var(--gentle);color:var(--gentle);background:#0a0f0a;}
+.intensity-btn.active.devoted{border-color:var(--devoted);color:var(--devoted);background:#0f0d07;}
+.intensity-btn.active.owned{border-color:var(--owned);color:var(--owned);background:#0f0707;}
+
+.scene{border:1px solid var(--border);background:var(--bg-card);padding:32px 24px;margin:24px 0;}
+.scene-title{font-size:1.5rem;color:var(--gold);text-align:center;text-transform:uppercase;letter-spacing:3px;margin-bottom:4px;}
+.scene-subtitle{font-size:0.8rem;color:var(--text-muted);text-align:center;font-style:italic;margin-bottom:20px;}
+.scene-meta{display:flex;justify-content:center;gap:20px;margin-bottom:20px;font-size:0.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:2px;}
+
+.role-label{font-size:0.6rem;text-transform:uppercase;letter-spacing:2px;margin:14px 0 6px;font-weight:bold;}
+.role-label.queen{color:var(--gold);}
+.role-label.sub{color:var(--text-muted);}
+.line{margin-bottom:12px;padding-left:16px;border-left:2px solid transparent;line-height:1.6;}
+.line.queen{border-left-color:var(--gold);}
+.line.sub{border-left-color:rgba(201,168,76,0.2);}
+.line .speaker{font-size:0.6rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:2px;}
+.line.queen .speaker{color:var(--gold);}
+.line.sub .speaker{color:var(--text-dim);}
+.line .dialogue{font-size:0.95rem;font-style:italic;}
+.line .direction{font-size:0.7rem;color:var(--text-dim);margin-top:3px;font-style:normal;}
+
+.notes{background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.12);padding:16px;margin-top:20px;}
+.notes h4{font-size:0.7rem;color:var(--gold-light);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;}
+.notes p{font-size:0.75rem;color:var(--text-muted);font-style:italic;line-height:1.6;}
+
+.consent-block{border:1.5px solid var(--gold);padding:20px;margin-top:32px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);position:relative;}
+.consent-block::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+.consent-title{font-size:14px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:8px;position:relative;z-index:1;}
+.consent-text{font-size:10px;color:#b8943a;line-height:1.6;position:relative;z-index:1;}
+
+@media(max-width:600px){.cover h1{font-size:1.5rem;}.intensity-btn{max-width:110px;}.intensity-btn .i-name{font-size:0.7rem;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="cover"><h1>Scene Scripts</h1><p class="subtitle">Five Scripted Scenes &bull; Three Intensities</p></div>
+
+<div class="intensity-selector">
+  <button class="intensity-btn gentle active" onclick="setIntensity('gentle')"><span class="i-name">Gentle</span><span class="i-desc">Sensual</span></button>
+  <button class="intensity-btn devoted" onclick="setIntensity('devoted')"><span class="i-name">Devoted</span><span class="i-desc">Demanding</span></button>
+  <button class="intensity-btn owned" onclick="setIntensity('owned')"><span class="i-name">Owned</span><span class="i-desc">Cruel</span></button>
+</div>
+
+<div id="scenes"></div>
+
+<div class="consent-block">
+  <div class="consent-title">Consent &amp; Safety Notice</div>
+  <div class="consent-text">Fantasy roleplay for consenting adults. SSC/RACK. Safe words: RED = Stop. YELLOW = Check-in. Owned intensity contains psychological edge play — negotiate thoroughly before performing.</div>
+</div>
+</div>
+
+<script>
+// L(line) = {speaker, dialogue, direction?}
+function L(s,d,dir){return {speaker:s,dialogue:d,direction:dir||null};}
+function Q(d,dir){return L('Queen',d,dir);}
+function S(d,dir){return L('Subject',d,dir);}
+
+const SCENES = {
+ gentle: [
+  {title:"The Inspection",subtitle:"Slow, affirming, gentle",meta:"8-10 min · Gentle · Queen/Subject",roles:[["Queen","Subject"]],lines:[
+    Q("Stand in the center of the room. Feet shoulder-width. Arms at your sides. Take a deep breath."),
+    Q("You are about to be seen. Fully. Not judged — witnessed. There is nowhere to hide, and you don't need to.", "Circle slowly. Let them hear your calm footsteps."),
+    Q("Remove your clothing when you're ready. No rush. This is not a performance."),
+    S("Yes, my Queen."),
+    Q("Good. Hands behind your back. Shoulders relaxed. Present yourself — not for critique, for appreciation."),
+    Q("I'm going to touch you now. One finger. Just to let you know I'm here.", "Place one finger at the base of their neck. Trace slowly down their spine."),
+    Q("You're trembling. That's okay. That means you're present. Stay with me."),
+    Q("Turn around. Look at me. You are beautiful like this — open, trusting, here."),
+    S("I feel seen. I feel safe."),
+    Q("Kneel. The inspection is complete. You were wonderful.", "Place your hand gently on their head."),
+    Q("You may rest your head against me now. You did well."),
+  ],notes:"Pace slowly. Let silences stretch. This version is about affirmation — the sub should feel celebrated, not evaluated."},
+  {title:"The Interrogation",subtitle:"Curious, inviting, safe",meta:"8-10 min · Gentle · Queen/Prisoner",roles:[["Queen","Prisoner"]],lines:[
+    Q("Sit with me. I want to ask you some questions. Nothing scary — just truth.", "Sit across from them. Warm eye contact."),
+    Q("What's something you've been wanting to tell me but haven't?"),
+    S("I'm not sure... I don't know if I can say it."),
+    Q("You can. Whatever it is — I'm here. No judgment."),
+    S("I've been... curious about being controlled. More than I've said."),
+    Q("Thank you for telling me. That takes courage. Tell me more — what does 'controlled' look like to you?"),
+    Q("You're being very honest right now. I see you. I appreciate this."),
+    S("I was afraid you'd think it was strange."),
+    Q("Nothing you've said is strange. It's you. That's enough."),
+  ],notes:"This is a truth-seeking conversation, not an interrogation. Make the sub feel safe enough to reveal. Reward honesty with warmth."},
+  {title:"The Worship",subtitle:"Reverent, tender, devotional",meta:"10-12 min · Gentle · Queen/Worshipper",roles:[["Queen","Worshipper"]],lines:[
+    Q("Kneel before me. Not because you have to — because you want to.", "Sit comfortably. Open posture."),
+    Q("Start with my feet. Remove my shoes gently. There's no rush."),
+    Q("Kiss the top of each foot. A real kiss. I want to feel your gratitude."),
+    S("I'm grateful. For this. For you."),
+    Q("Good. Work your way up — ankles, calves. Every inch gets your attention.", "Close your eyes. Let yourself receive."),
+    Q("My hands now. Each finger. These hands guide you. Show them what they mean to you."),
+    Q("Look up at me. You've worshipped well. I accept your devotion."),
+  ],notes:"Receiving is a skill. Let yourself be worshipped without guilt. The worshipper's reward is your visible pleasure."},
+  {title:"The Punishment",subtitle:"Corrective, forgiving, restorative",meta:"8-10 min · Gentle · Queen/Offender",roles:[["Queen","Offender"]],lines:[
+    Q("You broke a rule. You know which one. Tell me what happened."),
+    S("I [describe]. I knew it was wrong. I'm sorry."),
+    Q("I believe you're sorry. What should we do to make this right?"),
+    Q("I'm not angry. I'm disappointed — but that's temporary. This can be fixed."),
+    Q("You will [consequence]. Then it's over. The slate is clean. Understood?"),
+    S("Yes. Thank you for correcting me instead of punishing me."),
+    Q("It's done. Come here.", "Hold them."),
+    Q("You took correction well. I'm proud of you. This is behind us now."),
+  ],notes:"The goal is restoration, not suffering. End with genuine warmth. The sub should feel cleaner, not smaller."},
+  {title:"The Collaring",subtitle:"Sacred, tender, binding",meta:"8-10 min · Gentle · Queen/Supplicant",roles:[["Queen","Supplicant"]],lines:[
+    Q("Kneel. This is a moment I want you to remember."),
+    Q("You have shown me dedication. Trust. Growth. You have earned my collar."),
+    Q("Do you understand what this means? You will be mine — and I will be yours."),
+    S("I understand. I've wanted this. I'm ready."),
+    Q("Speak your vows. From your heart."),
+    S("[Personal vows]"),
+    Q("I accept. And I vow: I will guide you. Protect you. Challenge you. Honor your submission.", "Place the collar. Fasten it slowly."),
+    Q("Rise. You are collared. You are mine. I am yours."),
+  ],notes:"This is sacred. Do not perform casually. The collaring should mark a genuine milestone."},
+ ],
+ devoted: [
+  {title:"The Inspection",subtitle:"Formal, evaluative, demanding",meta:"8-10 min · Devoted · Queen/Subject",roles:[["Queen","Subject"]],lines:[
+    Q("Stand. Center of the room. Feet shoulder-width. Arms at sides. Eyes forward."),
+    Q("You are about to be inspected. Every inch. Every detail. There is nowhere to hide.", "Circle slowly. Let them hear your footsteps."),
+    Q("Remove your clothing. One piece at a time. Fold each item. Place it at your feet."),
+    Q("Slower. This is not a race. I want to watch you become bare for me."),
+    S("Yes, my Queen."),
+    Q("Good. Hands behind your back. Shoulders back. Present yourself.", "Begin the inspection. Touch nothing yet."),
+    Q("Your posture is acceptable. Your breathing is too fast. Slow it down."),
+    Q("I'm going to touch you. You will not move unless I tell you.", "Place one finger at the base of their neck. Draw slowly down their spine."),
+    Q("You're trembling. Good. That means you're present."),
+    Q("Turn around. Face me. You are acceptable like this. Bare. Vulnerable. Mine. Say it."),
+    S("I am bare. I am vulnerable. I am yours."),
+    Q("Kneel. The inspection is complete. You passed.", "Place hand on their head."),
+    Q("You may kiss my hand in thanks."),
+  ],notes:"Formal tone. Deliberate pacing. The power is in the waiting. If the sub drops deep, transition to aftercare."},
+  {title:"The Interrogation",subtitle:"Intense, probing, psychological",meta:"10-15 min · Devoted · Queen/Prisoner",roles:[["Queen","Prisoner"]],lines:[
+    Q("Sit. Hands on the table. Do not look away from me.", "Sit across. Maintain eye contact."),
+    Q("You know why you're here. Don't pretend."),
+    S("I don't — I'm not sure what you mean."),
+    Q("Lying already. Tell me what you did. I know everything."),
+    S("I... I disobeyed."),
+    Q("Louder."),
+    S("I disobeyed you. I touched myself without permission."),
+    Q("When? Where? Every detail. We have all night."),
+    Q("Describe exactly what you did. Every word. Every action."),
+    Q("Did you think about me while you did it? Did you imagine me catching you?"),
+    Q("You wanted to be caught. That's why you're here."),
+    Q("Stand. Hands behind your back. You've confessed. Now thank me for caring enough to interrogate you."),
+    S("Thank you. For caring. For making me tell the truth."),
+  ],notes:"The 'crime' should be real — a small rule broken. Stay cold but never cruel. Break character if genuinely distressed."},
+  {title:"The Worship",subtitle:"Guided, reverent, demanding",meta:"12-15 min · Devoted · Queen/Worshipper",roles:[["Queen","Worshipper"]],lines:[
+    Q("Kneel. You're going to worship. Every part of me gets attention.", "Sit comfortably. Make yourself accessible."),
+    Q("Start with my feet. Remove my shoes. Slowly. Like unwrapping something sacred."),
+    Q("Kiss the top of each foot. Not a peck — a real kiss."),
+    Q("Tell me what you feel. Right now."),
+    S("Gratitude. Humility. I feel small in the best way."),
+    Q("Good. Ankles. Calves. Work your way up. Every inch."),
+    Q("Slower. You're rushing. Worship is not a task — it's a state.", "Close your eyes. Let them work. Receive."),
+    Q("My hands. Each finger. The palm. Show me what they mean to you."),
+    Q("Now look up at me. Stop touching. Just look. Remember this face when you're alone."),
+    Q("I accept your worship. Rest your head on my knee."),
+  ],notes:"Let yourself be worshipped. You deserve this. Receiving is a skill — build tolerance if it's uncomfortable."},
+  {title:"The Punishment",subtitle:"Stern, measured, corrective",meta:"10-12 min · Devoted · Queen/Offender",roles:[["Queen","Offender"]],lines:[
+    Q("You know why you're here. You broke a rule you agreed to."),
+    Q("Tell me what you did. Own it."),
+    S("I [describe]. I knew it was wrong. I did it anyway. I'm sorry."),
+    Q("Sorry is a start. It's not enough. What should the consequence be?"),
+    Q("Look at me — not the floor. You face me when corrected."),
+    Q("You will receive [number] strikes. Count each. Thank me after each. This is correction, not revenge."),
+    Q("The slate is clean when we're done. Position yourself."),
+    S("One. Thank you, my Queen."),
+    Q("[After final] It's done. The debt is paid."),
+    Q("Come here. You took your punishment well. I'm proud of you."),
+  ],notes:"Punishment must always end with reconnection. Never leave someone in the punished state."},
+  {title:"The Collaring",subtitle:"Sacred, binding, eternal",meta:"8-10 min · Devoted · Queen/Supplicant",roles:[["Queen","Supplicant"]],lines:[
+    Q("Kneel. This is permanent. You understand?"),
+    Q("You have served. Grown. Proven yourself worthy of my collar."),
+    Q("This is not a toy. Not a phase. This is a vow."),
+    S("I understand. I am ready."),
+    Q("Speak your vows. From your heart. No script."),
+    S("[Personal vows]"),
+    Q("I accept. I vow: I will guide, protect, challenge, and honor your submission."),
+    Q("Lower your head.", "Place collar. Fasten slowly."),
+    Q("Rise. You are collared. You are mine. Forever."),
+    Q("Kiss me. Seal the vow."),
+  ],notes:"Most emotionally significant scene. Do not perform casually. Collaring marks a genuine milestone."},
+ ],
+ owned: [
+  {title:"The Inspection",subtitle:"Cold, humiliating, dehumanizing",meta:"12-15 min · Owned · Queen/Object",roles:[["Queen","Object"]],lines:[
+    Q("Stand there. Don't move. Don't speak. You're an object now. Objects don't have opinions.", "Circle them like livestock. Let your footsteps be the only sound."),
+    Q("Strip. Everything. Fold nothing. Drop it at your feet like the garbage it is."),
+    Q("I said don't speak. Don't apologize. Don't explain. Don't exist beyond what I see."),
+    Q("Arms out. Legs apart. You're being appraised. I'm deciding if you're worth keeping.", "Walk around. Touch nothing. Let them feel your gaze like a blade."),
+    Q("You're soft. Undisciplined. Your body tells me you've been lazy."),
+    Q("Turn around. Bend over. Stay there.", "Leave them in this position. Count to thirty silently."),
+    Q("You're trembling. Pathetic. But at least you're still here. Most would have broken."),
+    Q("Face me. Look at me. You are ugly like this — desperate, exposed, owned. Say it."),
+    S("I am ugly. I am desperate. I am owned."),
+    Q("Kneel. The inspection is over. I've decided to keep you. For now.", "Place your foot near their hand — not on it. Let them want to touch it. Don't permit it."),
+    Q("You didn't pass. You survived. There's a difference. Crawl to the corner. Stay there until I decide you're useful."),
+  ],notes:"This is edge play. The sub should be experienced and eagerly consenting. Check in frequently without breaking character — a hand squeeze system works. If they use their safe word, the scene ends immediately with warmth."},
+  {title:"The Interrogation",subtitle:"Brutal, breaking, unrelenting",meta:"15-20 min · Owned · Queen/Worm",roles:[["Queen","Worm"]],lines:[
+    Q("Kneel. Hands behind your head. Eyes on the floor. You don't get to look at me.", "Pace around them. Let your footsteps intimidate."),
+    Q("You know what you did. Don't play dumb. Don't waste my time."),
+    S("Please — I don't —"),
+    Q("DON'T INTERRUPT ME. You speak when I ask a question. Not before."),
+    Q("You touched yourself. Without permission. Like an animal. Like you had rights."),
+    Q("Look at me. I said LOOK AT ME.", "Grab their chin. Force eye contact."),
+    Q("Tell me exactly what you did. Every disgusting detail. If you leave anything out, I'll know."),
+    S("I... I was in bed. I couldn't stop thinking about you. I touched myself. I came. I'm sorry. I'm so sorry."),
+    Q("You came. Without me. While I was waiting for you to be obedient."),
+    Q("You're pathetic. A worm. Worms don't get to decide when they come. Worms don't get to come at all."),
+    Q("You're going to make this right. You're going to suffer. And you're going to thank me for every second of it."),
+    Q("Say: 'I am a worm. I deserve to suffer. Thank you for correcting me.'"),
+    S("I am a worm. I deserve to suffer. Thank you for correcting me."),
+    Q("Crawl to the corner. Face the wall. Don't move until I allow it."),
+  ],notes:"Extreme edge play. The sub MUST have a non-verbal safe signal. Check in during the scene with a pre-arranged gesture. Aftercare is mandatory and extensive."},
+  {title:"The Worship",subtitle:"Groveling, desperate, degrading",meta:"15-20 min · Owned · Queen/Dog",roles:[["Queen","Dog"]],lines:[
+    Q("On your hands and knees. You're not a person. You're a dog. My dog."),
+    Q("Crawl to me. Not on your knees — on your hands and knees. Like the animal you are."),
+    Q("Slower. You're not rushing to a meal. You're approaching your god."),
+    Q("Kiss my feet. Not a polite kiss — tongue. Show me you're grateful to be near me."),
+    Q("Good dog. You're drooling on my floor. I'll allow it."),
+    Q("My ankles. My calves. Every inch. You'll be here for a while."),
+    Q("Stop. Sit back on your heels. Hands behind your back. Look up at me."),
+    Q("You would do anything right now, wouldn't you? Anything to stay in my presence."),
+    S("Yes. Anything. Please don't send me away."),
+    Q("You're disgusting. Desperate. I love it. Stay there. Don't move. Let me look at what I own."),
+    Q("You may rest your head on my foot. Not my knee — my foot. Don't forget what you are."),
+  ],notes:"Degradation play. Pre-negotiate the 'dog' framing — some subs find it deeply cathartic, others find it triggering. Aftercare should include verbal affirmation of their humanity."},
+  {title:"The Punishment",subtitle:"Vicious, breaking, unforgettable",meta:"15-20 min · Owned · Queen/Filth",roles:[["Queen","Filth"]],lines:[
+    Q("You know why you're here. Say it. Loud enough that I don't have to strain."),
+    S("I broke a rule. I knew the rule. I broke it anyway."),
+    Q("You broke MY rule. MY property doesn't get to make choices. Say: 'I am property.'"),
+    S("I am property."),
+    Q("You're going to be punished. Not corrected — punished. There's a difference. Correction is love. Punishment is consequence."),
+    Q("You will receive [number] strikes. You will count every one. You will thank me after every one. If you miss a count, we start over."),
+    Q("If you cry, I won't stop. If you beg, I won't stop. I will stop when I decide you've learned."),
+    Q("Position yourself. Face down. Don't make me wait."),
+    Q("[After each strike]"),
+    S("One. Thank you, my Queen. Two. Thank you, my Queen..."),
+    Q("[After final] Don't move. Stay there. Feel it. This is what disobedience costs."),
+    Q("Now — crawl to me. Apologize. Convince me you're worth keeping."),
+    S("I'm sorry. I'll never disobey again. Please keep me. Please."),
+    Q("...Get up. You're forgiven. But you'll remember this. Next time I won't be so merciful."),
+  ],notes:"Pre-negotiate intensity and number of strikes. Use implements you're trained with. Aftercare is extensive — the sub will be raw emotionally and physically."},
+  {title:"The Collaring",subtitle:"Dark, binding, eternal ownership",meta:"10-12 min · Owned · Queen/Property",roles:[["Queen","Property"]],lines:[
+    Q("Kneel. You've asked for this. I'm going to give it to you. But you should know: there's no going back."),
+    Q("This collar means I own you. Not in a scene — in reality. Your body. Your time. Your pleasure. All mine. Forever."),
+    Q("You will wear this collar and remember: you are not a person with a collar. You are a collar with a person attached."),
+    Q("Do you understand the terms? Say them back to me."),
+    S("I am not a person with a collar. I am a collar with a person attached. My body, my time, my pleasure — all yours. Forever."),
+    Q("Good. Now beg for it."),
+    S("Please. Please collar me. I need to be owned. I need to be yours. I'll do anything."),
+    Q("Anything is a dangerous word. I'll hold you to it."),
+    Q("Lower your head. Don't lift it until I say.", "Place collar. Let it click. Let the silence stretch."),
+    Q("Look at me. You're collared. You're mine. If you ever want this removed, you'll have to beg twice as hard as you just did."),
+    Q("You may kiss my hand. One kiss. That's all you get tonight."),
+  ],notes:"This is the darkest version. The sub must be 100% enthusiastically consenting and experienced. This framing is not for beginners. Negotiate every element beforehand."},
+ ]
+};
+
+let intensity = 'gentle';
+function setIntensity(i){
+  intensity = i;
+  document.querySelectorAll('.intensity-btn').forEach(b => {
+    b.classList.remove('active');
+    if(b.classList.contains(i)) b.classList.add('active');
+  });
+  render();
+}
+function render(){
+  document.getElementById('scenes').innerHTML = SCENES[intensity].map((s,i) => `
+    <div class="scene">
+      <div class="scene-title">${s.title}</div>
+      <div class="scene-subtitle">${s.subtitle}</div>
+      <div class="scene-meta">${s.meta}</div>
+      ${s.lines.map(l => {
+        const isQueen = l.speaker === 'Queen';
+        const cls = isQueen ? 'queen' : 'sub';
+        if(l.speaker !== (s.lines[s.lines.indexOf(l)-1]||{}).speaker){
+          const prev = s.lines[s.lines.indexOf(l)-1];
+          if(!prev || prev.speaker !== l.speaker){
+            const roleName = isQueen ? s.roles[0][0] : s.roles[0][1];
+            return `<div class="role-label ${cls}">${roleName}</div>
+            <div class="line ${cls}"><div class="speaker">${l.speaker}</div><div class="dialogue">${l.dialogue}</div>${l.direction?`<div class="direction">${l.direction}</div>`:''}</div>`;
+          }
+        }
+        return `<div class="line ${cls}"><div class="speaker">${l.speaker}</div><div class="dialogue">${l.dialogue}</div>${l.direction?`<div class="direction">${l.direction}</div>`:''}</div>`;
+      }).join('')}
+      <div class="notes"><h4>Scene Notes</h4><p>${s.notes}</p></div>
+    </div>
+  `).join('');
+}
+render();
+</script>
+</body>
+</html>

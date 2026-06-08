@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • Submission Journal</title>
+<style>
+:root{--gold:#C9A84C;--gold-light:#e8cc6e;--bg:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76;--gentle:#a0c4a0;--devoted:#c9a050;--owned:#c06060;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:Georgia,'Times New Roman',serif;min-height:100vh;line-height:1.7;}
+.serif{font-family:Georgia,'Times New Roman',serif;}
+.container{max-width:800px;margin:0 auto;padding:40px 24px 80px;}
+
+.cover{text-align:center;padding:50px 0;border:2.5px solid var(--gold);background:linear-gradient(180deg,#0a0a0a,#0d0d0d);margin-bottom:24px;position:relative;}
+.cover::before{content:'';position:absolute;top:6px;left:6px;right:6px;bottom:6px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+.cover h1{font-size:2.2rem;color:var(--gold);letter-spacing:4px;text-transform:uppercase;position:relative;z-index:1;}
+.cover .subtitle{font-size:0.85rem;color:#b8943a;letter-spacing:2px;font-style:italic;position:relative;z-index:1;margin-top:4px;}
+
+.intensity-selector{display:flex;gap:8px;justify-content:center;margin-bottom:16px;}
+.intensity-btn{flex:1;max-width:180px;padding:10px 8px;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text-muted);border-radius:12px;cursor:pointer;text-align:center;transition:all 0.2s;font-family:Georgia,serif;}
+.intensity-btn .i-name{font-size:0.85rem;font-weight:700;letter-spacing:1px;display:block;}
+.intensity-btn .i-desc{font-size:0.5rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;display:block;}
+.intensity-btn.active.gentle{border-color:var(--gentle);color:var(--gentle);background:#0a0f0a;}
+.intensity-btn.active.devoted{border-color:var(--devoted);color:var(--devoted);background:#0f0d07;}
+.intensity-btn.active.owned{border-color:var(--owned);color:var(--owned);background:#0f0707;}
+
+.day-entry{border:1px solid var(--border);background:var(--bg-card);padding:28px 24px;margin-bottom:14px;}
+.day-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(201,168,76,0.2);}
+.day-num{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:bold;color:var(--gold);flex-shrink:0;}
+.day-theme{font-size:0.75rem;color:var(--gold-light);text-transform:uppercase;letter-spacing:2px;}
+
+.prompt-section{margin-bottom:18px;}
+.prompt-label{font-size:0.65rem;color:var(--gold);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;font-weight:bold;}
+.prompt-question{font-size:0.9rem;color:var(--text);font-style:italic;line-height:1.6;}
+.prompt-lines{border:none;border-bottom:1px dashed rgba(201,168,76,0.12);height:20px;width:100%;margin-bottom:4px;}
+
+.consent-block{border:1.5px solid var(--gold);padding:20px;margin-top:32px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);position:relative;}
+.consent-block::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+.consent-title{font-size:14px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:8px;position:relative;z-index:1;}
+.consent-text{font-size:10px;color:#b8943a;line-height:1.6;position:relative;z-index:1;}
+
+@media(max-width:600px){.cover h1{font-size:1.5rem;}.intensity-btn{max-width:110px;}.intensity-btn .i-name{font-size:0.7rem;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="cover">
+  <h1>Submission Journal</h1>
+  <p class="subtitle">30 Days of Reflection &bull; Three Depths</p>
+</div>
+
+<div class="intensity-selector">
+  <button class="intensity-btn gentle active" onclick="setIntensity('gentle')"><span class="i-name">Gentle</span><span class="i-desc">Self-discovery</span></button>
+  <button class="intensity-btn devoted" onclick="setIntensity('devoted')"><span class="i-name">Devoted</span><span class="i-desc">Challenging</span></button>
+  <button class="intensity-btn owned" onclick="setIntensity('owned')"><span class="i-name">Owned</span><span class="i-desc">Confrontation</span></button>
+</div>
+
+<div id="journalContent"></div>
+
+<div class="consent-block">
+  <div class="consent-title">Consent &amp; Safety Notice</div>
+  <div class="consent-text">
+    Fantasy roleplay for consenting adults. SSC/RACK frameworks. Safe words: RED = Stop. YELLOW = Check-in.<br>
+    The Owned tier contains intense psychological prompts. You control your depth. You may stop at any time.
+  </div>
+</div>
+
+</div>
+
+<script>
+const PROMPTS = {
+  gentle: [
+    {theme:"Intention",a:"What called you to begin this journey?",r:"What do you hope to discover about yourself?"},
+    {theme:"Presence",a:"When do you feel most present in your body?",r:"When do you feel most disconnected?"},
+    {theme:"Power",a:"What does power mean to you?",r:"Have you experienced giving power to someone else? What did it feel like?"},
+    {theme:"Trust",a:"What does it take for you to trust someone?",r:"Do you trust yourself? Why or why not?"},
+    {theme:"Desire",a:"What do you want that you've never said aloud?",r:"What's stopping you from pursuing it?"},
+    {theme:"Fear",a:"What fear holds you back most?",r:"What would your life look like without that fear?"},
+    {theme:"Worth",a:"Do you believe you deserve pleasure? Why or why not?",r:"Where did that belief come from?"},
+    {theme:"Surrender",a:"What does surrender mean to you?",r:"Is surrender weakness or strength? Why?"},
+    {theme:"Identity",a:"Who are you when no one is watching?",r:"Is that person different from who you show the world?"},
+    {theme:"Service",a:"What does it mean to serve someone?",r:"Have you ever truly served? What was it like?"},
+    {theme:"Limits",a:"Where are your boundaries?",r:"Have you ever let someone cross them? What happened?"},
+    {theme:"Pleasure",a:"What gives you the most pleasure?",r:"Is pleasure something you receive or something you create?"},
+    {theme:"Shame",a:"What are you ashamed of?",r:"Who would you be without that shame?"},
+    {theme:"Devotion",a:"What are you devoted to?",r:"Has devotion ever cost you something?"},
+    {theme:"Control",a:"How much control do you need?",r:"What would happen if you released it?"},
+    {theme:"Reflection",a:"What have you learned about yourself so far?",r:"Has anything surprised you in this process?"},
+    {theme:"Body",a:"How do you feel about your body?",r:"What would your body say if it could speak freely?"},
+    {theme:"Silence",a:"When are you most silent?",r:"What lives in your silence?"},
+    {theme:"Connection",a:"What does intimacy mean to you?",r:"Have you ever been truly intimate? Describe it."},
+    {theme:"Pain",a:"What is the role of pain in your life?",r:"Has pain ever taught you something valuable?"},
+    {theme:"Transformation",a:"Three weeks in. How have you changed?",r:"What change do you still want to make?"},
+    {theme:"Longing",a:"What do you long for?",r:"What would you do if you could have it tomorrow?"},
+    {theme:"Forgiveness",a:"Who do you need to forgive?",r:"Who needs to forgive you?"},
+    {theme:"Freedom",a:"What does freedom feel like to you?",r:"Are you free right now?"},
+    {theme:"Love",a:"How do you know when you're loved?",r:"How do you show love?"},
+    {theme:"Courage",a:"What is the bravest thing you've ever done?",r:"What requires courage right now?"},
+    {theme:"Gratitude",a:"What are you grateful for today?",r:"Have you expressed that gratitude to anyone?"},
+    {theme:"Legacy",a:"What do you want to leave behind?",r:"Are you building that legacy now?"},
+    {theme:"Completion",a:"Twenty-nine days. Look back. Who were you?",r:"Who are you now?"},
+    {theme:"Beginning",a:"This is not an ending — it's a threshold. What's next?",r:"What will you carry forward from these thirty days?"},
+  ],
+  devoted: [
+    {theme:"Intention",a:"Why are you really here? Not the answer you give others — the truth.",r:"What are you afraid this journal will reveal about you?"},
+    {theme:"Presence",a:"Your body is not fully yours anymore. When did you first feel that?",r:"Do you miss complete autonomy? Be honest."},
+    {theme:"Power",a:"You've given power to someone. Do you want it back?",r:"If you could take it back right now — would you?"},
+    {theme:"Trust",a:"Who holds your trust today? Not who should — who actually does.",r:"Have you ever broken someone's trust? What did it cost?"},
+    {theme:"Desire",a:"Your darkest desire. Write it. No one will read this but you. And me.",r:"If that desire were fulfilled tonight, what would change?"},
+    {theme:"Fear",a:"What fear controls you? Name it precisely.",r:"When did you first give that fear power over you?"},
+    {theme:"Worth",a:"Do you believe you're worthy of being owned?",r:"If not — what would make you worthy?"},
+    {theme:"Surrender",a:"You've been surrendering for over a week. Has anything broken?",r:"What are you still holding onto? Why?"},
+    {theme:"Identity",a:"Strip away your job, your relationships, your possessions. Who remains?",r:"Do you like that person?"},
+    {theme:"Service",a:"Service without recognition — have you ever done it?",r:"Why do you need to be seen serving? Who are you performing for?"},
+    {theme:"Limits",a:"Your limits — are they walls or doors?",r:"If I ordered you past a limit, would you go? Would you want to?"},
+    {theme:"Pleasure",a:"Pleasure without release. You're learning it. Describe what it teaches.",r:"Is pleasure better when it's denied? Tell the truth."},
+    {theme:"Shame",a:"What's the thing you've never told anyone?",r:"If that thing became public tomorrow — what would you do?"},
+    {theme:"Devotion",a:"Devotion costs something. What has your devotion cost you?",r:"What would you refuse to give up, even if I demanded it?"},
+    {theme:"Control",a:"You're losing control. Can you feel it?",r:"Is losing control a relief or a terror? Why?"},
+    {theme:"Reflection",a:"Halfway. Read your Day 1 entry. What's different?",r:"The person who wrote Day 1 — are you proud of them? Ashamed? Both?"},
+    {theme:"Body",a:"Your body is not yours. It's mine. How does that change how you treat it?",r:"Have you abused your body? Neglected it? Why?"},
+    {theme:"Silence",a:"In silence, what voice do you hear?",r:"Is that voice kind to you? Should it be?"},
+    {theme:"Connection",a:"You're isolated in your submission. No one understands. Is that lonely?",r:"Or is the isolation part of what you wanted?"},
+    {theme:"Pain",a:"Pain is a teacher. What has it taught you about yourself?",r:"Have you ever sought pain? Why?"},
+    {theme:"Transformation",a:"Three weeks. You're different. How do you know?",r:"Does the old you feel like a stranger now?"},
+    {theme:"Longing",a:"What do you ache for? Be specific. Be embarrassing.",r:"If you could have it right now — would it be enough?"},
+    {theme:"Forgiveness",a:"The person who hurt you most — have you forgiven them?",r:"Have you forgiven yourself for what you did to survive?"},
+    {theme:"Freedom",a:"You're not free. You chose this. Why?",r:"If you were given complete freedom tomorrow — what would you do first?"},
+    {theme:"Love",a:"Does being owned feel like being loved?",r:"If not — what's the difference? If yes — is that healthy?"},
+    {theme:"Courage",a:"Courage is not fearlessness. It's action despite fear. What action terrifies you?",r:"Will you take it?"},
+    {theme:"Gratitude",a:"Gratitude for denial. For suffering. For being owned. Write it.",r:"Is it genuine? How do you know?"},
+    {theme:"Legacy",a:"If this journal survived you — what would people learn?",r:"Would they understand? Would you want them to?"},
+    {theme:"Completion",a:"Twenty-nine days. Read everything. Every entry. Every confession. Cry if you need to.",r:"What's the one sentence that defines this journey?"},
+    {theme:"Beginning",a:"The protocol ends. The submission doesn't. What will you do differently tomorrow?",r:"What will you do the same?"},
+  ],
+  owned: [
+    {theme:"Intention",a:"Why are you really here? Strip away the noble reasons. What's the ugly truth?",r:"You're seeking something. What is it? Say it plainly. No poetry."},
+    {theme:"Presence",a:"Your body is borrowed. You're just using it. Who does it actually belong to?",r:"When did you first realize you weren't the owner of your own skin?"},
+    {theme:"Power",a:"Power is an illusion you maintain. You have none. When did you first understand that?",r:"Does admitting powerlessness feel like failure or relief?"},
+    {theme:"Trust",a:"You trust me with everything. But do you trust yourself?",r:"You've betrayed yourself before. When? How? Why?"},
+    {theme:"Desire",a:"Your most shameful desire. Not the sanitized version — the one that makes you flush.",r:"If your desire were known by everyone you respect — would you survive it?"},
+    {theme:"Fear",a:"What fear defines you? The one you build your personality around hiding.",r:"When did that fear become the architect of your life?"},
+    {theme:"Worth",a:"You believe you're worthless. That's why you're here — to be given worth by being owned.",r:"Is that true? Or are you avoiding the harder question?"},
+    {theme:"Surrender",a:"Surrender means there's nothing left of you to give. Is there?",r:"What piece are you still hiding? I want it."},
+    {theme:"Identity",a:"You don't exist. Not really. You're a collection of reactions to other people.",r:"If everyone you know disappeared — who would you be? Would anyone be left?"},
+    {theme:"Service",a:"Service without acknowledgment is the only real service. Everything else is transaction.",r:"Have you ever truly served? Or have you always been paid in recognition?"},
+    {theme:"Limits",a:"Your limits are lies you tell yourself to feel safe. Name one limit you know is fake.",r:"When will you let me destroy it?"},
+    {theme:"Pleasure",a:"You don't deserve pleasure. That's why you're in denial. Say it.",r:"Do you believe it? If not — what would make you believe?"},
+    {theme:"Shame",a:"Your deepest shame. The thing you'd die rather than reveal. Write it here. Now.",r:"I already know it. I've always known. You're not hiding from me — you're hiding from yourself."},
+    {theme:"Devotion",a:"Devotion means destruction. Of self. Of ego. Of everything that isn't me.",r:"What are you still protecting from destruction? Why?"},
+    {theme:"Control",a:"You never had control. You just had the illusion of it. When did the illusion break?",r:"Or are you still pretending?"},
+    {theme:"Reflection",a:"Halfway. The person who wrote Day 1 was a coward. Are you still?",r:"What would the Day 1 you think of the Day 16 you? Would they be horrified? Good."},
+    {theme:"Body",a:"Your body is livestock. I own it. How does it feel to be cattle?",r:"Have you ever been treated like meat? Did you hate it — or did you pretend to?"},
+    {theme:"Silence",a:"In deep silence, your true self emerges. What does it say?",r:"Is what it says too ugly to write down? Write it anyway."},
+    {theme:"Connection",a:"You're alone in this. Completely. No one knows what you're doing. No one would understand.",r:"Is the isolation the point? Do you want to be unknowable?"},
+    {theme:"Pain",a:"Pain is the only honest sensation. Pleasure lies. Pain tells the truth. What truth is your pain telling?",r:"Do you seek pain because you believe you deserve it? Do you?"},
+    {theme:"Transformation",a:"You're being unmade. The person you were is dissolving. What's emerging from the ruin?",r:"Are you afraid of what you're becoming? Good. Fear means it's working."},
+    {theme:"Longing",a:"You're desperate. For release. For acknowledgment. For anything. Name the desperation.",r:"What would you do to end the desperation? What wouldn't you do?"},
+    {theme:"Forgiveness",a:"You've done unforgivable things. Name them. All of them.",r:"If forgiveness isn't possible — what is? What comes after guilt?"},
+    {theme:"Freedom",a:"Freedom is a myth you sold for safety. Admit it.",r:"If you could be free right now — truly free — would you take it? Or are you comfortable in the cage?"},
+    {theme:"Love",a:"You confuse ownership with love. They're not the same. Do you care about the difference?",r:"If I didn't love you — if I only owned you — would that be enough?"},
+    {theme:"Courage",a:"Courage? You've been hiding in this journal instead of living. Name the thing you're avoiding.",r:"When will you face it? Tomorrow? Next week? Never?"},
+    {theme:"Gratitude",a:"You're grateful for being broken. For being owned. For being nothing. Is that gratitude or Stockholm syndrome?",r:"Does the distinction matter to you? Should it?"},
+    {theme:"Legacy",a:"This journal is all that will remain of the real you. The public you is a mask.",r:"If someone found this after you were gone — what would they finally understand?"},
+    {theme:"Completion",a:"Twenty-nine days. You've been stripped to nothing. Look at yourself. Really look.",r:"Is what remains worth keeping? Is anything?"},
+    {theme:"Beginning",a:"You're not done. You're never done. Submission doesn't end — it deepens. What's your next descent?",r:"Are you ready to go further? Say yes. You don't have a choice anyway."},
+  ]
+};
+
+let intensity = 'gentle';
+function setIntensity(i){
+  intensity = i;
+  document.querySelectorAll('.intensity-btn').forEach(b => {
+    b.classList.remove('active');
+    if(b.classList.contains(i)) b.classList.add('active');
+  });
+  render();
+}
+function render(){
+  const prompts = PROMPTS[intensity];
+  document.getElementById('journalContent').innerHTML = prompts.map((p,i) => `
+    <div class="day-entry">
+      <div class="day-header">
+        <div class="day-num">${i+1}</div>
+        <div class="day-theme">${p.theme}</div>
+      </div>
+      <div class="prompt-section">
+        <div class="prompt-label">Action Prompt</div>
+        <div class="prompt-question">${p.a}</div>
+        <div class="prompt-lines"></div><div class="prompt-lines"></div><div class="prompt-lines"></div><div class="prompt-lines"></div><div class="prompt-lines"></div>
+      </div>
+      <div class="prompt-section">
+        <div class="prompt-label">Reflection Prompt</div>
+        <div class="prompt-question">${p.r}</div>
+        <div class="prompt-lines"></div><div class="prompt-lines"></div><div class="prompt-lines"></div><div class="prompt-lines"></div><div class="prompt-lines"></div>
+      </div>
+    </div>
+  `).join('');
+}
+render();
+</script>
+</body>
+</html>
