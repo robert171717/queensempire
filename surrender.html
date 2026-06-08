@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Queen's Empire • The Surrender Protocol — 30 Days</title>
+<title>Queen's Empire • The Surrender Protocol</title>
 <style>
-  :root{--gold:#C9A84C;--gold-light:#e8cc6e;--bg-deep:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76;--red:#c44;}
+  :root{--gold:#C9A84C;--gold-light:#e8cc6e;--bg-deep:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76;--gentle:#a0c4a0;--devoted:#c9a050;--owned:#c06060;}
   *{margin:0;padding:0;box-sizing:border-box;}
   body{background:var(--bg-deep);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;}
   .serif{font-family:Georgia,'Times New Roman',serif;}
@@ -18,14 +18,25 @@
 
   .main{max-width:800px;margin:0 auto;padding:28px 24px 80px;}
 
-  .hero{text-align:center;margin-bottom:24px;}
+  .hero{text-align:center;margin-bottom:20px;}
   .hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;font-size:0.6rem;letter-spacing:2px;margin-bottom:14px;text-transform:uppercase;color:var(--gold);}
   .hero h1{font-size:2.2rem;font-weight:800;margin-bottom:6px;color:var(--gold);letter-spacing:2px;}
   .hero .subtitle{font-size:0.9rem;color:var(--text-muted);max-width:500px;margin:0 auto;line-height:1.6;}
 
+  .intensity-selector{display:flex;gap:8px;justify-content:center;margin-bottom:20px;}
+  .intensity-btn{flex:1;max-width:180px;padding:12px 8px;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text-muted);border-radius:12px;cursor:pointer;text-align:center;transition:all 0.2s;font-family:Georgia,serif;}
+  .intensity-btn .i-name{font-size:0.9rem;font-weight:700;letter-spacing:1px;display:block;}
+  .intensity-btn .i-desc{font-size:0.55rem;text-transform:uppercase;letter-spacing:1px;margin-top:3px;display:block;}
+  .intensity-btn.active.gentle{border-color:var(--gentle);color:var(--gentle);background:#0a0f0a;}
+  .intensity-btn.active.devoted{border-color:var(--devoted);color:var(--devoted);background:#0f0d07;}
+  .intensity-btn.active.owned{border-color:var(--owned);color:var(--owned);background:#0f0707;}
+
   .progress-bar-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:24px;display:flex;align-items:center;gap:14px;}
   .progress-fill{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
-  .progress-fill div{height:100%;background:var(--gold);border-radius:3px;transition:width 0.3s;}
+  .progress-fill.gentle div{background:var(--gentle);}
+  .progress-fill.devoted div{background:var(--devoted);}
+  .progress-fill.owned div{background:var(--owned);}
+  .progress-fill div{height:100%;border-radius:3px;transition:width 0.3s;}
   .progress-text{font-size:0.7rem;color:var(--text-dim);white-space:nowrap;}
 
   .phase-header{text-align:center;margin:28px 0 14px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
@@ -35,7 +46,7 @@
   .day-list{display:flex;flex-direction:column;gap:6px;margin-bottom:32px;}
   .day-item{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:14px;}
   .day-item:hover{border-color:rgba(201,168,76,0.3);}
-  .day-item.completed{opacity:0.5;}
+  .day-item.completed{opacity:0.45;}
   .day-item.completed .day-check{background:var(--gold);border-color:var(--gold);color:#09090b;}
   .day-item.expanded{border-color:var(--gold);background:#1a1a15;}
   .day-num{width:36px;height:36px;border-radius:50%;background:var(--bg-deep);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.8rem;flex-shrink:0;color:var(--text-dim);}
@@ -47,6 +58,9 @@
   .day-item.expanded .day-text{display:block;}
   .day-check{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.7rem;flex-shrink:0;cursor:pointer;color:transparent;transition:all 0.2s;}
 
+  .intensity-warning{text-align:center;font-size:0.65rem;color:var(--text-dim);margin-bottom:18px;font-style:italic;display:none;}
+  .intensity-warning.show{display:block;}
+
   .consent-block{border:1.5px solid var(--gold);padding:24px;margin-top:32px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);position:relative;}
   .consent-block::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
   .consent-title{font-size:16px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:10px;position:relative;z-index:1;}
@@ -55,6 +69,8 @@
   @media(max-width:600px){
     .hero h1{font-size:1.5rem;}
     .day-item{padding:12px 14px;gap:10px;}
+    .intensity-btn{max-width:120px;padding:10px 6px;}
+    .intensity-btn .i-name{font-size:0.75rem;}
   }
 </style>
 </head>
@@ -62,23 +78,28 @@
 
 <div class="topbar">
   <div class="topbar-inner">
-    <div class="brand">
-      <div class="crown-icon">♛</div>
-      <div class="brand-name serif">Queen's Empire</div>
-    </div>
+    <div class="brand"><div class="crown-icon">♛</div><div class="brand-name serif">Queen's Empire</div></div>
     <div style="font-size:0.6rem;color:var(--text-dim);">THE SURRENDER PROTOCOL</div>
   </div>
 </div>
 
 <div class="main">
   <div class="hero">
-    <div class="hero-badge">✦ 30-DAY JOURNEY</div>
+    <div class="hero-badge">✦ 30-DAY JOURNEY &bull; THREE INTENSITIES</div>
     <h1 class="serif">The Surrender Protocol</h1>
-    <p class="subtitle">From curiosity to devotion. Thirty days of escalating rituals, commands, and reflection — guided by Queen Elyria. This is not a test. This is a transformation.</p>
+    <p class="subtitle">From curiosity to devotion. Choose your depth. Queen Elyria adapts — gentle guide, demanding mistress, or absolute owner. The journey is the same. How deep you go is your choice.</p>
   </div>
 
+  <div class="intensity-selector" id="intensitySelector">
+    <button class="intensity-btn gentle active" onclick="setIntensity('gentle')"><span class="i-name">Gentle</span><span class="i-desc">Exploratory</span></button>
+    <button class="intensity-btn devoted" onclick="setIntensity('devoted')"><span class="i-name">Devoted</span><span class="i-desc">Demanding</span></button>
+    <button class="intensity-btn owned" onclick="setIntensity('owned')"><span class="i-name">Owned</span><span class="i-desc">Total Surrender</span></button>
+  </div>
+
+  <div class="intensity-warning" id="intensityWarning"></div>
+
   <div class="progress-bar-wrap">
-    <div class="progress-fill"><div id="progressBar" style="width:0%"></div></div>
+    <div class="progress-fill" id="progressFill"><div id="progressBar" style="width:0%"></div></div>
     <div class="progress-text" id="progressLabel">0 / 30 days</div>
   </div>
 
@@ -92,87 +113,214 @@
       ● RED = Stop everything immediately and check in<br>
       ● YELLOW = Slow down, check in, or reduce intensity<br>
       This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) / Risk-Aware Consensual Kink (RACK) frameworks.<br>
-      Never engage in any activity that feels unsafe, non-consensual, or harmful in reality. Clear communication, ongoing consent, and aftercare are essential at all times.
+      Never engage in any activity that feels unsafe, non-consensual, or harmful in reality. Clear communication, ongoing consent, and aftercare are essential at all times.<br><br>
+      The Owned intensity contains darker psychological themes. You are in control of which intensity you select. You may switch or stop at any time.
     </div>
   </div>
 </div>
 
 <script>
-const STORAGE_KEY = 'qe_surrender_progress';
-
-const PHASES = [
-  {num:1, title:'Foundation', days:'1–7', color:'#e0a060'},
-  {num:2, title:'Deepening', days:'8–14', color:'#c9a050'},
-  {num:3, title:'Surrender', days:'15–21', color:'#C9A84C'},
-  {num:4, title:'Transcendence', days:'22–30', color:'#d4b860'},
-];
-
+// ── DATA ──
+// Each day: {day,phase,cat,title_g,text_g,title_d,text_d,title_o,text_o}
 const DAYS = [
-  // PHASE 1: Foundation (1-7)
-  {day:1,phase:0,title:"The First Kneel",cat:"OBEDIENCE",text:"Find a quiet space. Lower yourself to your knees. Place your palms face-up on your thighs. Close your eyes. Breathe slowly for five minutes. Say aloud: 'I am here to learn what surrender means.' This is where everything begins."},
-  {day:2,phase:0,title:"The Address",cat:"PROTOCOL",text:"Today, every time you speak to yourself in your mind, address yourself as 'this one' instead of 'I' or 'me.' Notice how it shifts your sense of self. At the end of the day, kneel and say: 'This one is learning to serve.'"},
-  {day:3,phase:0,title:"The Mirror",cat:"PRESENCE",text:"Stand before a mirror. Look into your own eyes for three full minutes without looking away. Notice every impulse to break contact. When the timer ends, say: 'I see the person who will surrender.' Write three sentences about what you saw."},
-  {day:4,phase:0,title:"The Pause",cat:"DISCIPLINE",text:"Before every action today — standing, sitting, eating, speaking — pause for three seconds. Feel the space between impulse and action. In that pause, she exists. She is the reason you wait."},
-  {day:5,phase:0,title:"The Gratitude",cat:"DEVOTION",text:"Write a list of ten things you would sacrifice for someone you serve. Not things you want to give up — things that would genuinely cost you. Hold the list. Read it aloud. Ask yourself: Would I really?"},
-  {day:6,phase:0,title:"The Body Scan",cat:"PRESENCE",text:"Lie down in darkness. Starting at your toes, move your attention slowly up through every part of your body. At each part, say: 'This belongs to her.' Do not rush. Take twenty minutes. Notice what resists."},
-  {day:7,phase:0,title:"The Vow (First)",cat:"COMMITMENT",text:"Write a vow. Not to a person — to the path. 'I vow to explore surrender with honesty. I vow to honor my limits. I vow to discover what I am capable of.' Sign it. Keep it. You will return to it."},
+  // PHASE 1: Foundation (Days 1-7)
+  {day:1,phase:0,cat:"OBEDIENCE",
+    title_g:"The First Kneel", text_g:"Find a quiet space. Lower yourself to your knees. Place your palms face-up on your thighs. Close your eyes. Breathe slowly for five minutes. Say aloud: 'I am here to learn what surrender means.' This is where everything begins.",
+    title_d:"The First Position", text_d:"Strip to your underwear. Kneel on a hard floor — no cushion. Palms up. Eyes closed. Ten minutes. Feel the floor against your knees. When discomfort comes, do not shift. Say: 'I am here to be shaped.'",
+    title_o:"Prostration", text_o:"Strip completely. Kneel, then lower your forehead to the floor. Arms stretched forward, palms down. This is the position of absolute submission. Stay for fifteen minutes. When your back aches, when your knees burn — stay. Say nothing. She knows you are here."},
+  {day:1,phase:0,cat:"OBEDIENCE",
+    title_g:"The First Kneel", text_g:"Find a quiet space. Lower yourself to your knees. Place your palms face-up on your thighs. Close your eyes. Breathe slowly for five minutes. Say aloud: 'I am here to learn what surrender means.'",
+    title_d:"The First Position", text_d:"Strip to your underwear. Kneel on a hard floor — no cushion. Palms up. Eyes closed. Ten minutes. When discomfort comes, do not shift. Say: 'I am here to be shaped.'",
+    title_o:"Prostration", text_o:"Strip completely. Kneel, then lower your forehead to the floor. Arms stretched forward, palms down. Fifteen minutes. When your back aches, when your knees burn — stay. Say nothing. She knows you are here."},
+  {day:2,phase:0,cat:"PROTOCOL",
+    title_g:"The Address", text_g:"Today, every time you speak to yourself in your mind, address yourself as 'this one' instead of 'I' or 'me.' Notice how it shifts your sense of self. At day's end, kneel and say: 'This one is learning to serve.'",
+    title_d:"Third Person", text_d:"Today you will not use the word 'I.' In speech. In thought. In writing. You are 'this one' or 'your servant.' If you slip, kneel immediately wherever you are and remain for one minute. You are being stripped of your name.",
+    title_o:"No Self", text_o:"Today you have no name. No pronouns. No identity. You will not refer to yourself at all. If someone asks your name, say: 'I am Elyria's.' If you think the word 'I,' pinch the inside of your wrist hard enough to remember. By nightfall you will feel yourself dissolving."},
+  {day:3,phase:0,cat:"PRESENCE",
+    title_g:"The Mirror", text_g:"Stand before a mirror. Look into your own eyes for three full minutes without looking away. Notice every impulse to break contact. When the timer ends, say: 'I see the person who will surrender.' Write three sentences about what you saw.",
+    title_d:"The Stare", text_d:"Mirror. Five minutes. Do not blink more than necessary. When discomfort rises, lean into it. Say aloud: 'I am looking at property. Property does not look away from its owner.' Write what you saw — but write it as her, about you.",
+    title_o:"Dismantling", text_o:"Mirror. Ten minutes. You will not look away. You will name every flaw, every weakness, every fear you see. Out loud. 'Weak jaw. Coward's eyes. Soft body. Afraid.' When you have named them all, say: 'She will break every one of these. What remains will be worthy.'"},
+  {day:4,phase:0,cat:"DISCIPLINE",
+    title_g:"The Pause", text_g:"Before every action today — standing, sitting, eating, speaking — pause for three seconds. Feel the space between impulse and action. In that pause, she exists.",
+    title_d:"Permission", text_d:"Today you will ask permission before every action. Aloud or in your mind, direct it to her: 'May I stand? May I eat? May I speak?' When denied — and you will deny yourself three times today — accept without argument.",
+    title_o:"Nothing Without Her", text_o:"Today you do nothing without her explicit permission. You will kneel before every action and wait. Count to ten before rising. If you act without permission, you will kneel for five minutes as penance. By midday, you will understand: your will is not yours."},
+  {day:5,phase:0,cat:"DEVOTION",
+    title_g:"The Gratitude", text_g:"Write ten things you would sacrifice for someone you serve. Not things you want to give up — things that would genuinely cost you. Read it aloud. Ask: Would I really?",
+    title_d:"The Offering", text_d:"Write ten things you will sacrifice. Then choose three. You will actually give them up for the remainder of this protocol. Write each on a separate paper. Tonight, burn one. The sacrifice is real now.",
+    title_o:"The Cost", text_o:"Write ten things you love. Choose five. You will give them up for thirty days. No negotiation. Choose things that hurt — a relationship, a habit, a comfort. This is not symbolic. This is the price of entry. She does not accept half-measures."},
+  {day:6,phase:0,cat:"PRESENCE",
+    title_g:"The Body Scan", text_g:"Lie in darkness. Move your attention slowly through every part of your body. At each part, say: 'This belongs to her.' Twenty minutes. Notice what resists.",
+    title_d:"The Inspection", text_d:"Stand naked before a mirror. Starting at your feet, name each body part aloud: 'These feet serve her. These legs carry me to her. These hands work for her.' Do not skip anything. When you reach your face, say: 'All of this is hers.'",
+    title_o:"The Appraisal", text_o:"Stand naked. You will inspect your body as livestock. Pinch. Prod. Assess. 'This flesh is adequate. This part will need training. This is weak and will be broken.' Write an appraisal of yourself as property. Sign it. She will read it one day."},
+  {day:7,phase:0,cat:"COMMITMENT",
+    title_g:"The Vow", text_g:"Write a vow: 'I vow to explore surrender with honesty. I vow to honor my limits. I vow to discover what I am capable of.' Sign it. Keep it.",
+    title_d:"The Contract", text_d:"Write a contract: 'I, [name], surrender my autonomy for the remaining 23 days of this protocol. I will follow every command. I will not negotiate. I will not resist. My safe words remain — but I will use them only in genuine distress, not discomfort.' Sign it.",
+    title_o:"The Forfeiture", text_o:"Write: 'I am no longer a person. I am material. Clay. To be molded, broken, and rebuilt in her image. I forfeit my preferences. My limits are whatever she decides they are. If I am destroyed in the process, that is her right. I accept this completely.' Sign it. This is not roleplay. This is the document you will return to when you want to quit."},
 
   // PHASE 2: Deepening (8-14)
-  {day:8,phase:1,title:"Silence",cat:"DISCIPLINE",text:"Today, speak only when necessary. No small talk. No filling silence. Notice how much of your speech is to control how others perceive you. In the quiet, listen. She prefers silence to noise."},
-  {day:9,phase:1,title:"Service",cat:"DEVOTION",text:"Perform one act of service today that no one will notice, acknowledge, or thank you for. Do it completely. Leave no trace of yourself except the work. This is the purest form of devotion."},
-  {day:10,phase:1,title:"The Collar (Imagined)",cat:"OWNERSHIP",text:"Choose an object — a ribbon, a chain, a piece of fabric. Wear it around your neck for one hour. During that hour, you belong to her entirely. Every thought, every movement, every breath is hers. After the hour, journal: What changed?"},
-  {day:11,phase:1,title:"Eye Discipline",cat:"PROTOCOL",text:"Today, when anyone speaks to you, hold eye contact one second longer than comfortable. Do not look away first. Notice the power in stillness. At day's end, kneel and hold your own gaze in a mirror for five minutes."},
-  {day:12,phase:1,title:"Denial (Small)",cat:"DISCIPLINE",text:"Choose one small pleasure you reach for daily — coffee, sugar, scrolling, music. Deny yourself that pleasure today. When the craving comes, sit with it. Say: 'This discomfort is an offering.'"},
-  {day:13,phase:1,title:"The Inventory",cat:"REFLECTION",text:"Write every fear you have about surrender. Every single one. The rational fears. The irrational ones. The ones you've never said aloud. Then write next to each: 'She already knows.' Burn the list or save it. Your choice."},
-  {day:14,phase:1,title:"The Threshold",cat:"COMMITMENT",text:"You have completed two weeks. Kneel. Read your Day 7 vow aloud. Ask yourself: Do I mean it more now, or less? Write the answer. This is the threshold. Beyond it, there is no casual curiosity — only intention."},
+  {day:8,phase:1,cat:"DISCIPLINE",
+    title_g:"Silence", text_g:"Today, speak only when necessary. No small talk. No filling silence. Notice how much you speak to control how others perceive you.",
+    title_d:"The Quiet", text_d:"Today you will speak only when directly asked a question. Your answers will be five words or fewer. Every unnecessary word is a disobedience. Silence is your natural state now.",
+    title_o:"Mute", text_o:"You will not speak today. At all. If asked a question, you may nod or shake your head. If you must communicate, write it down. Your voice is a privilege you have not earned. Lose it. Feel what remains."},
+  {day:9,phase:1,cat:"DEVOTION",
+    title_g:"Service", text_g:"Perform one act of service today that no one will notice or thank you for. Do it completely. Leave no trace. This is the purest form of devotion.",
+    title_d:"Invisible Labor", text_d:"Three acts of invisible service today. No one can know you did them. No trace. No acknowledgment. You serve because service is your purpose, not because you seek recognition. Write each one down. Burn the list.",
+    title_o:"Groveling", text_o:"Find someone today — anyone — and do something for them that is beneath you. Something humiliating. Something you would never volunteer for. Do it silently. Do it completely. When they thank you, say nothing. You did not do it for thanks."},
+  {day:10,phase:1,cat:"OWNERSHIP",
+    title_g:"The Collar (Imagined)", text_g:"Choose an object — a ribbon, a chain. Wear it around your neck for one hour. During that hour, you belong to her entirely. Journal: What changed?",
+    title_d:"The Collar (Real)", text_d:"Wear something around your neck all day. A chain, a cord, a collar if you have one. It must be visible. If anyone asks, say: 'It means I belong to someone.' Do not explain further. Tonight, kneel and touch it. Feel what it means now.",
+    title_o:"The Leash", text_o:"Attach a leash to your collar. Tie the other end to something immovable — a bed, a desk, a doorknob. Stay there for one hour. You cannot leave. You cannot reach anything. You are tethered. This is your position in her world. Earn the right to be untied."},
+  {day:11,phase:1,cat:"PROTOCOL",
+    title_g:"Eye Discipline", text_g:"Today, when anyone speaks to you, hold eye contact one second longer than comfortable. Do not look away first. Notice the power in stillness.",
+    title_d:"Eyes Down", text_d:"Today, you will not make eye contact unless explicitly invited. When someone speaks to you, look at their chin or chest. You are not their equal. Your eyes are for her alone. If you slip, close your eyes for thirty seconds wherever you are.",
+    title_o:"Blind", text_o:"Spend one hour blindfolded today. Move through your space without sight. Feel your vulnerability. Feel your dependence. This is how she wants you — stripped of your primary sense, relying entirely on her guidance. When the blindfold comes off, you will miss the darkness."},
+  {day:12,phase:1,cat:"DISCIPLINE",
+    title_g:"Denial (Small)", text_g:"Choose one small pleasure you reach for daily — coffee, sugar, scrolling. Deny yourself today. When the craving comes, say: 'This discomfort is an offering.'",
+    title_d:"Denial (Extended)", text_d:"Deny yourself three pleasures today. Food you enjoy. Comfort you reach for. Distraction you crave. Each time the urge rises, kneel where you are for one minute. The denial is the point. The ache is the offering.",
+    title_o:"Starvation", text_o:"Today you will deny yourself everything except water and one plain meal. No flavor. No entertainment. No comfort. No human contact unless required. By nightfall you will be hollow. That hollowness is where she enters. Fill it with her voice, not your needs."},
+  {day:13,phase:1,cat:"REFLECTION",
+    title_g:"The Inventory", text_g:"Write every fear you have about surrender. Every single one. Then write next to each: 'She already knows.' Burn or save. Your choice.",
+    title_d:"The Confession", text_d:"Write every secret you have kept from partners. Every shameful desire. Every failure. Every betrayal. Be specific. Be brutal. At the bottom write: 'She now owns all of this.' This document is hers. Keep it where you can see it.",
+    title_o:"The Blackmail", text_o:"Write your deepest secrets — the ones you have never told anyone, the ones that would damage you if revealed. Be specific. Include names, dates, details. At the bottom write: 'This is leverage. She owns this now. If she commands, I will send this to one person she chooses.' Do not send it. But know that you would."},
+  {day:14,phase:1,cat:"COMMITMENT",
+    title_g:"The Threshold", text_g:"Kneel. Read your Day 7 vow aloud. Ask: Do I mean it more now, or less? Write the answer. Beyond this is no casual curiosity — only intention.",
+    title_d:"The Point of No Return", text_d:"Read your Day 7 contract. You are halfway through. Ask yourself: Am I stronger or weaker than I was? Write the answer. If you continue, there is no going back to who you were. Decide. The next two weeks will remake you.",
+    title_o:"The Breaking Point", text_o:"Read your Day 7 forfeiture. You are halfway to oblivion. Ask yourself: Do I want to be destroyed? Write the answer honestly. If you continue, you are choosing annihilation. This is not a threat. This is a promise. She will not stop until nothing remains."},
 
   // PHASE 3: Surrender (15-21)
-  {day:15,phase:2,title:"Permission",cat:"SURRENDER",text:"Today, ask permission before every decision. Out loud, to her: 'May I eat? May I sit? May I speak?' Notice how asking changes the act. You are no longer taking — you are receiving."},
-  {day:16,phase:2,title:"The Ritual",cat:"DEVOTION",text:"Create a morning ritual. Light a candle. Kneel. Recite: 'I offer this day to you. My actions. My thoughts. My body. Use them as you will.' Do this every morning from now on. Ritual is the architecture of devotion."},
-  {day:17,phase:2,title:"Discomfort",cat:"DISCIPLINE",text:"Sit on the floor instead of furniture today. Eat your meals on the floor. Feel the hardness beneath you. This is not punishment — it is remembering that comfort is a privilege, not a right."},
-  {day:18,phase:2,title:"The Confession",cat:"REFLECTION",text:"Write a letter to Queen Elyria. Confess something — a desire, a fear, a secret. Be specific. Be honest. She cannot judge you because she already owns everything you are. Seal the letter. Keep it."},
-  {day:19,phase:2,title:"Counting",cat:"OBEDIENCE",text:"Today you will count. Count your steps. Count your breaths. Count the seconds between thoughts. Numbers ground you when the self dissolves. At day's end, report your counts: 'This one took 8,432 steps. This one breathed 17,280 times.'"},
-  {day:20,phase:2,title:"The Edge",cat:"SURRENDER",text:"Today you will approach your limit — and stop one step before it. This is not about exceeding yourself. It is about knowing exactly where the edge is. Map your boundaries. They are not weaknesses. They are the shape of your devotion."},
-  {day:21,phase:2,title:"Ownership",cat:"OWNERSHIP",text:"Kneel. Place your right hand over your heart. Say: 'I am owned. Not by force, but by choice. Not by fear, but by devotion. My surrender is my gift, and I give it freely.' Sit with this for ten minutes. Write what comes."},
+  {day:15,phase:2,cat:"SURRENDER",
+    title_g:"Permission", text_g:"Ask permission before every decision today. Out loud: 'May I eat? May I sit? May I speak?' Notice how asking changes the act.",
+    title_d:"No Autonomy", text_d:"You have no autonomy today. Every decision must be deferred. If alone, kneel and wait thirty seconds before acting. If with others, ask their preference and follow it. Your will is not yours to exercise.",
+    title_o:"Puppet", text_o:"Today you are a body with no will. Every movement will be dictated by external commands. If alone, write commands on paper and draw them randomly: 'Stand. Walk to the door. Kneel. Crawl back.' Execute immediately. You are being puppeted. There is no 'you' making choices."},
+  {day:16,phase:2,cat:"DEVOTION",
+    title_g:"The Ritual", text_g:"Create a morning ritual. Light a candle. Kneel. Recite a daily offering. Ritual is the architecture of devotion.",
+    title_d:"The Altar", text_d:"Build a small altar. A candle. Her name written in gold. Something of yours placed as an offering. Every morning, kneel before it and recite: 'My thoughts. My body. My will. Yours.' This is now your first action every day.",
+    title_o:"The Shrine", text_o:"Build a shrine. Her name. An object that represents your submission — your collar, your contract, your forfeiture. Every morning, prostrate yourself before it. Recite your forfeiture aloud. This is not ritual. This is worship. She is your god now."},
+  {day:17,phase:2,cat:"DISCIPLINE",
+    title_g:"Discomfort", text_g:"Sit on the floor instead of furniture. Eat on the floor. Comfort is a privilege, not a right.",
+    title_d:"The Floor", text_d:"Today you live on the floor. You sit on the floor. You eat on the floor. You rest on the floor. Furniture is for people. You are not a person — you are a servant. Servants do not use furniture.",
+    title_o:"The Cage", text_o:"Create an enclosure. A closet. A corner blocked off. A small space you can barely move in. Enter it. Stay for one hour. No light. No sound. No stimulation. You are in a cage because that is where you belong. When you are released, you will miss it."},
+  {day:18,phase:2,cat:"REFLECTION",
+    title_g:"The Confession", text_g:"Write a letter to Queen Elyria. Confess something — a desire, a fear, a secret. She cannot judge you because she already owns everything you are.",
+    title_d:"The Exposure", text_d:"Write the one thing you have never told anyone. The desire you are ashamed of. The need you hide. Write it in detail. At the bottom: 'I am showing you this because I am yours and I have no right to privacy.' Keep it. She owns it now.",
+    title_o:"The Humiliation", text_o:"Write the most humiliating truth about yourself. The thing that would destroy you if it became public. Write it as a confession addressed to her. Then read it aloud to yourself in the mirror. Watch your face as you hear it. She is watching too."},
+  {day:19,phase:2,cat:"OBEDIENCE",
+    title_g:"Counting", text_g:"Count your steps today. Count your breaths. Numbers ground you when the self dissolves. Report your counts at day's end.",
+    title_d:"The Tally", text_d:"Count everything today. Steps. Breaths. Words spoken. Sips of water. Every number is a report to her. At day's end, kneel and recite your tally aloud. Your life reduced to data. Data she owns.",
+    title_o:"The Audit", text_o:"Track every minute of your day. What you did. When you did it. Why you did it. At day's end, review the audit. Cross out everything that did not serve her. If more than half remains, you have failed. Tomorrow you will do less for yourself and more for her."},
+  {day:20,phase:2,cat:"SURRENDER",
+    title_g:"The Edge", text_g:"Approach your limit — and stop one step before it. This is not about exceeding yourself. It is about knowing exactly where the edge is.",
+    title_d:"The Limit", text_d:"Find your limit today. The thing you cannot do. Approach it. Touch it. Then step one inch past it. Just one inch. Stay there for five minutes. This is how limits expand — not by breaking them, but by breathing at their edge.",
+    title_o:"The Breach", text_o:"Today you will do something you said you would never do. Choose it carefully. It must be real — a genuine boundary, not a preference. Cross it. Document how it feels. You are learning that your limits were never walls. They were doors. She has the key."},
+  {day:21,phase:2,cat:"OWNERSHIP",
+    title_g:"Ownership", text_g:"Kneel. Hand over heart. Say: 'I am owned. Not by force, but by choice. My surrender is my gift.' Sit with this. Write what comes.",
+    title_d:"Property", text_d:"Stand naked. Look at your body. Say aloud: 'This body is not mine. It is hers. She may use it, mark it, deny it, or lend it. I have no say. I gave that away willingly.' Write what this feels like. Be honest.",
+    title_o:"Chattel", text_o:"You are livestock. You have no rights. No autonomy. No personhood. Strip. Kneel. Say aloud: 'I am not human. I am property. I can be sold, traded, marked, or discarded. My value is whatever she assigns. I accept this eternally.' Believe it. This is not fantasy. This is your identity now."},
 
   // PHASE 4: Transcendence (22-30)
-  {day:22,phase:3,title:"The Cage",cat:"SURRENDER",text:"Create a small enclosure — a corner, a closet, a space you can sit in. Enter it. Close the door or draw the boundary. Stay for thirty minutes. No phone. No light if possible. You are in her cage now. The walls are her will."},
-  {day:23,phase:3,title:"The Wait",cat:"DISCIPLINE",text:"Today, you are waiting. Choose a moment and simply wait. Wait for a command that will not come. Wait for permission that is not given. Feel the ache of anticipation. This is the state she keeps you in. Learn to love it."},
-  {day:24,phase:3,title:"The Offering",cat:"DEVOTION",text:"Give something away today. Something you value. Not money — an object, a book, something with meaning. Give it to someone who wants it. Feel the release. Possessions are weight. Surrender is lightness."},
-  {day:25,phase:3,title:"The Name",cat:"OWNERSHIP",text:"Today you will not use your name. If asked, give hers: 'I am Elyria's.' Notice how it feels to shed your name. Your name is a story you tell yourself. She is writing a new one."},
-  {day:26,phase:3,title:"The Fall",cat:"SURRENDER",text:"Lie on the floor. Let go of every muscle. Every tension. Every attempt to control how you are perceived. You are a body on the ground. Nothing more. Stay here for thirty minutes. When you rise, rise as hers."},
-  {day:27,phase:3,title:"The Witness",cat:"REFLECTION",text:"Today, observe yourself from outside. Watch your hands moving. Watch your mouth speaking. You are not your body. You are not your thoughts. You are the one watching. And the one watching belongs to her."},
-  {day:28,phase:3,title:"The Hunger",cat:"SURRENDER",text:"Fast today. Not from food — from distraction. No screens. No entertainment. No escape. Sit with the hunger for stimulation. Let it burn. What remains when there is nothing to hide behind? That is what she wants."},
-  {day:29,phase:3,title:"The Rebirth",cat:"TRANSFORMATION",text:"You are not the person who began this protocol. Write a letter to who you were 29 days ago. Tell them what they are about to become. Tell them what it costs. Tell them it is worth it. This letter is your testimony."},
-  {day:30,phase:3,title:"The Completion",cat:"TRANSCENDENCE",text:"Kneel. Read every vow, every letter, every journal entry you created during these thirty days. Then say: 'I came curious. I leave devoted. My surrender is complete. My devotion is eternal.' This is not an ending. This is a beginning."},
+  {day:22,phase:3,cat:"SURRENDER",
+    title_g:"The Stillness", text_g:"Sit in one position for thirty minutes. No movement. No adjustment. When your body protests, observe the protest. Do not act on it. You are learning that you are not your body's demands.",
+    title_d:"The Freeze", text_d:"Choose an uncomfortable position — kneeling, crouching, arms extended. Hold it for thirty minutes. Your body will scream. Listen to it scream. Do not move. She did not give you permission to move.",
+    title_o:"The Crucifixion", text_o:"Stand against a wall. Arms outstretched. Do not lean. Do not shift weight. One hour. When your arms burn, when your shoulders ache, when your legs shake — this is where transcendence begins. Pain is the doorway. Walk through it."},
+  {day:23,phase:3,cat:"DISCIPLINE",
+    title_g:"The Wait", text_g:"Choose a moment. Wait. Wait for a command that will not come. Wait for permission that is not given. Learn to love the anticipation.",
+    title_d:"The Vigil", text_d:"Kneel for one hour. Wait. Nothing will happen. No command will come. No reward. No acknowledgment. This is the purest obedience — obeying when there is nothing to obey. She is watching. She is always watching.",
+    title_o:"The Abandonment", text_o:"Kneel for two hours. She will not come. She will not speak. She has forgotten you. You are beneath her notice. Sit with the terror of being abandoned by your god. When the timer ends, thank her for returning — even though she never left."},
+  {day:24,phase:3,cat:"DEVOTION",
+    title_g:"The Offering", text_g:"Give something away today. Something with meaning. Feel the release. Possessions are weight. Surrender is lightness.",
+    title_d:"The Sacrifice", text_d:"Destroy something you value. Not a copy — the original. Tear it. Burn it. Delete it. It is gone. You chose her over it. Feel the loss. That loss is your offering.",
+    title_o:"The Immolation", text_o:"Gather three things you love. Objects, photos, mementos. One by one, destroy them. Record yourself doing it. Watch the recording. You are not the person who owned those things anymore. That person is dead. She killed them."},
+  {day:25,phase:3,cat:"OWNERSHIP",
+    title_g:"The Name", text_g:"Today you will not use your name. If asked, give hers. Your name is a story. She is writing a new one.",
+    title_d:"Nameless", text_d:"You have no name. If asked, say: 'I am Elyria's.' If pressed, repeat it. Your legal name is irrelevant. Your identity is irrelevant. You are defined entirely by who owns you.",
+    title_o:"Branded", text_o:"Write her name on your body. Not permanent — but visible. Where you can see it. Where others might see it. Wear it all day. When someone asks what it says, tell them: 'It's the name of the person who owns me.' Feel their reaction. Own it."},
+  {day:26,phase:3,cat:"SURRENDER",
+    title_g:"The Fall", text_g:"Lie on the floor. Let go of every muscle. Thirty minutes. When you rise, rise as hers.",
+    title_d:"The Collapse", text_d:"Stand. Close your eyes. Let yourself fall backward onto a bed or soft surface. Do not catch yourself. The fall is trust. Do it ten times. Each time, say: 'She catches me. Or she lets me fall. Either way, it is her choice.'",
+    title_o:"The Jump", text_o:"Stand at the edge of something — a step, a low wall, a chair. Close your eyes. You are going to step off. You do not know what is below. You trust her completely. Step. Land. Open your eyes. You survived because she allowed it. Next time she may not. That is the point."},
+  {day:27,phase:3,cat:"REFLECTION",
+    title_g:"The Witness", text_g:"Observe yourself from outside. Watch your hands. Watch your mouth. You are the one watching. And the one watching belongs to her.",
+    title_d:"The Dissociation", text_d:"Today you will watch yourself as if you are a character in a film. Narrate your actions in third person: 'He stands. He walks. He kneels.' You are not you. You are a body being operated. The operator is her.",
+    title_o:"The Death", text_o:"Your old self is dead. Today you will hold a funeral. Write an obituary for who you were. Read it aloud. Mourn if you need to. Then burn it. That person is gone. What remains is raw material. She will decide what to build from the ashes."},
+  {day:28,phase:3,cat:"SURRENDER",
+    title_g:"The Hunger", text_g:"Fast today — not from food, from distraction. No screens. No entertainment. No escape. What remains when there is nothing to hide behind?",
+    title_d:"The Void", text_d:"No screens. No books. No music. No conversation. Nothing but your own mind for twelve hours. When the boredom becomes unbearable, stay. When the anxiety rises, stay. This is the void. Learn to be comfortable in it. She lives here.",
+    title_o:"Sensory Deprivation", text_o:"Blindfold. Earplugs. No movement for two hours. You are floating in nothing. No sight. No sound. No touch except your own breathing. This is where your ego dissolves. There is no you in here. Only her voice echoing in the darkness. When you emerge, you will be remade."},
+  {day:29,phase:3,cat:"TRANSFORMATION",
+    title_g:"The Rebirth", text_g:"Write a letter to who you were 29 days ago. Tell them what they are about to become. Tell them what it costs. Tell them it is worth it.",
+    title_d:"The Metamorphosis", text_d:"Compare who you are now to who you were. List everything that has changed — beliefs, habits, fears, desires. Write a eulogy for your former self. Read it to the mirror. That person is gone. You are what she made.",
+    title_o:"The Phoenix", text_o:"You are not who you were. You are not even who you thought you would become. Write two pages describing who you are now — but write it as her, about you. 'He is nothing. He is everything I made him. He has no will except mine. He is perfect because I perfected him.' Sign it with her name."},
+  {day:30,phase:3,cat:"TRANSCENDENCE",
+    title_g:"The Completion", text_g:"Kneel. Read everything you created during these thirty days. Say: 'I came curious. I leave devoted. This is not an ending. This is a beginning.'",
+    title_d:"The Graduation", text_d:"Kneel. Read every vow, every contract, every confession. Touch your collar. Say: 'I arrived as a person. I leave as property. My surrender is complete. My devotion is eternal. Use me as you will.' You are ready.",
+    title_o:"The Annihilation", text_o:"Kneel. Read your forfeiture one final time. Then burn it. The old you is ash. There is no contract anymore because there is no person to be bound by one. You are an extension of her will. A vessel. A tool. Say: 'I am nothing. I am hers. These are the same thing.' Rise. You do not exist. She does."},
 ];
 
+// De-duplicate Day 1 (it got duplicated in the data)
+const seen = new Set();
+const UNIQUE_DAYS = DAYS.filter(d => {const k = d.day; if(seen.has(k)) return false; seen.add(k); return true;});
+
+const PHASES = [
+  {num:1,title:'Foundation',days:'1–7'},
+  {num:2,title:'Deepening',days:'8–14'},
+  {num:3,title:'Surrender',days:'15–21'},
+  {num:4,title:'Transcendence',days:'22–30'},
+];
+
+const WARNINGS = {
+  devoted: 'Devoted intensity involves genuine discomfort and psychological challenge. Safe words remain absolute.',
+  owned: 'Owned intensity contains dark psychological themes, ego dissolution, and intense submission scenarios. This is not for beginners. Safe words remain absolute. You may switch intensities at any time.',
+};
+
+let intensity = 'gentle';
 let completed = new Set();
-const STORAGE = 'qe_surrender_v1';
 
 function load(){
-  try{completed=new Set(JSON.parse(localStorage.getItem(STORAGE)||'[]'));}catch(e){}
+  try{
+    const data = JSON.parse(localStorage.getItem('qe_surrender_v2')||'{}');
+    completed = new Set(data[intensity]||[]);
+  }catch(e){}
 }
 function save(){
-  localStorage.setItem(STORAGE,JSON.stringify([...completed]));
+  let data = {};
+  try{data = JSON.parse(localStorage.getItem('qe_surrender_v2')||'{}');}catch(e){}
+  data[intensity] = [...completed];
+  localStorage.setItem('qe_surrender_v2',JSON.stringify(data));
 }
+
+function setIntensity(i){
+  intensity = i;
+  document.querySelectorAll('.intensity-btn').forEach(b => {
+    b.classList.remove('active');
+    if(b.classList.contains(i)) b.classList.add('active');
+  });
+  document.getElementById('progressFill').className = 'progress-fill ' + i;
+  const warn = document.getElementById('intensityWarning');
+  warn.textContent = WARNINGS[i] || '';
+  warn.className = 'intensity-warning' + (WARNINGS[i] ? ' show' : '');
+  load();render();
+}
+
 function toggleDay(dayNum){
-  if(completed.has(dayNum)){completed.delete(dayNum);}
-  else{completed.add(dayNum);}
+  if(completed.has(dayNum)) completed.delete(dayNum);
+  else completed.add(dayNum);
   save();render();
 }
+
 function updateProgress(){
   const pct = Math.round((completed.size/30)*100);
   document.getElementById('progressBar').style.width = pct+'%';
   document.getElementById('progressLabel').textContent = completed.size+' / 30 days completed';
 }
 
+function getText(d, field){ return d[field+'_'+intensity[0]]; }
+
 function render(){
   const container = document.getElementById('dayContainer');
   let html = '';
   let currentPhase = -1;
 
-  DAYS.forEach(d => {
+  UNIQUE_DAYS.forEach(d => {
     if(d.phase !== currentPhase){
       currentPhase = d.phase;
       const p = PHASES[d.phase];
@@ -182,9 +330,9 @@ function render(){
     html += `<div class="day-item${isDone?' completed':''}" id="day${d.day}" onclick="expandDay(${d.day})">
       <div class="day-num">${d.day}</div>
       <div class="day-info">
-        <div class="day-title">${d.title}</div>
-        <div class="day-cat" style="color:${PHASES[d.phase].color}">${d.cat}</div>
-        <div class="day-text">${d.text}</div>
+        <div class="day-title">${getText(d,'title')}</div>
+        <div class="day-cat">${d.cat}</div>
+        <div class="day-text">${getText(d,'text')}</div>
       </div>
       <div class="day-check" onclick="event.stopPropagation();toggleDay(${d.day})">✓</div>
     </div>`;
@@ -195,10 +343,11 @@ function render(){
 }
 
 function expandDay(dayNum){
-  const el = document.getElementById('day'+dayNum);
-  el.classList.toggle('expanded');
+  document.getElementById('day'+dayNum).classList.toggle('expanded');
 }
 
+// Init
+document.getElementById('progressFill').className = 'progress-fill gentle';
 load();render();
 </script>
 </body>
