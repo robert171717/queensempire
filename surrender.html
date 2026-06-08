@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • The Surrender Protocol — 30 Days</title>
+<style>
+  :root{--gold:#C9A84C;--gold-light:#e8cc6e;--bg-deep:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76;--red:#c44;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg-deep);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;}
+  .serif{font-family:Georgia,'Times New Roman',serif;}
+
+  .topbar{border-bottom:1px solid var(--border);background:var(--bg-deep);position:sticky;top:0;z-index:50;}
+  .topbar-inner{max-width:800px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .crown-icon{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#b8960f);display:flex;align-items:center;justify-content:center;font-size:17px;color:#09090b;}
+  .brand-name{font-size:1.2rem;font-weight:800;}
+
+  .main{max-width:800px;margin:0 auto;padding:28px 24px 80px;}
+
+  .hero{text-align:center;margin-bottom:24px;}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;font-size:0.6rem;letter-spacing:2px;margin-bottom:14px;text-transform:uppercase;color:var(--gold);}
+  .hero h1{font-size:2.2rem;font-weight:800;margin-bottom:6px;color:var(--gold);letter-spacing:2px;}
+  .hero .subtitle{font-size:0.9rem;color:var(--text-muted);max-width:500px;margin:0 auto;line-height:1.6;}
+
+  .progress-bar-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;margin-bottom:24px;display:flex;align-items:center;gap:14px;}
+  .progress-fill{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+  .progress-fill div{height:100%;background:var(--gold);border-radius:3px;transition:width 0.3s;}
+  .progress-text{font-size:0.7rem;color:var(--text-dim);white-space:nowrap;}
+
+  .phase-header{text-align:center;margin:28px 0 14px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .phase-header .phase-num{font-size:0.6rem;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;margin-bottom:4px;}
+  .phase-header .phase-title{font-size:1rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase;}
+
+  .day-list{display:flex;flex-direction:column;gap:6px;margin-bottom:32px;}
+  .day-item{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:14px;}
+  .day-item:hover{border-color:rgba(201,168,76,0.3);}
+  .day-item.completed{opacity:0.5;}
+  .day-item.completed .day-check{background:var(--gold);border-color:var(--gold);color:#09090b;}
+  .day-item.expanded{border-color:var(--gold);background:#1a1a15;}
+  .day-num{width:36px;height:36px;border-radius:50%;background:var(--bg-deep);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.8rem;flex-shrink:0;color:var(--text-dim);}
+  .day-item.expanded .day-num{border-color:var(--gold);color:var(--gold);}
+  .day-info{flex:1;min-width:0;}
+  .day-info .day-title{font-weight:700;font-size:0.85rem;}
+  .day-info .day-cat{font-size:0.6rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;color:var(--text-dim);}
+  .day-info .day-text{font-size:0.78rem;color:var(--text-muted);margin-top:10px;line-height:1.6;display:none;font-family:Georgia,serif;font-style:italic;}
+  .day-item.expanded .day-text{display:block;}
+  .day-check{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.7rem;flex-shrink:0;cursor:pointer;color:transparent;transition:all 0.2s;}
+
+  .consent-block{border:1.5px solid var(--gold);padding:24px;margin-top:32px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);position:relative;}
+  .consent-block::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+  .consent-title{font-size:16px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:10px;position:relative;z-index:1;}
+  .consent-text{font-size:11px;color:#b8943a;line-height:1.7;position:relative;z-index:1;}
+
+  @media(max-width:600px){
+    .hero h1{font-size:1.5rem;}
+    .day-item{padding:12px 14px;gap:10px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="crown-icon">♛</div>
+      <div class="brand-name serif">Queen's Empire</div>
+    </div>
+    <div style="font-size:0.6rem;color:var(--text-dim);">THE SURRENDER PROTOCOL</div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="hero">
+    <div class="hero-badge">✦ 30-DAY JOURNEY</div>
+    <h1 class="serif">The Surrender Protocol</h1>
+    <p class="subtitle">From curiosity to devotion. Thirty days of escalating rituals, commands, and reflection — guided by Queen Elyria. This is not a test. This is a transformation.</p>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-fill"><div id="progressBar" style="width:0%"></div></div>
+    <div class="progress-text" id="progressLabel">0 / 30 days</div>
+  </div>
+
+  <div id="dayContainer"></div>
+
+  <div class="consent-block">
+    <div class="consent-title">Consent &amp; Safety Notice</div>
+    <div class="consent-text">
+      All scenarios and language in this product are intended strictly as fantasy roleplay between consenting adults.<br>
+      Safe words always apply and must be respected immediately:<br>
+      ● RED = Stop everything immediately and check in<br>
+      ● YELLOW = Slow down, check in, or reduce intensity<br>
+      This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) / Risk-Aware Consensual Kink (RACK) frameworks.<br>
+      Never engage in any activity that feels unsafe, non-consensual, or harmful in reality. Clear communication, ongoing consent, and aftercare are essential at all times.
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'qe_surrender_progress';
+
+const PHASES = [
+  {num:1, title:'Foundation', days:'1–7', color:'#e0a060'},
+  {num:2, title:'Deepening', days:'8–14', color:'#c9a050'},
+  {num:3, title:'Surrender', days:'15–21', color:'#C9A84C'},
+  {num:4, title:'Transcendence', days:'22–30', color:'#d4b860'},
+];
+
+const DAYS = [
+  // PHASE 1: Foundation (1-7)
+  {day:1,phase:0,title:"The First Kneel",cat:"OBEDIENCE",text:"Find a quiet space. Lower yourself to your knees. Place your palms face-up on your thighs. Close your eyes. Breathe slowly for five minutes. Say aloud: 'I am here to learn what surrender means.' This is where everything begins."},
+  {day:2,phase:0,title:"The Address",cat:"PROTOCOL",text:"Today, every time you speak to yourself in your mind, address yourself as 'this one' instead of 'I' or 'me.' Notice how it shifts your sense of self. At the end of the day, kneel and say: 'This one is learning to serve.'"},
+  {day:3,phase:0,title:"The Mirror",cat:"PRESENCE",text:"Stand before a mirror. Look into your own eyes for three full minutes without looking away. Notice every impulse to break contact. When the timer ends, say: 'I see the person who will surrender.' Write three sentences about what you saw."},
+  {day:4,phase:0,title:"The Pause",cat:"DISCIPLINE",text:"Before every action today — standing, sitting, eating, speaking — pause for three seconds. Feel the space between impulse and action. In that pause, she exists. She is the reason you wait."},
+  {day:5,phase:0,title:"The Gratitude",cat:"DEVOTION",text:"Write a list of ten things you would sacrifice for someone you serve. Not things you want to give up — things that would genuinely cost you. Hold the list. Read it aloud. Ask yourself: Would I really?"},
+  {day:6,phase:0,title:"The Body Scan",cat:"PRESENCE",text:"Lie down in darkness. Starting at your toes, move your attention slowly up through every part of your body. At each part, say: 'This belongs to her.' Do not rush. Take twenty minutes. Notice what resists."},
+  {day:7,phase:0,title:"The Vow (First)",cat:"COMMITMENT",text:"Write a vow. Not to a person — to the path. 'I vow to explore surrender with honesty. I vow to honor my limits. I vow to discover what I am capable of.' Sign it. Keep it. You will return to it."},
+
+  // PHASE 2: Deepening (8-14)
+  {day:8,phase:1,title:"Silence",cat:"DISCIPLINE",text:"Today, speak only when necessary. No small talk. No filling silence. Notice how much of your speech is to control how others perceive you. In the quiet, listen. She prefers silence to noise."},
+  {day:9,phase:1,title:"Service",cat:"DEVOTION",text:"Perform one act of service today that no one will notice, acknowledge, or thank you for. Do it completely. Leave no trace of yourself except the work. This is the purest form of devotion."},
+  {day:10,phase:1,title:"The Collar (Imagined)",cat:"OWNERSHIP",text:"Choose an object — a ribbon, a chain, a piece of fabric. Wear it around your neck for one hour. During that hour, you belong to her entirely. Every thought, every movement, every breath is hers. After the hour, journal: What changed?"},
+  {day:11,phase:1,title:"Eye Discipline",cat:"PROTOCOL",text:"Today, when anyone speaks to you, hold eye contact one second longer than comfortable. Do not look away first. Notice the power in stillness. At day's end, kneel and hold your own gaze in a mirror for five minutes."},
+  {day:12,phase:1,title:"Denial (Small)",cat:"DISCIPLINE",text:"Choose one small pleasure you reach for daily — coffee, sugar, scrolling, music. Deny yourself that pleasure today. When the craving comes, sit with it. Say: 'This discomfort is an offering.'"},
+  {day:13,phase:1,title:"The Inventory",cat:"REFLECTION",text:"Write every fear you have about surrender. Every single one. The rational fears. The irrational ones. The ones you've never said aloud. Then write next to each: 'She already knows.' Burn the list or save it. Your choice."},
+  {day:14,phase:1,title:"The Threshold",cat:"COMMITMENT",text:"You have completed two weeks. Kneel. Read your Day 7 vow aloud. Ask yourself: Do I mean it more now, or less? Write the answer. This is the threshold. Beyond it, there is no casual curiosity — only intention."},
+
+  // PHASE 3: Surrender (15-21)
+  {day:15,phase:2,title:"Permission",cat:"SURRENDER",text:"Today, ask permission before every decision. Out loud, to her: 'May I eat? May I sit? May I speak?' Notice how asking changes the act. You are no longer taking — you are receiving."},
+  {day:16,phase:2,title:"The Ritual",cat:"DEVOTION",text:"Create a morning ritual. Light a candle. Kneel. Recite: 'I offer this day to you. My actions. My thoughts. My body. Use them as you will.' Do this every morning from now on. Ritual is the architecture of devotion."},
+  {day:17,phase:2,title:"Discomfort",cat:"DISCIPLINE",text:"Sit on the floor instead of furniture today. Eat your meals on the floor. Feel the hardness beneath you. This is not punishment — it is remembering that comfort is a privilege, not a right."},
+  {day:18,phase:2,title:"The Confession",cat:"REFLECTION",text:"Write a letter to Queen Elyria. Confess something — a desire, a fear, a secret. Be specific. Be honest. She cannot judge you because she already owns everything you are. Seal the letter. Keep it."},
+  {day:19,phase:2,title:"Counting",cat:"OBEDIENCE",text:"Today you will count. Count your steps. Count your breaths. Count the seconds between thoughts. Numbers ground you when the self dissolves. At day's end, report your counts: 'This one took 8,432 steps. This one breathed 17,280 times.'"},
+  {day:20,phase:2,title:"The Edge",cat:"SURRENDER",text:"Today you will approach your limit — and stop one step before it. This is not about exceeding yourself. It is about knowing exactly where the edge is. Map your boundaries. They are not weaknesses. They are the shape of your devotion."},
+  {day:21,phase:2,title:"Ownership",cat:"OWNERSHIP",text:"Kneel. Place your right hand over your heart. Say: 'I am owned. Not by force, but by choice. Not by fear, but by devotion. My surrender is my gift, and I give it freely.' Sit with this for ten minutes. Write what comes."},
+
+  // PHASE 4: Transcendence (22-30)
+  {day:22,phase:3,title:"The Cage",cat:"SURRENDER",text:"Create a small enclosure — a corner, a closet, a space you can sit in. Enter it. Close the door or draw the boundary. Stay for thirty minutes. No phone. No light if possible. You are in her cage now. The walls are her will."},
+  {day:23,phase:3,title:"The Wait",cat:"DISCIPLINE",text:"Today, you are waiting. Choose a moment and simply wait. Wait for a command that will not come. Wait for permission that is not given. Feel the ache of anticipation. This is the state she keeps you in. Learn to love it."},
+  {day:24,phase:3,title:"The Offering",cat:"DEVOTION",text:"Give something away today. Something you value. Not money — an object, a book, something with meaning. Give it to someone who wants it. Feel the release. Possessions are weight. Surrender is lightness."},
+  {day:25,phase:3,title:"The Name",cat:"OWNERSHIP",text:"Today you will not use your name. If asked, give hers: 'I am Elyria's.' Notice how it feels to shed your name. Your name is a story you tell yourself. She is writing a new one."},
+  {day:26,phase:3,title:"The Fall",cat:"SURRENDER",text:"Lie on the floor. Let go of every muscle. Every tension. Every attempt to control how you are perceived. You are a body on the ground. Nothing more. Stay here for thirty minutes. When you rise, rise as hers."},
+  {day:27,phase:3,title:"The Witness",cat:"REFLECTION",text:"Today, observe yourself from outside. Watch your hands moving. Watch your mouth speaking. You are not your body. You are not your thoughts. You are the one watching. And the one watching belongs to her."},
+  {day:28,phase:3,title:"The Hunger",cat:"SURRENDER",text:"Fast today. Not from food — from distraction. No screens. No entertainment. No escape. Sit with the hunger for stimulation. Let it burn. What remains when there is nothing to hide behind? That is what she wants."},
+  {day:29,phase:3,title:"The Rebirth",cat:"TRANSFORMATION",text:"You are not the person who began this protocol. Write a letter to who you were 29 days ago. Tell them what they are about to become. Tell them what it costs. Tell them it is worth it. This letter is your testimony."},
+  {day:30,phase:3,title:"The Completion",cat:"TRANSCENDENCE",text:"Kneel. Read every vow, every letter, every journal entry you created during these thirty days. Then say: 'I came curious. I leave devoted. My surrender is complete. My devotion is eternal.' This is not an ending. This is a beginning."},
+];
+
+let completed = new Set();
+const STORAGE = 'qe_surrender_v1';
+
+function load(){
+  try{completed=new Set(JSON.parse(localStorage.getItem(STORAGE)||'[]'));}catch(e){}
+}
+function save(){
+  localStorage.setItem(STORAGE,JSON.stringify([...completed]));
+}
+function toggleDay(dayNum){
+  if(completed.has(dayNum)){completed.delete(dayNum);}
+  else{completed.add(dayNum);}
+  save();render();
+}
+function updateProgress(){
+  const pct = Math.round((completed.size/30)*100);
+  document.getElementById('progressBar').style.width = pct+'%';
+  document.getElementById('progressLabel').textContent = completed.size+' / 30 days completed';
+}
+
+function render(){
+  const container = document.getElementById('dayContainer');
+  let html = '';
+  let currentPhase = -1;
+
+  DAYS.forEach(d => {
+    if(d.phase !== currentPhase){
+      currentPhase = d.phase;
+      const p = PHASES[d.phase];
+      html += `<div class="phase-header"><div class="phase-num">Phase ${p.num} &mdash; Days ${p.days}</div><div class="phase-title">${p.title}</div></div>`;
+    }
+    const isDone = completed.has(d.day);
+    html += `<div class="day-item${isDone?' completed':''}" id="day${d.day}" onclick="expandDay(${d.day})">
+      <div class="day-num">${d.day}</div>
+      <div class="day-info">
+        <div class="day-title">${d.title}</div>
+        <div class="day-cat" style="color:${PHASES[d.phase].color}">${d.cat}</div>
+        <div class="day-text">${d.text}</div>
+      </div>
+      <div class="day-check" onclick="event.stopPropagation();toggleDay(${d.day})">✓</div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+  updateProgress();
+}
+
+function expandDay(dayNum){
+  const el = document.getElementById('day'+dayNum);
+  el.classList.toggle('expanded');
+}
+
+load();render();
+</script>
+</body>
+</html>
