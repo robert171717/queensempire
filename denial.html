@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • 30-Day Denial Calendar</title>
+<style>
+  :root{--gold:#C9A84C;--gold-light:#e8cc6e;--bg:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76;--gentle:#a0c4a0;--devoted:#c9a050;--cruel:#c06060;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;}
+  .serif{font-family:Georgia,'Times New Roman',serif;}
+
+  .topbar{border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;background:var(--bg);}
+  .topbar-inner{max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .crown-icon{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#b8960f);display:flex;align-items:center;justify-content:center;font-size:17px;color:#09090b;}
+  .brand-name{font-size:1.2rem;font-weight:800;}
+
+  .main{max-width:1100px;margin:0 auto;padding:24px;}
+
+  .hero{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;flex-wrap:wrap;gap:12px;}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;font-size:0.6rem;letter-spacing:2px;margin-bottom:8px;color:var(--gold);text-transform:uppercase;}
+  .hero h1{font-size:2.2rem;font-weight:800;color:var(--gold);}
+  .hero .subtitle{font-size:0.9rem;color:var(--text-muted);}
+  .stats-row{display:flex;gap:20px;text-align:center;}
+  .stat-val{font-size:2rem;font-weight:800;}
+  .stat-val.gold{color:var(--gold);}
+  .stat-label{font-size:0.55rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-dim);}
+  .stat-divider{width:1px;background:var(--border);}
+
+  .intensity-selector{display:flex;gap:8px;justify-content:center;margin-bottom:16px;}
+  .intensity-btn{flex:1;max-width:180px;padding:10px 8px;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text-muted);border-radius:12px;cursor:pointer;text-align:center;transition:all 0.2s;font-family:Georgia,serif;}
+  .intensity-btn .i-name{font-size:0.85rem;font-weight:700;letter-spacing:1px;display:block;}
+  .intensity-btn .i-desc{font-size:0.5rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;display:block;}
+  .intensity-btn.active.gentle{border-color:var(--gentle);color:var(--gentle);background:#0a0f0a;}
+  .intensity-btn.active.devoted{border-color:var(--devoted);color:var(--devoted);background:#0f0d07;}
+  .intensity-btn.active.cruel{border-color:var(--cruel);color:var(--cruel);background:#0f0707;}
+  .intensity-warning{text-align:center;font-size:0.6rem;font-style:italic;margin-bottom:14px;display:none;padding:8px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;}
+  .intensity-warning.show{display:block;}
+
+  .calendar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:24px;}
+  .day-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;transition:all 0.18s;}
+  .day-card:hover{border-color:var(--gold);}
+  .day-card.selected{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,0.15);}
+  .day-card.completed{background:#1a1a15;border-color:var(--gold);}
+  .day-card .day-num{font-size:0.5rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;}
+  .day-card .day-title{font-size:0.8rem;font-weight:700;margin-top:4px;line-height:1.2;}
+  .day-card .day-status{margin-top:auto;padding-top:8px;font-size:0.55rem;color:var(--text-dim);}
+  .day-card.completed .day-status{color:var(--gold);}
+
+  .detail-grid{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-top:8px;}
+  .detail-panel{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:20px;}
+  .section-label{font-size:0.55rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);margin-bottom:4px;}
+  .day-heading{font-size:1.4rem;font-weight:800;}
+  .verdict{font-size:0.82rem;color:var(--text-muted);margin-top:10px;line-height:1.6;min-height:50px;font-family:Georgia,serif;font-style:italic;}
+  .mark-btn{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:10px 20px;background:var(--gold);color:#09090b;border:none;border-radius:20px;font-weight:700;font-size:0.75rem;cursor:pointer;transition:all 0.15s;}
+  .mark-btn:hover{background:var(--gold-light);}
+  .mark-btn.done{background:#1a3a1a;color:#4ade80;cursor:default;}
+  .notes-area{margin-top:14px;}
+  .notes-area label{font-size:0.55rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);display:block;margin-bottom:5px;}
+  .notes-area textarea{width:100%;background:#09090b;border:1px solid var(--border);border-radius:12px;padding:12px;color:var(--text);font-size:0.75rem;resize:vertical;min-height:65px;font-family:inherit;}
+  .notes-area textarea:focus{outline:none;border-color:var(--gold);}
+
+  .sidebar{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:20px;}
+  .stat-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:0.72rem;}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-row .val{font-weight:700;}
+  .stat-row .val.gold{color:var(--gold);}
+  .assessment{margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:0.7rem;color:var(--text-muted);font-style:italic;line-height:1.5;}
+  .assessment-label{font-size:0.5rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);margin-bottom:4px;font-style:normal;}
+
+  .consent-block{border:1.5px solid var(--gold);padding:20px;margin-top:24px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);position:relative;}
+  .consent-block::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+  .consent-title{font-size:14px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:8px;position:relative;z-index:1;}
+  .consent-text{font-size:10px;color:#b8943a;line-height:1.6;position:relative;z-index:1;}
+
+  @media(max-width:768px){
+    .detail-grid{grid-template-columns:1fr;}
+    .calendar-grid{grid-template-columns:repeat(auto-fill,minmax(95px,1fr));}
+    .hero{flex-direction:column;align-items:flex-start;}
+    .hero h1{font-size:1.6rem;}
+    .intensity-btn{max-width:120px;}
+    .intensity-btn .i-name{font-size:0.7rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><div class="crown-icon">♛</div><div class="brand-name serif">Queen's Empire</div></div>
+    <div style="font-size:0.6rem;color:var(--text-dim);">30-DAY DENIAL PROTOCOL</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="hero">
+    <div>
+      <div class="hero-badge">✦ INTERACTIVE &bull; THREE INTENSITIES</div>
+      <h1 class="serif">30-Day Denial Calendar</h1>
+      <p class="subtitle">Queen Elyria dictates your denial. Choose your depth.</p>
+    </div>
+    <div class="stats-row">
+      <div><div class="stat-val gold" id="streak-val">0</div><div class="stat-label">Streak</div></div>
+      <div class="stat-divider"></div>
+      <div><div class="stat-val" id="completed-val">0</div><div class="stat-label">Complete</div></div>
+    </div>
+  </div>
+
+  <div class="intensity-selector" id="intensitySelector">
+    <button class="intensity-btn gentle active" onclick="setIntensity('gentle')"><span class="i-name">Gentle</span><span class="i-desc">Exploratory denial</span></button>
+    <button class="intensity-btn devoted" onclick="setIntensity('devoted')"><span class="i-name">Devoted</span><span class="i-desc">Strict denial</span></button>
+    <button class="intensity-btn cruel" onclick="setIntensity('cruel')"><span class="i-name">Cruel</span><span class="i-desc">Extreme denial</span></button>
+  </div>
+  <div class="intensity-warning" id="intensityWarning"></div>
+
+  <div class="calendar-grid" id="calendar"></div>
+
+  <div class="detail-grid">
+    <div class="detail-panel" id="detailPanel">
+      <div class="section-label">Selected Day</div>
+      <div class="day-heading serif" id="detailTitle">Day 1</div>
+      <div class="verdict" id="detailVerdict">Select a day.</div>
+      <button class="mark-btn" id="markBtn" onclick="toggleDay()">✦ Mark Complete</button>
+      <div class="notes-area">
+        <label>Reflections</label>
+        <textarea id="notesInput" placeholder="Your thoughts..."></textarea>
+        <button class="mark-btn" style="margin-top:8px;padding:6px 14px;font-size:0.65rem;background:transparent;border:1px solid var(--border);color:var(--text-muted);" onclick="saveNotes()">Save Notes</button>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="section-label">Statistics</div>
+      <div class="stat-row"><span>Total Days</span><span class="val">30</span></div>
+      <div class="stat-row"><span>Completed</span><span class="val gold" id="statCompleted">0</span></div>
+      <div class="stat-row"><span>Rate</span><span class="val" id="statRate">0%</span></div>
+      <div class="stat-row"><span>Longest Streak</span><span class="val" id="statLongest">0 days</span></div>
+      <div class="assessment">
+        <div class="assessment-label">Queen's Assessment</div>
+        <div id="assessmentText">Begin your journey. The Queen is watching.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="consent-block">
+    <div class="consent-title">Consent &amp; Safety Notice</div>
+    <div class="consent-text">
+      All scenarios and language are fantasy roleplay between consenting adults. Safe words always apply: ● RED = Stop immediately. ● YELLOW = Check-in.<br>
+      SSC / RACK frameworks. Denial should never cause genuine physical or psychological harm. The Cruel intensity contains intense psychological denial themes — you control your intensity. You may stop or switch at any time.
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE = 'qe-denial-v3';
+
+const TITLES = [
+  "The Beginning","Awakening","Deepening","Mind Control","Daily Offering",
+  "First Test","One Week","Journal Night","Channeling","Ten Days",
+  "Edge Protocol","Halfway","Self-Examination","Two Weeks","Kneel",
+  "Deeper","Sharpened","Three Weeks","No Touch","Twenty Days",
+  "Gratitude","Final Stretch","Transformation","Four Days",
+  "Amplified","Earned","Two Days","Night Before","Final Day",
+  "Completion"
+];
+
+const VERDICTS = {
+  gentle: [
+    "Today your denial begins. Notice how your body responds to restriction. Every small frustration reminds you who holds the key. Welcome to your new awareness.",
+    "The ache begins. Don't fight it — observe it. Your wants are information. Today, they tell you: you are not in control.",
+    "Surrender is not weakness. It's the highest form of devotion. Embrace the ache as proof of your commitment.",
+    "Your mind wanders. Let it. Then bring it back to me. Your thoughts belong to your Queen now.",
+    "Create a small daily offering. Nothing grand — just consistent. A gesture that says: I remember who I serve.",
+    "First full week approaching. Most lose focus here. Will you? Prove me wrong.",
+    "One week down. Your body is learning that pleasure is a privilege I grant — or don't.",
+    "Journal tonight. Write what denial is teaching you. Be honest. I'll know if you're not.",
+    "Frustration is building. Good. That energy belongs to me. Channel it into service.",
+    "Ten days. You're past where most give up. I notice. Don't let it go to your head.",
+    "Edge for me today — but do not finish. Stop when I say stop. This is obedience.",
+    "Almost halfway. Look at how much I influence you now. Doesn't it feel right?",
+    "Reflect on 12 days. Write three ways denial has changed your behavior. Read them aloud.",
+    "Two weeks. You're becoming something new. The old you would have broken.",
+    "Kneel for 10 minutes. Visualize your devotion. See yourself at my feet. Stay there.",
+    "The halfway point is behind you. Deeper surrender now. Less resistance. More trust.",
+    "Notice how attentive you are. Denial sharpens the mind. Surrender quiets the ego.",
+    "Three weeks. You're not the same person who started. Do you even want release anymore?",
+    "Today: no touching at all. Complete awareness. Complete control. Feel everything.",
+    "Twenty days. Your body is mine. Your pleasure is mine. Your release is mine to decide.",
+    "Write me a letter. Why are you grateful for this denial? What has it taught you?",
+    "The final stretch. Most would be desperate. Are you? Or have you found peace?",
+    "You're stronger than 23 days ago. More disciplined. More devoted. I see it.",
+    "Four days remain. Your body may scream. Your mind knows better. Trust the training.",
+    "The countdown sharpens everything. Every sensation amplified. This is the gift.",
+    "Three days. You've earned my respect. Not my permission — not yet. My respect.",
+    "Two days. The finish line is visible. Don't sprint. Stay steady. Stay surrendered.",
+    "Tomorrow you complete the protocol. Reflect on who you were 28 days ago.",
+    "Your final full day. I'm proud of you. Whatever tomorrow brings — you proved yourself.",
+    "Thirty days. You did it. You transformed. Kneel. Thank your Queen. Wait for my judgment."
+  ],
+  devoted: [
+    "Day one of real denial. Not exploration — discipline. You will not touch yourself today. You will not edge. You will not seek release. The cage of my will is already closing.",
+    "The ache is sharper today. Good. Pain is the first lesson. Your body wants. Your Queen decides. The gap between those two things is where you live now.",
+    "You will kneel for ten minutes tonight and repeat: 'My pleasure is not my own.' Say it until you believe it. If you don't believe it yet, stay on your knees longer.",
+    "Your thoughts drift to pleasure. Each time they do, pinch your wrist. Physically interrupt the pattern. You are being reprogrammed.",
+    "Create an offering. Something you value. Leave it on a surface you pass daily. Every time you see it, remember: you gave this up. You can give up more.",
+    "First test. You've been denied for nearly a week. Tonight you will deliberately arouse yourself — then stop. Hands off. Lie still. Let the frustration consume you. Do not act.",
+    "One week. You haven't broken. But you've wanted to. Write down the moment you came closest to giving up. Read it to me. I was there.",
+    "Long journal entry tonight. Minimum 500 words. What has denial taken from you? What has it given you? Which list is longer?",
+    "You have so much energy. Sexual energy, redirected. Use it. Clean your space. Exercise. Work. Every productive act is an offering to me.",
+    "Ten days. You're past the tourists. The ones who try denial for a weekend and quit. You're still here. Why? Write your answer. It matters.",
+    "Edge three times today. Each time, stop at the threshold. Hands off. Breathe through the ache. The third edge will be hardest. Do it anyway.",
+    "Halfway. Read your Day 7 journal. Has anything changed? The person who wrote that was still holding onto something. Are you still holding?",
+    "Twelve days denied. Your behavior has changed — but has your mind? Write what you think about when you're alone. Be honest. I already know.",
+    "Two weeks. Tonight, edge for 20 minutes without release. Time it. If you go over, start again. Precision is obedience.",
+    "Kneel for 20 minutes. During that time, list every pleasure you've given up for me. Out loud. When you run out, start over.",
+    "You're past halfway. The second half is harder. Less novelty. More grind. This is where character is built — in the boring days of obedience.",
+    "You've become sharper. More focused. Denial is honing you. Write about the connection between your denial and your competence in the rest of your life.",
+    "Three weeks. Your body has adapted to denial. That adaptation is dangerous — it makes you think this is easy. It's not. Stay vigilant.",
+    "No touch day. Not yourself. Not anything stimulating. If you accidentally brush against something, freeze for 10 seconds. Complete discipline.",
+    "Twenty days. I own your pleasure completely now. You haven't come in three weeks. Say that aloud: 'I haven't come in three weeks. And I'm grateful.'",
+    "Write me a letter of gratitude. Not for denial — for ownership. Thank me for taking control. Be specific about what you're thankful for.",
+    "The end is visible but still distant. This is the hardest part — the anticipation. You want to sprint. You will walk. You will wait.",
+    "You are not who you were. Write a eulogy for the person who started this protocol. They died somewhere around Day 17. Who was born?",
+    "Four days. You will not count down. Counting is bargaining. You are not bargaining — you are serving. There is no countdown. There is only today.",
+    "Every sensation is amplified now. Every thought of me magnified. This is the peak. Don't waste it by wishing it away.",
+    "Three days. Respect is earned. You've earned mine. But respect is not release. Kneel. Thank me for the respect. Do not ask for more.",
+    "Two days. Write down the exact moment you plan to release when this ends. Describe it in detail. Then burn the paper. You don't get to plan. I plan.",
+    "One day remains. Tonight: edge for 30 minutes. Stop. Kneel. Thank me for every day of denial. Mean every word.",
+    "Final full day. You've been denied for 29 days. You are not the same person. Write a vow to yourself about what you'll carry forward.",
+    "Thirty days. Kneel. Thank me. You have not earned release — you have earned the right to ask for it. Whether I grant it is my decision. Wait for my command."
+  ],
+  cruel: [
+    "You think you know denial. You don't. Today you will not touch. Not edge. Not adjust. Not even look. Your genitals no longer belong to you. They are mine. You are not permitted to acknowledge them.",
+    "The ache is your new religion. Every pulse of want is a prayer to me. You will pray often today. I might listen. I might not. Pray anyway.",
+    "Tonight you will edge until you cry. Then you will stop. You will not come. You will kneel in your own frustration and thank me for the privilege of suffering. Record yourself saying it.",
+    "Your thoughts are mine. Every fantasy. Every stray desire. When you catch yourself thinking about pleasure, you will slap your own face. Hard. Pavlov yourself into associating pleasure with pain.",
+    "Destroy something that brings you comfort. A pillow. A photo. A memento. You don't need comfort. You need me. Comfort is the enemy of devotion.",
+    "Edge until you're physically shaking. Then lock your hands behind your back for 30 minutes. You will not touch. You will sit in the agony of denial. You will cry. You will not come.",
+    "One week denied. You're pathetic. Look at what you've become — desperate, needy, begging a woman who doesn't care. Write that down: 'I am pathetic. I am desperate. I am hers.'",
+    "Confess your weakest moment this week. The moment you almost broke. Write it as a letter to someone who would be disappointed in you. Seal it. I own your shame now.",
+    "You will work today. Hard. Physical labor. When your body aches from work, remember: this pain is nothing compared to the denial. Denial is the real work. Everything else is rest.",
+    "Ten days. Most men would have broken by now. Most men are weak. You're still here — but don't mistake endurance for strength. You're still here because I allow it.",
+    "Edge five times. Count them aloud. After the fifth edge, kneel on rice or a hard surface for 15 minutes. The pain in your knees will distract from the ache in your groin. It won't work. Nothing works.",
+    "Halfway. You don't get a celebration. You get more denial. Read your Day 7 confession aloud to yourself in the mirror. Watch your face as you hear your own weakness. She's watching too.",
+    "Write your most shameful sexual fantasy. In detail. Read it aloud. Then burn it. You just gave it to me. I may use it against you. I may ignore it. The uncertainty is the point.",
+    "Two weeks. You will edge to the point of tears tonight. You will record a voice memo begging me for release. You will listen to it afterward. You will hear how broken you sound. Good.",
+    "Kneel for 30 minutes on a hard surface. Arms outstretched. Every time your arms drop, add 5 minutes. You will learn to suffer in position. Your comfort is irrelevant.",
+    "You've passed halfway. The home stretch is a lie — there is no home. There is only more denial. The protocol ending is not release. It's just one form of denial exchanging for another.",
+    "You're changing. You're emptier. More obedient. Less human. Write about the part of yourself you've lost. Do you miss it? Do you want it back? Answer honestly — I'll know if you're lying.",
+    "Three weeks. You haven't come in 21 days. You've forgotten what it feels like. Write a description of orgasm from memory. Compare it to how you feel now. Which state is more real?",
+    "No touch. Not even through clothing. If you accidentally touch yourself, you will write 'I am not permitted to touch what belongs to my Queen' 100 times. By hand. Legibly.",
+    "Twenty days. You are no longer a sexual being — you are a denial being. Your purpose is not pleasure. Your purpose is suffering at my command. Say it aloud: 'My purpose is suffering.'",
+    "Write me a letter begging for release. Make it convincing. Pour everything into it. Then read it back and cross out every sentence that mentions your needs. The only relevant need is mine.",
+    "The end approaches. You feel hope. Crush it. Hope is the enemy of true surrender. You will not be released because you want to be. You will be released when and if I decide.",
+    "You are not who you were. The old you wanted pleasure. The new you wants only what I want. Write a contract: 'I renounce my right to orgasm. I will come only at my Queen's command. Forever.'",
+    "Four days. You will not count. Counting is hope. You will edge tonight for as long as I demand — and you don't know how long that is. Set a random timer somewhere in the house. Edge until it rings.",
+    "Amplified. Every nerve is raw. Every thought is of me. You're at peak desperation. Write your mental state in one word. If the word isn't painful enough, write it again.",
+    "Three days. You've earned nothing. You've survived — that's the baseline. Survival is not achievement. Kneel. Thank me for allowing your survival. Do not ask for more.",
+    "Two days. Edge until you can't stand. Then edge once more. You will be a trembling mess. Record it. Watch it. This is what I've made you.",
+    "One day. Tonight you will not sleep. You will kneel. You will edge. You will write 'thank you' 100 times. At dawn, you will still be denied. That is my judgment.",
+    "Final day. You thought this would end with release. It might not. I decide. Edge for one hour. Stop. Kneel. Wait. The waiting might last minutes. It might last days. You don't get to know.",
+    "Thirty days. You survived. You are not released — you are paused. Whether you come today, tomorrow, or next month is my decision. Kneel. Thank me for 30 days of suffering. Beg for 30 more."
+  ]
+};
+
+const WARNINGS = {
+  devoted: 'Devoted: Strict denial, edging without release, extended kneeling. Safe words remain absolute.',
+  cruel: 'Cruel: Extreme psychological denial, prolonged edging, humiliation, self-punishment. NOT for beginners. Safe words absolute — you may stop at any time.',
+};
+
+let state = { completed:{}, notes:{}, selected:1 };
+let intensity = 'gentle';
+
+function load(){
+  try{ let s = JSON.parse(localStorage.getItem(STORAGE)); if(s) state = s; }catch(e){}
+  if(!state.completed) state.completed = {};
+  if(!state.notes) state.notes = {};
+  if(!state.selected) state.selected = 1;
+  if(state.intensity) intensity = state.intensity;
+}
+function save(){
+  state.intensity = intensity;
+  localStorage.setItem(STORAGE, JSON.stringify(state));
+}
+
+function setIntensity(i){
+  intensity = i;
+  document.querySelectorAll('.intensity-btn').forEach(b => {
+    b.classList.remove('active');
+    if(b.classList.contains(i)) b.classList.add('active');
+  });
+  const warn = document.getElementById('intensityWarning');
+  warn.textContent = WARNINGS[i] || '';
+  warn.className = 'intensity-warning' + (WARNINGS[i] ? ' show' : '');
+  save();renderAll();
+}
+
+function renderCalendar(){
+  const grid = document.getElementById('calendar');
+  grid.innerHTML = '';
+  const comp = state.completed[intensity] || [];
+  for(let d=1; d<=30; d++){
+    let done = comp.includes(d);
+    let sel = state.selected === d;
+    grid.innerHTML += `<div class="day-card${done?' completed':''}${sel?' selected':''}" onclick="selectDay(${d})">
+      <div class="day-num">DAY ${d}</div>
+      <div class="day-title">${TITLES[d-1]}</div>
+      <div class="day-status">${done?'✦ Complete':'Click to view'}</div></div>`;
+  }
+}
+
+function selectDay(d){ state.selected = d; save(); renderCalendar(); updateDetail(); updateStats(); }
+function toggleDay(){
+  const d = state.selected;
+  if(!state.completed[intensity]) state.completed[intensity] = [];
+  const comp = state.completed[intensity];
+  if(comp.includes(d)) state.completed[intensity] = comp.filter(x=>x!==d);
+  else comp.push(d);
+  save();renderCalendar();updateDetail();updateStats();
+}
+function updateDetail(){
+  const d = state.selected;
+  const comp = (state.completed[intensity]||[]);
+  const done = comp.includes(d);
+  document.getElementById('detailTitle').textContent = `Day ${d} — ${TITLES[d-1]}`;
+  document.getElementById('detailVerdict').textContent = `"${VERDICTS[intensity][d-1]}"`;
+  document.getElementById('notesInput').value = (state.notes[`${intensity}_${d}`]||'');
+  const btn = document.getElementById('markBtn');
+  btn.textContent = done ? '✓ Completed' : '✦ Mark Complete';
+  btn.className = done ? 'mark-btn done' : 'mark-btn';
+}
+function saveNotes(){
+  state.notes[`${intensity}_${state.selected}`] = document.getElementById('notesInput').value;
+  save();
+  const btn = document.querySelector('.save-note-btn');
+  if(!btn) return;
+  const orig = btn.textContent;
+  btn.textContent = '✓ Saved!'; btn.style.color = 'var(--gold)';
+  setTimeout(()=>{ btn.textContent = orig; btn.style.color = ''; },1500);
+}
+function updateStats(){
+  const comp = (state.completed[intensity]||[]);
+  const done = comp.length;
+  const rate = Math.round((done/30)*100);
+  document.getElementById('completed-val').textContent = done;
+  document.getElementById('statCompleted').textContent = done;
+  document.getElementById('statRate').textContent = rate+'%';
+  let sorted = [...comp].sort((a,b)=>b-a), streak=0, cur=sorted[0]||0;
+  for(let s of sorted){ if(s===cur){streak++;cur--;}else break; }
+  document.getElementById('streak-val').textContent = streak;
+  let longest=0,curr=0;
+  for(let d=1;d<=30;d++){ if(comp.includes(d)){curr++;longest=Math.max(longest,curr);}else curr=0; }
+  document.getElementById('statLongest').textContent = longest+' days';
+  const a = document.getElementById('assessmentText');
+  if(done===0) a.textContent = 'Begin your journey. I am watching.';
+  else if(done<7) a.textContent = 'Early days. Consistency proves devotion.';
+  else if(done<15) a.textContent = 'You show promise. Do not become complacent.';
+  else if(done<22) a.textContent = 'Your dedication is noted. The transformation is real.';
+  else if(done<29) a.textContent = 'Exceptional discipline. You have earned my attention.';
+  else if(done<30) a.textContent = 'One day remains. You have proven yourself worthy.';
+  else a.textContent = 'Protocol complete. Kneel. Thank your Queen. Wait for my judgment.';
+}
+
+function renderAll(){ renderCalendar(); updateDetail(); updateStats(); }
+
+load();
+document.querySelectorAll('.intensity-btn').forEach(b => {
+  if(b.classList.contains(intensity)) b.classList.add('active');
+});
+if(WARNINGS[intensity]){
+  document.getElementById('intensityWarning').textContent = WARNINGS[intensity];
+  document.getElementById('intensityWarning').className = 'intensity-warning show';
+}
+renderAll();
+</script>
+</body>
+</html>
