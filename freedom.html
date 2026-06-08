@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • Her Freedom Protocol</title>
+<style>
+:root{--gold:#C9A84C;--gold-light:#e8cc6e;--bg:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76;--gentle:#a0c4a0;--devoted:#c9a050;--owned:#c06060;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;}
+.serif{font-family:Georgia,'Times New Roman',serif;}
+
+.topbar{border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;background:var(--bg);}
+.topbar-inner{max-width:900px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:10px;}
+.crown-icon{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#b8960f);display:flex;align-items:center;justify-content:center;font-size:17px;color:#09090b;}
+.brand-name{font-size:1.2rem;font-weight:800;}
+
+.main{max-width:900px;margin:0 auto;padding:24px 24px 80px;}
+
+.hero{text-align:center;margin-bottom:16px;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;font-size:0.6rem;letter-spacing:2px;margin-bottom:10px;color:var(--gold);text-transform:uppercase;}
+.hero h1{font-size:2rem;font-weight:800;color:var(--gold);letter-spacing:2px;}
+.hero .subtitle{font-size:0.85rem;color:var(--text-muted);margin-top:4px;line-height:1.5;max-width:550px;margin-left:auto;margin-right:auto;}
+
+.intensity-selector{display:flex;gap:8px;justify-content:center;margin-bottom:16px;}
+.intensity-btn{flex:1;max-width:180px;padding:10px 8px;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text-muted);border-radius:12px;cursor:pointer;text-align:center;transition:all 0.2s;font-family:Georgia,serif;}
+.intensity-btn .i-name{font-size:0.85rem;font-weight:700;letter-spacing:1px;display:block;}
+.intensity-btn .i-desc{font-size:0.5rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;display:block;}
+.intensity-btn.active.gentle{border-color:var(--gentle);color:var(--gentle);background:#0a0f0a;}
+.intensity-btn.active.devoted{border-color:var(--devoted);color:var(--devoted);background:#0f0d07;}
+.intensity-btn.active.owned{border-color:var(--owned);color:var(--owned);background:#0f0707;}
+
+.progress-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:14px;}
+.progress-fill{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.progress-fill.gentle div{background:var(--gentle);}.progress-fill.devoted div{background:var(--devoted);}.progress-fill.owned div{background:var(--owned);}
+.progress-fill div{height:100%;border-radius:3px;transition:width 0.3s;}
+.progress-text{font-size:0.7rem;color:var(--text-dim);white-space:nowrap;}
+
+.phase-nav{display:flex;gap:6px;margin-bottom:14px;}
+.phase-nav-btn{flex:1;padding:10px 8px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-muted);border-radius:10px;cursor:pointer;text-align:center;transition:all 0.2s;font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;}
+.phase-nav-btn.active{border-color:var(--gold);color:var(--gold);}
+.phase-nav-btn .pn{font-size:0.5rem;color:var(--text-dim);display:block;}
+.phase-nav-btn .pt{font-weight:700;display:block;}
+
+.day-list{display:flex;flex-direction:column;gap:5px;}
+.day-item{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:12px;}
+.day-item:hover{border-color:rgba(201,168,76,0.3);}
+.day-item.completed{opacity:0.45;}
+.day-item.completed .day-check{background:var(--gold);border-color:var(--gold);color:#09090b;}
+.day-item.expanded{border-color:var(--gold);background:#1a1a15;}
+.day-num{width:32px;height:32px;border-radius:50%;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.7rem;flex-shrink:0;color:var(--text-dim);}
+.day-item.expanded .day-num{border-color:var(--gold);color:var(--gold);}
+.day-info{flex:1;min-width:0;}
+.day-info .day-title{font-weight:700;font-size:0.8rem;}
+.day-info .day-cat{font-size:0.55rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;color:var(--text-dim);}
+.day-info .day-text{font-size:0.72rem;color:var(--text-muted);margin-top:8px;line-height:1.55;display:none;font-family:Georgia,serif;font-style:italic;}
+.day-item.expanded .day-text{display:block;}
+.day-check{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.6rem;flex-shrink:0;cursor:pointer;color:transparent;transition:all 0.2s;}
+
+.consent-block{border:1.5px solid var(--gold);padding:20px;margin-top:24px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);position:relative;}
+.consent-block::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+.consent-title{font-size:14px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:8px;position:relative;z-index:1;}
+.consent-text{font-size:10px;color:#b8943a;line-height:1.6;position:relative;z-index:1;}
+
+@media(max-width:600px){.hero h1{font-size:1.5rem;}.intensity-btn{max-width:110px;}.intensity-btn .i-name{font-size:0.7rem;}.phase-nav{flex-wrap:wrap;}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="topbar-inner"><div class="brand"><div class="crown-icon">♛</div><div class="brand-name serif">Queen's Empire</div></div><div style="font-size:0.6rem;color:var(--text-dim);">HER FREEDOM PROTOCOL</div></div></div>
+
+<div class="main">
+<div class="hero">
+  <div class="hero-badge">✦ 60-DAY PROGRAM &bull; 4 PHASES &bull; 3 INTENSITIES</div>
+  <h1 class="serif">Her Freedom Protocol</h1>
+  <p class="subtitle">A structured psychological journey from jealousy to compersion, control to surrender, and ego to devotion. Queen Elyria guides you through the internal transformation.</p>
+</div>
+
+<div class="intensity-selector">
+  <button class="intensity-btn gentle active" onclick="setIntensity('gentle')"><span class="i-name">Gentle</span><span class="i-desc">Curious</span></button>
+  <button class="intensity-btn devoted" onclick="setIntensity('devoted')"><span class="i-name">Devoted</span><span class="i-desc">Committed</span></button>
+  <button class="intensity-btn owned" onclick="setIntensity('owned')"><span class="i-name">Owned</span><span class="i-desc">Her Property</span></button>
+</div>
+
+<div class="progress-wrap"><div class="progress-fill gentle" id="progressFill"><div id="progressBar" style="width:0%"></div></div><div class="progress-text" id="progressLabel">0 / 15 days this phase</div></div>
+
+<div class="phase-nav" id="phaseNav"></div>
+<div class="day-list" id="dayContainer"></div>
+
+<div class="consent-block">
+  <div class="consent-title">Consent &amp; Safety Notice</div>
+  <div class="consent-text">All scenarios and language in this product are intended strictly as fantasy roleplay between consenting adults. Safe words always apply and must be respected immediately: ● RED = Stop everything immediately and check in ● YELLOW = Slow down, check in, or reduce intensity. This material is provided for entertainment, personal exploration, and education within SSC / RACK frameworks. Never engage in any activity that feels unsafe, non-consensual, or harmful in reality. Clear communication, ongoing consent, and aftercare are essential at all times. The Owned intensity contains deeper psychological surrender themes — you control your intensity.</div>
+</div>
+</div>
+
+<script>
+const STORAGE = 'qe_herfreedom_v1';
+
+const PHASES = [
+  {num:1,title:'Awakening',days:'1–15',desc:'Understanding jealousy, ego attachment, and initial mindset shifts.'},
+  {num:2,title:'Releasing',days:'16–30',desc:'Working through jealousy and beginning to reframe it.'},
+  {num:3,title:'Witnessing',days:'31–45',desc:'Developing genuine compersion and finding satisfaction in her pleasure.'},
+  {num:4,title:'Surrender',days:'46–60',desc:'Full integration of the dynamic into identity and daily life.'},
+];
+
+// Phase, day offset, data array
+function makePhase(phaseIdx,startDay,data){
+  return data.map((d,i) => ({day:startDay+i,phase:phaseIdx,title:d[0],cat:d[1],gentle:{title:d[0],text:d[2]},devoted:{title:d[0],text:d[3]},owned:{title:d[0],text:d[4]}}));
+}
+
+const P1 = makePhase(0,1,[
+  ["The Invitation","AWARENESS","You've been curious about this dynamic. Today, write down what drew you here. Not what you think you should say — the honest truth. No one will read this but you.","Write your origin story with this desire. When did you first realize you wanted her to be free? What was the moment? Describe it in detail.","You know why you're here. You want her to be with others. You want to witness it. You want to be secondary. Write it plainly. No euphemisms. The truth."],
+  ["Jealousy Inventory","REFLECTION","List everything that makes you jealous. Be specific — people, scenarios, thoughts. Don't judge the list. Just write it.","Your jealousy list. Now next to each item, write: 'This is about me, not her.' Because it is. Every jealousy is a mirror.","Your jealousy is weakness. It's ego. It's the part of you that thinks you own her. You don't. Write the list and then write: 'None of this is her problem.'"],
+  ["The Ego Check","PSYCHOLOGY","When you feel possessive today, pause. Ask: 'Is this love, or is this ego?' Write down the answer.","Catch yourself feeling possessive three times today. Each time, stop and name it: 'This is ego.' Then release it. Just for today.","You are not entitled to her exclusivity. You are entitled to nothing. Every possessive thought today — write it down. Then write: 'I release this. She is free.'"],
+  ["Her Happiness","COMPERSION","Today, think about what makes her happy — not what you want from her, but what genuinely lights her up. Write about that.","List five things that make her happy. Real things. Now ask: do you support all of them equally? Even the ones that don't involve you?","Her happiness is not about you. It never was. Write: 'Her happiness is independent of me. I am grateful just to witness it.'"],
+  ["The Comparison Trap","PSYCHOLOGY","Notice when you compare yourself to others. Real or imagined. Write down every comparison thought today.","Every comparison is fear in disguise. Today, when you compare, ask: 'What am I afraid of losing?' Write the answer.","You compare because you're afraid you're not enough. You might not be. Accept that. Her choosing someone else doesn't diminish you — it reveals what she wants."],
+  ["Communication","SKILLS","If you have a partner, have one honest conversation about what you're exploring. No pressure — just sharing. If not, write what you would say.","Have the conversation. Use 'I' statements. 'I've been thinking about...' Not 'You should...' Just share. Whatever happens next is information.","Tell her exactly what you want. No hedging. No 'maybe.' If you can't say it, you're not ready to live it."],
+  ["Week One Reflection","MILESTONE","One week. What have you learned about yourself? What surprised you? Write freely.","One week. Your jealousy patterns are becoming visible. Name them. You can't change what you can't see.","One week. You're still here. You haven't run. That's the first test. The second test is: can you go deeper? Tomorrow, you will."],
+  ["The Fantasy","IMAGINATION","Spend 15 minutes imagining her with someone else. Not for arousal — for observation. What do you feel? Write it all down.","Imagine her with someone else. In detail. Stay with the discomfort. Don't escape into arousal or anger. Just observe.","Imagine her with someone else. Now imagine thanking them. Imagine bringing them water. Imagine being grateful. This is where you're going."],
+  ["Compersion Defined","EDUCATION","Research the word 'compersion.' Write a definition in your own words. Is this something you've felt before?","Compersion: joy in her joy, even when it doesn't involve you. Write about a moment you felt something close to this.","Compersion is not a feeling you wait for. It's a practice you choose. Today, choose it. Even if it's forced. Even if it's fake. Practice."],
+  ["The Body Speaks","SOMATIC","When jealousy hits, where do you feel it? Chest? Stomach? Throat? Map the physical sensation of your jealousy.","When jealousy rises today, don't think. Feel. Where is it in your body? Stay with it for 60 seconds before reacting.","Jealousy is physical. It lives in your gut. Today, when it rises, sit with it. Don't move. Don't speak. Let it burn. It won't kill you."],
+  ["Her Autonomy","MINDSET","Write: 'She is a complete person with her own desires, needs, and choices. I do not own her.' Read it aloud. How does it feel?","Her body. Her choices. Her pleasure. None of these belong to you. They never did. Write this ten times.","She can do whatever she wants with whomever she wants. You have no say. You have no vote. You have gratitude — if she lets you."],
+  ["The First Release","PRACTICE","Identify one specific jealousy you're holding onto. Decide to release it today — just for today. Write a release statement.","Choose one jealousy. Write it on paper. Read it aloud. Then burn it. The paper. The jealousy. Gone.","Pick your deepest jealousy regarding her. Write it. Read it to yourself in the mirror. Then say: 'This is about my ego, not her freedom. I release it.'"],
+  ["Gratitude Shift","MINDSET","Today, every time you feel jealous, replace it with gratitude. 'I'm grateful she's in my life. I'm grateful she's happy.' Practice this.","Gratitude is the antidote to jealousy. Every jealous thought today — redirect. 'I am grateful for her presence in my life.' Mean it.","Jealousy is ingratitude in disguise. You're not grateful enough. Today, every jealous thought becomes: 'Thank you for allowing me to serve you.'"],
+  ["The Witness","OBSERVATION","Today, just watch. Watch how she is. Watch what makes her smile. Don't interfere. Don't seek attention. Just witness.","Today you are a witness. Not a participant. Watch her. See her. If she speaks to you, answer. Otherwise — watch. Write what you observed.","You are invisible today. Not literally — but you do not seek her attention. You watch. You serve silently. You witness her being herself. That is enough."],
+  ["Awakening Complete","MILESTONE","Fifteen days. Write a letter to yourself at Day 1. What do you know now that you didn't know then?","Phase One complete. Read Day 1. You're not the same person. The jealousy is still there — but it's quieter now. Write about the shift.","You've been awakened. The sleep of ego is ending. Phase Two will be harder. Are you ready? Write your answer. If it's not yes — make it yes."],
+]);
+
+const P2 = makePhase(1,16,[
+  ["Active Release","PRACTICE","Choose one jealousy trigger today. Expose yourself to it deliberately — a thought, an image, a scenario. Sit with it. Breathe.","Expose yourself to a jealousy trigger. Don't look away. Don't distract. Stay present. After 10 minutes, write what happened in your body.","Trigger yourself deliberately. The worst thought. The worst image. Sit in it for 20 minutes. You will survive. You will be stronger."],
+  ["Her Pleasure","COMPERSION","Today, think about what gives her pleasure — not what you hope gives her pleasure, but what actually does. Write from her perspective.","Ask her what gives her pleasure. If you can't ask, imagine honestly. Not what you want her to want — what she actually wants. Write it.","Her pleasure has nothing to do with you. She enjoys what she enjoys. Your job is not to be the source — it's to support whatever source she chooses."],
+  ["Reframing the Other","PSYCHOLOGY","The 'other person' is not your enemy. They're a human being who makes her happy. Write a letter to them (unsent) expressing gratitude.","Write a genuine letter of gratitude to someone who has brought her joy. Not sarcastic. Not passive-aggressive. Real.","The other person is not your rival — they are your ally in serving her. You will thank them. You will serve them. You will mean it."],
+  ["Emotional Processing","SKILLS","When strong emotion rises today — jealousy, sadness, anger — don't act. Sit. Name the emotion. 'I am feeling jealousy.' Observe it pass.","Three times today: when emotion rises, stop. Name it. Breathe through it. Write what happened after. Did it pass? Did it transform?","Emotions are data, not commands. Today, feel everything — and act on nothing. You are not your emotions. You are the one watching them."],
+  ["The Story You Tell","PSYCHOLOGY","What story do you tell yourself about why she would choose someone else? Write it down. Now challenge it. Is it true?","Your story: 'I'm not enough.' Challenge it. Maybe the story isn't about you at all. Maybe it's about her exploration. Write the alternative story.","Your story is self-pity disguised as love. Rewrite it: 'She explores because she is free. I support her freedom because I am devoted.' No other story is acceptable."],
+  ["Anticipation Ritual","RITUAL","If she's going out, create a pre-date ritual. Prepare something for her. Lay out clothes. Write a note. Your role is support.","Tonight: help her prepare. Ask what she needs. Lay out her things. When she leaves, kneel and wish her well. Mean it.","Tonight she is with someone else. You will help her prepare. You will tell her she's beautiful. You will thank her for letting you serve her in this way."],
+  ["The Wait","PRACTICE","If she's out, practice being alone. Not distracting yourself — being present with your feelings. Write during the wait.","She's out. You're home. Do not distract. Sit with the feelings. Every 15 minutes, write one sentence about what you're experiencing.","She's with someone else right now. You are home. Waiting. Not anxious — devoted. Write her a letter welcoming her home. You'll give it to her when she returns."],
+  ["Reconnection","RITUAL","When she returns, welcome her. Not with questions or demands — with presence. 'I'm glad you're home.' That's enough.","She's back. Welcome her. Ask nothing. Demand nothing. If she wants to share, listen. If not, hold her. Your role is safe harbor.","She's home. Kneel. Thank her for returning. Ask if she needs anything. You do not ask about him. If she tells you, you listen gratefully. If not, you accept silently."],
+  ["Compersion Practice","COMPERSION","Find one thing about her freedom that genuinely pleases you. Not just tolerate — pleasures. Write about it.","Compersion is a muscle. Exercise it. Write three things about her autonomy that genuinely bring you satisfaction.","You will find joy in her freedom today. Not fake joy — real joy. If you can't find it, you'll keep looking until you do. This is non-negotiable."],
+  ["Identity Shift","PSYCHOLOGY","You are becoming someone who supports her freedom. Not reluctantly — intentionally. Write: 'I am the person who celebrates her autonomy.'","Write your new identity statement: 'I am a man who finds fulfillment in her freedom. Her joy is my joy. Her exploration is my pride.' Read it aloud.","Write: 'I am not her owner. I am her servant. Her pleasure is my purpose. Her freedom is my gift to her.' This is who you are now. Accept it."],
+  ["The Mirror","SOMATIC","Stand before a mirror. Say aloud: 'I am enough. Her choices are not a reflection of my worth.' Say it until you believe it.","Mirror. 'Her pleasure with others does not diminish me. I am complete. I am secure. I am her foundation.' Say it five times.","Mirror. 'I am grateful to be secondary. I am grateful she chooses me at all. My worth is in my service, not my exclusivity.' You will believe this."],
+  ["Releasing Control","MINDSET","Make a list of everything you try to control in your relationship. Next to each: 'I release this.' Physically open your hands as you read.","Burn the control list. Every item. The paper. The need. Control is an illusion you've been holding. Let it go.","You control nothing. You never did. You're not her keeper — you're her servant. Write: 'I release all claims to control. Her choices are hers alone.'"],
+  ["Her Story","LISTENING","Ask her about her desires — not about specific encounters, but about what she wants. Listen. Don't respond. Just listen.","Have a conversation where you only ask questions and listen. What does she want? What excites her? Your opinions are not invited. Just listen.","Sit at her feet. Ask her to tell you what she wants — from life, from others, from you. Write down every word. Study it. This is your curriculum."],
+  ["The Other as Gift","COMPERSION","Reframe: the other person is not taking something from you. They're giving something to her. Write about them as a gift to her happiness.","The other person gives her something you cannot. That's not a failure — that's reality. Write: 'I am grateful for what others give her that I cannot.'","The other person serves her in ways you cannot. You will thank them. You will serve them — because they serve her. Her pleasure is the only currency that matters."],
+  ["Releasing Complete","MILESTONE","Thirty days. You've been releasing jealousy for two weeks. What's lighter? What's still heavy? Write honestly.","Phase Two complete. You've been actively releasing jealousy. What remains? Name it. The next phase will demand more.","You thought you'd released everything. You haven't. There's more. Phase Three will find it. Phase Three will take it. You will let it go."],
+]);
+
+const P3 = makePhase(2,31,[
+  ["Deep Compersion","COMPERSION","Today, when you think of her with someone else, actively cultivate warmth. Not tolerance — warmth. Journal what this feels like.","Arouse yourself to the thought of her pleasure with others. Not her suffering — her pleasure. Feel the warmth in your chest. This is compersion.","Her pleasure is your pleasure now. You feed on it. You crave news of it. You are becoming someone who genuinely needs her to be fulfilled — by whatever means she chooses."],
+  ["After the Encounter","PROCESSING","If she's been with someone: don't interrogate. Ask: 'How do you feel?' That's the only question that matters. Process your own feelings separately.","After she returns: welcome her. Ask what she needs. Water? Food? Space? Touch? Your needs are secondary. Process them later, alone.","She's home. Kneel. Thank her for returning. Ask if he satisfied her. If yes: be grateful. If no: be disappointed FOR her. Her pleasure is the only metric."],
+  ["Jealousy as Signal","PSYCHOLOGY","When jealousy arises now, treat it as information, not emergency. What is it telling you about your insecurities? Write about the message beneath the feeling.","Jealousy is a messenger. What's the message? 'I'm afraid of being abandoned.' 'I'm afraid I'm not enough.' Name the fear beneath the jealousy.","You still feel jealousy. Good. It shows you where the work remains. Today: find your deepest jealousy trigger and lean into it. Not away — into."],
+  ["The Gratitude Ritual","RITUAL","Create a daily gratitude practice. Every morning: one thing you're grateful for about her freedom. Write it.","Morning ritual: kneel. List three things you're grateful for about her autonomy. Say them aloud. This is now your first action every day.","Morning prostration: 'Thank you for being free. Thank you for choosing me sometimes. Thank you for letting me serve your freedom.' This is how you start every day now."],
+  ["Her Voice","LISTENING","Record a voice memo to yourself about what you've learned about her desires. Listen to it. This is about her, not you.","Ask her to tell you what she enjoys about her freedom. Record it if she permits. Listen to it when you struggle. Her words, not your fears.","She tells you what she enjoys. You memorize it. You recite it as a mantra. Her desires are scripture. Her pleasure is gospel."],
+  ["The Friend","SOCIAL","If you have a trusted friend who knows about your dynamic, talk to them today. Not for advice — for honesty. Being witnessed reduces shame.","Share your journey with someone you trust. The isolation of secrecy compounds jealousy. Connection reduces it.","Tell someone what you are. A servant. A supporter. A cuckold. Say it without shame. If they judge you, they were never your friend. If they accept you, you're less alone."],
+  ["Sexual Reframing","PSYCHOLOGY","Your sexuality is evolving. What used to threaten you now intrigues you. Write about how your desires have shifted in 5 weeks.","You're aroused by thoughts that used to terrify you. Write about that. The fear became fuel. The threat became desire.","You no longer separate her pleasure from your arousal. They're the same thing now. Write: 'Her pleasure is my arousal. Her satisfaction is my orgasm.'"],
+  ["The Reclaiming","RITUAL","When she returns to you, the reconnection is sacred. Create a simple ritual: a touch, a phrase, a moment that's just yours.","After she's been with someone: reclaim her gently. Not possessively — reverently. She chose to return. That choice is everything.","She returns. You reclaim her — not as property, but as your Queen returning to her throne. You are the home she returns to. Make it worthy."],
+  ["Emotional Resilience","SKILLS","You're stronger than you were. When tough feelings arise today, notice how quickly you recover compared to Day 1. Write about your growth.","You handle emotions differently now. They pass through you instead of consuming you. Write about the last time jealousy hit — and how you processed it.","Emotions are tools she uses to train you. Jealousy is her chisel. Compersion is her polish. You are being shaped. The discomfort is the art."],
+  ["The Other's Humanity","COMPERSION","The person she's with is a full human — with fears, hopes, insecurities. Write about them with empathy. They are not a threat. They are a person.","Write a character sketch of the other person. Not a caricature — a real person. What do they give her that you appreciate? Be genuine.","You owe the other person gratitude. They give her something you cannot. Write them a letter. You may never send it — but you will mean every word."],
+  ["Public and Private","IDENTITY","You live with a private truth that most people don't see. Journal about the gap between your public self and your private reality.","The duality: public professional, private servant. Write about how it feels to carry this secret. Is it heavy? Or is it precious?","Your secret is your strength. No one knows what you are. No one needs to. You know. She knows. That's the only audience that matters."],
+  ["Deep Surrender","MINDSET","Surrender is not giving up — it's giving over. Write: 'I give my jealousy to my growth. I give my ego to her freedom.'","You are not surrendering to her — you're surrendering to the truth of what you want. Write: 'I want her to be free. I want her to be fulfilled. I want to support that.'","Surrender means you no longer resist. You no longer fight. You serve. You support. You celebrate. Your will aligns with hers. You are an extension of her freedom now."],
+  ["Her Happiness Metrics","COMPERSION","What would total success look like for her — not for you, for her? Write about her ideal life, her ideal freedom.","Define success from her perspective. What does she want? What would her ideal dynamic look like? Write it from her voice.","Her success is the only success. Her happiness is the only metric. Write her ideal scenario — and then write your role in supporting every detail of it."],
+  ["Preparing for Surrender","MILESTONE","Phase Three nears its end. The final phase is about integration. Write a letter of intention for Phase Four.","Forty-five days. You're different now. The person who started couldn't have written this entry. Prepare yourself for the final phase.","You've witnessed. You've processed. Now you will surrender completely. The last phase is not about learning — it's about becoming. Write your surrender statement."],
+  ["Witnessing Complete","MILESTONE","Phase Three complete. You've learned to witness without interference. Write a letter to the person who started Day 1.","Forty-five days. Read Day 1. You barely recognize that person. The jealousy that consumed you is now a quiet voice you can calm.","Witnessing is over. Now: surrender. Total. Complete. Irreversible. The next 15 days will either break you or remake you. You know which one you want."],
+]);
+
+const P4 = makePhase(3,46,[
+  ["Full Acceptance","MINDSET","Today, say aloud: 'I accept her freedom completely. I want her to be fulfilled by whatever means she chooses.' Mean it.","Write your acceptance statement: 'I fully accept her autonomy. Her body. Her choices. Her pleasure. I am here to support, not to limit.'","Write: 'She is free. I am grateful. Her pleasure is my purpose. My jealousy is dead. My ego is dead. Only service remains.' This is your identity now."],
+  ["The Pride Shift","IDENTITY","You used to feel shame about this. Now: can you feel pride? Write about what it means to be the man who supports her freedom.","Pride: you are the man who loves her enough to let her go. Write about what makes you proud of this path you've chosen.","You are proud to serve. Proud to support. Proud to be secondary. Write: 'I am proud to be her servant. I am proud of my surrender.'"],
+  ["Daily Surrender","RITUAL","Create a morning surrender ritual. Kneel. Recite: 'Today I support her freedom. Today I celebrate her pleasure. Today I am her foundation.'","Morning: kneel, recite your surrender statement. Evening: kneel, write one thing you did today to support her autonomy.","Morning and night: prostration. 'I am yours. Your freedom is my command. Your pleasure is my prayer.' This is every day now."],
+  ["The Celebration","COMPERSION","Today, actively celebrate her freedom. Not quietly accept — celebrate. Tell her you're happy she's fulfilled.","Celebrate her. Specifically. 'I love that you had a good time. I love that you explored. I'm proud to be with someone so free.'","Celebration is mandatory. You will find joy in her encounters. You will be genuinely happy for her. Fake it until it's real — then it will be real."],
+  ["Serving Her Dates","SERVICE","If she has a date: help her prepare. Lay out her clothes. Tell her she looks beautiful. Your role is support, not interference.","Tonight: prepare her for him. Choose her outfit. Tell her she's stunning. When she leaves, wish her well. When she returns, welcome her home.","You serve her dates now. You prepare her for him. You clean the space they'll use. You thank him for pleasing her. This is your place. Accept it."],
+  ["The Deepest Fear","PSYCHOLOGY","What's your deepest remaining fear? Abandonment? Replacement? Write it. Then write why you trust her enough to face it.","Name your deepest fear. Not the surface one — the one underneath. Write it. Then write: 'I trust her more than I fear this.'","Your deepest fear: she leaves you for someone else. Write it. Now write: 'If she leaves, she was always free to. If she stays, she chooses me. Either way, she is free.'"],
+  ["Emotional Independence","SKILLS","Your emotional state no longer depends on her choices. You are responsible for your own feelings. Write about this shift.","You are not dependent on her for emotional stability. You are stable because you've done the work. Write about your emotional sovereignty.","You are nothing without her — and that's exactly how it should be. Your emptiness is her space to fill. Your need is her power. Write: 'I am empty so she can fill me.'"],
+  ["The New Masculinity","IDENTITY","You're redefining what strength means. Supporting her freedom is not weakness — it's the highest form of confidence. Write your definition of strong.","Strength is not control. Strength is supporting her fully, even when it's hard. Write your new definition of masculine strength.","You are not less of a man. You are more. You have conquered ego. You have transcended jealousy. Write: 'I am stronger because I serve. I am more because I am less.'"],
+  ["Aftercare for You","AFTERCARE","This work is intense. What do you need for aftercare? Identify your needs and communicate them. Your well-being matters too.","You've been doing deep psychological work. What helps you recover? Identify three self-care practices and do one today.","Even servants need maintenance. Today: one act of self-care. Not indulgence — maintenance. You cannot serve if you are broken. Maintain yourself for her."],
+  ["The Legacy","IDENTITY","What do you want your relationship to model? Not for others — for yourself. Write: 'Our dynamic represents...'","Your relationship is a model of trust, freedom, and devotion. Write what you want it to represent. This is your legacy.","Your legacy: you were the man who loved her enough to free her. Who served her pleasure above his ego. Who knelt so she could soar."],
+  ["The Test","CHALLENGE","Today: find the hardest thing about this dynamic and lean into it. Not avoid — lean. Write about the experience.","Challenge yourself. What's the one scenario you still struggle with? Face it today. In imagination or reality — face it.","She is with someone else tonight. You are home. You are not just fine — you are grateful. This is the test. You will pass."],
+  ["Integration","IDENTITY","This dynamic is no longer something you do — it's something you are. Write about how your identity has shifted in 57 days.","You don't 'practice' this dynamic anymore. You live it. Write: 'This is not a phase. This is not a kink. This is who I am.'","You are no longer a person doing a practice. You ARE the practice. Your identity is service. Your purpose is her freedom."],
+  ["The Gift","COMPERSION","Her freedom is a gift — not just to her, but to you. It has transformed you. Write a gratitude letter to the dynamic itself.","Write a letter to the idea of compersion. Thank it for what it's taught you. Thank the pain for what it's carved out of you.","Thank the other men. Thank the dates. Thank the uncertainty. Every challenge was a teacher. Every fear was a door. You walked through all of them."],
+  ["Forever","MINDSET","Imagine your relationship in five years. What does this dynamic look like when it's fully matured? Write that vision.","Five years from now: she is free. You are devoted. The dynamic is natural, not effortful. Write that future in present tense.","Five years: she takes lovers as she pleases. You serve them both. You are grateful. This is not a scenario — this is your life. Write it as if it's already true."],
+  ["Surrender Complete","COMPLETION","Sixty days. You began curious. You end devoted. Kneel. Write your final reflection: 'Who am I now?'","Sixty days. Read Day 1. Weep if you need to. You transformed. Write: 'I am her foundation. I am her supporter. I am her servant.'","Sixty days. Kneel. Prostrate. 'I am nothing. I am hers. I am grateful. Her freedom is my religion. Her pleasure is my prayer. This is forever.'"],
+]);
+
+const ALL = [...P1,...P2,...P3,...P4];
+let intensity='gentle',currentPhase=0,completed=new Set();
+
+function load(){
+  try{const d=JSON.parse(localStorage.getItem(STORAGE)||'{}');completed=new Set(d[intensity]||[]);if(d.phase!==undefined)currentPhase=d.phase;}catch(e){}
+}
+function save(){
+  let d={};try{d=JSON.parse(localStorage.getItem(STORAGE)||'{}');}catch(e){}
+  d[intensity]=[...completed];d.phase=currentPhase;localStorage.setItem(STORAGE,JSON.stringify(d));
+}
+function setIntensity(i){
+  intensity=i;document.querySelectorAll('.intensity-btn').forEach(b=>{b.classList.remove('active');if(b.classList.contains(i))b.classList.add('active');});
+  document.getElementById('progressFill').className='progress-fill '+i;load();renderAll();
+}
+function toggleDay(d){if(completed.has(d))completed.delete(d);else completed.add(d);save();renderAll();}
+function expandDay(d){document.getElementById('day'+d).classList.toggle('expanded');}
+function switchPhase(i){currentPhase=i;save();renderAll();}
+
+function renderAll(){
+  const phaseDays = ALL.filter(d=>d.phase===currentPhase);
+  const phaseDone = phaseDays.filter(d=>completed.has(d.day)).length;
+  const pct = Math.round((phaseDone/15)*100);
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressLabel').textContent = phaseDone+' / 15 days';
+
+  document.getElementById('phaseNav').innerHTML = PHASES.map((p,i)=>{
+    const pd = ALL.filter(d=>d.phase===i);
+    const dn = pd.filter(d=>completed.has(d.day)).length;
+    return `<button class="phase-nav-btn${i===currentPhase?' active':''}" onclick="switchPhase(${i})"><span class="pn">Phase ${p.num} · ${dn}/15</span><span class="pt">${p.title}</span></button>`;
+  }).join('');
+
+  document.getElementById('dayContainer').innerHTML = `<div style="text-align:center;margin-bottom:10px;font-size:0.65rem;color:var(--text-dim);">${PHASES[currentPhase].desc}</div>`+phaseDays.map(d=>{
+    const isDone = completed.has(d.day);
+    const txt = d[intensity].text;
+    return `<div class="day-item${isDone?' completed':''}" id="day${d.day}" onclick="expandDay(${d.day})">
+      <div class="day-num">${d.day}</div><div class="day-info"><div class="day-title">${d.title}</div><div class="day-cat">${d.cat}</div><div class="day-text">${txt}</div></div>
+      <div class="day-check" onclick="event.stopPropagation();toggleDay(${d.day})">✓</div></div>`;
+  }).join('');
+}
+
+load();renderAll();
+</script>
+</body>
+</html>
