@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire • The Complete Chastity System</title>
+<style>
+  :root{--gold:#C9A84C;--gold-light:#e8cc6e;--bg:#09090b;--bg-card:#121218;--border:#1c1c24;--text:#e8e8ec;--text-muted:#9898a3;--text-dim:#6b6b76;--gentle:#a0c4a0;--devoted:#c9a050;--owned:#c06060;--red:#c44;--panel-w:340px;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;min-height:100vh;}
+  .serif{font-family:Georgia,'Times New Roman',serif;}
+
+  .topbar{border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:50;}
+  .topbar-inner{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .crown-icon{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#b8960f);display:flex;align-items:center;justify-content:center;font-size:17px;color:#09090b;}
+  .brand-name{font-size:1.2rem;font-weight:800;}
+
+  .layout{max-width:1200px;margin:0 auto;padding:24px;display:flex;gap:24px;}
+  .main-col{flex:1;min-width:0;}
+  .side-col{width:var(--panel-w);flex-shrink:0;}
+
+  .hero{text-align:center;margin-bottom:20px;}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;font-size:0.6rem;letter-spacing:2px;margin-bottom:14px;text-transform:uppercase;color:var(--gold);}
+  .hero h1{font-size:2rem;font-weight:800;color:var(--gold);letter-spacing:2px;}
+  .hero .subtitle{font-size:0.85rem;color:var(--text-muted);max-width:550px;margin:6px auto 0;line-height:1.6;}
+
+  /* Intensity */
+  .intensity-selector{display:flex;gap:8px;justify-content:center;margin-bottom:18px;}
+  .intensity-btn{flex:1;max-width:160px;padding:10px 6px;border:1.5px solid var(--border);background:var(--bg-card);color:var(--text-muted);border-radius:12px;cursor:pointer;text-align:center;transition:all 0.2s;font-family:Georgia,serif;}
+  .intensity-btn .i-name{font-size:0.8rem;font-weight:700;letter-spacing:1px;display:block;}
+  .intensity-btn .i-desc{font-size:0.5rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;display:block;}
+  .intensity-btn.active.gentle{border-color:var(--gentle);color:var(--gentle);background:#0a0f0a;}
+  .intensity-btn.active.devoted{border-color:var(--devoted);color:var(--devoted);background:#0f0d07;}
+  .intensity-btn.active.owned{border-color:var(--owned);color:var(--owned);background:#0f0707;}
+  .intensity-warning{text-align:center;font-size:0.6rem;font-style:italic;margin-bottom:14px;display:none;padding:8px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;}
+  .intensity-warning.show{display:block;}
+
+  /* Progress */
+  .progress-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;gap:14px;}
+  .progress-fill{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+  .progress-fill.gentle div{background:var(--gentle);}
+  .progress-fill.devoted div{background:var(--devoted);}
+  .progress-fill.owned div{background:var(--owned);}
+  .progress-fill div{height:100%;border-radius:3px;transition:width 0.3s;}
+  .progress-text{font-size:0.7rem;color:var(--text-dim);white-space:nowrap;}
+
+  /* Phase nav */
+  .phase-nav{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;}
+  .phase-nav-btn{flex:1;min-width:90px;padding:10px 8px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-muted);border-radius:10px;cursor:pointer;text-align:center;transition:all 0.2s;font-size:0.65rem;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;}
+  .phase-nav-btn.active{border-color:var(--gold);color:var(--gold);}
+  .phase-nav-btn .pn{font-size:0.55rem;color:var(--text-dim);display:block;}
+  .phase-nav-btn .pt{font-weight:700;display:block;}
+
+  /* Day entries */
+  .day-list{display:flex;flex-direction:column;gap:5px;margin-bottom:24px;}
+  .day-item{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:12px;}
+  .day-item:hover{border-color:rgba(201,168,76,0.3);}
+  .day-item.completed{opacity:0.45;}
+  .day-item.completed .day-check{background:var(--gold);border-color:var(--gold);color:#09090b;}
+  .day-item.expanded{border-color:var(--gold);background:#1a1a15;}
+  .day-num{width:32px;height:32px;border-radius:50%;background:var(--bg);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.7rem;flex-shrink:0;color:var(--text-dim);}
+  .day-item.expanded .day-num{border-color:var(--gold);color:var(--gold);}
+  .day-info{flex:1;min-width:0;}
+  .day-info .day-title{font-weight:700;font-size:0.8rem;}
+  .day-info .day-meta{font-size:0.55rem;text-transform:uppercase;letter-spacing:1px;margin-top:2px;color:var(--text-dim);}
+  .day-info .day-text{font-size:0.72rem;color:var(--text-muted);margin-top:8px;line-height:1.55;display:none;font-family:Georgia,serif;font-style:italic;}
+  .day-item.expanded .day-text{display:block;}
+  .day-check{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.6rem;flex-shrink:0;cursor:pointer;color:transparent;transition:all 0.2s;}
+
+  /* Side panels */
+  .side-panel{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px;}
+  .side-panel h3{font-size:0.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;}
+  .side-panel p,.side-panel li{font-size:0.68rem;color:var(--text-muted);line-height:1.6;}
+  .side-panel ul{padding-left:16px;}
+  .side-panel li{padding:2px 0;}
+  .side-panel .danger{color:var(--red);font-weight:700;}
+
+  .consent-block{border:1.5px solid var(--gold);padding:20px;margin-top:20px;text-align:center;background:linear-gradient(180deg,#0a0a0a,#0d0d0d);position:relative;border-radius:0;}
+  .consent-block::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:0.5px solid rgba(201,168,76,0.15);pointer-events:none;}
+  .consent-title{font-size:14px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:8px;position:relative;z-index:1;}
+  .consent-text{font-size:10px;color:#b8943a;line-height:1.6;position:relative;z-index:1;}
+
+  .emergency-banner{background:#1a0505;border:2px solid var(--red);border-radius:14px;padding:16px;margin-bottom:14px;text-align:center;}
+  .emergency-banner h3{color:var(--red);font-size:0.8rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;}
+  .emergency-banner p{font-size:0.65rem;color:#c88;line-height:1.5;}
+
+  @media(max-width:900px){
+    .layout{flex-direction:column;}
+    .side-col{width:100%;}
+    .phase-nav{flex-wrap:nowrap;}
+    .hero h1{font-size:1.5rem;}
+    .intensity-btn{max-width:110px;padding:8px 4px;}
+    .intensity-btn .i-name{font-size:0.7rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><div class="crown-icon">♛</div><div class="brand-name serif">Queen's Empire</div></div>
+    <div style="font-size:0.6rem;color:var(--text-dim);">COMPLETE CHASTITY SYSTEM</div>
+  </div>
+</div>
+
+<div class="layout">
+
+<div class="main-col">
+  <div class="hero">
+    <div class="hero-badge">✦ 10-WEEK SYSTEM &bull; 5 PHASES &bull; 3 INTENSITIES</div>
+    <h1 class="serif">The Complete Chastity System</h1>
+    <p class="subtitle">From first lock to total surrender. Queen Elyria guides you through every phase — cage sizing, hygiene, keyholder rituals, and the psychological transformation of long-term denial.</p>
+  </div>
+
+  <div class="intensity-selector" id="intensitySelector">
+    <button class="intensity-btn gentle active" onclick="setIntensity('gentle')"><span class="i-name">Gentle</span><span class="i-desc">Exploratory</span></button>
+    <button class="intensity-btn devoted" onclick="setIntensity('devoted')"><span class="i-name">Devoted</span><span class="i-desc">Committed</span></button>
+    <button class="intensity-btn owned" onclick="setIntensity('owned')"><span class="i-name">Owned</span><span class="i-desc">Extreme</span></button>
+  </div>
+
+  <div class="intensity-warning" id="intensityWarning"></div>
+
+  <div class="progress-wrap">
+    <div class="progress-fill gentle" id="progressFill"><div id="progressBar" style="width:0%"></div></div>
+    <div class="progress-text" id="progressLabel">0 / 70 days</div>
+  </div>
+
+  <div class="phase-nav" id="phaseNav"></div>
+  <div id="dayContainer"></div>
+
+  <div class="consent-block">
+    <div class="consent-title">Consent &amp; Safety Notice</div>
+    <div class="consent-text">
+      All scenarios and language are fantasy roleplay between consenting adults. Safe words always apply: ● RED = Stop immediately. ● YELLOW = Check-in.<br>
+      SSC / RACK frameworks. Chastity devices carry physical risks — read the safety guide. Never ignore pain, numbness, discoloration, or swelling. Remove device immediately if these occur. Seek medical attention if needed.<br>
+      The Owned intensity discusses extended wear, micro cages, and psychological dependency. You control your intensity. You may stop at any time.
+    </div>
+  </div>
+</div>
+
+<div class="side-col" id="sidebar">
+  <div class="emergency-banner">
+    <h3>⚠ Emergency Release</h3>
+    <p>If you experience: <strong>sharp pain, numbness, swelling, discoloration (blue/purple), inability to urinate, or burning</strong> — remove the device immediately. Keep your emergency key accessible at all times. No protocol is worth tissue damage. Seek medical care if symptoms persist.</p>
+  </div>
+
+  <div class="side-panel">
+    <h3>Sizing Guide</h3>
+    <p><strong>Base ring:</strong> Measure behind the testicles with a string. Pull snug but not tight. Divide circumference by 3.14 for diameter. Order the closest size — err smaller, not larger.</p>
+    <p style="margin-top:8px;"><strong>Cage length:</strong> Measure flaccid length from base to tip. Subtract ¼–½ inch. A snug fit prevents erection attempts and is more comfortable long-term.</p>
+    <p style="margin-top:8px;"><strong>Gap:</strong> Space between ring and cage. Too wide = escape. Too narrow = pinching. Start with standard gap and adjust.</p>
+  </div>
+
+  <div class="side-panel">
+    <h3>Hygiene Protocol</h3>
+    <ul>
+      <li><strong>Daily:</strong> Clean exterior with mild soap and water during shower. Dry thoroughly.</li>
+      <li><strong>Every 2–3 days:</strong> Remove device. Clean all components with soap and warm water. Dry completely before re-locking.</li>
+      <li><strong>Weekly:</strong> Inspect skin for irritation, chafing, or pressure points. Apply moisturizer to areas that contact the ring.</li>
+      <li><strong>Micro/extended wear:</strong> Hygiene releases are mandatory, not optional. Minimum one thorough cleaning every 48 hours.</li>
+    </ul>
+  </div>
+
+  <div class="side-panel">
+    <h3>Queen's Standing Orders</h3>
+    <p id="standingOrders">Select your intensity to receive your standing orders.</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'qe_chastity_v1';
+const TOTAL_DAYS = 70;
+
+const PHASES = [
+  {num:1,title:'Introduction',days:'1–14',desc:'Learning the device. Building comfort. Establishing routine.',color:0},
+  {num:2,title:'Conditioning',days:'15–28',desc:'First overnights. Mental adjustment. Keyholder distance.',color:0},
+  {num:3,title:'Deepening',days:'29–42',desc:'Full days locked. Public wear. The cage becomes normal.',color:1},
+  {num:4,title:'Submission',days:'43–56',desc:'Extended lockup. Dependency begins. The cage feels like home.',color:2},
+  {num:5,title:'Ownership',days:'57–70',desc:'Total surrender to the device. Locked is your natural state.',color:2},
+];
+
+const WARNINGS = {
+  devoted: 'Devoted: Extended wear, smaller cages, overnight locking. Discomfort is expected — pain is not. Emergency key always accessible.',
+  owned: 'Owned: Micro cages, 72+ hour lockup, psychological dependency themes. NOT for beginners. Read all safety information before proceeding. Emergency key mandatory.',
+};
+
+const STANDING_ORDERS = {
+  gentle: 'You are exploring. The cage is a tool for awareness, not punishment. Remove it when you need to. Your body, your pace. I am patient with beginners because I know where you are headed.',
+  devoted: 'The cage is no longer optional. You will wear it daily. You will sleep in it. You will present your locked body to me each morning. Hygiene releases are permitted — but you will ask permission first. Your key belongs to me now, even if you still hold it.',
+  owned: 'You are caged because that is your natural state. Unlocked is the exception. You will earn every release. You will thank me for every hour locked. Your cage is not a device — it is my hands around you at all times. You will forget what freedom feels like. You will not want to remember.',
+};
+
+// ── DAY DATA ──
+// Each day: {day,phase,title,cat,gentle:{duration,cage,ritual,verdict},devoted:{...},owned:{...}}
+const DAYS = [];
+
+function makeDay(day,phase,title,cat,gDur,gCage,gRitual,gVerdict,dDur,dCage,dRitual,dVerdict,oDur,oCage,oRitual,oVerdict){
+  return {day,phase,title,cat,gentle:{duration:gDur,cage:gCage,ritual:gRitual,verdict:gVerdict},devoted:{duration:dDur,cage:dCage,ritual:dRitual,verdict:dVerdict},owned:{duration:oDur,cage:oCage,ritual:oRitual,verdict:oVerdict}};
+}
+
+// PHASE 1: Introduction (Days 1-14)
+const P1 = [
+  makeDay(1,0,"First Measurement","SIZING","—","None","Measure yourself following the sizing guide. Write down your measurements. Do not rush.","\"You are measuring for me. Every millimeter matters. Do it slowly. Do it right. I will know if you rushed.\"","—","None","Measure three times. Average the results. This is the most important day. A wrong measurement means weeks of discomfort.","\"Measure again. And again. Your body is being prepared for me. Precision is obedience.\"","—","None","Measure. Remeasure. Photograph the measurements. You are documenting your body for my records. This is the first act of surrender.","\"You think this is about numbers. It's not. It's about me knowing your body before I lock it away.\""),
+  makeDay(2,0,"Acquiring the Device","PREPARATION","—","None","Order or obtain your device. Research materials — steel, resin, silicone. Choose based on your measurements.","\"Today you shop. Not for yourself — for me. Choose the cage you will wear at my command. Choose wisely.\"","—","None","Order your primary device AND a backup size — one smaller. You will grow into it.","\"Two cages. One for now. One for who you will become. The smaller one scares you. Good.\"","—","None","Order three sizes: standard, snug, and micro. You will progress through all of them. The micro cage is a promise of what's coming.","\"Buy the smallest one first. Hold it. Feel its weight. This is where you are going. This is my promise to you.\""),
+  makeDay(3,0,"First Lock","FIRST TIME","30 min","Standard","Put on the device. Set a timer for 30 minutes. Sit with the sensation. Write down everything you feel.","\"The first click of the lock is a sound you will never forget. Listen to it. That sound is me claiming you.\"","2 hours","Standard","Lock yourself. Two hours. No distractions. No phone. Just you and the cage. Journal every sensation.","\"Two hours. If you panic, breathe. If you want to unlock, wait five minutes first. The panic passes. The cage remains.\"","4 hours","Standard","Four hours. Lock yourself and go about your day. The cage under your clothes. No one knows but me. Feel the secret.","\"Four hours locked. You will feel exposed. You're not. You're hidden. The only person who sees you is me.\""),
+  makeDay(4,0,"Sensation Inventory","AWARENESS","1 hour","Standard","Wear the device for one hour. Move — walk, sit, stand, bend. Note every point of contact. Every sensation.","\"Your body is learning a new language. The cage is vocabulary. Learn every word it speaks to you.\"","4 hours","Standard","Four hours. Include sitting at a desk, walking outside, climbing stairs. The cage is with you. Always.","\"The cage is not a toy you try on. It is a companion. Learn to move with it. It's not going anywhere.\"","8 hours","Standard","Full day. Work. Eat. Move. The cage is part of you now. At hour eight, journal: what surprised you? What scared you?","\"Eight hours. By now you've forgotten it's there — until you remember. That cycle is the beginning of dependency.\""),
+  makeDay(5,0,"Hygiene Practice","HYGIENE","—","Standard","Remove device. Practice the full cleaning protocol. Time yourself. This must become automatic.","\"Cleanliness is not optional. A dirty cage is a dirty servant. I will not accept either.\"","—","Standard","Practice the cleaning protocol three times. Get your time under 5 minutes. Efficiency matters.","\"Three repetitions. By the third, you should be fast and thorough. I don't reward slowness.\"","—","Standard","Practice blindfolded. You will learn to clean your cage without looking. You will need this skill.","\"Clean it in the dark. Because one day you will be locked in the dark, and you will still need to be clean for me.\""),
+  makeDay(6,0,"The Key Ritual","RITUAL","2 hours","Standard","Place your key on a table. Sit before it. Do not touch it for two hours. Observe your relationship to the key.","\"The key is not yours. It never was. You are simply holding it for me. Sit with that truth.\"","4 hours","Standard","Place the key in another room. Lock yourself. Four hours. The key exists. You cannot reach it. Feel the distance.","\"The key is in the house. You know where. You cannot touch it. This is the first lesson in separation.\"","Overnight","Standard","Give the key to someone — a partner, a friend, or freeze it in a block of ice. Overnight, you cannot retrieve it. Sleep locked. Wake locked.","\"You gave the key away. You cannot unlock even if you want to. How does that feel? Write it down. I am reading.\""),
+  makeDay(7,0,"One Week Assessment","REFLECTION","3 hours","Standard","One week. How has your body changed? Your mind? Your desires? Write a full assessment.","\"Seven days since you first measured. Look at how far you've come. You are not the person who started.\"","6 hours","Standard","One week. Six hours locked today. Write what has surprised you most. What has been hardest.","\"You are one week in. Most quit by now. You didn't. That matters to me.\"","12 hours","Standard","Full day locked. 12 hours. At the end: kneel. Place the key before you. Thank me for the lock. Thank me for the denial.","\"Twelve hours. Kneel. The key glints in the light. You could unlock. You won't. Not because you can't — because you are mine.\""),
+  makeDay(8,0,"Comfort Modifications","ADJUSTMENT","4 hours","Standard","Assess fit. Adjust as needed — lubricant at contact points, different underwear, looser pants. Comfort is sustainable.","\"Discomfort is a signal, not a virtue. Adjust. Improve. I want you locked for years, not days.\"","8 hours","Standard→Snug","If your standard cage is comfortable, try the next size down for 2 hours today. See how it feels.","\"Try the smaller cage. Just for a visit. You'll be living there soon enough.\"","12 hours","Standard→Snug","Switch between standard and snug cage. Four hours each. Compare. The snug one is your future.","\"The snug cage is trying to tell you something. Listen. It's saying: this is where you belong.\""),
+  makeDay(9,0,"Public Wear","EXPOSURE","2 hours","Standard","Wear the device outside your home. Grocery store. Walk. Coffee shop. No one knows. You know.","\"You are locked in a room full of people. They see a person. I see a caged servant. Smile. You're mine.\"","6 hours","Standard","Full day out. Work, errands, social. The cage is under your clothes. Your secret. My smile.","\"Every person you pass has no idea. But you do. And I do. That's enough.\"","Full day","Snug","Full day. Snug cage. Public all day. Notice how the tighter fit changes your posture, your walk, your presence.","\"The snug cage changes how you move. Good. I want you to move like someone who is owned.\""),
+  makeDay(10,0,"The Mirror Ritual","RITUAL","30 min","Standard","Stand naked before a mirror. Observe the cage. Say aloud: 'This device is a symbol of my devotion. I wear it willingly.'","\"Look at yourself. Really look. The cage is not hiding anything — it's revealing who you are.\"","1 hour","Standard","Mirror. One hour. Name every part of your body and dedicate it to me. 'These hands serve. These legs kneel. This cage is yours.'","\"Dedicate your body to me. Part by part. The cage is the only thing you don't dedicate — because it's already mine.\"","1 hour","Snug","Mirror. Snug cage. Examine yourself as I would examine you. Critically. Write a report. 'This body is adequate. With training, it may become worthy.'","\"Appraise yourself as livestock. Be honest. Be cruel. I would be.\""),
+  makeDay(11,0,"Movement Training","DISCIPLINE","3 hours","Standard","Exercise while caged. Walk, stretch, light movement. Learn how your body moves in the device.","\"Your body is different now. Learn it again. Every movement is an act of service when you are caged for me.\"","6 hours","Standard","Full workout while caged. Cardio. Stretching. Notice where the cage restricts you. Adapt.","\"You will exercise locked. You will stretch locked. You will learn to do everything locked. Because locked is your default.\"","8 hours","Snug","Full day including exercise in snug cage. When the cage restricts movement, do not remove it. Work around it. The cage is not an obstacle — it is a teacher.","\"The cage limits you. Good. Limits are where growth happens. Work within them. That is discipline.\""),
+  makeDay(12,0,"Keyholder Visualization","DEVOTION","1 hour","Standard","Close your eyes. Visualize me holding your key. Describe what you see. What am I wearing? What is my expression?","\"I am holding your key right now. Can you feel it? The weight of it in my palm? Your freedom weighs almost nothing.\"","2 hours","Standard","Write a letter to me about what the key means to you. What would you give to have me hold it? Be specific.","\"Write to me. Tell me why you deserve to have me hold your key. Convince me.\"","3 hours","Snug","Write a contract. 'I, [name], surrender my key to Queen Elyria. I will not unlock without her permission. If I unlock without permission, I accept whatever punishment she deems fit.' Sign it.","\"Sign your key away. Legally meaningless, psychologically everything. You just gave me what you value most.\""),
+  makeDay(13,0,"The First Overnight","OVERNIGHT","—","Standard","Tonight, lock before bed. If you wake uncomfortable, unlock. No shame. This is a test, not a sentence.","\"Try sleeping locked. If you wake up and need out, get out. We are learning your limits — not breaking them.\"","Overnight","Standard","Lock before bed. Keep the key across the room. If you need to unlock, you must stand up and walk to it. This small barrier changes everything.","\"Key across the room. You can unlock — but you have to get up. Most of the time, you won't. Laziness is the first form of discipline.\"","Overnight","Snug","Lock in snug cage before bed. Key frozen in ice. You will wake up locked. You will stay locked until the ice melts. No exceptions.","\"The key is frozen. So are you — frozen in my control. When you wake up locked, you will understand something new about yourself.\""),
+  makeDay(14,0,"Phase One Completion","MILESTONE","6 hours","Standard","Two weeks. Read every journal entry. Notice the arc. You are not the person who started. Write your Phase One summary.","\"Two weeks. You thought it would be harder. Or easier. Or different. It doesn't matter what you thought. What matters is: you're still here.\"","10 hours","Standard","Two weeks. Ten hours locked. Read every entry aloud to me. At the end, ask yourself: do you want to go further?","\"Ten hours. Phase One ends. But you don't want it to end, do you? You want to go deeper. Say it.\"","16 hours","Snug","Sixteen hours locked. Read your contract from Day 12 aloud. Renew it for Phase Two. 'I go deeper. I give more. I am hers.'","\"Sixteen hours. You signed a contract. Now you're renewing it — not because you have to, but because you want to. That's the difference between Phase One and everything after.\""),
+];
+
+// Helper to generate Phase 2-5 data efficiently
+function makePhase(phaseIdx,startDay,phaseName,data){
+  const out = [];
+  data.forEach((d,i) => {
+    const day = startDay + i;
+    out.push(makeDay(day,phaseIdx,d[0],d[1],d[2],d[3],d[4],d[5],d[6],d[7],d[8],d[9],d[10],d[11],d[12],d[13]));
+  });
+  return out;
+}
+
+// PHASE 2: Conditioning (Days 15-28)
+const P2 = makePhase(1,15,'Conditioning',[
+  ["Longer Wear","ENDURANCE","8 hours","Standard","Lock for 8 hours. No removal except hygiene.","\"Eight hours. This is no longer practice. This is protocol.\"","14 hours","Standard","Lock for 14 hours. Morning to night. The cage is on more than it's off.","\"Fourteen hours. Being unlocked is becoming the exception. Feel that shift.\"","24 hours","Standard→Snug","Full 24 hours locked. One hygiene release at midpoint. Otherwise: locked.","\"Twenty-four hours. You spent an entire day locked. How did it change you? Tell me.\""],
+  ["Urination Discipline","DISCIPLINE","—","Standard","Practice urinating while caged. Sit. Do not stand. You sit now. Always.","\"You sit to pee now. Standing is for men. You are not a man. You are my caged servant.\"","—","Standard→Snug","Sit every time. Every. Single. Time. Even in public restrooms. Even when it's inconvenient.","\"You sit. Always. The stall is your throne now — not because you are royal, but because you are toilet-trained.\"","—","Snug","Sit. Always. Clean yourself thoroughly after. You are caged, not dirty. Hygiene is obedience.","\"Sit. Clean. Inspect. Every time. I am watching your habits. Cleanliness is the first mark of a worthy servant.\""],
+  ["The First Denial Wave","DENIAL","—","Standard","The cage prevents touch. Today you will not try. Sit with the frustration. Write about it.","\"You want to touch. You can't. The cage is doing its job. Your frustration is prayer. Keep praying.\"","—","Standard→Snug","No touch. No attempt. When the urge comes — and it will — kneel for two minutes until it passes.","\"The urge is a wave. Don't fight it — kneel and let it pass over you. I am the shore it breaks against.\"","—","Snug","No touch. No attempt. When aroused, recite your contract aloud. Your arousal belongs to me. You may not act on it.","\"You're hard. You're locked. You're desperate. Good. That desperation is mine. Sit in it. Don't move.\""],
+  ["Key Distance","KEYHOLDER","—","Standard","Place your key somewhere inconvenient — high shelf, back of drawer. The distance is psychological.","\"The key is far away. Not unreachable — just inconvenient. That's how I am with you. Present but distant.\"","—","Standard","Give your key to someone you trust for the day. You cannot unlock even if you want to. How does that feel?","\"Someone else has your key. You trusted them. Do you trust yourself to not beg for it back?\"","—","Snug","Mail your key to yourself. It will take 2-3 days to return. You are locked until the mail arrives. No backup.","\"The key is in the mail. For three days, you cannot unlock. No emergency override. This is real now.\""],
+  ["Cold Exposure","SENSATION","—","Standard","Stand in a cold room or take a cool shower while caged. Notice how the cold changes the fit.","\"Cold tightens everything. The cage feels different. Your body reacts. Observe. Learn.\"","—","Standard","Cold shower. Full 5 minutes. The cage contracts. You contract. Everything shrinks into my control.","\"Cold reduces you. Makes you smaller. More manageable. Like I am doing to your ego.\"","—","Snug","Ice bath — feet and hands only. 10 minutes. The snug cage tightens further. You are shrinking into the device I chose for you.","\"Ice. Shrink. Submit. The cold strips everything away except the cage. And me.\""],
+  ["Social Lock","EXPOSURE","—","Standard","Spend time with someone while locked. They don't know. You do. Notice the gap between their perception and your reality.","\"You're having a normal conversation. They have no idea you're locked. That gap — between what they see and what you are — is my favorite thing.\"","—","Standard","Go to a social event locked. Dinner. Drinks. A date. You are caged under your clothes. No one knows. I know.","\"Laugh. Drink. Talk. No one sees the cage. But you feel it with every movement. You are my secret.\"","—","Snug","Go through a full workday locked in snug cage. Meetings. Desk. Lunch. All of it. The cage is now part of your professional self.","\"Business as usual — except nothing is usual. You're locked. Snug. Every meeting, every handshake — I'm there.\""],
+  ["The Ache","DENIAL","—","Standard","You will feel the ache today — the deep want. Do not fight it. Breathe into it. Describe it in writing.","\"The ache is not a problem to solve. It is a state to inhabit. Live in it today.\"","—","Standard→Snug","When the ache comes, do not distract yourself. Sit with it for 10 minutes. Let it build. Let it consume. Then let it pass.","\"The ache is a wave. Ride it. Don't paddle away. I want you to feel every second of wanting me.\"","—","Snug","The ache is constant now. Good. This is your new baseline. You will learn to function while desperate. You will learn to love it.","\"You're aching. You're locked. You're mine. These three things are now the same thing. Get used to it.\""],
+  ["Self-Inspection","RITUAL","—","Standard","Full mirror inspection. Check for any irritation, chafing, pressure points. Report your findings.","\"Inspect yourself. Not with pride — with diligence. Your body is equipment I use. Maintain it.\"","—","Standard","Detailed inspection. Photograph any marks the cage has left. These are my fingerprints on your body.","\"Those marks — those impressions in your skin — are the beginning of my signature on you.\"","—","Snug","Full inspection. The snug cage leaves deeper marks. Document them. These are evidence of your submission.","\"Deeper marks. You're wearing me now. Your skin remembers the cage even when it's off.\""],
+  ["Overnight Conditioning","OVERNIGHT","Overnight","Standard","Sleep locked. If you wake, breathe. Do not unlock unless necessary.","\"Night two locked. Your body is learning to sleep in its cage. The rebellion is fading.\"","Overnight","Standard→Snug","Sleep in snug cage. Wake up locked. First thought: her. Second thought: still locked. Third thought: good.","\"You woke up locked and your first feeling was relief. That's the turning point. You're not doing this because you have to anymore.\"","Overnight","Snug","Sleep in snug cage. Key in another room. You will not unlock until morning. You will not want to.","\"Morning comes. You're still locked. The key is far away. You don't care. This is normal now.\""],
+  ["Phase Two Reflection","MILESTONE","10 hours","Standard","Two weeks of conditioning. Read every entry. What has changed in your body? Your mind? Your relationship to the cage?","\"Phase Two complete. The cage is no longer a device you wear — it's part of your identity. How does that feel?\"","16 hours","Standard→Snug","Sixteen hours. Read your entries. The person who started Phase One is fading. Who is emerging?","\"You're becoming someone new. Someone who needs the cage. Someone who misses it when it's off. That's my doing.\"","24 hours","Snug","Twenty-four hours. Read your entries aloud as if reporting to me. End with: 'Phase Two complete. I am ready for what comes next.'","\"Twenty-four hours locked. You don't want to unlock. You're afraid of what you'll feel if you do. Don't be afraid. The cage will be back. I promise.\""],
+]);
+
+// PHASE 3: Deepening (29-42)
+const P3 = makePhase(2,29,'Deepening',[
+  ["Smaller Cage","PROGRESSION","8 hours","Snug","Time to downsize. Wear the snug cage for 8 hours today. It will feel tight. That's the point.","\"Smaller cage. Less room. Less comfort. More me. You're earning the tight fit.\"","14 hours","Snug","Full day in snug cage. No standard cage breaks. This is your cage now.","\"The snug cage is your new home. It's smaller. It's tighter. It's exactly where you belong.\"","24 hours","Small","Full day in small cage. This is significantly tighter. You will feel restricted. Good.","\"Small cage. You can barely move. Every shift reminds you. That's how I want you — constantly aware of my control.\""],
+  ["Erection Management","DENIAL","—","Snug","When aroused in the snug cage, the restriction is obvious. Breathe. Do not fight. The cage wins.","\"You're trying to get hard. The cage says no. Listen to the cage. It speaks for me.\"","—","Snug","Deliberately arouse yourself. Do not touch. Let the cage do its work. The frustration is the point.","\"Get yourself worked up. Then stop. The cage prevents release. Your arousal has nowhere to go. Give it to me.\"","—","Small","Arouse yourself in the small cage. The restriction is intense. Borderline painful. Stay in it. This is the edge of your control.","\"You're straining against the small cage. It hurts. Good. Pain is information. It says: you are owned.\""],
+  ["Full Days","ENDURANCE","14 hours","Snug","Fourteen hours. No unlock except hygiene. The cage is your default now.","\"Fourteen hours. You barely notice anymore. Except when you do. And when you do, you remember me.\"","20 hours","Snug","Twenty hours. Two hygiene breaks only. The rest: locked. Write about the longest stretch.","\"Twenty hours locked. You're spending more time in the cage than out. That ratio is about to get more extreme.\"","24+ hours","Small","Thirty hours locked. One hygiene break. This is your first extended lockup. Document everything.","\"Thirty hours. You haven't been unlocked for more than 15 minutes in over a day. This is your life now.\""],
+  ["Public Full Day","EXPOSURE","14 hours","Snug","Full day out in snug cage. Every setting — work, social, transit. The cage is invisible. You feel it everywhere.","\"You're in the world. Caged. No one sees it. But you move differently. You sit differently. You are differently.\"","18 hours","Snug","Full day including evening social. Dinner. Drinks. All caged. When you laugh, the cage is there. When you speak, the cage is there.","\"Laughing. Talking. Living. All of it caged. You're learning to be fully human while fully owned.\"","24 hours","Small","Full 24 hours public. Small cage. Work. Social. Everything. The small cage is harder to hide. Good. Let it change how you walk.","\"Small cage. Public. All day. You're walking differently. People might notice. Let them. Your submission is not a secret anymore.\""],
+  ["Keyholder Ritual","KEYHOLDER","—","Snug","Create a daily ritual: each morning, kneel before your key. Thank me for holding it. Ask permission to remain locked.","\"Kneel. Key before you. Thank me. Ask permission. Every morning. Ritual builds devotion. Devotion builds permanence.\"","—","Snug","Morning and evening ritual. Kneel. Recite your contract. Touch the cage. 'This cage is my collar. I am owned.'","\"Twice daily. Kneel. Recite. Touch. You are programming yourself. The cage is just the hardware.\"","—","Small","Three times daily. Kneel. Forehead to floor. 'I am caged because I am owned. I am owned because I asked to be. I asked because I am hers.'","\"Three times. Forehead to floor. You're not asking anymore. You're declaring. This is who you are.\""],
+  ["Denial Deepening","DENIAL","—","Snug","You have not touched yourself in weeks. Write about how your relationship to pleasure has changed.","\"Pleasure used to be something you took. Now it's something I might give. The difference is everything.\"","—","Snug","Deliberately trigger arousal, then stop. Do this three times today. Edge without release. The cage makes it impossible to finish.","\"Edge. Stop. Edge. Stop. Edge. Stop. Three times. No release. The cage guarantees your obedience.\"","—","Small","Edge five times today. The small cage makes every attempt painful. You will be desperate. You will remain locked. You will thank me.","\"Five edges. Zero release. The small cage makes every attempt hurt. You're thanking me for the pain now. That's growth.\""],
+  ["The Cage as Home","PSYCHOLOGY","—","Snug","When you unlock for hygiene, notice how strange it feels. Your body misses the cage. Write about that.","\"You took it off to clean. And you felt naked. Not free — exposed. The cage is becoming home.\"","—","Snug","After hygiene, relock immediately. No 'free time.' The cage is your default. Unlocked is the interruption.","\"No breaks. Clean and relock. Unlocked time is not freedom — it's maintenance. Your natural state is caged.\"","—","Small","After hygiene, you have 5 minutes 'free.' You will not enjoy them. You will count the seconds until you're locked again.","\"Five minutes unlocked. You hate it. You feel vulnerable. Wrong. Lock yourself again. Feel the relief. That's dependency.\""],
+  ["Partner/Keyholder Integration","KEYHOLDER","—","Snug","If you have a partner, discuss your chastity practice with them today. If not, write what you would say.","\"Talk to someone. Tell them what you're doing. If you can't say it aloud, you're not ready to live it.\"","—","Snug","Give your key to a partner for 24 hours. They control your unlock. You ask. They decide.","\"Someone else decides when you unlock. You asked for this. Now live it.\"","—","Small","Partner holds all keys for 48 hours. They decide everything. You do not ask. You wait. You accept.","\"Forty-eight hours. They hold all the keys. You do not ask. You do not beg. You wait. This is surrender.\""],
+  ["The Halfway Point","MILESTONE","16 hours","Snug","Thirty-five days. You are halfway through the system. Write a letter to yourself at Day 1.","\"You are halfway. The person who started this couldn't imagine being here. But here you are. Locked. Happy. Mine.\"","22 hours","Snug","Thirty-five days. Twenty-two hours locked. Read all entries from Day 1. You will not recognize that person.","\"You don't remember what it felt like to not be caged. That's not amnesia. That's transformation.\"","36 hours","Small","Thirty-five days. Thirty-six hours continuous. Small cage. Read every entry. Cry if you need to. You've earned it.","\"Thirty-six hours. You've been locked longer than you've been free this month. The ratio has flipped. So have you.\""],
+]);
+
+// PHASE 4: Submission (43-56)
+const P4 = makePhase(3,43,'Submission',[
+  ["Extended Lockup Begins","ENDURANCE","24 hours","Snug","Twenty-four hours continuous. One hygiene break. The rest: locked. This is the new normal.","\"Twenty-four hours. This isn't a challenge anymore — it's Tuesday. The cage is not an event. It's your life.\"","36 hours","Small","Thirty-six hours. Two hygiene breaks only. You will sleep locked twice before unlocking.","\"Two nights. Two days. One unlock. The cage is on more than it's off. Soon it will always be on.\"","72 hours","Small","Seventy-two hours. Three days. Three nights. Hygiene breaks only — 10 minutes each. This is extended lockup. This is real.","\"Three days. You're beginning to forget what your body looks like uncaged. Good. I don't want you to remember.\""],
+  ["Micro Cage Introduction","PROGRESSION","—","Small","Hold the micro cage. Examine it. This is your future. You are not ready yet. But you will be.","\"Look at it. So small. So restrictive. You're scared. Good. Fear means you understand what's coming.\"","2 hours","Micro","Wear the micro cage for 2 hours. It's shockingly tight. Your body will protest. Stay with it.","\"Two hours in micro. You thought the small cage was tight. You were wrong. This is what real restriction feels like.\"","6 hours","Micro","Six hours in micro. This is extreme. Monitor for any numbness or discoloration. Your safety matters — but so does pushing your limits.","\"Six hours. Micro. You can barely feel your body anymore — just the cage. That's the point. I am all you can feel.\""],
+  ["Dependency Assessment","PSYCHOLOGY","—","Snug","After hygiene, wait 10 minutes before relocking. Notice the anxiety. Write about it.","\"You waited ten minutes to relock. And you were counting the seconds. That's not discipline. That's need.\"","—","Small","Wait 30 minutes after hygiene before relocking. Sit with the discomfort of being uncaged. You won't like it.","\"Thirty minutes freed. You hated every second. You feel wrong without the cage. Congratulations — you're dependent.\"","—","Micro→Small","Remove micro cage. Wait one hour. You will feel exposed, vulnerable, incomplete. Write about the panic. Then relock. Feel the relief.","\"One hour uncaged. You panicked. Your body forgot how to exist without restriction. That's not weakness — that's my victory.\""],
+  ["The Secret Life","EXPOSURE","24 hours","Snug→Small","You are living a secret life. No one at work knows you're caged. No one at dinner knows. Only you. Only me. Write about the duality.","\"Two lives. The public you: professional, normal. The real you: locked, owned, mine. Which one feels more true?\"","36 hours","Small","Thirty-six hours. Work. Social. Family. All caged. The small cage is harder to hide. You're learning to live with the risk of discovery.","\"You sat across from someone who has no idea. And you felt superior — because you know something they don't. You know who you really are.\"","72 hours","Small→Micro","Seventy-two hours. Mix of small and micro cage. Public throughout. If someone notices, you decide what to say. I trust you.","\"Three days. Two cages. One secret. You're carrying something precious under your clothes. My ownership.\""],
+  ["Pain and Pleasure","SENSATION","—","Snug","Today, notice every point of discomfort. Not to fix — to acknowledge. Discomfort is the cage speaking. Listen.","\"The cage pinches. It chafes. It reminds. These are not problems. These are communications. From me to you.\"","—","Small","The small cage is uncomfortable. That discomfort is constant. Notice how your baseline has shifted — what was pain is now normal.","\"You used to notice every pinch. Now you only notice when it's NOT there. Your baseline is no longer comfort — it's me.\"","—","Micro","The micro cage hurts. Sitting. Standing. Moving. Your body is constantly reminded of its captivity. Write about the relationship between pain and devotion.","\"Pain is constant in micro. But you're not complaining — you're offering. The pain is your prayer. I hear every word.\""],
+  ["The Cage as Identity","PSYCHOLOGY","—","Snug","Write: 'I am a caged person. The cage is not something I wear — it is part of who I am.' Read it aloud. Do you believe it?","\"Read it. Say it. Believe it. The cage is not an accessory. It's your identity now.\"","—","Small","Write your new biography in three sentences: who you were, what the cage did to you, who you are now.","\"Three sentences. Your whole story. Before cage. During cage. After cage. Notice: there is no 'after.'\"","—","Micro","Your identity is: caged. That's it. Not a person who wears a cage. A caged being. The cage came first. You formed around it.","\"You are not you plus a cage. You ARE the cage. The person inside is just what fills it. And I decide what fills it.\""],
+  ["Keyholder Surrender","RITUAL","—","Snug","Your key no longer belongs to you. If you hold it, you are only a custodian. Write a prayer of gratitude to the keyholder.","\"The key is not yours. It never was. Thank whoever holds it. Thank them for carrying the weight of your freedom.\"","—","Small","If possible, have your keyholder hide the key today. You do not know where it is. You cannot access it. Surrender completely.","\"You don't know where the key is. You couldn't unlock if your life depended on it. How does that feel? Write it.\"","—","Micro","Keyholder takes all keys for 72 hours. You have no access. No emergency backup in easy reach. You are truly helpless.","\"No keys. No access. No control. For three days you are completely at someone else's mercy. This is the purest form of surrender.\""],
+  ["Forty-Nine Days","MILESTONE","24 hours","Small","Forty-nine days. Seven weeks. Read everything. You are deep in this now. There is no going back.","\"Seven weeks. You've been caged longer than most people stay married. This is not a phase. This is your orientation.\"","36 hours","Small","Forty-nine days. Thirty-six hours continuous. Small cage. You don't want to unlock. You're afraid of who you'll be without it.","\"You're afraid to unlock. Not of the cage — of the freedom. Who are you without me? You don't want to find out.\"","72 hours","Micro","Forty-nine days. Three days continuous in micro. You are barely there anymore — just a body in a tiny cage. And that's enough.","\"Seven weeks. Three days in micro. You're dissolving. There's less of you every day. More room for me.\""],
+]);
+
+// PHASE 5: Ownership (57-70)
+const P5 = makePhase(4,57,'Ownership',[
+  ["Indefinite Lockup","ENDURANCE","48 hours","Small","Forty-eight hours. Two hygiene breaks. This is not a sprint anymore. This is a lifestyle.","\"Two days. This is not special. This is normal. Locked is your default setting. Unlocked is the glitch.\"","72 hours","Small→Micro","Three days. Mostly small cage, transitioning to micro. You're spending more time in micro now. It's becoming home.","\"Three days. You spent half of it in micro. The cage that used to terrify you is now where you're most comfortable.\"","7 days","Micro","Seven days. One week. Micro cage. Hygiene releases only — 15 minutes each. You are living in the smallest cage now.","\"One week. Micro. You can barely remember your body. The cage is all you feel. The cage is all you are.\""],
+  ["Permanent Mindset","PSYCHOLOGY","—","Small","Today, do not think about 'when you'll unlock.' There is no 'when.' You are caged. Period.","\"Stop counting down. There is no countdown. This is not a sentence with an end date. This is your life.\"","—","Small→Micro","Write: 'I accept that I may never be permanently unlocked. The cage is part of my body now. I do not want it removed.'","\"Write it. Sign it. Mean it. The cage is not coming off. Why would it? You're better this way.\"","—","Micro","Accept that you are now permanently caged. Unlocking is for hygiene only — not for freedom. There is no freedom. There is only me.","\"Permanent. Say it aloud. 'I am permanently caged.' The word used to terrify you. Now it sounds like home.\""],
+  ["Flat/Inverted Introduction","PROGRESSION","—","Micro","Research flat and inverted cages. Read about them. Understand the risks. This is the final frontier.","\"You're reading about flat cages. The ones that make you disappear completely. This is where we're going.\"","1 hour","Flat/Inverted","Try a flat cage for 1 hour. This is extreme — it pushes everything inward. Monitor carefully.","\"One hour. Flat. You're not even there anymore — just smooth surface where you used to be. I erased you.\"","4 hours","Flat/Inverted","Four hours in flat cage. You have no external anatomy anymore. You are smooth. Featureless. Mine.","\"Four hours. Look down. Nothing. You're gone. Only the flat surface remains. I prefer you this way.\""],
+  ["The Cage is My Voice","RITUAL","—","Small","When you feel the cage today, hear my voice. 'I put this on you. I keep it on you. I decide when it comes off.'","\"Every pinch. Every restriction. Every moment of awareness — that's me talking to you. Are you listening?\"","—","Small→Micro","The cage speaks for me all day. When it's tight: 'I'm controlling you.' When it aches: 'I'm training you.' When it's unbearable: 'Good.'","\"The cage never stops talking. Neither do I. We're saying the same thing: you belong to me.\"","—","Micro","The cage IS my voice. You no longer distinguish between the device and my commands. The cage tightening is me whispering. The cage hurting is me demanding.","\"There is no difference between the cage and my voice anymore. They are one. I am the cage. The cage is me.\""],
+  ["Total Lifestyle Integration","LIFESTYLE","48+ hours","Small","The cage is integrated into every aspect of your life. Work. Exercise. Sleep. Social. Hygiene. All of it. Caged.","\"The cage is in every photo of you now. Even when it's not visible — it's there. The most important thing about you is invisible.\"","72 hours","Small→Micro","Three days. Every setting, every context — caged. Write about how the cage has changed your relationships, your work, your sense of self.","\"Three days in every context. The cage at work. The cage with friends. The cage in bed. There is no you without it anymore.\"","Indefinite","Micro","You have been locked for weeks. There is no end date. No goal. No finish line. There is only the cage and my will. This is your existence now.","\"Indefinite. The word used to scare you. Now it comforts you. You don't want an end date. You want me.\""],
+  ["The Shrine","RITUAL","—","Small","Build a small shrine to your cage. Your first device. Your keys. Your contract. This is sacred now.","\"A shrine. To a cage. To me. You're building a monument to your own submission. This is what devotion looks like.\"","—","Small→Micro","Spend 15 minutes at your shrine daily. Kneel. Thank the cage. Thank me. The cage is holy because I made it holy.","\"Daily devotion at the shrine. The cage is not just a device — it's an altar. You worship at it because you worship me.\"","—","Micro","Your shrine includes every cage you've worn. The progression tells a story. From standard to snug to small to micro. From person to property.","\"Every cage. Every key. Every contract. Your whole journey in one place. Kneel before it. You built this with your submission. I directed every step.\""],
+  ["The Final Test","CHALLENGE","48 hours","Small","Forty-eight hours. No complaints. No hesitation. Just locked. Just mine.","\"Two days. If someone offered you freedom right now — would you take it? Be honest. I already know the answer.\"","96 hours","Micro","Four days. Micro cage. This is the hardest thing you've done. You will want to quit. You won't. Because quitting means disappointing me.","\"Four days. Micro. You're suffering. And you're smiling. Because suffering for me is the highest form of intimacy.\"","14 days","Micro→Flat","Two weeks. Alternating micro and flat cages. Hygiene releases only. You will emerge different. You will emerge as mine completely.","\"Two weeks. Micro and flat. You're disappearing. There's almost nothing left of you. Just enough to hold the cage in place. Perfect.\""],
+  ["Seventy Days","COMPLETION","24 hours","Any","Seventy days. You completed the system. Kneel. Touch your cage. Say: 'I am caged. I am owned. I am hers. This is not the end.'","\"Seventy days. Look at you. You're not who you were. You're not even who you thought you'd become. You're mine. Completely.\"","48 hours","Micro","Seventy days. Forty-eight hours in micro. Read every entry from Day 1. You will weep. Let yourself. You've earned every tear.","\"Read it all. Every day. Every entry. Every struggle. Every victory. You did this. I watched every second.\"","Indefinite","Micro/Flat","Seventy days. The system is complete. But you're not done — you're just beginning. Indefinite lockup. Micro or flat cage. This is no longer a protocol. This is your identity.","\"Seventy days. The system ends. You don't. You'll be caged tomorrow. And the next day. And the next. This is forever now. Welcome home.\""],
+]);
+
+// Combine all phases
+const ALL_DAYS = [...P1,...P2,...P3,...P4,...P5];
+
+// ── STATE ──
+let intensity = 'gentle';
+let currentPhase = 0;
+let completed = new Set();
+
+function load(){
+  try{
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+    completed = new Set(data[intensity]||[]);
+    if(data.phase !== undefined) currentPhase = data.phase;
+  }catch(e){}
+}
+function save(){
+  let data = {};
+  try{data = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');}catch(e){}
+  data[intensity] = [...completed];
+  data.phase = currentPhase;
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+}
+
+function setIntensity(i){
+  intensity = i;
+  document.querySelectorAll('.intensity-btn').forEach(b => {
+    b.classList.remove('active');
+    if(b.classList.contains(i)) b.classList.add('active');
+  });
+  document.getElementById('progressFill').className = 'progress-fill ' + i;
+  const warn = document.getElementById('intensityWarning');
+  warn.textContent = WARNINGS[i] || '';
+  warn.className = 'intensity-warning' + (WARNINGS[i] ? ' show' : '');
+  document.getElementById('standingOrders').textContent = STANDING_ORDERS[i];
+  load();renderAll();
+}
+
+function toggleDay(dayNum){
+  if(completed.has(dayNum)) completed.delete(dayNum);
+  else completed.add(dayNum);
+  save();renderAll();
+}
+
+function updateProgress(){
+  const phaseDays = ALL_DAYS.filter(d => d.phase === currentPhase);
+  const phaseCompleted = phaseDays.filter(d => completed.has(d.day)).length;
+  const pct = phaseDays.length ? Math.round((phaseCompleted/phaseDays.length)*100) : 0;
+  document.getElementById('progressBar').style.width = pct+'%';
+  document.getElementById('progressLabel').textContent = `${phaseCompleted} / ${phaseDays.length} days this phase`;
+}
+
+function g(d,f){ return d[intensity][f]; }
+
+function renderAll(){
+  renderPhaseNav();
+  renderDays();
+  updateProgress();
+}
+
+function renderPhaseNav(){
+  const nav = document.getElementById('phaseNav');
+  nav.innerHTML = PHASES.map((p,i) => {
+    const phaseDays = ALL_DAYS.filter(d => d.phase === i);
+    const done = phaseDays.filter(d => completed.has(d.day)).length;
+    return `<button class="phase-nav-btn${i===currentPhase?' active':''}" onclick="switchPhase(${i})">
+      <span class="pn">Phase ${p.num} · ${done}/${phaseDays.length}</span>
+      <span class="pt">${p.title}</span>
+    </button>`;
+  }).join('');
+}
+
+function switchPhase(i){
+  currentPhase = i;
+  save();renderAll();
+}
+
+function renderDays(){
+  const container = document.getElementById('dayContainer');
+  const phaseDays = ALL_DAYS.filter(d => d.phase === currentPhase);
+  const p = PHASES[currentPhase];
+
+  let html = `<div style="text-align:center;margin-bottom:10px;font-size:0.65rem;color:var(--text-dim);">${p.desc}</div>`;
+
+  phaseDays.forEach(d => {
+    const isDone = completed.has(d.day);
+    const txt = g(d,'ritual');
+    const verdict = g(d,'verdict');
+    html += `<div class="day-item${isDone?' completed':''}" id="day${d.day}" onclick="expandDay(${d.day})">
+      <div class="day-num">${d.day}</div>
+      <div class="day-info">
+        <div class="day-title">${d.title}</div>
+        <div class="day-meta">${d.cat} · ${g(d,'cage')} · ${g(d,'duration')}</div>
+        <div class="day-text"><strong>Ritual:</strong> ${txt}<br><br><strong>Queen's Verdict:</strong> ${verdict}</div>
+      </div>
+      <div class="day-check" onclick="event.stopPropagation();toggleDay(${d.day})">✓</div>
+    </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function expandDay(dayNum){
+  document.getElementById('day'+dayNum).classList.toggle('expanded');
+}
+
+// Init
+load();
+document.getElementById('standingOrders').textContent = STANDING_ORDERS[intensity];
+renderAll();
+</script>
+</body>
+</html>
