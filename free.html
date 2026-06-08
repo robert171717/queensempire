@@ -137,12 +137,31 @@
 function handleSubmit(e) {
   e.preventDefault();
   const email = document.getElementById('email').value;
-  // TODO: Connect to email service (ConvertKit, Mailchimp, or Formspree)
-  // For now, show success and store locally
-  document.getElementById('formArea').classList.add('hidden');
-  document.getElementById('successMsg').classList.remove('hidden');
-  console.log('Signup:', email);
-  // When connected: POST to email service API
+  const btn = e.target.querySelector('button');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+
+  fetch('/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email }),
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      document.getElementById('formArea').classList.add('hidden');
+      document.getElementById('successMsg').classList.remove('hidden');
+    } else {
+      alert('Something went wrong. Please try again.');
+      btn.textContent = 'Claim Your Protocol';
+      btn.disabled = false;
+    }
+  })
+  .catch(() => {
+    alert('Connection error. Please try again.');
+    btn.textContent = 'Claim Your Protocol';
+    btn.disabled = false;
+  });
 }
 </script>
 </body>
