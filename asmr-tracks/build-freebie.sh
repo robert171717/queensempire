@@ -21,60 +21,25 @@ mkdir -p "$WORK"
 echo "=== QE Freebie Builder — Day ${DAY} ==="
 
 # Step 1: Extract voice segment
-echo "[1/5] Extracting voice..."
-python3 -c "
-import re
-with open('$SCRIPT_MD') as f: text = f.read()
-segments = re.split(r'### Voice \d+', text)
-seg = [s.strip() for s in segments[1:]][0]
-seg = re.sub(r'\*Tone:.*?\*', '', seg)
-seg = re.sub(r'\*\([^)]+\)\*', '', seg)
-seg = re.sub(r'^\([^)]+\)\s*', '', seg)
-seg = re.sub(r'—?\s*FRACTIONATION\s*MOMENT\s*(?:—\s*FINAL\s*—)?\s*[★*]?\s*', '', seg)
-seg = re.sub(r'\[Silence\s*[—–-]\s*[^\]]+\]', '', seg)
-seg = re.sub(r'\[CHIME[^\]]*\]', '', seg)
-seg = re.sub(r'^---\s*$', '', seg, flags=re.MULTILINE)
-seg = re.sub(r'\n\s*\n+', ' ', seg).strip()
-with open('$WORK/voice-1.txt', 'w') as f: f.write(seg)
-print(f'  {len(seg)} chars')
-"
+echo "[1/4] Extracting voice..."
+python3 "$SCRIPT_DIR/extract-voices.py" "$SCRIPT_MD" "$WORK" 2>&1 || { echo "ERROR: Script parsing failed"; exit 1; }
 
-# Step 2: Generate voice with ElevenLabs
-echo "[2/5] Generating voice with Serafina (${SPEED}x)..."
-python3 -c "
-import json, subprocess, time
-with open('$WORK/voice-1.txt') as f: text = f.read().strip()
-payload = json.dumps({
-    'text': text,
-    'model_id': '${MODEL}',
-    'voice_settings': {'stability': 0.5, 'similarity_boost': 0.75, 'speed': ${SPEED}}
-})
-for attempt in range(5):
-    r = subprocess.run([
-        'curl', '-s', '-X', 'POST',
-        'https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}',
-        '-H', 'xi-api-key: ${EK}',
-        '-H', 'Content-Type: application/json',
-        '-d', payload,
-        '-o', '$WORK/voice-raw-1.mp3',
-        '-w', '%{http_code}'
-    ], capture_output=True, text=True)
-    code = r.stdout.strip()
-    if code == '200': break
-    if code == '429': time.sleep((attempt + 1) * 5)
-size = subprocess.run(['stat', '-c%s', '$WORK/voice-raw-1.mp3'], capture_output=True, text=True).stdout.strip()
-print(f'  {code} — {size} bytes')
-if code != '200': sys.exit(1)
-"
+# Step 2: Generate voice with per-voice caching
+echo "[2/4] Generating voice with Serafina (${SPEED}x)..."
+CACHE_DIR="$SCRIPT_DIR/.voice-cache"
+mkdir -p "$CACHE_DIR"
+python3 "$SCRIPT_DIR/gen-voice.py" \
+    "$WORK/voice-1.txt" \
+    "$VOICE_ID" \
+    "$EK" \
+    "$MODEL" \
+    "$SPEED" \
+    "$CACHE_DIR" \
+    "$WORK/voice-proc-1.mp3"
+[ $? -ne 0 ] && { echo "  ERROR: Voice generation failed"; exit 1; }
 
-# Step 3: Production chain
-echo "[3/5] Applying chain: highpass=80→vol=1.8→aecho→afftdn..."
-ffmpeg -y -i "$WORK/voice-raw-1.mp3" \
-    -af "highpass=f=80,volume=1.8,aecho=0.8:0.4:10:0.15,afftdn=nr=12" \
-    -ac 2 -b:a 192k "$WORK/voice-proc-1.mp3" 2>&1 | tail -1
-
-# Step 4: Generate silence files
-echo "[4/5] Preparing mix..."
+# Step 3: Generate silence files
+echo "[3/4] Preparing mix..."
 for dur in 2 3 8 15; do
     ffmpeg -y -f lavfi -i anullsrc=r=44100:cl=stereo -t $dur -b:a 192k "$WORK/silence-${dur}s.mp3" 2>/dev/null
 done
@@ -82,7 +47,7 @@ done
 cp "$SCRIPT_DIR/ding-a3.mp3" "$WORK/chime.mp3"
 
 # Step 5: Mix final track
-echo "[5/5] Mixing..."
+echo "[4/4] Mixing..."
 CONCAT="$WORK/concat.txt"
 cat > "$CONCAT" << EOF
 file '$WORK/silence-2s.mp3'

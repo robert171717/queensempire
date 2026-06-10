@@ -38,7 +38,7 @@ echo ""
 # -----------------------------------------------------------
 # Step 0: Preflight gate — mandatory, exit on failure
 # -----------------------------------------------------------
-echo "[0/6] Running preflight gate..."
+echo "[0/5] Running preflight gate..."
 python3 "$SCRIPT_DIR/preflight-comprehensive.py" "$SCRIPT_MD"
 echo "  ✅ Preflight passed"
 echo ""
@@ -46,102 +46,39 @@ echo ""
 # -----------------------------------------------------------
 # Step 1: Extract voice segments from markdown
 # -----------------------------------------------------------
-echo "[1/6] Extracting voice segments from $(basename "$SCRIPT_MD")..."
+echo "[1/5] Extracting voice segments from $(basename "$SCRIPT_MD")..."
 python3 "$SCRIPT_DIR/extract-voices.py" "$SCRIPT_MD" "$WORK" 2>&1 || { echo "ERROR: Script parsing failed"; exit 1; }
 
 NUM_SEGMENTS=$(ls "$WORK"/voice-*.txt | wc -l)
 echo ""
 
 # -----------------------------------------------------------
-# Step 1.5: Check voice cache
+# Step 1.5: Per-voice cache — each voice cached independently
 # -----------------------------------------------------------
 CACHE_DIR="$SCRIPT_DIR/.voice-cache"
 mkdir -p "$CACHE_DIR"
 
-# Compute cache key from voice text + voice settings
-CACHE_KEY=$(cat "$WORK"/voice-*.txt | sha256sum | cut -d' ' -f1)
-CACHE_KEY="${CACHE_KEY:0:16}_s${SPEED}"
-CACHE_PATH="$CACHE_DIR/$CACHE_KEY"
-
-if [ -d "$CACHE_PATH" ] && [ -f "$CACHE_PATH/voice-proc-1.mp3" ]; then
-    echo "[CACHE HIT] $CACHE_KEY — reusing cached voices"
-    cp "$CACHE_PATH"/voice-proc-*.mp3 "$WORK/"
-    SKIP_VOICE_GEN=1
-else
-    echo "[CACHE MISS] $CACHE_KEY — generating voices"
-    SKIP_VOICE_GEN=0
-fi
-
 # -----------------------------------------------------------
-# Step 2: Generate voices with ElevenLabs Serafina
+# Step 2: Generate voices with per-voice caching
 # -----------------------------------------------------------
-if [ "$SKIP_VOICE_GEN" -eq 0 ]; then
-echo "[2/6] Generating ${NUM_SEGMENTS} voice segments with ElevenLabs Serafina (${SPEED}x)..."
+echo "[2/5] Generating ${NUM_SEGMENTS} voice segments with ElevenLabs Serafina (${SPEED}x)..."
 for i in $(seq 1 $NUM_SEGMENTS); do
-    echo -n "  Voice ${i}... "
-    # Use Python for safe JSON handling
-    python3 -c "
-import json, subprocess, sys, time
-with open('$WORK/voice-${i}.txt') as f:
-    text = f.read().strip()
-payload = json.dumps({
-    'text': text,
-    'model_id': '${MODEL}',
-    'voice_settings': {'stability': 0.5, 'similarity_boost': 0.75, 'speed': ${SPEED}}
-})
-# Retry with backoff for rate limits
-for attempt in range(5):
-    r = subprocess.run([
-        'curl', '-s', '-X', 'POST',
-        'https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}',
-        '-H', 'xi-api-key: ${EK}',
-        '-H', 'Content-Type: application/json',
-        '-d', payload,
-        '-o', '$WORK/voice-raw-${i}.mp3',
-        '-w', '%{http_code}'
-    ], capture_output=True, text=True)
-    code = r.stdout.strip()
-    if code == '200':
-        break
-    if code == '429':
-        wait = (attempt + 1) * 5
-        print(f'rate_limited_retry_{wait}s', end='', flush=True)
-        time.sleep(wait)
-    else:
-        break
-size = subprocess.run(['stat', '-c%s', '$WORK/voice-raw-${i}.mp3'], capture_output=True, text=True).stdout.strip()
-print(f'{code} — {size} bytes', flush=True)
-if code != '200':
-    sys.exit(1)
-"
-    [ $? -ne 0 ] && { echo "  ERROR: ElevenLabs API failed"; exit 1; }
-done
-
-# -----------------------------------------------------------
-# Step 3: Apply production chain (LOCKED)
-# -----------------------------------------------------------
-echo "[3/6] Applying production chain: highpass=80→vol=1.8→aecho=0.8:0.4:10:0.15→afftdn=nr=12"
-for i in $(seq 1 $NUM_SEGMENTS); do
-    echo -n "  Processing voice ${i}... "
-    ffmpeg -y -i "$WORK/voice-raw-${i}.mp3" \
-        -af "highpass=f=80,volume=1.8,aecho=0.8:0.4:10:0.15,afftdn=nr=12" \
-        -ac 2 -b:a 192k "$WORK/voice-proc-${i}.mp3" \
-        2>&1 | tail -1
+    python3 "$SCRIPT_DIR/gen-voice.py" \
+        "$WORK/voice-${i}.txt" \
+        "$VOICE_ID" \
+        "$EK" \
+        "$MODEL" \
+        "$SPEED" \
+        "$CACHE_DIR" \
+        "$WORK/voice-proc-${i}.mp3"
+    [ $? -ne 0 ] && { echo "  ERROR: Voice ${i} generation failed"; exit 1; }
 done
 echo ""
-
-# Save to voice cache for future rebuilds
-if [ ! -d "$CACHE_PATH" ]; then
-    mkdir -p "$CACHE_PATH"
-    cp "$WORK"/voice-proc-*.mp3 "$CACHE_PATH/"
-    echo "  [CACHE SAVED] $CACHE_KEY"
-fi
-fi  # end SKIP_VOICE_GEN
 
 # -----------------------------------------------------------
 # Step 4: Generate lock click gradient
 # -----------------------------------------------------------
-echo "[4/6] Generating lock click gradient (30/25/20/20/15/15% under voice)..."
+echo "[3/5] Generating lock click gradient (30/25/20/20/15/15% under voice)..."
 LOCK_SRC="$SCRIPT_DIR/lock-click.mp3"
 
 # Get voice loudness reference from first voice
@@ -165,7 +102,7 @@ echo ""
 # -----------------------------------------------------------
 # Step 5: Build concat + mix final track
 # -----------------------------------------------------------
-echo "[5/6] Mixing final track..."
+echo "[4/5] Mixing final track..."
 
 # Generate silence files (including long ones for 9-11min target)
 for dur in 2 3 5 6 8 10 12 15 20 30 45 60 90; do
