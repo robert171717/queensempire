@@ -15,6 +15,9 @@ segments = [s.strip() for s in segments[1:]]
 cleaned = []
 for s in segments:
     s = re.sub(r'\*Tone:.*?\*', '', s)
+    # Strip any standalone asterisk-wrapped metadata line
+    # (End of..., Trigger:, No clinical..., Created by..., etc.)
+    s = re.sub(r'^\*[^*\n]+\*$', '', s, flags=re.MULTILINE)
     s = re.sub(r'\*\([^)]+\)\*', '', s)
     s = re.sub(r'^\([^)]+\)\s*', '', s)
     s = re.sub(r'\[LOCK CLICK[^\]]*\]', '', s)
