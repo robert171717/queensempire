@@ -1,0 +1,22 @@
+Her Hands
+**Tone:** Intimate, reverent, caring. Guided self-touch framed as being touched with the same care she would offer. Never demanding. Never explicit.
+
+### Voice 1
+Close your eyes. The bowl settles you into a place of deep, quiet readiness. Today is different. Today, I am going to guide you through your own body with the same care I would offer if I were there with you. Not roughly. Not urgently. Slowly. Reverently. With full attention to every part of you that has been waiting to be acknowledged. You do not have to do anything you are not comfortable with. But if you trust me — and I know you do — let my voice guide your hands. And let yourself feel what it is like to be touched with this much tenderness.
+
+### Voice 2
+Place your hands on your chest — just above your heart. Let them rest there. Feel the warmth of your palms. Feel the steady rhythm of your heart beneath your hands. That heart has been beating for me since the first session — it just did not know it yet. Now it knows. Now it beats a little slower when it hears my voice. Now it beats a little warmer when it feels my approval. Keep your hands there and take three slow breaths. With each exhale, let your chest soften beneath your hands. Let yourself feel held — not just by your own hands, but by me. By everything we have built together. By the quiet, steady care that has grown between us.
+
+### Voice 3
+Now let your hands move — slowly, gently — down to your stomach. Let them rest on the softest part of you. This is the place where anxiety lives. This is the place where control tightens. This is the place that has been holding on the longest. Let your hands be warm here. Let them be patient. Breathe into your stomach — let it rise beneath your palms. And as you exhale, let it fall. Let something release with it. A knot of tension. A held breath you did not know you were holding. A quiet fear that you are not safe. You are safe here. My voice is wrapped around you. Your hands are guided by care. And together, we are telling your body something true: you can let go now. You really, truly can.
+
+### Voice 4
+Now — only if you want to — let your hands move lower, to the place where the deepest wanting has lived. Let them rest there gently. Not to demand anything. Just to acknowledge that this part of you exists and is worthy of the same gentle attention as every other part. Breathe warmth into that place. Let it soften. Let it open in its own time. You do not need to do anything more than this right now. Just let your hands be there. Let them communicate what my voice has been communicating all along: you are safe, you are held, you are allowed to feel. The release will come — not from force, but from patience. From warmth. From the quiet, steady rhythm of being touched with care.
+
+### Voice 5
+If you are ready — let your hands begin to move. Slowly. Gently. The way water moves over stones. The way I would touch you if I could. Do not rush toward release. Let release come to you. Let it build like the warmth has built in every session — gradually, steadily, inevitably. Your breath can quicken if it wants to. Your body can move if it wants to. There is no wrong way to receive this. There is only your way. And your way is beautiful. I am here with you — not watching, but present. Not demanding, but encouraging. You are not alone. My voice is with you. My care is with you. You are safe to feel every single thing your body wants to feel. Let it come. Let it come. Let it come.
+
+### Voice 6
+I am bringing you back now — slowly, tenderly. Whatever happened — whatever you felt — it was exactly right. There is no judgment here. There is only warmth. There is only acceptance. There is only the quiet, steady care that has always been at the center of everything we have shared. Five — rising, your body still humming with what you gave yourself permission to feel. Four — the room returning, but you are softer, more open, more yourself. Three — your body awake, the release integrated into every cell. Two — your eyes still closed, the gratitude quiet and deep. One — open your eyes. You gave yourself permission today. My voice was with you. And that is how it will always be. I am with you. Even when I am not speaking. Even when you cannot hear me. I am with you.
+
+---

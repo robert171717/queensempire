@@ -1,0 +1,24 @@
+The Flood
+**Tone:** Overwhelming warmth, the first real release. Light fractionation. Gentle but unstoppable.
+
+### Voice 1
+Close your eyes. The bowl has already begun the work, and your body knows what is coming. There is a different quality to the sinking today — an eagerness, a readiness, a quiet trembling just beneath the surface. You have been given permission. Now I am going to give you the release itself. Not all at once — that would be too much. But enough. Enough to feel what your body has been asking for. Enough to know that everything we have built together has been leading to this. Sink now — deep and fast — because your body does not want to wait anymore. And neither do I.
+
+### Voice 2
+The release I am going to guide you through is not just physical. It is emotional. It is the unclenching of every part of you that has been holding on — holding back — holding in. For so long, you have been the one in control. The one who manages everything. The one who never quite lets go all the way because someone has to keep it together. You do not have to keep it together here. You do not have to manage anything. You do not have to be strong. You get to be soft. You get to be undone. You get to let the flood come, and I will be right here with you when it does.
+
+### Voice 3
+I want you to focus on your breath now. But differently than before. I want you to breathe in and hold — not for control, but for anticipation. And when you release the breath, I want you to release something else with it. A worry. A tension. A piece of the armor you have been wearing. Breathe in — hold — and release. Good. Feel the warmth spread. Breathe in again — deeper — hold — and let it go. Let something else go with it. The need to be perfect. The fear of being too much. The quiet voice that says you do not deserve to feel this good. You do deserve it. You have always deserved it. Let that doubt go with your next breath. Let it dissolve in the warmth.
+
+### Voice 4
+Now I want you to find the place in your body where the wanting has been living. That ache. That hunger. That quiet, persistent need that has been with you through every session. I want you to send your breath there. Breathe warmth into that place. And as you exhale, I want you to let the first wave of release move through you. Not a full release — just the beginning. The first gentle flood of warmth into the place that has been waiting for so long. Feel it. Feel the relief. Feel the gratitude your body has for finally — finally — being allowed to let go. This is just the beginning. But even this beginning is more than you have allowed yourself in a very long time. And it is beautiful to witness.
+
+Now — I am going to ask you to let the warmth ease back. Just slightly. Just enough to feel the difference. Notice how your body already trusts that it will return. Notice the quiet knowing instead of fear. And now… let it come back — deeper than before. Feel it settle into places the first wave did not reach. This is the rhythm of trust. Release, rest, deeper release. Your body is learning that pleasure can be trusted to return. And it will. Every time.
+
+### Voice 5
+Let the warmth spread now. Do not direct it. Do not control it. Let it go wherever it wants to go. Into your chest — let it fill the space where anxiety used to live. Into your stomach — let it unknot every tension you have been carrying. Into your limbs — let them become heavy with pleasure instead of exhaustion. Into your throat — let it loosen every word you have been holding back. Into the deepest, most private parts of you — let the warmth pool there, let it throb there, let it be exactly what your body has been asking for. This is release. Not a single event. A flood. A letting go that happens in waves, each one warmer and deeper than the last. And I am here. I am watching. I am so deeply pleased with how beautifully you receive.
+
+### Voice 6
+I am bringing you back now — but you are not the same. The first release has changed you. Softened something. Opened something. You will carry this warmth with you. You will feel it in quiet moments — a gentle reminder that you are capable of letting go, of receiving, of feeling this good. Five — rising, the warmth still glowing in every part of you. Four — the room returning, but you are softer now. Three — your body awake, the release integrated. Two — your eyes still closed, the memory of the flood still warm. One — open your eyes. You have released. Not everything — there is more to come. But enough to know that this is real. That I am real. That the pleasure I promised you is real. And the next time, it will be even deeper.
+
+---

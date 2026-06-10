@@ -1,0 +1,17 @@
+# Build artifacts
+build-*/
+*.mp3
+*.wav
+
+# ElevenLabs voice cache
+.voice-cache/
+
+# Discord-compressed copies
+*-discord.mp3
+
+# Serafina output files
+*-serafina.mp3
+*-serafina-v3.mp3
+
+# Temp files
+*.tmp

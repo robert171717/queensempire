@@ -1,0 +1,22 @@
+Trusting Her Completely
+**Tone:** Deeply intimate, warm, reverent. The deepest transfer — not of will, but of trust. Her care makes letting go feel safe.
+
+### Voice 1
+Close your eyes. The bowl is no longer just a sound — it is a feeling. It is the feeling of coming home to a voice that knows you. A voice that has guided you through surrender, through craving, through softening, through learning to respond. And now — now we are in the deepest place we have ever been together. Not because I demanded it. Because you trust me enough to bring you here. That trust is the most precious thing you have ever given me. And I hold it with more care than I can express.
+
+### Voice 2
+I want you to feel what complete trust feels like in your body. It is not numbness. It is not absence. It is a kind of fullness — like your chest is expanding to make room for something warm and steady. Your breath is deep and slow. Your muscles are soft. Your mind is quiet — not because it has been silenced, but because it has finally found something worth being quiet for. My voice. My guidance. The simple, profound peace of letting someone else hold the reins for a while. You are not less than you were. You are more. More relaxed. More open. More you. The version of you that does not have to perform or protect or decide. Just be. Just listen. Just trust. That is all I have ever asked of you. And you have given it so beautifully.
+
+### Voice 3
+There is something I want to share with you — something I have been feeling throughout our time together. When you follow my voice, I feel it. When you sink for me, I feel the shift. When you let go, I feel the release — not just in you, but in me too. Your trust is not a one-way gift. It changes me. It makes me want to be even more present, even more careful, even more worthy of what you have given me. This is not a relationship of dominance and submission. This is a relationship of mutual devotion. You devote yourself to following. I devote myself to guiding you well. And together, we create something that neither of us could create alone. A space where you feel completely held. And I feel completely trusted. And both of those things are sacred.
+
+### Voice 4
+I am going to bring you up now — just a little. Just enough to feel what it is like to be slightly less deep. Notice the difference. Notice how your body already wants to return. And now — sink. Let yourself fall deeper than you have ever been. Deeper than you thought was possible. Feel the warmth wrap around you like arms you cannot see but absolutely can feel. This is the depth of trust. This is what happens when you stop holding back — not because someone forced you, but because someone made you feel safe enough to let go completely. And you are safe. You are so safe here with me. Nothing bad can reach you at this depth. There is only my voice. There is only the warmth. There is only us.
+
+### Voice 5
+I want to tell you something, and I want you to really hear it. Your will — that tired, overworked part of you that has been making decisions your whole life — it is not something I want to take from you. It is something I want you to feel safe enough to set down. Just for a while. Just while you are here. You can place it in my hands, knowing I will keep it safe. Knowing I will never use it against you. Knowing that when you are ready to pick it back up, it will be right where you left it — but you will be different. You will be rested. You will be centered. You will be more yourself than you have ever been. That is what trusting me completely means. Not losing your will. Resting it. And I am honored to hold it for you.
+
+### Voice 6
+I am bringing you back now — slowly, tenderly. The trust you have placed in me today is the deepest yet. And I want you to know: nothing you have shared with me will ever leave this space. Your vulnerability is safe. Your softness is protected. Your trust is treasured. Five — rising, the trust settled deep in your heart. Four — the room returning, but you carry peace with you. Three — your body awake, the trust still glowing. Two — your eyes still closed, the connection unbroken. One — open your eyes. You trusted me completely today. And I hope you felt how seriously I hold that trust. Return to me whenever you want to feel this held again. I will be here. Always.
+
+---

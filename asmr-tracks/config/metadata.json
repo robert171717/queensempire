@@ -1,0 +1,53 @@
+{
+  "project": "Queen's Empire — Surrender Sessions",
+  "character": {
+    "name": "Seraphina",
+    "voice_id": "4tRn1lSkEn13EVTuqb0g",
+    "voice_description": "Sensual Temptress",
+    "model": "eleven_multilingual_v2",
+    "speed": 0.70,
+    "stability": 0.5,
+    "similarity_boost": 0.75
+  },
+  "ding": {
+    "file": "ding-a3.mp3",
+    "description": "Crystal singing bowl chime, 3 seconds",
+    "source": "ElevenLabs Sound Effects API",
+    "gradient": [25, 20, 20, 15, 22, 15]
+  },
+  "chain": {
+    "highpass_freq": 80,
+    "volume": 1.8,
+    "aecho": "0.8:0.4:10:0.15",
+    "afftdn_nr": 12,
+    "description": "highpass=f=80 → volume=1.8 → aecho=0.8:0.4:10:0.15 → afftdn=nr=12",
+    "no_convolution_reverb": true,
+    "no_edge_tts": true
+  },
+  "silence": {
+    "pre_ding": 2,
+    "post_ding": 2,
+    "post_voice": 10,
+    "trailing": 8,
+    "durations_needed": [2, 3, 5, 6, 8, 10, 12, 15, 20, 30, 45, 60]
+  },
+  "chime_progression": {
+    "track_01": 6,
+    "track_02": 6,
+    "track_03": 4,
+    "track_04": 4,
+    "track_05": 3,
+    "track_06": 3,
+    "track_07": 2,
+    "track_08": 2
+  },
+  "output": {
+    "master_bitrate": "192k",
+    "discord_bitrate": "96k",
+    "channels": 2,
+    "sample_rate": 44100,
+    "format": "mp3"
+  },
+  "master_script": "SURRENDER_SESSIONS_v2_GROK_REVISED.md",
+  "pipeline_script": "build-track.sh"
+}
