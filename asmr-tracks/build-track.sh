@@ -7,7 +7,7 @@
 # ============================================================
 set -e
 
-SCRIPT_DIR="/home/robert/etsy_products/asmr-tracks"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 EK=$(doppler secrets get ELEVENLABS_API_KEY --plain)
 VOICE_ID="4tRn1lSkEn13EVTuqb0g"  # Serafina - Sensual Temptress
 SPEED=0.70
