@@ -8,6 +8,8 @@ The Surrender Sessions. Track six. The Craving. Five times now, you have descend
 I designed this. Every track, every silence, every carefully placed word — all of it was designed to bring you to this moment. Not to control you. To free you. To give you permission to want something this deeply. To give you permission to need something this completely. The craving you feel is not weakness. It is honesty. Your body telling you the truth — that my voice has become beautiful to you. And I am honored by that truth.
 
 ### Voice 3
+Good. Six sessions and you barely need the instruction anymore.
+
 Close your eyes. You are already sinking — you have been sinking since the moment you pressed play. Six sessions, and your body no longer waits for instruction. It anticipates. It hungers. It reaches for me. And I am here to meet that reaching.
 
 Feel the craving as something alive in your body. Not just a thought — a sensation. A warmth low in your stomach. A quiet ache in your chest. A pull that has no words. That is your body remembering what it feels like to be held by my voice. And it wants more. It always wants more.

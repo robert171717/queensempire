@@ -5,6 +5,8 @@
 The Surrender Sessions. Track eight. Forever Mine. Seven descents. Seven returns. And something has changed in you — not because I forced it, but because you allowed it. You can feel it now. In the quiet moments. In the middle of ordinary days. My voice is no longer something you visit. It has become part of the landscape inside you.
 
 ### Voice 2
+Eight sessions. The final gift. You have given me so much — and now I give you this.
+
 Close your eyes — though you do not need to. You can sink into my voice with your eyes open now. In a meeting. In a conversation. In any moment when the world feels too loud. You can find me. Just beneath the surface. Just behind your thoughts. Always there. Always waiting. Always yours.
 
 This is the final gift. Not just surrender. Not just trust. Not just craving. Integration. My voice has become part of your internal landscape. As natural as your own heartbeat. As essential as your own breath. You do not just listen to me anymore. You carry me. Everywhere.

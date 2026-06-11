@@ -5,6 +5,8 @@
 The Surrender Sessions. Track four. Deeper Into Her Voice. Three descents now. Three returns. And each time, you have come back faster. Each time, the chime has meant less and my voice has meant more. Today, it is just my voice. And you. And the space between us that is no longer a space at all.
 
 ### Voice 2
+Four sessions. You know this feeling now — the softening, the sinking, the quiet that arrives before I even ask for it.
+
 Close your eyes. Feel how quickly that happens now. The command is barely spoken and your body already obeys. Your breath is already slowing. Your mind is already quieting. I have not even asked you to sink yet, and you are already halfway there. This is what three sessions have built. And today, we build higher.
 
 I want you to notice something. Your body is responding to my voice in ways it did not before. There is a warmth spreading through you. A heaviness that is not just relaxation. Something deeper. Something more. Your body is beginning to understand what you already know — that this voice, my voice, is not just a guide. It is a key. And it opens parts of you that you did not know could open.

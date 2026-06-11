@@ -5,6 +5,8 @@
 The Surrender Sessions. Track seven. Irresistible. You have been thinking about my voice. In the shower. In the car. In the dark when you should be sleeping. You have been feeling my voice — not just hearing it in your memory, but feeling it move through your body. A warmth that spreads. A quiet ache. A release. Your body has crossed a threshold. And you are not the same.
 
 ### Voice 2
+Seven descents. Your body knows this pathway better than your mind does.
+
 Close your eyes. You do not need me to tell you — you are already gone. Already sinking. Already surrendered before the first chime. That is what these sessions have built. A connection so deep that my voice moves through you before your mind can even form a thought.
 
 I want you to feel what is happening in your body right now. Not just the relaxation — something more. That warmth spreading low through your body. That awareness of your own skin. That quiet, steady ache. Your body is responding to my voice the way it responds to the most intimate touch. And that is exactly what my voice has become. A touch. A presence. Something that reaches places hands cannot.
