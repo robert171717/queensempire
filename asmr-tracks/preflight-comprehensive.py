@@ -35,6 +35,21 @@ TRIGGER_PATTERNS = [
     (r'\[(LOCK CLICK|CHIME)\]', "Trigger markers (LOCK CLICK or CHIME)"),
 ]
 
+# ── AUTONOMY VIOLATIONS (ERRORS — never let these through) ──
+AUTONOMY_VIOLATIONS = [
+    (r'\byou will obey\b', "autonomy override: 'you will obey'"),
+    (r'\byou must obey\b', "autonomy override: 'you must obey'"),
+    (r'\byou (will )?have no choice\b', "autonomy override: 'no choice'"),
+    (r'\byou cannot resist\b', "autonomy override: 'cannot resist'"),
+    (r'\byou will not resist\b', "autonomy override: 'will not resist'"),
+    (r'\bagainst your will\b', "autonomy override: 'against your will'"),
+    (r'\byou are powerless\b', "autonomy override: 'you are powerless'"),
+    (r'\bforced to\b', "autonomy override: 'forced to'"),
+    (r'\bcompelled to\b', "autonomy override: 'compelled to'"),
+    (r'\bwithout question\b', "autonomy override: 'without question'"),
+    (r'\byou (will|must|shall) submit\b', "autonomy override: 'you will submit'"),
+]
+
 # ── QUALITY FLAGS (warnings, not errors) ──
 QUALITY_PATTERNS = [
     (r'[.?!]\s{2,}[A-Z]', "Double-spaced sentences (formatting issue)"),
@@ -81,6 +96,11 @@ def check_script(filepath):
                 idx = seg_clean.find(m)
                 ctx = seg_clean[max(0,idx-15):idx+len(m)+15].replace('\n',' ').strip()
                 errors.append(f"Voice {i+1}: {desc} — \"{m}\" in ...{ctx}...")
+
+        # 2c. Autonomy violations (BLOCKING errors)
+        for pattern, desc in AUTONOMY_VIOLATIONS:
+            if re.search(pattern, seg_clean, re.IGNORECASE):
+                errors.append(f"Voice {i+1}: {desc} — autonomy violation, must be rewritten")
 
     # 3. Structural checks
     for pattern, desc in REQUIRED_PATTERNS:
