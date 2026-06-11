@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+"""
+QE ASMR Script Quality Gate — audits script before voice generation.
+Scores pacing, trigger integration, fractionation, tone, safety, arc.
+Flags issues BEFORE credits are burned on ElevenLabs.
+"""
+import json, sys, os, subprocess, re
+
+SCRIPT_MD = sys.argv[1]
+
+# Read script
+with open(SCRIPT_MD) as f:
+    text = f.read()
+
+# Extract voice segments
+segments = re.split(r'### Voice \d+\n', text)[1:]
+if not segments:
+    print("ERROR: No voice segments found")
+    sys.exit(1)
+
+# Get API key from Doppler
+api_key = subprocess.run(
+    ['doppler', 'secrets', 'get', 'DEEPSEEK_API_KEY', '--plain'],
+    capture_output=True, text=True
+).stdout.strip()
+
+if not api_key:
+    print("⚠️  No DeepSeek API key — skipping critique (non-fatal)")
+    sys.exit(0)
+
+# Build the rubric prompt
+rubric = f"""You are an ASMR/hypnosis script quality auditor for a premium audio series called Queen's Empire.
+
+The voice is "Serafina" — a sensual, authoritative female voice at 0.70x speed.
+Each script is split into 6 voice segments marked ### Voice N.
+Trigger sounds: ding/chime between segments.
+
+Analyze this script across these dimensions. Score each 1-10 and give ONE actionable fix per dimension:
+
+1. PACING: Are segment lengths balanced? Any segment over 1,200 chars will sound rushed at 0.70x.
+2. TRIGGER INTEGRATION: Does the script naturally reference the chime/trigger sound?
+3. FRACTIONATION ARC: Does the countdown (if present) escalate depth properly?
+4. TONE CONSISTENCY: Does Serafina's persona stay consistent throughout?
+5. LISTENER SAFETY: Proper wakening protocol at the end? No problematic suggestions?
+6. EMOTIONAL ARC: Does the script build tension and release it?
+
+Return ONLY valid JSON:
+{{
+  "overall_score": 6.5,
+  "verdict": "PASS" or "REVIEW" or "FAIL",
+  "dimensions": {{
+    "pacing": {{"score": 7, "issue": "Voice 5 is 1855 chars — may sound rushed at 0.70x", "fix": "Split voice 5 into two segments at the countdown"}},
+    "trigger_integration": {{"score": 8, "issue": null, "fix": null}},
+    "fractionation_arc": {{"score": 6, "issue": "...", "fix": "..."}},
+    "tone_consistency": {{"score": 9, "issue": null, "fix": null}},
+    "listener_safety": {{"score": 10, "issue": null, "fix": null}},
+    "emotional_arc": {{"score": 7, "issue": "...", "fix": "..."}}
+  }},
+  "top_fix": "Split voice 5 into two segments to improve pacing.",
+  "estimated_credit_savings": "Split prevents 1,855 char regeneration on pacing fixes"
+}}
+
+Segments with character counts:
+"""
+for i, seg in enumerate(segments, 1):
+    rubric += f"Voice {i}: {len(seg.strip())} chars\n"
+
+rubric += f"\nFull script:\n```\n{text}\n```"
+
+# Call DeepSeek
+import urllib.request
+payload = json.dumps({
+    "model": "deepseek-chat",
+    "messages": [{"role": "user", "content": rubric}],
+    "temperature": 0.3,
+    "max_tokens": 800
+}).encode()
+
+req = urllib.request.Request(
+    "https://api.deepseek.com/v1/chat/completions",
+    data=payload,
+    headers={
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+)
+
+try:
+    resp = json.loads(urllib.request.urlopen(req, timeout=30).read())
+    content = resp["choices"][0]["message"]["content"]
+    # Extract JSON from response (may have markdown wrapping)
+    if "```json" in content:
+        content = content.split("```json")[1].split("```")[0]
+    elif "```" in content:
+        content = content.split("```")[1].split("```")[0]
+    result = json.loads(content)
+except Exception as e:
+    print(f"⚠️  Critique API error: {e} — skipping (non-fatal)")
+    sys.exit(0)
+
+# Display results
+overall = result.get("overall_score", "?")
+verdict = result.get("verdict", "?")
+print(f"\n📋 SCRIPT QUALITY GATE: {os.path.basename(SCRIPT_MD)}")
+print(f"   Overall: {overall}/10 — {verdict}")
+
+dims = result.get("dimensions", {})
+for dim, data in dims.items():
+    name = dim.replace("_", " ").title()
+    score = data.get("score", "?")
+    icon = "✅" if score >= 8 else "🟡" if score >= 6 else "🔴"
+    print(f"   {icon} {name}: {score}/10")
+    if data.get("issue"):
+        print(f"      → {data['issue']}")
+
+top_fix = result.get("top_fix", "")
+if top_fix:
+    print(f"\n💡 TOP FIX: {top_fix}")
+if result.get("estimated_credit_savings"):
+    print(f"💰 {result['estimated_credit_savings']}")
+
+# Exit codes
+if verdict == "FAIL":
+    print("\n🛑 Gate: FAIL — fix issues before building")
+    sys.exit(1)
+elif verdict == "REVIEW":
+    print("\n⚠️  Gate: REVIEW — recommended fixes before building")
+    # Non-fatal — continue with warning
+else:
+    print("\n✅ Gate: PASS")

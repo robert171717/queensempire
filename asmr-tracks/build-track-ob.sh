@@ -42,6 +42,13 @@ echo "  ✅ Preflight passed"
 echo ""
 
 # -----------------------------------------------------------
+# Step 0.3: Script quality gate — critique before credits
+# -----------------------------------------------------------
+echo "[0.3/5] Script quality gate..."
+python3 "$SCRIPT_DIR/critique-script.py" "$SCRIPT_MD"
+echo ""
+
+# -----------------------------------------------------------
 # Step 0.5: Git-lock gate — refuse uncommitted scripts
 # -----------------------------------------------------------
 echo "[0.5/5] Git-lock gate..."
