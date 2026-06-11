@@ -205,7 +205,7 @@ case "$TRACK" in
 esac
 
 OUTPUT="$SCRIPT_DIR/track-${SERIES}-${TRACK}-serafina.mp3"
-ffmpeg -y -f concat -safe 0 -i "$CONCAT" -c copy "$OUTPUT" 2>&1 | tail -3
+ffmpeg -y -f concat -safe 0 -i "$CONCAT" -af "loudnorm=I=-16:TP=-1.5:LRA=11" -b:a 192k "$OUTPUT" 2>&1 | tail -3
 
 DURATION=$(ffprobe -v quiet -show_entries format=duration -of csv=p=0 "$OUTPUT")
 SIZE=$(stat -c%s "$OUTPUT")

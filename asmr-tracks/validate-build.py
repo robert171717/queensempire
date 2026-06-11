@@ -101,9 +101,13 @@ def main():
     if loudness:
         print(f'  Integrated loudness: {loudness:.1f} LUFS')
         if loudness < -22:
+            errors.append(f'Track is too quiet: {loudness:.1f} LUFS — likely not normalized (target: -16)')
+        elif loudness < -19:
             warnings.append(f'Track is quiet: {loudness:.1f} LUFS (target: -16)')
         elif loudness > -10:
             warnings.append(f'Track is loud: {loudness:.1f} LUFS (target: -16)')
+    else:
+        warnings.append('Could not measure loudness')
     
     # 4. Text leak check
     if build_dir and os.path.isdir(build_dir):

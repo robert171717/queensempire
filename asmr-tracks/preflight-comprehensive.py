@@ -57,6 +57,108 @@ QUALITY_PATTERNS = [
     (r'^\.\.\.\s', "Leading ellipsis at voice start — may render as breath artifact at 0.70x"),
 ]
 
+# ── VOICE-START WARMTH (BLOCKING — cold starts ruin the hypnotic tone) ──
+# Karpathy-loop hardened: patterns from full 32-track empire audit
+TRIGGER_MARKER_RE = re.compile(
+    r'^\s*\[(LOCK CLICK|CLOCK TICKING|CHIME|BOWL|SILENCE|BREATH)'
+    r'[^]]*\]\s*$',
+    re.IGNORECASE
+)
+
+WARM_FRAMING_PATTERNS = [
+    # Validation words
+    r"^(Good|Beautiful|Perfect|Very good|That's|You did)\b",
+    # Gentle framing / invitation
+    r"^(I want you to|I am going to|Here is|I want to)",
+    r"^(Let me|I will|This is|That was)",
+    r"^(Let us)\b",
+    r"^(Today I want)",
+    r"^(I am bringing you back)",
+    # "There" patterns
+    r"^(There\.|There is|There will be)",
+    # Trigger / sound framing
+    r"^(That sound|That chime|Notice how)",
+    # Conceptual framing
+    r"^(Most people|You have|When this|When I|When you)",
+    r"^(The (resistance|wanting|release|permission))",
+    # Transitional (countdown/return)
+    r"^(I am going to (count|bring))",
+    # Personal address / invitation
+    r"^(Listen|One last|Breathe\. )",
+    r"^(Take a breath)",
+    r"^(Close your eyes)",  # warm in later tracks / ritual context
+    # Contextual framing (describing state)
+    r"^(Your (mind|chest|heart|body|breath) is the)",
+    r"^(Your (mind|chest|heart|body|breath) are|has)",
+    r"^(Your mind may)",
+    # State validation
+    r"^(You are sinking|You are doing|You are deep)",
+    r"^(You may (have|wonder))",
+    r"^(You have (given|completed))",
+    # Retrospective / meta framing
+    r"^(In the first|I designed|From this moment)",
+    r"^(Think about)",
+    # Session count framing
+    r"^((Four|Five|Six|Seven|Eight) (sessions|descents))",
+    # Reassurance / permission
+    r"^(There is a part)",
+    r"^(The permission)",
+    # "Now" transitions (warm in mid-voice context)
+    r"^(Now (your|let your|I want))",
+    r"^(And now)",
+    # Warm "Let" patterns (invitations, not commands)
+    r"^(Let the (warmth|gratitude|first|release|second))",
+    r"^(Let yourself)",
+    r"^(Let them)",
+    r"^(Let it (go|settle|sit|be|fill|spread|pool|throb|carry))",
+    # Gentle guided instruction
+    r"^(Place your)",
+    r"^(If you are)",
+    # Gratitude / emotional framing
+    r"^(Gratitude)",
+    # Sink (with warm qualifier)
+    r"^(Sink —)",
+    r"^(Sink\b.*not because)",
+
+    # ── KARPATHY LOOP BATCH 3 (cross-series remaining UNCERTAIN) ──
+    r"^(Something is changing)",
+    r"^(Float here)",
+    r"^(Where do you go)",
+    r"^(By now)",
+    r"^(Here's what)",
+    r"^(Before you go)",
+    r"^(Your breath has found)",
+    r"^(Every time you)",
+    r"^(Now —)",
+    r"^(The aftershock)",
+    r"^(In track)",
+    r"^(Today's)",
+
+    # ── KARPATHY LOOP BATCH 4 (DC poetic/question patterns) ──
+    r"^(Why do you)",
+    r"^(What would you)",
+    r"^(It never)",
+    r"^(We are)",
+    r"^(Between sessions)",
+    r"^(There was a time)",
+    r"^(Think back)",
+    r"^(I'm going to bring you up)",
+    r"^(Float\.)",
+    r"^(Now\. )",
+]
+
+COLD_IMPERATIVE_STARTS = [
+    r"^Breathe in\.\.\.",
+    r"^Hold it\.\.\.",
+    r"^Now release\b",
+    r"^Stop\b",
+    r"^That rhythm is mine",
+    r"^Your (mind|chest|heart|body) is (mine|holding|fighting|resisting)",
+    r"^Let the exhale",
+    r"^Let the world",
+    r"^Let the chime",
+]
+
 
 def check_script(filepath):
     """Full structural + content check of a track script."""
@@ -114,7 +216,61 @@ def check_script(filepath):
         if matches:
             warnings.append(f"{desc}: {len(matches)} occurrence(s)")
 
-    # 5. Optional trigger markers (warn, not error — some series handle triggers in pipeline)
+    # 5. Voice-start warmth (BLOCKING — cold starts are errors)
+    for i, seg in enumerate(segments):
+        seg_clean = seg.strip()
+        if not seg_clean:
+            continue
+        # Voice 1 is exempt (it's the introduction)
+        if i == 0:
+            continue
+        # Get candidate spoken lines (skip tone notes, stage directions, trigger markers)
+        lines = []
+        for line in seg_clean.split('\n'):
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if stripped.startswith('*'):
+                continue
+            if re.match(r'^\*\(.*\)\*$', stripped):
+                continue
+            if re.match(r'^[—–-]\s*(FINAL|FRACTIONATION)', stripped):
+                continue
+            lines.append(stripped)
+
+        if not lines:
+            continue
+
+        first = lines[0]
+
+        # Skip trigger markers — they're audio cues, not text
+        if TRIGGER_MARKER_RE.match(first):
+            if len(lines) > 1:
+                first = lines[1]
+            else:
+                continue
+
+        first = re.sub(r'^\.\.\.\s*', '', first)
+
+        # Check warm patterns first
+        is_warm = False
+        for pattern in WARM_FRAMING_PATTERNS:
+            if re.search(pattern, first, re.IGNORECASE):
+                is_warm = True
+                break
+
+        if not is_warm:
+            # Check if it matches a known cold pattern
+            cold_reason = None
+            for pattern in COLD_IMPERATIVE_STARTS:
+                if re.search(pattern, first, re.IGNORECASE):
+                    cold_reason = f"COLD start: '{first[:60]}...'"
+                    break
+            if not cold_reason:
+                cold_reason = f"NO WARM FRAMING: '{first[:60]}...'"
+            errors.append(f"Voice {i+1}: {cold_reason} — add validation/context before instruction")
+
+    # 6. Optional trigger markers (warn, not error — some series handle triggers in pipeline)
     for pattern, desc in TRIGGER_PATTERNS:
         if not re.search(pattern, content):
             warnings.append(f"No trigger markers found ({desc}) — ensure pipeline adds them")
