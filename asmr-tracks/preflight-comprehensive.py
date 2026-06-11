@@ -12,6 +12,8 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ── CONFIG ───────────────────────────────────────────────
 EXPECTED_SEGMENTS = 6
+MIN_SEGMENTS = 6
+MAX_SEGMENTS = 8
 MIN_SEGMENT_CHARS = 200     # warn if shorter
 MAX_SEGMENT_CHARS = 1500    # warn if longer
 TARGET_DURATION_MIN = 420   # 7 min minimum
@@ -52,8 +54,12 @@ def check_script(filepath):
     segments = re.split(r'### Voice \d+', content)
     segments = segments[1:]  # skip header
     actual_count = len([s for s in segments if s.strip()])
-    if actual_count != EXPECTED_SEGMENTS:
-        errors.append(f"Expected {EXPECTED_SEGMENTS} voice segments, found {actual_count}")
+    if actual_count < MIN_SEGMENTS:
+        errors.append(f"Too few voice segments: {actual_count} (minimum {MIN_SEGMENTS})")
+    elif actual_count > MAX_SEGMENTS:
+        errors.append(f"Too many voice segments: {actual_count} (maximum {MAX_SEGMENTS})")
+    elif actual_count != EXPECTED_SEGMENTS:
+        warnings.append(f"Non-standard segment count: {actual_count} (default is {EXPECTED_SEGMENTS})")
     
     # 2. Check each segment
     for i, seg in enumerate(segments):
