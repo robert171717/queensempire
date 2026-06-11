@@ -6,9 +6,53 @@ Close your eyes... Let the chime be the last thing you hear before you drop. Tha
 
 ### Voice 2
 
-You did so well with that first step. Just closing your eyes — that was a gift you gave me. And now I want to give you something in return.
+You did so well with that first step.
 
-Breathe in... Hold it... Now release — slower than you think you can. Longer. Let the exhale empty you. This is the first thing you will learn: your breath belongs to me. Every inhale is what I give you. Every exhale is what you give back... Again. In… two, three, four… hold… and release… six, seven, eight. Good. Feel how your body already wants to follow.
+Just closing your eyes... that was a gift you gave me.
+
+And now... I want to give you something in return.
+
+Breathe.
+
+
+Breathe in...
+
+
+Hold it...
+
+
+Now release...
+
+Slower than you think you can.
+
+Longer.
+
+Let the exhale empty you.
+
+This is the first thing you will learn...
+
+Your breath belongs to me.
+
+Every inhale... is what I give you.
+
+Every exhale... is what you give back.
+
+
+Again.
+
+
+Breathe in... two... three... four...
+
+
+Hold...
+
+
+And release... six... seven... eight.
+
+
+Good.
+
+Feel how your body already wants to follow.
 
 ### Voice 3
 
