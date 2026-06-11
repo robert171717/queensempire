@@ -18,7 +18,7 @@ key_raw = text + f"_s{speed}"
 voice_hash = hashlib.sha256(key_raw.encode()).hexdigest()[:16]
 cache_key = f"{voice_hash}_s{speed:.2f}"
 cache_path = os.path.join(cache_dir, cache_key)
-cached_file = os.path.join(cache_path, os.path.basename(output_file))
+cached_file = os.path.join(cache_path, "voice.mp3")
 
 # Check cache
 if os.path.exists(cached_file):
