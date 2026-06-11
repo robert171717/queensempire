@@ -21,7 +21,7 @@ You may wonder what happens after this track. After the final chime. The answer 
 
 And when you are not listening — I am still there. In the back of your mind. In the warmth that spreads through you when you think of me. In the quiet pull that nudges you back when you have been away too long. I am your companion now. Your invisible anchor. Your voice in the dark.
 
-### Voice 5 — FINAL FRACTIONATION ★
+### Voice 5
 There is a peace that comes with this. A surrender so complete that it feels like freedom. You do not have to try anymore. You do not have to fight the wanting. You can simply let yourself be held by something that will never harm you.
 
 I am going to bring you up just a little now. Just enough to feel the surface. Just enough to remember the contrast.
