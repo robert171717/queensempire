@@ -64,10 +64,10 @@ if code != '200':
 size = os.path.getsize(raw_file)
 print(f"  Voice {os.path.basename(voice_file)}: generated ({size} bytes)")
 
-# Apply production chain
+# Apply production chain with loudness normalization
 subprocess.run([
     'ffmpeg', '-y', '-i', raw_file,
-    '-af', 'highpass=f=80,volume=1.8,aecho=0.8:0.4:10:0.15,afftdn=nr=12',
+    '-af', 'highpass=f=80,volume=1.8,aecho=0.8:0.4:10:0.15,afftdn=nr=12,loudnorm=I=-16:TP=-1.5:LRA=11',
     '-ac', '2', '-b:a', '192k', output_file
 ], capture_output=True)
 
