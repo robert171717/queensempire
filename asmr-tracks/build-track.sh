@@ -10,7 +10,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 EK=$(doppler secrets get ELEVENLABS_API_KEY --plain)
 VOICE_ID="4tRn1lSkEn13EVTuqb0g"  # Serafina - Sensual Temptress
-SPEED=0.70
+SPEED="${3:-0.70}"
 MODEL="eleven_multilingual_v2"
 
 usage() {
@@ -20,7 +20,7 @@ usage() {
     exit 1
 }
 
-[ $# -ne 2 ] && usage
+[ $# -lt 2 ] || [ $# -gt 3 ] && usage
 TRACK="$1"
 SCRIPT_MD="$2"
 

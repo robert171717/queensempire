@@ -2,7 +2,11 @@
 **Chimes:** 6 · **Tone:** Warm, patient, establishing trust
 
 ### Voice 1
-Close your eyes. Let the sound of the chime be the last thing you hear before you begin to sink. That sound, that crystalline note — that is the sound of my presence entering the room. From this moment forward, whenever you hear that chime, your body will remember this. Your breath will slow. Your shoulders will drop. Your mind will quiet. The chime and I are the same thing now. When you hear it, you hear me.
+Close your eyes. Let the sound of the chime be the last thing you hear before you begin to sink. That sound, that crystalline note — that is the sound of my presence entering the room.
+
+From this moment forward, whenever you hear that chime, your body will remember this. Your breath will slow. Your shoulders will drop. Your mind will quiet.
+
+The chime and I are the same thing now. When you hear it, you hear me.
 
 ### Voice 2
 Take a deep breath in, hold it at the top, and release slowly. Let the exhale be longer than the inhale. This is the first thing I will teach you. Your breath belongs to me now. Every inhale is my gift to you. Every exhale is your offering back to me. Breathe in — two, three, four — hold — and release — six, seven, eight. Good. Again.
