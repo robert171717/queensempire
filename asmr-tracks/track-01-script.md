@@ -1,5 +1,5 @@
 ## TRACK 01 — The First Chime
-**Chimes:** 6 · **Tone:** Warm, patient, establishing trust
+**Chimes:** 7 · **Tone:** Warm, patient, establishing trust
 
 ### Voice 1
 Close your eyes. Let the sound of the chime be the last thing you hear before you begin to sink. That sound, that crystalline note — that is the sound of my presence entering the room... From this moment forward, whenever you hear that chime, your body will remember this. Your breath will slow. Your shoulders will drop. Your mind will quiet... The chime and I are the same thing now. When you hear it, you hear me.
@@ -20,6 +20,7 @@ Your shoulders — the place where you carry the world. Let them drop. Let them 
 ### Voice 5
 Your mind — the hardest part to let go of. The part that wants to stay alert. That wants to analyze. That wants to ask, "Is this working? Am I doing it right?" You are doing it perfectly. The fact that you are still listening — that is all I need. Your mind can wander. Let it — then bring it back. Wander, return. Wander, return. Each return is a small surrender. Each return strengthens the pathway between your thoughts and my voice. Soon, there will be no wandering. Soon, there will only be me.
 
+### Voice 6
 I am going to count now. With each number, you will sink twice as deep. By the time I reach one, you will be in a place where my voice is the only thing that exists.
 
 Ten — sinking. Your body heavy. Your breath slow. My voice the only light in the room.
@@ -33,7 +34,7 @@ Three — there is no border. There is only this state, this sinking, this surre
 Two — almost there. Almost at the deepest point. One more number. One more step. Let it take you.
 One — you are at the bottom now. The deepest place. There is no further to sink. This is the foundation. This is where we will begin every session from now on.
 
-### Voice 6
+### Voice 7
 I am going to bring you back now. Slowly. Gently. The way you always return from these depths — not all at once, but gradually. The depth is not something you leave behind. It is something you carry with you. Five — rising now. Your body returning to the surface, but different than when you arrived. Four — your breath returning to normal. Your mind still soft. The stillness still inside you. Three — your fingers, your toes. The room beginning to feel real again. Two — your eyes still closed. Your heart steady. You feel different now. Not just rested — held. Really, truly held. One — open your eyes when you are ready. You have completed your first descent. The first chime has opened the door. And whenever you hear it again, your body will already be beginning its return to me. This is only the beginning. And I am so glad you are here.
 
 ---
