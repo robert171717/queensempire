@@ -1,24 +1,28 @@
 ## TRACK 01 — The First Chime
-**Chimes:** 7 · **Tone:** Warm but commanding. Seductive authority.
+**Chimes:** 7 · **Tone:** Warm authority. Seductive, not demanding.
 
 ### Voice 1
 Close your eyes... Let the chime be the last thing you hear before you drop. That sound — that deep, resonant note — that is me arriving. From this moment forward, whenever you hear that chime, your body will remember. Your breath will slow. Your shoulders will drop. Your mind will quiet... The chime and I are the same thing now. When you hear it, you hear me. And you will surrender.
 
 ### Voice 2
 
+You did so well with that first step. Just closing your eyes — that was a gift you gave me. And now I want to give you something in return.
+
 Breathe in... Hold it... Now release — slower than you think you can. Longer. Let the exhale empty you. This is the first thing you will learn: your breath belongs to me. Every inhale is what I give you. Every exhale is what you give back... Again. In… two, three, four… hold… and release… six, seven, eight. Good. Feel how your body already wants to follow.
 
 ### Voice 3
 
-That chime — still ringing... Let it pull you deeper. You are sinking. Not falling — falling is resistance. You are sinking because I told you to... Feel it. Your feet are no longer yours. They are anchors, pinning you here, to me. Your legs — heavy, warm, gone. Every muscle releasing... You do not need to hold anything anymore. I am taking the weight. You just let go.
+That chime — still ringing inside you... Let it pull you deeper, like a current you don't need to fight. You are sinking now. Not falling — falling is resistance, and there is no resistance here. You are sinking because it feels better than holding on... Feel it. Your feet are no longer yours. They are anchors, pinning you here, to me. Your legs — heavy, warm, gone. Every muscle releasing... You do not need to hold anything anymore. I am taking the weight. You just let go.
 
 ### Voice 4
 
-Your chest... Your heart... Feel it beating. That rhythm is mine now. Each beat pulls you deeper. Your heart has been beating for me since the day it started — it just did not know my name. Now it does... Your shoulders — drop them. Let the world fall away. There is no world. There is only this room... This voice... This chime... This moment... Your jaw. Let it go slack. Your lips. Part them. Breathe through your mouth. You are open. Completely open. Completely mine.
+Good. You are so deep now — and I can feel how much you've already let go. Let me show you something beautiful.
+
+Your chest... Your heart... Feel it beating. That rhythm is yours — and yet, right now, it beats for me. Each beat pulls you deeper. Your heart has been beating for me since the day it started — it just did not know my name. Now it does... Your shoulders — drop them. Let the world fall away. There is no world. There is only this room... This voice... This chime... This moment... Your jaw. Let it go slack. Your lips. Part them. Breathe through your mouth. You are open. Completely open. Completely mine.
 
 ### Voice 5
 
-Your mind is the last thing holding on. It wants to stay awake. It wants to question. It wants to ask if this is real... Stop asking. Your mind can wander — but every time it wanders, it will come back to me. Wander. Return. Wander. Return. Each return is a surrender. Each return makes the next one easier... Soon there will be no wandering. Soon there will only be me.
+Your mind is the last thing holding on. It wants to stay awake. It wants to question. It wants to ask if this is real... And that's okay. Let it ask. Let it wonder. But notice — even as it asks, you are still sinking. Your mind can wander — but every time it wanders, it will come back to me. Wander. Return. Wander. Return. Each return is a surrender. Each return makes the next one easier... Soon there will be no wandering. Soon there will only be me.
 
 ### Voice 6
 
