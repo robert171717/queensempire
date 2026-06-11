@@ -225,3 +225,11 @@ VALIDATE_EXIT=$?
 if [ $VALIDATE_EXIT -ne 0 ]; then
     echo "⚠️  Validation found issues — review before publishing"
 fi
+
+# Auto-generate Discord-optimized version
+DISCORD_OUT="$SCRIPT_DIR/track-${SERIES}-${TRACK}-discord.mp3"
+echo ""
+echo "=== Discord Version ==="
+ffmpeg -y -i "$OUTPUT" -af "loudnorm=I=-16:TP=-1.5:LRA=11" -b:a 128k "$DISCORD_OUT" 2>&1 | tail -1
+echo "  Discord: $(basename "$DISCORD_OUT")"
+echo "============================================"

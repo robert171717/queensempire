@@ -19,18 +19,19 @@ def get_duration(filepath):
         return None
 
 def get_loudness(filepath):
-    """Get integrated loudness in LUFS."""
+    """Get integrated loudness in LUFS using ffmpeg loudnorm filter."""
+    import re
     result = subprocess.run(
-        ['ffprobe', '-v', 'quiet', '-f', 'lavfi',
-         '-i', f'amovie={filepath},loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json',
-         '-show_entries', 'program_version', '-of', 'json'],
+        ['ffmpeg', '-i', filepath,
+         '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json',
+         '-f', 'null', '/dev/null'],
         capture_output=True, text=True
     )
     try:
-        # loudnorm output goes to stderr
-        for line in result.stderr.split('\n'):
-            if 'input_i' in line:
-                return json.loads(line).get('input_i')
+        # loudnorm JSON fragment goes to stderr — parse with regex
+        match = re.search(r'"input_i"\s*:\s*"([-\d.]+)"', result.stderr)
+        if match:
+            return float(match.group(1))
     except:
         pass
     return None
