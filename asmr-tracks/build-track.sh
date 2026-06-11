@@ -175,7 +175,13 @@ case "$TRACK" in
 esac
 
 OUTPUT="$SCRIPT_DIR/track-${TRACK}-serafina-v3.mp3"
-ffmpeg -y -f concat -safe 0 -i "$CONCAT" -af "loudnorm=I=-16:TP=-1.5:LRA=11" -b:a 192k "$OUTPUT" 2>&1 | tail -3
+
+# Build concat FILTER command (NOT demuxer or protocol)
+# The concat demuxer/protocol drop audio at MP3 frame boundaries because
+# MP3 files lack reliable duration metadata. The concat FILTER decodes all
+# inputs to raw PCM first — 100% reliable, zero frame loss.
+echo "[4/5] Building concat filter..."
+python3 "$SCRIPT_DIR/concat-filter.py" "$CONCAT" "$OUTPUT" "$WORK" 2>&1 | tail -3
 
 DURATION=$(ffprobe -v quiet -show_entries format=duration -of csv=p=0 "$OUTPUT")
 SIZE=$(stat -c%s "$OUTPUT")
