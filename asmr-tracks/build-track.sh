@@ -40,6 +40,13 @@ echo "  ✅ Preflight passed"
 echo ""
 
 # -----------------------------------------------------------
+# Step 0.5: Git-lock gate — refuse uncommitted scripts
+# -----------------------------------------------------------
+echo "[0.5/5] Git-lock gate..."
+bash "$SCRIPT_DIR/check-git-lock.sh" "$SCRIPT_MD"
+echo ""
+
+# -----------------------------------------------------------
 # Step 1: Extract voice segments from markdown
 # -----------------------------------------------------------
 echo "[1/5] Extracting voice segments from $(basename "$SCRIPT_MD")..."
@@ -110,18 +117,20 @@ case "$TRACK" in
         # Intro layout: tight spacing
         echo "file 'silence-2s.mp3'" >> "$CONCAT"
         echo "file 'ding-25.mp3'" >> "$CONCAT"
-        echo "file 'silence-2s.mp3'" >> "$CONCAT"
+        echo "file 'silence-3s.mp3'" >> "$CONCAT"
         echo "file 'voice-proc-1.mp3'" >> "$CONCAT"
         echo "file 'silence-8s.mp3'" >> "$CONCAT"
         for i in $(seq 2 $NUM_SEGMENTS); do
             idx=$(( (i-1) % 6 ))
             echo "file 'silence-2s.mp3'" >> "$CONCAT"
             echo "file 'ding-${DING_LEVELS[$idx]}.mp3'" >> "$CONCAT"
-            echo "file 'silence-2s.mp3'" >> "$CONCAT"
+            echo "file 'silence-3s.mp3'" >> "$CONCAT"
             echo "file 'voice-proc-${i}.mp3'" >> "$CONCAT"
-            echo "file 'silence-6s.mp3'" >> "$CONCAT"
+            echo "file 'silence-8s.mp3'" >> "$CONCAT"
         done
-        echo "file 'silence-5s.mp3'" >> "$CONCAT"
+        echo "file 'silence-6s.mp3'" >> "$CONCAT"
+        echo "file 'ding-15.mp3'" >> "$CONCAT"
+        echo "file 'silence-15s.mp3'" >> "$CONCAT"
         ;;
     02)
         # Deeper induction: moderate spacing
@@ -148,7 +157,7 @@ case "$TRACK" in
             idx=$(( (i-1) % 6 ))
             echo "file 'silence-2s.mp3'" >> "$CONCAT"
             echo "file 'ding-${DING_LEVELS[$idx]}.mp3'" >> "$CONCAT"
-            echo "file 'silence-2s.mp3'" >> "$CONCAT"
+            echo "file 'silence-3s.mp3'" >> "$CONCAT"
             echo "file 'voice-proc-${i}.mp3'" >> "$CONCAT"
             echo "file 'silence-10s.mp3'" >> "$CONCAT"
         done

@@ -42,6 +42,13 @@ echo "  ✅ Preflight passed"
 echo ""
 
 # -----------------------------------------------------------
+# Step 0.5: Git-lock gate — refuse uncommitted scripts
+# -----------------------------------------------------------
+echo "[0.5/5] Git-lock gate..."
+bash "$SCRIPT_DIR/check-git-lock.sh" "$SCRIPT_MD"
+echo ""
+
+# -----------------------------------------------------------
 # Step 1: Extract voice segments from markdown
 # -----------------------------------------------------------
 echo "[1/5] Extracting voice segments from $(basename "$SCRIPT_MD")..."
@@ -182,7 +189,7 @@ case "$TRACK" in
             echo "file 'bowl-${BOWL_LEVELS[$idx]}.mp3'" >> "$CONCAT"
             echo "file 'silence-3s.mp3'" >> "$CONCAT"
             echo "file 'voice-proc-${i}.mp3'" >> "$CONCAT"
-            echo "file 'silence-12s.mp3'" >> "$CONCAT"
+            echo "file 'silence-10s.mp3'" >> "$CONCAT"
         done
         echo "file 'silence-15s.mp3'" >> "$CONCAT"
         echo "file 'bowl-12.mp3'" >> "$CONCAT"

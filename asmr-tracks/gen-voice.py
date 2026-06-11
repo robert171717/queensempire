@@ -16,7 +16,7 @@ with open(voice_file) as f:
 # Per-voice cache key: SHA of text + speed
 key_raw = text + f"_s{speed}"
 voice_hash = hashlib.sha256(key_raw.encode()).hexdigest()[:16]
-cache_key = f"{voice_hash}_s{speed}"
+cache_key = f"{voice_hash}_s{speed:.2f}"
 cache_path = os.path.join(cache_dir, cache_key)
 cached_file = os.path.join(cache_path, os.path.basename(output_file))
 
