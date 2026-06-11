@@ -26,7 +26,11 @@ for s in segments:
     s = re.sub(r'—?\s*FRACTIONATION\s*MOMENT\s*(?:—\s*FINAL\s*—)?\s*[★*]?\s*', '', s)
     s = re.sub(r'\[Silence\s*[—–-]\s*[^\]]+\]', '', s)
     s = re.sub(r'^---\s*$', '', s, flags=re.MULTILINE)
-    s = re.sub(r'\n\s*\n+', ' ', s).strip()
+    # Preserve paragraph breaks — they control pacing at ElevenLabs
+    # Normalize: 3+ blank lines → 2 blank lines (max breath window ~4s)
+    s = re.sub(r'\n\s*\n\s*\n+', '\n\n\n', s)
+    # Keep single blank lines (paragraph breaks ≈ natural pause)
+    s = s.strip()
     if s:
         cleaned.append(s)
 
