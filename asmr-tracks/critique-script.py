@@ -37,7 +37,7 @@ Trigger sounds: ding/chime between segments.
 
 Analyze this script across these dimensions. Score each 1-10 and give ONE actionable fix per dimension:
 
-1. PACING: Are segment lengths balanced? Any segment over 1,200 chars will sound rushed at 0.70x.
+1. PACING: Are segment lengths balanced? Any segment over 1,200 chars will sound rushed at 0.70x. CRITICAL: leading '...' at voice starts renders as breath artifacts — use paragraph breaks (blank line) instead for natural pauses.
 2. TRIGGER INTEGRATION: Does the script naturally reference the chime/trigger sound?
 3. FRACTIONATION ARC: Does the countdown (if present) escalate depth properly?
 4. TONE CONSISTENCY: Does Serafina's persona stay consistent throughout?

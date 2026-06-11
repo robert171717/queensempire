@@ -54,6 +54,7 @@ AUTONOMY_VIOLATIONS = [
 QUALITY_PATTERNS = [
     (r'[.?!]\s{2,}[A-Z]', "Double-spaced sentences (formatting issue)"),
     (r'\b(um|uh|er|like)\b', "Filler words (may sound unnatural)"),
+    (r'^\.\.\.\s', "Leading ellipsis at voice start — may render as breath artifact at 0.70x"),
 ]
 
 
