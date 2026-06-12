@@ -208,4 +208,64 @@ echo ""
 echo "=== Discord Version ==="
 ffmpeg -y -i "$OUTPUT" -af "loudnorm=I=-16:TP=-1.5:LRA=11" -b:a 128k "$DISCORD_OUT" 2>&1 | tail -1
 echo "  Discord: $(basename "$DISCORD_OUT")"
+
+# Auto-extract verification clips (always from canonical output, never stale /tmp/)
+VERIFY_DIR="$WORK/verify"
+mkdir -p "$VERIFY_DIR"
+# Recalculate voice timings from extracted segments
+python3 -c "
+import subprocess, os, hashlib, json
+
+work = '$WORK'
+cache_dir = '$SCRIPT_DIR/.voice-cache'
+verify_dir = '$VERIFY_DIR'
+output = '$DISCORD_OUT'
+
+# Calculate cumulative offset before each voice
+segments = sorted([f for f in os.listdir(work) if f.startswith('voice-') and f.endswith('.txt')],
+                   key=lambda x: int(x.split('-')[1].split('.')[0]))
+
+timings = []
+offset = 8  # opening: 2s silence + 3s ding + 3s silence
+
+for seg_file in segments:
+    seg_num = int(seg_file.split('-')[1].split('.')[0])
+    with open(os.path.join(work, seg_file)) as f:
+        text = f.read().strip()
+    key_raw = text + '_s0.7'
+    h = hashlib.sha256(key_raw.encode()).hexdigest()[:16]
+    cache_key = f'{h}_s0.70'
+    cache_path = os.path.join(cache_dir, cache_key, 'voice.mp3')
+    dur = 30  # fallback
+    if os.path.exists(cache_path):
+        dur = float(subprocess.check_output(['ffprobe', '-v', 'quiet', '-show_entries',
+                  'format=duration', '-of', 'csv=p=0', cache_path]).decode().strip())
+    timings.append({'num': seg_num, 'start': offset, 'dur': dur})
+    # After each voice: 8s silence, then 2+3+3=8s before next voice
+    offset += dur + 8 + 8
+
+# Extract Voice 2 region (start-5s to end+10s for context)
+for t in timings:
+    if t['num'] == 2:
+        start = max(0, t['start'] - 3)
+        duration = t['dur'] + 15
+        subprocess.run(['ffmpeg', '-y', '-ss', str(start), '-i', output,
+                       '-t', str(duration), '-b:a', '128k',
+                       os.path.join(verify_dir, 'voice2-region.mp3')],
+                      capture_output=True)
+        # Voice 2→3 transition
+        trans_start = t['start'] + t['dur'] - 5
+        subprocess.run(['ffmpeg', '-y', '-ss', str(trans_start), '-i', output,
+                       '-t', '30', '-b:a', '128k',
+                       os.path.join(verify_dir, 'v23-transition.mp3')],
+                      capture_output=True)
+        break
+
+# First 30s
+subprocess.run(['ffmpeg', '-y', '-ss', '0', '-i', output,
+               '-t', '30', '-b:a', '128k',
+               os.path.join(verify_dir, 'opening.mp3')],
+              capture_output=True)
+print(f'  Verification clips: {verify_dir}/')
+" 2>&1
 echo "============================================"
