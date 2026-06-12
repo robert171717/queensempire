@@ -60,7 +60,7 @@ file '$WORK/silence-15s.mp3'
 EOF
 
 OUTPUT="$SCRIPT_DIR/track-free-d${DAY}-serafina.mp3"
-ffmpeg -y -f concat -safe 0 -i "$CONCAT" -c copy "$OUTPUT" 2>&1 | tail -1
+python3 "$SCRIPT_DIR/concat-filter.py" "$CONCAT" "$OUTPUT" "$WORK" --no-loudnorm 2>&1 | tail -1
 
 DURATION=$(ffprobe -v quiet -show_entries format=duration -of csv=p=0 "$OUTPUT")
 SIZE=$(stat -c%s "$OUTPUT")

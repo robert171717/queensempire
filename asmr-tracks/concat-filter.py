@@ -5,13 +5,14 @@ The concat FILTER decodes all inputs to raw PCM before concatenation,
 avoiding the MP3 frame-boundary issues that plague the concat demuxer
 (-f concat -i) and concat protocol (concat:file1|file2|...).
 
-Usage: python3 concat-filter.py <concat_file> <output_file> <work_dir>
+Usage: python3 concat-filter.py <concat_file> <output_file> <work_dir> [--no-loudnorm]
 """
 import subprocess, sys
 
 concat_file = sys.argv[1]
 output_file = sys.argv[2]
 work_dir = sys.argv[3]
+use_loudnorm = '--no-loudnorm' not in sys.argv
 
 with open(concat_file) as f:
     lines = [line.strip() for line in f if line.startswith("file ")]
@@ -30,10 +31,13 @@ for i, name in enumerate(filenames):
     filters.append(f"[{i}:a]")
 
 n = len(filenames)
-filter_graph = (
-    f"{''.join(filters)}concat=n={n}:v=0:a=1[concated];"
-    f"[concated]loudnorm=I=-16:TP=-1.5:LRA=11[out]"
-)
+if use_loudnorm:
+    filter_graph = (
+        f"{''.join(filters)}concat=n={n}:v=0:a=1[concated];"
+        f"[concated]loudnorm=I=-16:TP=-1.5:LRA=11[out]"
+    )
+else:
+    filter_graph = f"{''.join(filters)}concat=n={n}:v=0:a=1[out]"
 
 cmd = [
     "ffmpeg", "-y",
