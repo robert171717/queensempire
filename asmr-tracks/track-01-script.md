@@ -73,7 +73,7 @@ The rest will follow on its own.
 
 ### Voice 3
 
-You can still feel that chime — still ringing somewhere deep inside you...
+You can still feel that chime — still ringing somewhere deep inside you... You've already let go so much. I can feel it.
 
 
 Let it pull you deeper now. Like a current you don't need to fight.

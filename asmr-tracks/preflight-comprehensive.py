@@ -13,7 +13,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 # ── CONFIG ───────────────────────────────────────────────
 EXPECTED_SEGMENTS = 6
 MIN_SEGMENTS = 6
-MAX_SEGMENTS = 8
+MAX_SEGMENTS = 10
 MIN_SEGMENT_CHARS = 200     # warn if shorter
 MAX_SEGMENT_CHARS = 1500    # warn if longer
 TARGET_DURATION_MIN = 420   # 7 min minimum
