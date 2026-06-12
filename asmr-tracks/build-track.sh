@@ -95,14 +95,16 @@ WORK="$SCRIPT_DIR/build-${SERIES}-t${TRACK}"
 rm -rf "$WORK"
 mkdir -p "$WORK"
 
-echo "=== QE ${SERIES_NAME} Builder v4.0 — Track ${TRACK} (${SERIES}) ===\n"
+echo "=== QE ${SERIES_NAME} Builder v4.0 — Track ${TRACK} (${SERIES}) ==="
+echo ""
 
 # ═══════════════════════════════════════════════════════════════
 # Step 0: Preflight gate
 # ═══════════════════════════════════════════════════════════════
 echo "[0/5] Running preflight gate..."
 python3 "$SCRIPT_DIR/preflight-comprehensive.py" "$SCRIPT_MD"
-echo "  ✅ Preflight passed\n"
+echo "  ✅ Preflight passed"
+echo ""
 
 # ═══════════════════════════════════════════════════════════════
 # Step 0.3: Script quality gate
@@ -147,6 +149,10 @@ echo ""
 # Step 3: Generate trigger gradient
 # ═══════════════════════════════════════════════════════════════
 echo "[3/5] Generating ${TRIGGER_NAME} gradient (${TRIGGER_LEVELS[*]}% under voice)..."
+if [ ! -f "$TRIGGER_SRC" ]; then
+    echo "  ERROR: Trigger source not found: $TRIGGER_SRC"
+    exit 1
+fi
 VOICE_LOUD=$(ffmpeg -i "$WORK/voice-proc-1.mp3" -af "loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json" -f null /dev/null 2>&1 | python3 -c "import sys,json;d=json.load(sys.stdin);print(d['input_i'])" 2>/dev/null || echo "-18")
 
 for level in "${TRIGGER_LEVELS[@]}"; do
@@ -188,7 +194,8 @@ L=("${TRIGGER_LEVELS[@]}")
 if [ "$SERIES" = "sr" ]; then
     # SR: tight spacing for intro tracks, moderate for others
     case "$TRACK" in
-        01)
+        01|02)
+            # Intro + deeper induction: tight spacing
             echo "file 'silence-2s.mp3'" >> "$CONCAT"
             echo "file '${T}-${L[0]}.mp3'" >> "$CONCAT"
             echo "file 'silence-3s.mp3'" >> "$CONCAT"
@@ -205,25 +212,7 @@ if [ "$SERIES" = "sr" ]; then
             echo "file 'silence-6s.mp3'" >> "$CONCAT"
             echo "file '${T}-15.mp3'" >> "$CONCAT"
             echo "file 'silence-15s.mp3'" >> "$CONCAT"
-            ;;
-        02)
-            echo "file 'silence-2s.mp3'" >> "$CONCAT"
-            echo "file '${T}-${L[0]}.mp3'" >> "$CONCAT"
-            echo "file 'silence-3s.mp3'" >> "$CONCAT"
-            echo "file 'voice-proc-1.mp3'" >> "$CONCAT"
-            echo "file 'silence-8s.mp3'" >> "$CONCAT"
-            for i in $(seq 2 $NUM_SEGMENTS); do
-                idx=$(( (i-1) % 6 ))
-                echo "file 'silence-2s.mp3'" >> "$CONCAT"
-                echo "file '${T}-${L[$idx]}.mp3'" >> "$CONCAT"
-                echo "file 'silence-3s.mp3'" >> "$CONCAT"
-                echo "file 'voice-proc-${i}.mp3'" >> "$CONCAT"
-                echo "file 'silence-8s.mp3'" >> "$CONCAT"
-            done
-            echo "file 'silence-6s.mp3'" >> "$CONCAT"
-            echo "file '${T}-15.mp3'" >> "$CONCAT"
-            echo "file 'silence-15s.mp3'" >> "$CONCAT"
-            ;;
+            ;; 
         *)
             for i in $(seq 1 $NUM_SEGMENTS); do
                 idx=$(( (i-1) % 6 ))
