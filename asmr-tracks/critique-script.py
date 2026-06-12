@@ -3,14 +3,61 @@
 QE ASMR Script Quality Gate — audits script before voice generation.
 Scores pacing, trigger integration, fractionation, tone, safety, arc.
 Flags issues BEFORE credits are burned on ElevenLabs.
+
+Also runs series-aware word check: flags words inappropriate for the
+script's series (e.g. "obey" in a Surrender track).
 """
 import json, sys, os, subprocess, re
 
 SCRIPT_MD = sys.argv[1]
+SERIES = sys.argv[2] if len(sys.argv) > 2 else None  # sr, dc, ob, rl
 
 # Read script
 with open(SCRIPT_MD) as f:
     text = f.read()
+
+# ─── Series-aware word check ───
+SERIES_WORDS = {
+    "sr": {  # Surrender — words that should NOT appear
+        "forbidden": ["obey", "kneel", "submit", "beg", "master", "mistress", "worship", "owned"],
+        "expected": ["surrender", "let go", "sink", "release", "float", "trust", "give in"],
+        "label": "Surrender"
+    },
+    "dc": {  # Denial & Craving
+        "forbidden": ["obey", "kneel", "submit", "release", "flood", "pleasure cascade"],
+        "expected": ["denial", "ache", "wait", "want", "crave", "withhold", "earn"],
+        "label": "Denial & Craving"
+    },
+    "ob": {  # Obedience
+        "forbidden": ["surrender", "let go", "float", "release", "flood", "pleasure cascade"],
+        "expected": ["obey", "submit", "serve", "kneel", "follow", "command", "good girl"],
+        "label": "Obedience"
+    },
+    "rl": {  # Release
+        "forbidden": ["obey", "kneel", "submit", "surrender", "denial", "withhold"],
+        "expected": ["release", "flood", "pleasure", "cascade", "wave", "wash over", "let it out"],
+        "label": "Release"
+    }
+}
+
+series_warnings = []
+if SERIES and SERIES in SERIES_WORDS:
+    rules = SERIES_WORDS[SERIES]
+    text_lower = text.lower()
+    for word in rules["forbidden"]:
+        # Word-boundary match — "beg" should NOT match "begins"
+        pattern = r'\b' + re.escape(word) + r'\b'
+        if re.search(pattern, text_lower):
+            # Find the actual line
+            for i, line in enumerate(text.split('\n'), 1):
+                if re.search(pattern, line.lower()):
+                    series_warnings.append(f"⚠️  SERIES VIOLATION: '{word}' found (Voice area, line {i}) — this is not a {rules['label']}-series word")
+                    break
+    if series_warnings:
+        print("┌─ Series-Aware Word Check ──────────────────────────────")
+        for w in series_warnings:
+            print(f"│ {w}")
+        print("└────────────────────────────────────────────────────────\n")
 
 # Extract voice segments
 segments = re.split(r'### Voice \d+\n', text)[1:]
@@ -99,12 +146,19 @@ except Exception as e:
     sys.exit(0)
 
 # Display results
-overall = result.get("overall_score", "?")
-verdict = result.get("verdict", "?")
-print(f"\n📋 SCRIPT QUALITY GATE: {os.path.basename(SCRIPT_MD)}")
-print(f"   Overall: {overall}/10 — {verdict}")
-
 dims = result.get("dimensions", {})
+scores = []
+for dim, data in dims.items():
+    s = data.get("score", 0)
+    if isinstance(s, (int, float)):
+        scores.append(s)
+
+# Compute overall from actual dimension scores — never trust DeepSeek's aggregate
+overall = round(sum(scores) / len(scores), 1) if scores else 0
+verdict = "PASS" if overall >= 6 else "REVIEW" if overall >= 4 else "FAIL"
+
+print(f"\n📋 SCRIPT QUALITY GATE: {os.path.basename(SCRIPT_MD)}")
+# Show per-dimension breakdown first
 for dim, data in dims.items():
     name = dim.replace("_", " ").title()
     score = data.get("score", "?")
@@ -112,6 +166,8 @@ for dim, data in dims.items():
     print(f"   {icon} {name}: {score}/10")
     if data.get("issue"):
         print(f"      → {data['issue']}")
+# Then overall (computed, not hallucinated)
+print(f"\n   Overall: {overall}/10 — {verdict}")
 
 top_fix = result.get("top_fix", "")
 if top_fix:

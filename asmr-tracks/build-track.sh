@@ -110,7 +110,7 @@ echo ""
 # Step 0.3: Script quality gate
 # ═══════════════════════════════════════════════════════════════
 echo "[0.3/5] Script quality gate..."
-python3 "$SCRIPT_DIR/critique-script.py" "$SCRIPT_MD"
+python3 "$SCRIPT_DIR/critique-script.py" "$SCRIPT_MD" "$SERIES"
 echo ""
 
 # ═══════════════════════════════════════════════════════════════
