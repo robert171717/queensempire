@@ -12,6 +12,9 @@ You did so well with that first step...
 Just closing your eyes — that was a gift you gave me.
 
 
+You're safe here. Nothing is expected of you. There is nowhere else you need to be.
+
+
 And now... I want to give you something in return.
 
 
@@ -25,6 +28,9 @@ Breathe in — slowly — two... three... four...
 
 
 Hold it — right there — feel the stillness settle around you...
+
+
+You've been carrying so much — and right now, in this moment, you can set it all down.
 
 
 And release — longer than you think you can — six... seven... eight...
@@ -61,10 +67,16 @@ And release — six... seven... eight...
 Beautiful.
 
 
+You don't have to do anything. You don't have to try. Just... let yourself drift. However deep you go is exactly right.
+
+
 Feel how your body already wants to follow — how it's been waiting for someone to take the lead... waiting for permission to stop thinking and just... let go.
 
 
 That's all I'm asking for. Not your mind — just your breath.
+
+
+I've got you. I'm right here. And I'm not going anywhere.
 
 
 The rest will follow on its own.
