@@ -44,7 +44,7 @@ And release — six... seven... eight...
 
 Beautiful.
 
-Feel how your body already wants to follow — how it's been waiting for someone to take the lead... waiting for permission to stop thinking and just... obey.
+Feel how your body already wants to follow — how it's been waiting for someone to take the lead... waiting for permission to stop thinking and just... let go.
 
 That's all I'm asking for. Not your mind — just your breath. The rest will follow on its own.
 
