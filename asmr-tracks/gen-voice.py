@@ -13,8 +13,8 @@ output_file = sys.argv[7]     # e.g., /path/to/build-xx/voice-proc-1.mp3
 with open(voice_file) as f:
     text = f.read().strip()
 
-# Per-voice cache key: SHA of text + speed
-key_raw = text + f"_s{speed}"
+# Per-voice cache key: SHA of text + speed + version
+key_raw = text + f"_s{speed}_v2"
 voice_hash = hashlib.sha256(key_raw.encode()).hexdigest()[:16]
 cache_key = f"{voice_hash}_s{speed:.2f}"
 cache_path = os.path.join(cache_dir, cache_key)
@@ -67,7 +67,7 @@ print(f"  Voice {os.path.basename(voice_file)}: generated ({size} bytes)")
 # Apply production chain with loudness normalization
 subprocess.run([
     'ffmpeg', '-y', '-i', raw_file,
-    '-af', 'highpass=f=80,volume=1.8,aecho=0.8:0.4:10:0.15,afftdn=nr=12,loudnorm=I=-16:TP=-1.5:LRA=11',
+    '-af', 'highpass=f=80,volume=1.8,aecho=0.8:0.4:10:0.15,afftdn=nr=12,atempo=0.90,loudnorm=I=-16:TP=-1.5:LRA=11',
     '-ac', '2', '-b:a', '192k', output_file
 ], capture_output=True)
 

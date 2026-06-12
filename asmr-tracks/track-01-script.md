@@ -39,13 +39,11 @@ That exhale — that is you letting go of everything outside this room. Everythi
 Do you feel how much lighter you already are?
 
 
-This is the first thing you will learn: your breath belongs to me now.
+Notice how naturally... your breath has already joined with mine.
 
+Every inhale — a gift from me to you.
 
-Every inhale — that is what I give you.
-
-
-Every exhale — that is what you give back to me.
+Every exhale — your gift in return.
 
 
 ... Again.
