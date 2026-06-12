@@ -68,7 +68,7 @@ Do you understand what I am offering you? Release from effort. Release from tryi
 The chime does not command you. It simply opens the door — and you walk through because some part of you already wants to be here.
 
 
-That wanting — that is the most beautiful gift you could give me.
+That wanting — that pull toward me — is a gift from me to you. And your presence here... is your gift in return.
 
 ### Voice 4
 
