@@ -27,10 +27,12 @@ Breathe with me.
 Breathe in — slowly — two... three... four...
 
 
-Hold it — right there — feel the stillness... settle... around you...
+
+Hold it — right there — feel the stillness settle around you...
 
 
-You've been carrying so much — and right now — in this moment — you can set it all down.
+
+You've been carrying so much — and right now, in this moment, you can set it all down.
 
 
 And release — longer than you think you can — six... seven... eight...
@@ -39,17 +41,18 @@ And release — longer than you think you can — six... seven... eight...
 Good.
 
 
-That exhale — that soft letting go — that's you releasing everything outside this room. Everything outside of me.
+
+That exhale — that is you letting go of everything outside this room. Everything outside of me.
+
 
 
 Do you feel how much lighter you already are?
 
 
-Notice how naturally... your breath has already... joined with mine.
 
+Notice how naturally... your breath has already joined with mine.
 
 Every inhale — a gift from me to you.
-
 
 Every exhale — your gift in return.
 
@@ -57,31 +60,39 @@ Every exhale — your gift in return.
 ... Again.
 
 
-Breathe in — deeper this time — let it fill you — two... three... four...
+
+Breathe in — deeper this time — two... three... four...
 
 
-Hold — let the pressure build — just a little — just enough to feel alive... just enough to know you're here with me...
+
+Hold — let the pressure build just a little — just enough to feel alive... just enough to know you're here with me...
 
 
-And release — slow — six... seven... eight...
+
+And release — six... seven... eight...
 
 
 Beautiful.
 
 
-You don't have to do anything. You don't have to try. Just... let yourself drift. However deep you go — is exactly right.
+
+You don't have to do anything. You don't have to try. Just... let yourself drift. However deep you go is exactly right.
 
 
-Feel how your body already wants to follow — how it's been waiting... for permission... to stop thinking... and just... let go.
+
+Feel how your body already wants to follow — how it's been waiting for someone to take the lead... waiting for permission to stop thinking and just... let go.
+
 
 
 That's all I'm asking for. Not your mind — just your breath.
 
 
+
 I've got you. I'm right here. And I'm not going anywhere.
 
 
-The rest... will follow... on its own.
+
+The rest will follow on its own.
 
 ### Voice 3
 
