@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Per-voice generation with individual caching. One cache key per voice."""
-import json, subprocess, sys, os, hashlib
+import json, subprocess, sys, os, hashlib, re
 
 voice_file = sys.argv[1]      # e.g., /path/to/build-xx/voice-1.txt
 voice_id = sys.argv[2]        # ElevenLabs voice ID
@@ -13,8 +13,12 @@ output_file = sys.argv[7]     # e.g., /path/to/build-xx/voice-proc-1.mp3
 with open(voice_file) as f:
     text = f.read().strip()
 
+# Strip [DIRECTION: ...] blocks — these are script documentation,
+# not text to be spoken. Future: send via ElevenLabs prompt_inject.
+text = re.sub(r'\n?\[DIRECTION:.*?\]\n?', '\n', text).strip()
+
 # Per-voice cache key: SHA of text + speed + version
-key_raw = text + f"_s{speed}_v2"
+key_raw = text + f"_s{speed}_v3"
 voice_hash = hashlib.sha256(key_raw.encode()).hexdigest()[:16]
 cache_key = f"{voice_hash}_s{speed:.2f}"
 cache_path = os.path.join(cache_dir, cache_key)
@@ -31,7 +35,7 @@ if os.path.exists(cached_file):
 payload = json.dumps({
     'text': text,
     'model_id': model,
-    'voice_settings': {'stability': 0.5, 'similarity_boost': 0.75, 'speed': speed}
+    'voice_settings': {'stability': 0.71, 'similarity_boost': 0.80, 'speed': speed}
 })
 
 raw_file = output_file.replace('voice-proc-', 'voice-raw-')
