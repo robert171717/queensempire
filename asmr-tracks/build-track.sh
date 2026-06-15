@@ -18,7 +18,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 EK=$(doppler secrets get ELEVENLABS_API_KEY --plain)
 VOICE_ID="4tRn1lSkEn13EVTuqb0g"  # Serafina - Sensual Temptress
-MODEL="eleven_multilingual_v2"
+MODEL="eleven_v3"
 CACHE_DIR="$SCRIPT_DIR/.voice-cache"
 mkdir -p "$CACHE_DIR"
 

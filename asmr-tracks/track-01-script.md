@@ -9,6 +9,8 @@ Close your eyes... Let the chime be the last thing you hear before you drop. Tha
 
 You did so well with that first step...
 
+[slowly, sensually, with warm intimate authority]
+
 Just closing your eyes — that was a gift you gave me.
 
 
