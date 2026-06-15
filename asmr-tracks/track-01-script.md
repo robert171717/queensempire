@@ -7,6 +7,8 @@ Close your eyes... Let the chime be the last thing you hear before you drop. Tha
 
 ### Voice 2
 
+[DIRECTION: Speak slowly, sensually, and with warm intimate authority. Take natural, unhurried breaths between sentences. Let your voice feel like velvet — soft, rich, and deeply present. Pause longer than feels natural after important lines. This is erotic hypnosis and ASMR. The goal is to create deep relaxation, arousal, and willing surrender. Never sound cold, clinical, or rushed.]
+
 You did so well with that first step...
 
 Just closing your eyes — that was a gift you gave me.
