@@ -112,6 +112,10 @@ cached_file = os.path.join(cache_path, "voice.mp3")
 # Check cache
 if os.path.exists(cached_file):
     import shutil
+    # Auto-backup: save previous version before overwriting
+    prev_file = output_file.replace('.mp3', '.prev.mp3')
+    if os.path.exists(output_file):
+        shutil.copy2(output_file, prev_file)
     shutil.copy2(cached_file, output_file)
     print(f"  Voice {os.path.basename(voice_file)}: CACHE HIT ({cache_key})")
     sys.exit(0)
@@ -183,6 +187,11 @@ size = os.path.getsize(raw_file)
 print(f"  Voice {os.path.basename(voice_file)}: generated ({size} bytes), rid={request_id}")
 
 # Apply production chain with loudness normalization
+# Auto-backup: save previous version before overwriting
+prev_file = output_file.replace('.mp3', '.prev.mp3')
+if os.path.exists(output_file):
+    import shutil
+    shutil.copy2(output_file, prev_file)
 subprocess.run([
     'ffmpeg', '-y', '-i', raw_file,
     '-af', 'highpass=f=80,volume=1.8,aecho=0.8:0.4:10:0.15,afftdn=nr=12,atempo=0.94,loudnorm=I=-16:TP=-1.5:LRA=11',
