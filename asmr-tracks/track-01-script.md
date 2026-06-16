@@ -182,7 +182,7 @@ That's it. Let go of everything else.
 
 There's only this now... only the sound of my voice...
 
-Only my voice... guiding you deeper... to a place where everything feels better.
+Only my voice... guiding you deeper... to the deepest place. Where surrender feels this good.
 
 And the deeper you go... the better it feels.
 
