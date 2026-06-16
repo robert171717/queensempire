@@ -5,6 +5,7 @@ Pre-generation voice gate — catches ElevenLabs speed-burst triggers BEFORE API
 Two checks:
 1. Break tag count — >15 triggers speed burst (ElevenLabs documented)
 2. Rhythmic phrasing — repeated "X... Y..." patterns trigger acceleration
+3. Countdown detection — 4+ sequential numbers trigger speed burst on 3rd+ repetition
 
 Usage:
   python3 check-voice-breaks.py voice-7.txt           # exit 0 = PASS, exit 1 = BLOCKED
@@ -103,6 +104,17 @@ def check_voice(filepath, mode='strict'):
             msg = f"RHYTHMIC ECHO: lines {p['line_a']}-{p['line_b']} share skeleton '{p['skeleton']}' — may trigger speed burst"
             report['warnings'].append(msg)
 
+    # Check 3: Countdown detection — 4+ sequential numbers → split
+    plain = strip_ssml(text)
+    number_words = ['Ten', 'Nine', 'Eight', 'Seven', 'Six', 'Five', 'Four', 'Three', 'Two', 'One',
+                    'ten', 'nine', 'eight', 'seven', 'six', 'five', 'four', 'three', 'two', 'one']
+    found_numbers = [w for w in number_words if re.search(r'\b' + w + r'\b', plain)]
+    countdown_count = len(found_numbers)
+    if countdown_count >= 4:
+        msg = f"COUNTDOWN DETECTED: {countdown_count} number words — v2 accelerates on 3rd+ repetition. Split into ≤3 counts per segment."
+        report['warnings'].append(msg)
+    report['countdown_count'] = countdown_count
+
     passed = len(report['errors']) == 0
     return passed, report
 
@@ -130,8 +142,8 @@ def main():
             for w in report['warnings']:
                 print(f"  ⚠️  {w}")
         if not report['errors'] and not report['warnings']:
-            print(f"  ✅ {report['file']}: {report['break_count']} breaks (≤{MAX_BREAKS}), no rhythmic echoes — safe")
-        print(f"  📊 {report['break_count']} breaks, {report['char_count']} chars text")
+            print(f"  ✅ {report['file']}: {report['break_count']} breaks (≤{MAX_BREAKS}), no echoes, no countdown — safe")
+        print(f"  📊 {report['break_count']} breaks, {report['char_count']} chars, {report.get('countdown_count', 0)} counts")
 
     if mode == 'strict' and not passed:
         sys.exit(1)
