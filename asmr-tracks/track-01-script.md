@@ -9,8 +9,6 @@ Close your eyes... Let the chime be the last thing you hear before you drop. Tha
 
 You did so well with that first step...
 
-[slowly, sensually, with warm intimate authority]
-
 Just closing your eyes — that was a gift you gave me.
 
 
@@ -174,22 +172,19 @@ Three. There is no border. There is only this. This depth. This surrender. This 
 
 ### Voice 7
 
-Now — open your eyes for just a breath... Yes. Just a heartbeat. Good. Close them.
+Can you feel how much deeper that is now... how much softer...
 
+Just let it sink in for me. Let yourself fall into that softness... deeper than you thought you could go.
 
-And drop — twice as deep as before. Feel that. Twice as deep.
+Every breath you take... pulls you further under.
 
+That's it. Let go of everything else.
 
-Eight. Sinking through warmth now. So much deeper than before. So much softer.
+There's only this now... only the sound of my voice...
 
+Only my voice... guiding you deeper... to a place where everything feels better.
 
-Six. Every word I speak now reaches a place words have never reached before.
-
-
-Four. Almost there. So close now to the deepest place.
-
-
-One. You are at the foundation. The deepest place. There is no further to go. This is where you will return every time you hear my voice. You belong here now.
+And the deeper you go... the better it feels.
 
 ### Voice 8
 
