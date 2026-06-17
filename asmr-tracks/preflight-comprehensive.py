@@ -10,12 +10,78 @@ import re, sys, os, json
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# ── SERIES ARGUMENT ──────────────────────────────────────
+SERIES = 'sr'  # default
+if '--series' in sys.argv:
+    idx = sys.argv.index('--series')
+    if idx + 1 < len(sys.argv):
+        SERIES = sys.argv[idx + 1].lower()
+if SERIES not in ('sr', 'dc', 'ob', 'rl'):
+    print(f"ERROR: Unknown series '{SERIES}'. Use: sr, dc, ob, rl", file=sys.stderr)
+    sys.exit(1)
+
+# ── PER-SERIES CONFIG ────────────────────────────────────
+# Each series has a different psychological frame and tolerance for direct language.
+SERIES_PROFILES = {
+    'sr': {
+        'name': 'Surrender',
+        'frame': 'Letting go, trusting, passive release of control',
+        'max_stacked_commands': 1,     # flag at ANY command — SR is permissive-only
+        'autonomy_strict': True,        # autonomy violations are BLOCKING errors
+        'forbidden_words': ['obey', 'kneel', 'submit', 'beg', 'master', 'mistress', 'worship', 'owned',
+                           'command', 'must', 'forced', 'powerless', 'helpless'],
+        'expected_words': ['surrender', 'let go', 'sink', 'release', 'float', 'trust', 'give in',
+                          'allow', 'notice', 'wonder', 'perhaps', 'maybe', 'when you are ready'],
+        # Warm framing: words/phrases that make an opening line feel like an invitation
+        'warm_openers': ['notice how', 'that chime', 'that sound', 'you can feel', 'allow yourself',
+                        'when you', 'i wonder', 'perhaps you', 'maybe you', 'let the',
+                        'the warmth', 'this feeling', 'there is', 'feel how', 'take a moment'],
+    },
+    'dc': {
+        'name': 'Denial & Craving',
+        'frame': 'Wanting what you cannot have, earning, aching',
+        'max_stacked_commands': 2,
+        'autonomy_strict': True,
+        'forbidden_words': ['obey', 'kneel', 'submit', 'release', 'flood', 'pleasure cascade',
+                           'surrender', 'float', 'let go'],
+        'expected_words': ['denial', 'ache', 'wait', 'want', 'crave', 'withhold', 'earn',
+                          'not yet', 'soon', 'imagine', 'anticipate', 'longing'],
+        'warm_openers': ['i know you', 'waiting is', 'you want', 'can you feel', 'imagine how',
+                        'soon you', 'the ache', 'not yet', 'you crave', 'close your eyes'],
+    },
+    'ob': {
+        'name': 'Obedience',
+        'frame': 'Following, serving, active submission with pride',
+        'max_stacked_commands': 4,     # OB by design has more authority
+        'autonomy_strict': False,       # autonomy warnings are warnings, not errors
+        'forbidden_words': ['surrender', 'let go', 'float', 'release', 'flood', 'pleasure cascade',
+                           'helpless', 'powerless'],
+        'expected_words': ['obey', 'submit', 'serve', 'kneel', 'follow', 'command', 'good girl',
+                          'yes', 'now', 'listen', 'focus', 'again'],
+        'warm_openers': ['good', 'that is right', 'you are doing', 'you have earned', 'now',
+                        'listen closely', 'focus on', 'again', 'you know', 'you remember'],
+    },
+    'rl': {
+        'name': 'Release',
+        'frame': 'Permission to feel, release of tension, pleasure as catharsis',
+        'max_stacked_commands': 2,
+        'autonomy_strict': True,
+        'forbidden_words': ['obey', 'kneel', 'submit', 'surrender', 'denial', 'withhold',
+                           'command', 'must'],
+        'expected_words': ['release', 'flood', 'pleasure', 'cascade', 'wave', 'wash over',
+                          'let it out', 'feel it', 'allow it', 'now'],
+        'warm_openers': ['let it', 'allow the', 'feel it', 'release now', 'let go now',
+                        'it is time', 'you may', 'you have', 'this is', 'now'],
+    },
+}
+PROFILE = SERIES_PROFILES[SERIES]
+
 # ── CONFIG ───────────────────────────────────────────────
 EXPECTED_SEGMENTS = 6
 MIN_SEGMENTS = 6
 MAX_SEGMENTS = 10
 MIN_SEGMENT_CHARS = 200     # warn if shorter
-MAX_SEGMENT_CHARS = 1500    # warn if longer
+MAX_SEGMENT_CHARS = 800     # ElevenLabs official: >800 chars risks speed-burst instability
 TARGET_DURATION_MIN = 420   # 7 min minimum
 TARGET_DURATION_MAX = 660   # 11 min maximum
 
@@ -58,94 +124,26 @@ QUALITY_PATTERNS = [
 ]
 
 # ── VOICE-START WARMTH (BLOCKING — cold starts ruin the hypnotic tone) ──
-# Karpathy-loop hardened: patterns from full 32-track empire audit
+# Generated from series profile warm_openers + universal warm starts that work across all series
+UNIVERSAL_WARM = [
+    "i am going to", "you have", "you did", "good", "beautiful", "perfect",
+    "now", "and now", "there is", "this is", "that was", "let me",
+    "i want you to", "i will", "here is", "most people", "when you",
+    "your mind", "your body", "your breath", "think about", "take a",
+    "place your", "if you are", "by now", "every time you", "something is"
+]
+WARM_FRAMING_PATTERNS = [
+    r"^(?:" + "|".join(
+        re.escape(opener) for opener in PROFILE['warm_openers'] + UNIVERSAL_WARM
+    ) + r")\b"
+]
+
 TRIGGER_MARKER_RE = re.compile(
     r'^\s*\[(LOCK CLICK|CLOCK TICKING|CHIME|BOWL|SILENCE|BREATH)'
     r'[^]]*\]\s*$',
     re.IGNORECASE
 )
 
-WARM_FRAMING_PATTERNS = [
-    # Validation words
-    r"^(Good|Beautiful|Perfect|Very good|That's|You did)\b",
-    # Gentle framing / invitation
-    r"^(I want you to|I am going to|Here is|I want to)",
-    r"^(Let me|I will|This is|That was)",
-    r"^(Let us)\b",
-    r"^(Today I want)",
-    r"^(I am bringing you back)",
-    # "There" patterns
-    r"^(There\.|There is|There will be)",
-    # Trigger / sound framing
-    r"^(That sound|That chime|Notice how)",
-    # Conceptual framing
-    r"^(Most people|You have|When this|When I|When you)",
-    r"^(The (resistance|wanting|release|permission))",
-    # Transitional (countdown/return)
-    r"^(I am going to (count|bring))",
-    # Personal address / invitation
-    r"^(Listen|One last|Breathe\. )",
-    r"^(Take a breath)",
-    r"^(Close your eyes)",  # warm in later tracks / ritual context
-    # Contextual framing (describing state)
-    r"^(Your (mind|chest|heart|body|breath) is the)",
-    r"^(Your (mind|chest|heart|body|breath) are|has)",
-    r"^(Your mind may)",
-    # State validation
-    r"^(You are sinking|You are doing|You are deep)",
-    r"^(You may (have|wonder))",
-    r"^(You have (given|completed))",
-    # Retrospective / meta framing
-    r"^(In the first|I designed|From this moment)",
-    r"^(Think about)",
-    # Session count framing
-    r"^((Four|Five|Six|Seven|Eight) (sessions|descents))",
-    # Reassurance / permission
-    r"^(There is a part)",
-    r"^(The permission)",
-    # "Now" transitions (warm in mid-voice context)
-    r"^(Now (your|let your|I want))",
-    r"^(And now)",
-    # Warm "Let" patterns (invitations, not commands)
-    r"^(Let the (warmth|gratitude|first|release|second))",
-    r"^(Let yourself)",
-    r"^(Let them)",
-    r"^(Let it (go|settle|sit|be|fill|spread|pool|throb|carry))",
-    # Gentle guided instruction
-    r"^(Place your)",
-    r"^(If you are)",
-    # Gratitude / emotional framing
-    r"^(Gratitude)",
-    # Sink (with warm qualifier)
-    r"^(Sink —)",
-    r"^(Sink\b.*not because)",
-
-    # ── KARPATHY LOOP BATCH 3 (cross-series remaining UNCERTAIN) ──
-    r"^(Something is changing)",
-    r"^(Float here)",
-    r"^(Where do you go)",
-    r"^(By now)",
-    r"^(Here's what)",
-    r"^(Before you go)",
-    r"^(Your breath has found)",
-    r"^(Every time you)",
-    r"^(Now —)",
-    r"^(The aftershock)",
-    r"^(In track)",
-    r"^(Today's)",
-
-    # ── KARPATHY LOOP BATCH 4 (DC poetic/question patterns) ──
-    r"^(Why do you)",
-    r"^(What would you)",
-    r"^(It never)",
-    r"^(We are)",
-    r"^(Between sessions)",
-    r"^(There was a time)",
-    r"^(Think back)",
-    r"^(I'm going to bring you up)",
-    r"^(Float\.)",
-    r"^(Now\. )",
-]
 
 COLD_IMPERATIVE_STARTS = [
     r"^Breathe in\.\.\.",
@@ -153,7 +151,7 @@ COLD_IMPERATIVE_STARTS = [
     r"^Now release\b",
     r"^Stop\b",
     r"^That rhythm is mine",
-    r"^Your (mind|chest|heart|body) is (mine|holding|fighting|resisting)",
+    r"^(Your (mind|chest|heart|body) is (mine|holding|fighting|resisting))",
     r"^Let the exhale",
     r"^Let the world",
     r"^Let the chime",
@@ -190,7 +188,7 @@ def check_script(filepath):
         if chars < MIN_SEGMENT_CHARS:
             warnings.append(f"Voice {i+1}: only {chars} chars (very short)")
         elif chars > MAX_SEGMENT_CHARS:
-            warnings.append(f"Voice {i+1}: {chars} chars (may exceed API limits)")
+            errors.append(f"Voice {i+1}: {chars} chars exceeds ElevenLabs 800-char limit (risks mid-generation speed burst). Split this voice into two segments.")
         
         # 2b. Leak patterns
         for pattern, desc in LEAK_PATTERNS:
@@ -200,10 +198,58 @@ def check_script(filepath):
                 ctx = seg_clean[max(0,idx-15):idx+len(m)+15].replace('\n',' ').strip()
                 errors.append(f"Voice {i+1}: {desc} — \"{m}\" in ...{ctx}...")
 
-        # 2c. Autonomy violations (BLOCKING errors)
+        # 2c. Autonomy violations (BLOCKING errors for SR/DC/RL, warnings for OB)
         for pattern, desc in AUTONOMY_VIOLATIONS:
             if re.search(pattern, seg_clean, re.IGNORECASE):
-                errors.append(f"Voice {i+1}: {desc} — autonomy violation, must be rewritten")
+                if PROFILE['autonomy_strict']:
+                    errors.append(f"Voice {i+1}: {desc} — autonomy violation ({PROFILE['name']} series), must be rewritten")
+                else:
+                    warnings.append(f"Voice {i+1}: {desc} — autonomy concern ({PROFILE['name']} series), review")
+
+        # 2d. Series-forbidden words (BLOCKING — wrong-series vocabulary breaks the trance frame)
+        for word in PROFILE['forbidden_words']:
+            pattern = r'\b' + re.escape(word) + r'\b'
+            if re.search(pattern, seg_clean, re.IGNORECASE):
+                errors.append(f"Voice {i+1}: '{word}' is forbidden in {PROFILE['name']} series — belongs to a different psychological frame")
+
+        # 2e. Series-expected word presence (WARNING — total absence suggests wrong frame)
+        expected_found = False
+        for word in PROFILE['expected_words']:
+            pattern = r'\b' + re.escape(word) + r'\b'
+            if re.search(pattern, seg_clean, re.IGNORECASE):
+                expected_found = True
+                break
+        if not expected_found:
+            warnings.append(f"Voice {i+1}: no {PROFILE['name']}-expected words found — verify frame alignment")
+
+        # 2f. Stacked commands (WARNING — tolerance varies by series)
+        # NOTE: SR uses a narrow imperatives list — "let," "feel," "notice" are permissive, not commanding
+        IMPERATIVES = {'open','close','drop','hold','stop','focus','count','say','tell','repeat'}
+        sentences = re.split(r'(?<=[.!?])\s+', seg_clean)
+        imperative_sentences = []
+        for sent in sentences:
+            sent = sent.strip()
+            if not sent:
+                continue
+            # Connector + verb: "Now/And/Then [—] verb"
+            m = re.match(r'^(Now|And|Then)\s*[—–-]?\s*([a-z]+)', sent, re.IGNORECASE)
+            if m and m.group(2).lower() in IMPERATIVES:
+                imperative_sentences.append(sent[:60])
+                continue
+            # Bare imperative: first word capitalized + in list
+            m = re.match(r'^([A-Z][a-z]+)\b', sent)
+            if m and m.group(1).lower() in IMPERATIVES:
+                imperative_sentences.append(sent[:60])
+                continue
+            # Non-imperative: check if we had a stack
+            if len(imperative_sentences) >= PROFILE['max_stacked_commands']:
+                ctx = ' → '.join(imperative_sentences[:4])
+                warnings.append(f"Voice {i+1}: {len(imperative_sentences)} stacked commands (sounds commanding, {PROFILE['name']} tolerance ≤{PROFILE['max_stacked_commands']}): {ctx}")
+            imperative_sentences = []
+        # Check at end of voice
+        if len(imperative_sentences) >= PROFILE['max_stacked_commands']:
+            ctx = ' → '.join(imperative_sentences[:4])
+            warnings.append(f"Voice {i+1}: {len(imperative_sentences)} stacked commands (sounds commanding, {PROFILE['name']} tolerance ≤{PROFILE['max_stacked_commands']}): {ctx}")
 
     # 3. Structural checks
     for pattern, desc in REQUIRED_PATTERNS:
@@ -309,11 +355,30 @@ def estimate_credits(filepath):
 
 
 def main():
-    if len(sys.argv) > 1:
-        files = sys.argv[1:]
-    else:
+    # Filter out --series flag from file list
+    raw_args = sys.argv[1:] if len(sys.argv) > 1 else []
+    files = []
+    skip_next = False
+    for i, arg in enumerate(raw_args):
+        if skip_next:
+            skip_next = False
+            continue
+        if arg == '--series':
+            skip_next = True
+            continue
+        files.append(arg)
+    
+    if not files:
         files = sorted(os.path.join(SCRIPT_DIR, f) for f in os.listdir(SCRIPT_DIR) 
-                      if f.startswith('track-dc-') and f.endswith('-script.md'))
+                      if f.startswith('track-') and f.endswith('-script.md'))
+    
+    print(f"\n{'═'*60}")
+    print(f"  Queen's Empire Preflight — {PROFILE['name']} Series ({SERIES.upper()})")
+    print(f"  Frame: {PROFILE['frame']}")
+    print(f"  Command tolerance: ≤{PROFILE['max_stacked_commands']} consecutive")
+    print(f"  Autonomy strict: {'Yes' if PROFILE['autonomy_strict'] else 'No (warnings only)'}")
+    print(f"  Forbidden: {', '.join(PROFILE['forbidden_words'][:6])}...")
+    print(f"{'═'*60}\n")
     
     all_errors = []
     all_warnings = []
@@ -327,9 +392,12 @@ def main():
         errors, warnings = check_script(f)
         
         # Also check extracted build directory if it exists
-        track_num = re.search(r'dc-(\d+)', name)
+        track_num = re.search(r'(\d+)', name)
         if track_num:
-            build_dir = os.path.join(SCRIPT_DIR, f"build-dc-t{track_num.group(1)}")
+            build_dir = os.path.join(SCRIPT_DIR, f"build-{SERIES}-t{track_num.group(1)}")
+            if not os.path.isdir(build_dir):
+                # fallback: old naming convention
+                build_dir = os.path.join(SCRIPT_DIR, f"build-t{track_num.group(1)}")
             build_errors, build_warnings = check_build_log(build_dir, track_num.group(1))
             errors.extend(build_errors)
             warnings.extend(build_warnings)
