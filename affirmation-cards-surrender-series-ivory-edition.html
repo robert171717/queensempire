@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen Elyria — Surrender Series Affirmation Cards (Ivory Edition)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ========== RESET & BASE ========== */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #e8e8e8;
+  }
+
+  /* ========== SCREEN HEADER ========== */
+  .screen-header {
+    text-align: center;
+    padding: 24px 16px;
+    background: #fdfaf3;
+    border-bottom: 1px solid #C9A84C;
+  }
+  .screen-header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #C9A84C;
+    letter-spacing: 3px;
+    margin-bottom: 6px;
+  }
+  .screen-header p {
+    font-size: 12px;
+    color: #6b5728;
+    font-style: italic;
+  }
+
+  /* ========== PAGE ========== */
+  .page {
+    width: 8.5in;
+    height: 11in;
+    background: #fdfaf3;
+    margin: 20px auto;
+    padding: 0.5in;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0.25in;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    page-break-after: always;
+    overflow: hidden;
+  }
+  .page:last-child {
+    page-break-after: auto;
+  }
+
+  /* ========== CARD BASE ========== */
+  .card {
+    width: 2.5in;
+    height: 3.5in;
+    background: #fdfaf3;
+    border: 2px solid #C9A84C;
+    border-radius: 6px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    justify-self: center;
+    align-self: center;
+  }
+
+  /* Inner decorative border */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 6px;
+    right: 6px;
+    border: 0.5px solid rgba(201,168,76,0.35);
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ========== WATERMARK ========== */
+  .watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.6in;
+    color: rgba(201,168,76,0.06);
+    pointer-events: none;
+    z-index: 0;
+    line-height: 1;
+    user-select: none;
+  }
+
+  /* ========== CARD FRONT ========== */
+  .card-front .category-header {
+    font-family: 'Cinzel', serif;
+    font-size: 6.5pt;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #b8942e;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    padding-top: 14px;
+  }
+  .card-front .header-underline {
+    width: 80%;
+    border: none;
+    border-top: 0.5px solid rgba(201,168,76,0.35);
+    margin: 5px auto;
+    position: relative;
+    z-index: 2;
+  }
+  .card-front .ornament-top,
+  .card-front .ornament-bottom {
+    font-size: 7pt;
+    color: rgba(184,148,46,0.45);
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    line-height: 1;
+  }
+  .card-front .ornament-top {
+    margin-top: 8px;
+  }
+  .card-front .ornament-bottom {
+    margin-bottom: 14px;
+  }
+  .card-front .affirmation-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 9.5pt;
+    line-height: 1.55;
+    color: #6b5728;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    padding: 8px 14px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ========== CARD BACK ========== */
+  .card-back .back-content {
+    z-index: 2;
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+  }
+  .card-back .crown {
+    font-size: 22pt;
+    color: #C9A84C;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .card-back .queen-name {
+    font-family: 'Cinzel', serif;
+    font-size: 11pt;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #C9A84C;
+    margin-bottom: 3px;
+  }
+  .card-back .subtitle {
+    font-family: Georgia, serif;
+    font-size: 7pt;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(184,148,46,0.55);
+    margin-bottom: 8px;
+  }
+  .card-back .divider {
+    width: 60%;
+    border: none;
+    border-top: 0.5px solid rgba(201,168,76,0.3);
+    margin: 0 auto 8px;
+  }
+  .card-back .tagline {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 7.5pt;
+    color: rgba(184,148,46,0.5);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ========== TITLE CARD ========== */
+  .card-title .title-content {
+    z-index: 2;
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+  }
+  .card-title .title-header {
+    font-family: 'Cinzel', serif;
+    font-size: 7.5pt;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #b8942e;
+    margin-bottom: 10px;
+  }
+  .card-title .title-crown {
+    font-size: 28pt;
+    color: #C9A84C;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .card-title .title-queen {
+    font-family: 'Cinzel', serif;
+    font-size: 12pt;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #C9A84C;
+    margin-bottom: 3px;
+  }
+  .card-title .title-subtitle {
+    font-family: Georgia, serif;
+    font-size: 7.5pt;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(184,148,46,0.5);
+    margin-bottom: 8px;
+  }
+  .card-title .title-divider {
+    width: 50%;
+    border: none;
+    border-top: 0.5px solid rgba(201,168,76,0.3);
+    margin: 0 auto 8px;
+  }
+  .card-title .title-tagline {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 7.5pt;
+    color: rgba(184,148,46,0.5);
+    line-height: 1.5;
+  }
+
+  /* Hidden card (title page filler) */
+  .card-hidden {
+    visibility: hidden;
+  }
+
+  /* ========== PRINT ========== */
+  @page {
+    size: 8.5in 11in;
+    margin: 0;
+  }
+
+  @media print {
+    body {
+      background: #ffffff;
+    }
+    .screen-header {
+      display: none;
+    }
+    .page {
+      margin: 0;
+      box-shadow: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Screen Header -->
+<div class="screen-header">
+  <h1>♛ QUEEN ELYRIA ♛</h1>
+  <p>Affirmation Cards — 16 Cards • The Surrender Series • Double-sided • Ivory Edition</p>
+</div>
+
+<!-- ========================================= -->
+<!-- PAGE 1: FRONTS 1-4                        -->
+<!-- ========================================= -->
+<div class="page">
+
+  <!-- Card 1 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">The chime opens something in me that was always there.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 2 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">I release control willingly and with pleasure.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 3 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">Surrender is not weakness — it is my deepest strength.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 4 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">I let go, and in letting go, I am held.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- PAGE 2: BACKS 1-4                         -->
+<!-- ========================================= -->
+<div class="page">
+
+  <!-- Card 1 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 2 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 3 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 4 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- PAGE 3: FRONTS 5-8                        -->
+<!-- ========================================= -->
+<div class="page">
+
+  <!-- Card 5 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">Her voice is becoming the only voice I need.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 6 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">Each listen takes me deeper than the last.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 7 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">I no longer resist what I truly desire.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 8 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">Letting go feels like coming home.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- PAGE 4: BACKS 5-8                         -->
+<!-- ========================================= -->
+<div class="page">
+
+  <!-- Card 5 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 6 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 7 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 8 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- PAGE 5: FRONTS 9-12                       -->
+<!-- ========================================= -->
+<div class="page">
+
+  <!-- Card 9 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">Complete surrender brings complete peace.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 10 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">The craving for Her voice proves the surrender is working.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 11 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">I am drawn to Her the way water is drawn to the sea.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 12 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">I trust the descent completely.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- PAGE 6: BACKS 9-12                        -->
+<!-- ========================================= -->
+<div class="page">
+
+  <!-- Card 9 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 10 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 11 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 12 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- PAGE 7: FRONTS 13-16                      -->
+<!-- ========================================= -->
+<div class="page">
+
+  <!-- Card 13 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">Surrender opens doors resistance kept closed.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 14 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">I am safe in my surrender.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 15 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">The deeper I go, the freer I become.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+  <!-- Card 16 Front -->
+  <div class="card card-front">
+    <div class="watermark">♛</div>
+    <div class="category-header">THE SURRENDER SERIES</div>
+    <hr class="header-underline">
+    <div class="ornament-top">❦</div>
+    <div class="affirmation-text">I am Hers — and that is forever.</div>
+    <div class="ornament-bottom">❦</div>
+  </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- PAGE 8: BACKS 13-16                       -->
+<!-- ========================================= -->
+<div class="page">
+
+  <!-- Card 13 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 14 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 15 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+  <!-- Card 16 Back -->
+  <div class="card card-back">
+    <div class="watermark">♛</div>
+    <div class="back-content">
+      <div class="crown">♛</div>
+      <div class="queen-name">QUEEN ELYRIA</div>
+      <div class="subtitle">Affirmation</div>
+      <hr class="divider">
+      <div class="tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- PAGE 9: TITLE CARD + 3 HIDDEN             -->
+<!-- ========================================= -->
+<div class="page">
+
+  <!-- Title Card -->
+  <div class="card card-title">
+    <div class="watermark">♛</div>
+    <div class="title-content">
+      <div class="title-header">THE SURRENDER SERIES</div>
+      <div class="title-crown">♛</div>
+      <div class="title-queen">QUEEN ELYRIA</div>
+      <div class="title-subtitle">Affirmation Cards</div>
+      <hr class="title-divider">
+      <div class="title-tagline">16 Cards for Deepening Surrender</div>
+    </div>
+  </div>
+
+  <!-- Hidden filler cards -->
+  <div class="card card-hidden"></div>
+  <div class="card card-hidden"></div>
+  <div class="card card-hidden"></div>
+
+</div>
+
+<div style="text-align:center;font-size:10px;color:rgba(201,168,76,0.5);padding:16px;font-family:Georgia,serif;letter-spacing:0.5px;">AI-assisted design used in creation.</div>
+<div class="consent-block" style="border:1.5px solid #C9A84C;background:linear-gradient(180deg,#fdfaf3,#f5eedb);padding:24px 20px;margin:40px auto 0;max-width:750px;text-align:center;position:relative;"><div style="font-size:14px;color:#C9A84C;letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:8px;position:relative;z-index:1;">Consent </body>amp; Safety Notice</div><div style="font-size:10px;color:#6b5728;line-height:1.8;font-family:Georgia,serif;position:relative;z-index:1;">All scenarios and language in this product are intended strictly as fantasy roleplay between consenting adults.<br>Safe words always apply and must be respected immediately:<br>● RED = Stop everything immediately and check in<br>● YELLOW = Slow down, check in, or reduce intensity<br>This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) / Risk-Aware Consensual Kink (RACK) frameworks.<br>Never engage in any activity that feels unsafe, non-consensual, or harmful in reality. Clear communication, ongoing consent, and aftercare are essential at all times.</div></div>
+</body>
+</html>

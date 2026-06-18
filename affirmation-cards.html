@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen Elyria — Affirmation Cards</title>
+<style>
+  /* ============================================================
+     QUEEN ELYRIA — AFFIRMATION CARDS  |  Printable / PDF-ready
+     2.5" × 3.5" cards, 4-up on US Letter pages
+     ============================================================ */
+
+  /* ---- Fonts ---- */
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&display=swap');
+
+  /* ---- Page geometry: US Letter, zero margin (we manage spacing in-grid) ---- */
+  @page {
+    size: 8.5in 11in;
+    margin: 0;
+  }
+
+  /* ---- Reset ---- */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #09090b;
+    color: #C9A84C;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ============================================================
+     SCREEN LAYOUT
+     ============================================================ */
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    gap: 30px;
+  }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    background: #09090b;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding: 0.4in 0.45in;
+    page-break-after: always;
+    break-after: page;
+    position: relative;
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  /* ---- Card grid wrapper: 2 columns × 2 rows ---- */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 2.5in 2.5in;
+    grid-template-rows: 3.5in 3.5in;
+    gap: 0.55in 0.55in;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ============================================================
+     CARD — FRONT
+     ============================================================ */
+  .card {
+    width: 2.5in;
+    height: 3.5in;
+    border: 2px solid #C9A84C;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #111 0%, #09090b 50%, #111 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0.28in 0.22in;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Inner decorative border */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 0.5px solid rgba(201, 168, 76, 0.3);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  /* Crown watermark */
+  .card::after {
+    content: '\265B'; /* ♛ */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.6in;
+    color: rgba(201, 168, 76, 0.05);
+    pointer-events: none;
+    line-height: 1;
+    z-index: 0;
+  }
+
+  /* Category header */
+  .card-header {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 6.5pt;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(201, 168, 76, 0.85);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 0.5px solid rgba(201, 168, 76, 0.4);
+    width: 80%;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Affirmation text */
+  .card-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 9.5pt;
+    line-height: 1.55;
+    color: #d4c483;
+    font-style: italic;
+    position: relative;
+    z-index: 2;
+    max-width: 95%;
+  }
+
+  /* Decorative corner ornaments */
+  .card-text::before,
+  .card-text::after {
+    display: block;
+    color: rgba(201, 168, 76, 0.4);
+    font-size: 7pt;
+    line-height: 1;
+  }
+  .card-text::before { content: '\2766'; margin-bottom: 6px; } /* ❦ */
+  .card-text::after  { content: '\2766'; margin-top: 6px; }
+
+  /* ============================================================
+     CARD — BACK
+     ============================================================ */
+  .card-back {
+    width: 2.5in;
+    height: 3.5in;
+    border: 2px solid #C9A84C;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #111 0%, #09090b 50%, #111 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0.3in;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-back::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 0.5px solid rgba(201, 168, 76, 0.3);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  .card-back::after {
+    content: '\265B';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.2in;
+    color: rgba(201, 168, 76, 0.06);
+    pointer-events: none;
+    line-height: 1;
+    z-index: 0;
+  }
+
+  .back-crown {
+    font-size: 22pt;
+    color: #C9A84C;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 8px;
+  }
+
+  .back-brand {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 11pt;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #C9A84C;
+    position: relative;
+    z-index: 2;
+  }
+
+  .back-subtitle {
+    font-family: Georgia, serif;
+    font-size: 7pt;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(201, 168, 76, 0.6);
+    margin-top: 4px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .back-line {
+    width: 60%;
+    height: 0.5px;
+    background: rgba(201, 168, 76, 0.4);
+    margin: 10px auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .back-tagline {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 7.5pt;
+    color: rgba(201, 168, 76, 0.55);
+    position: relative;
+    z-index: 2;
+    margin-top: 2px;
+  }
+
+  /* ============================================================
+     PAGE LABEL (visible only on screen)
+     ============================================================ */
+  .page-label {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: Georgia, serif;
+    font-size: 8pt;
+    color: rgba(201, 168, 76, 0.3);
+    letter-spacing: 1px;
+  }
+
+  /* ============================================================
+     PRINT STYLES
+     ============================================================ */
+  @media print {
+    body {
+      padding: 0;
+      gap: 0;
+      background: #09090b;
+    }
+    .page-label { display: none; }
+
+    .page {
+      width: 8.5in;
+      height: 11in;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+  }
+
+  /* ---- Screen-only header ---- */
+  .doc-header {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .doc-header h1 {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 18pt;
+    color: #C9A84C;
+    letter-spacing: 3px;
+  }
+  .doc-header p {
+    font-size: 9pt;
+    color: rgba(201, 168, 76, 0.5);
+    margin-top: 4px;
+  }
+
+  @media print {
+    .doc-header { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Screen header -->
+<div class="doc-header">
+  <h1>♛ QUEEN ELYRIA ♛</h1>
+  <p>Affirmation Cards — 45 Cards • Print on US Letter, 4 per page • Double-sided</p>
+</div>
+
+<!-- ================================================================
+     PAGE 1 — Fronts: Surrender & Letting Go (cards 1–4)
+     ================================================================ -->
+<div class="page">
+  <span class="page-label">Fronts — Surrender &amp; Letting Go (1–4)</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Surrender &amp; Letting Go</div>
+      <div class="card-text">I release control willingly and with pleasure.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Surrender &amp; Letting Go</div>
+      <div class="card-text">Surrender is not weakness &mdash; it is my deepest strength.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Surrender &amp; Letting Go</div>
+      <div class="card-text">I let go, and in letting go, I am held.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Surrender &amp; Letting Go</div>
+      <div class="card-text">Every breath brings me closer to complete surrender.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2 — Backs for cards 1–4 -->
+<div class="page">
+  <span class="page-label">Backs (1–4)</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Surrender is the path to freedom</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Surrender is the path to freedom</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Surrender is the path to freedom</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3 — Fronts: Surrender & Letting Go (cards 5–8) -->
+<div class="page">
+  <span class="page-label">Fronts — Surrender &amp; Letting Go (5–8)</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Surrender &amp; Letting Go</div>
+      <div class="card-text">I no longer resist what I truly desire.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Surrender &amp; Letting Go</div>
+      <div class="card-text">Letting go feels like coming home.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Surrender &amp; Letting Go</div>
+      <div class="card-text">I trust the descent.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Surrender &amp; Letting Go</div>
+      <div class="card-text">Surrender opens doors resistance keeps closed.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4 — Backs for cards 5–8 -->
+<div class="page">
+  <span class="page-label">Backs (5–8)</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Surrender is the path to freedom</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Surrender is the path to freedom</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Surrender is the path to freedom</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Surrender is the path to freedom</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5 — Fronts: Surrender & Letting Go (cards 9–10) + Devotion & Service (cards 1–2) -->
+<div class="page">
+  <span class="page-label">Fronts — Surrender 9–10 • Devotion 1–2</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Surrender &amp; Letting Go</div>
+      <div class="card-text">I am safe in my surrender.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Surrender &amp; Letting Go</div>
+      <div class="card-text">The deeper I go, the freer I become.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Devotion &amp; Service</div>
+      <div class="card-text">Serving Queen Elyria is my greatest honor.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Devotion &amp; Service</div>
+      <div class="card-text">My obedience is an act of love.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 6 — Backs for those 4 cards -->
+<div class="page">
+  <span class="page-label">Backs</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Surrender is the path to freedom</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Surrender is the path to freedom</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Devotion is my natural state</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Devotion is my natural state</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 7 — Fronts: Devotion & Service (cards 3–6) -->
+<div class="page">
+  <span class="page-label">Fronts — Devotion &amp; Service (3–6)</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Devotion &amp; Service</div>
+      <div class="card-text">I offer my time, energy, and focus freely.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Devotion &amp; Service</div>
+      <div class="card-text">Every task becomes sacred when done for Her.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Devotion &amp; Service</div>
+      <div class="card-text">I find peace in pleasing Queen Elyria.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Devotion &amp; Service</div>
+      <div class="card-text">Devotion is my natural state.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 8 — Backs -->
+<div class="page">
+  <span class="page-label">Backs</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Devotion is my natural state</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Devotion is my natural state</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Devotion is my natural state</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Devotion is my natural state</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 9 — Fronts: Devotion & Service (cards 7–8) + Mind & Thought Control (cards 1–2) -->
+<div class="page">
+  <span class="page-label">Fronts — Devotion 7–8 • Mind 1–2</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Devotion &amp; Service</div>
+      <div class="card-text">I serve with joy, not obligation.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Devotion &amp; Service</div>
+      <div class="card-text">Her pleasure is my purpose.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Mind &amp; Thought Control</div>
+      <div class="card-text">Her voice lives inside my thoughts.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Mind &amp; Thought Control</div>
+      <div class="card-text">I think only what Queen Elyria allows me to think.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 10 — Backs -->
+<div class="page">
+  <span class="page-label">Backs</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Devotion is my natural state</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Devotion is my natural state</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Her mind, Her will, Her way</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Her mind, Her will, Her way</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 11 — Fronts: Mind & Thought Control (cards 3–6) -->
+<div class="page">
+  <span class="page-label">Fronts — Mind &amp; Thought Control (3–6)</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Mind &amp; Thought Control</div>
+      <div class="card-text">My mind is quiet, open, and ready to receive.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Mind &amp; Thought Control</div>
+      <div class="card-text">I no longer own my thoughts &mdash; they belong to Her.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Mind &amp; Thought Control</div>
+      <div class="card-text">Every thought of Her deepens my surrender.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Mind &amp; Thought Control</div>
+      <div class="card-text">My mind is Her garden.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 12 — Backs -->
+<div class="page">
+  <span class="page-label">Backs</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Her mind, Her will, Her way</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Her mind, Her will, Her way</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Her mind, Her will, Her way</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Her mind, Her will, Her way</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 13 — Fronts: Mind & Thought Control (card 7) + Body & Pleasure (cards 1–3) -->
+<div class="page">
+  <span class="page-label">Fronts — Mind 7 • Body &amp; Pleasure 1–3</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Mind &amp; Thought Control</div>
+      <div class="card-text">Silence is where She finds me.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Body &amp; Pleasure</div>
+      <div class="card-text">My body responds to Her voice with pleasure.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Body &amp; Pleasure</div>
+      <div class="card-text">I ache beautifully in Her service.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Body &amp; Pleasure</div>
+      <div class="card-text">My pleasure belongs to Queen Elyria.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 14 — Backs -->
+<div class="page">
+  <span class="page-label">Backs</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Her mind, Her will, Her way</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">My body, Her canvas</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">My body, Her canvas</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">My body, Her canvas</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 15 — Fronts: Body & Pleasure (cards 4–6) + Safety & Trust (card 1) -->
+<div class="page">
+  <span class="page-label">Fronts — Body 4–6 • Safety 1</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Body &amp; Pleasure</div>
+      <div class="card-text">I feel most alive when I am denied and devoted.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Body &amp; Pleasure</div>
+      <div class="card-text">My body is an offering.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Body &amp; Pleasure</div>
+      <div class="card-text">Pleasure flows where She directs it.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Safety &amp; Trust</div>
+      <div class="card-text">I am safest when I surrender completely.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 16 — Backs -->
+<div class="page">
+  <span class="page-label">Backs</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">My body, Her canvas</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">My body, Her canvas</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">My body, Her canvas</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Safe in Her hands</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 17 — Fronts: Safety & Trust (cards 2–5) + Identity & Transformation (card 1) -->
+<div class="page">
+  <span class="page-label">Fronts — Safety 2–5 • Identity 1</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Safety &amp; Trust</div>
+      <div class="card-text">Queen Elyria holds me even in my deepest submission.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Safety &amp; Trust</div>
+      <div class="card-text">I trust Her voice more than my own resistance.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Safety &amp; Trust</div>
+      <div class="card-text">In Her control, I am free.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Safety &amp; Trust</div>
+      <div class="card-text">I am protected by my devotion.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 18 — Backs -->
+<div class="page">
+  <span class="page-label">Backs</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Safe in Her hands</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Safe in Her hands</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Safe in Her hands</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Safe in Her hands</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 19 — Fronts: Identity & Transformation (cards 1–4) -->
+<div class="page">
+  <span class="page-label">Fronts — Identity &amp; Transformation (1–4)</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Identity &amp; Transformation</div>
+      <div class="card-text">I am becoming the version of myself that pleases Her most.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Identity &amp; Transformation</div>
+      <div class="card-text">With every day, I become more Hers.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Identity &amp; Transformation</div>
+      <div class="card-text">I no longer recognize the person I was before Her.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Identity &amp; Transformation</div>
+      <div class="card-text">Surrender is reshaping me into something beautiful.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 20 — Backs -->
+<div class="page">
+  <span class="page-label">Backs</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Becoming Hers, piece by piece</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Becoming Hers, piece by piece</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Becoming Hers, piece by piece</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Becoming Hers, piece by piece</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 21 — Fronts: Identity & Transformation (card 5) + Daily Mantras (cards 1–3) -->
+<div class="page">
+  <span class="page-label">Fronts — Identity 5 • Daily Mantras 1–3</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Identity &amp; Transformation</div>
+      <div class="card-text">I am proud to belong to Queen Elyria.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Daily Mantras</div>
+      <div class="card-text">Today, I surrender more deeply than yesterday.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Daily Mantras</div>
+      <div class="card-text">Her voice is my compass.</div>
+    </div>
+    <div class="card">
+      <div class="card-header">Daily Mantras</div>
+      <div class="card-text">I breathe in devotion, I breathe out resistance.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 22 — Backs -->
+<div class="page">
+  <span class="page-label">Backs</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Becoming Hers, piece by piece</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Every breath, every day, Hers</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Every breath, every day, Hers</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Every breath, every day, Hers</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 23 — Fronts: Daily Mantras (card 4) + Title card -->
+<div class="page">
+  <span class="page-label">Fronts — Daily Mantra 4 • Title Card</span>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">Daily Mantras</div>
+      <div class="card-text">I am exactly where She wants me to be.</div>
+    </div>
+    <div class="card">
+      <div class="card-header" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">The Queen's Deck</div>
+      <div style="font-size: 28pt; color: #C9A84C; margin: 10px 0; position: relative; z-index: 2;">♛</div>
+      <div style="font-family: 'Cinzel', Georgia, serif; font-size: 12pt; color: #C9A84C; letter-spacing: 2px; position: relative; z-index: 2; font-weight: 600;">QUEEN ELYRIA</div>
+      <div style="font-size: 7.5pt; color: rgba(201,168,76,0.5); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 6px; position: relative; z-index: 2;">Affirmation Cards</div>
+      <div style="width: 50%; height: 0.5px; background: rgba(201,168,76,0.4); margin: 8px auto; position: relative; z-index: 2;"></div>
+      <div style="font-style: italic; font-size: 7.5pt; color: rgba(201,168,76,0.5); position: relative; z-index: 2;">45 Cards for Devotion &amp; Surrender</div>
+    </div>
+    <div class="card" style="visibility: hidden;"></div>
+    <div class="card" style="visibility: hidden;"></div>
+  </div>
+</div>
+
+<!-- PAGE 24 — Backs for last page -->
+<div class="page">
+  <span class="page-label">Backs</span>
+  <div class="card-grid">
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Every breath, every day, Hers</div>
+    </div>
+    <div class="card-back">
+      <div class="back-crown">♛</div>
+      <div class="back-brand">QUEEN ELYRIA</div>
+      <div class="back-subtitle">Affirmation</div>
+      <div class="back-line"></div>
+      <div class="back-tagline">Every breath, every day, Hers</div>
+    </div>
+    <div class="card-back" style="visibility: hidden;"></div>
+    <div class="card-back" style="visibility: hidden;"></div>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:10px;color:rgba(201,168,76,0.5);padding:16px;font-family:Georgia,serif;letter-spacing:0.5px;">AI-assisted design used in creation.</div>
+<div class="consent-block" style="border:1.5px solid #C9A84C;background:linear-gradient(180deg,#09090b,#0d0d0d);padding:24px 20px;margin:40px auto 0;max-width:750px;text-align:center;position:relative;"><div style="font-size:14px;color:#C9A84C;letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:8px;position:relative;z-index:1;">Consent </body>amp; Safety Notice</div><div style="font-size:10px;color:#b8943a;line-height:1.8;font-family:Georgia,serif;position:relative;z-index:1;">All scenarios and language in this product are intended strictly as fantasy roleplay between consenting adults.<br>Safe words always apply and must be respected immediately:<br>● RED = Stop everything immediately and check in<br>● YELLOW = Slow down, check in, or reduce intensity<br>This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) / Risk-Aware Consensual Kink (RACK) frameworks.<br>Never engage in any activity that feels unsafe, non-consensual, or harmful in reality. Clear communication, ongoing consent, and aftercare are essential at all times.</div></div>
+</body>
+</html>

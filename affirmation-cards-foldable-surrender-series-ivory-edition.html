@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen Elyria — The Surrender Series: Affirmation Cards (Ivory Edition)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   QUEEN ELYRIA — THE SURRENDER SERIES: AFFIRMATION CARDS
+   IVORY EDITION (printer-friendly, cream paper)
+   Foldable: FRONT | BACK side-by-side, fold vertically
+   Two strips per US Letter portrait page
+   Cards: 2.5" × 3.5" each
+   ============================================================ */
+
+/* ---- Page geometry ---- */
+@page {
+  size: letter portrait;
+  margin: 0.5in;
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---- Body ---- */
+body {
+  background: #fdfaf3;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: #2c2416;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+/* ---- Screen-only header / instructions ---- */
+.screen-header {
+  width: 7.5in;
+  margin: 0 auto 30px;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 8px;
+}
+.screen-header h1 {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 14pt;
+  color: #b8942e;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.screen-header p {
+  font-size: 9pt;
+  color: #6b5728;
+  line-height: 1.6;
+}
+.screen-header .crown-icon {
+  font-size: 20pt;
+  color: #C9A84C;
+  margin-bottom: 6px;
+}
+
+/* ============================================================
+   PAGE LAYOUT
+   ============================================================ */
+.page {
+  width: 7.5in;
+  min-height: 10in;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35in;
+  page-break-after: always;
+  break-after: page;
+  position: relative;
+  margin-bottom: 0.3in;
+}
+.page:last-child {
+  page-break-after: auto;
+  break-after: auto;
+}
+
+/* ============================================================
+   STRIP — two cards (front + back) side by side
+   ============================================================ */
+.strip {
+  display: flex;
+  width: 5in;
+  height: 3.5in;
+  position: relative;
+  align-items: stretch;
+}
+
+/* Fold guide line — vertical dashed between front and back */
+.strip::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -0.18in;
+  bottom: -0.18in;
+  width: 0;
+  border-left: 1px dashed rgba(201, 168, 76, 0.3);
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* Fold label */
+.fold-label {
+  position: absolute;
+  left: 50%;
+  top: -0.35in;
+  transform: translateX(-50%);
+  font-size: 6pt;
+  color: rgba(201, 168, 76, 0.5);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  z-index: 21;
+  background: #fdfaf3;
+  padding: 0 5px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Cut guide line — horizontal dashed between strips */
+.cut-guide {
+  width: 6.5in;
+  height: 0;
+  border-top: 1px dashed rgba(201, 168, 76, 0.3);
+  position: relative;
+  margin: 0;
+}
+
+/* Cut label */
+.cut-label {
+  position: absolute;
+  left: 50%;
+  top: -5.5px;
+  transform: translateX(-50%);
+  font-size: 6pt;
+  color: rgba(201, 168, 76, 0.5);
+  letter-spacing: 1.5px;
+  background: #fdfaf3;
+  padding: 0 5px;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   CARD — shared (2.5" × 3.5")
+   ============================================================ */
+.card {
+  width: 2.5in;
+  height: 3.5in;
+  background: #fdfaf3;
+  border: 2px solid #C9A84C;
+  border-radius: 5px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.28in 0.22in;
+  overflow: hidden;
+}
+
+/* Inner decorative border */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border: 0.5px solid rgba(201, 168, 76, 0.35);
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Crown watermark */
+.watermark {
+  position: absolute;
+  font-size: 68pt;
+  color: rgba(201, 168, 76, 0.06);
+  z-index: 0;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ============================================================
+   CARD FRONT
+   ============================================================ */
+.card-front .category-header {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 6.5pt;
+  font-weight: 600;
+  color: #b8942e;
+  letter-spacing: 1.8px;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+  margin-bottom: 0.1in;
+}
+
+.card-front .ornament {
+  color: rgba(201, 168, 76, 0.5);
+  font-size: 9pt;
+  z-index: 3;
+  line-height: 1;
+}
+
+.card-front .ornament.top {
+  margin-bottom: 0.12in;
+}
+
+.card-front .ornament.bottom {
+  margin-top: 0.12in;
+}
+
+.card-front .affirmation {
+  font-style: italic;
+  font-size: 9.5pt;
+  color: #6b5728;
+  text-align: center;
+  line-height: 1.55;
+  position: relative;
+  z-index: 3;
+  padding: 0 0.05in;
+}
+
+/* ============================================================
+   CARD BACK
+   ============================================================ */
+.card-back .crown {
+  font-size: 22pt;
+  color: #C9A84C;
+  position: relative;
+  z-index: 3;
+  line-height: 1;
+}
+
+.card-back .queen-name {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 11pt;
+  font-weight: 600;
+  color: #C9A84C;
+  letter-spacing: 1.5px;
+  position: relative;
+  z-index: 3;
+  margin-top: 0.1in;
+}
+
+.card-back .label {
+  font-size: 7pt;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: rgba(184, 148, 46, 0.6);
+  position: relative;
+  z-index: 3;
+  margin-top: 0.16in;
+}
+
+.card-back .divider {
+  width: 0.9in;
+  height: 0;
+  border-top: 0.5px solid rgba(201, 168, 76, 0.3);
+  margin: 0.14in 0;
+  position: relative;
+  z-index: 3;
+}
+
+.card-back .tagline {
+  font-style: italic;
+  font-size: 7.5pt;
+  color: rgba(184, 148, 46, 0.55);
+  text-align: center;
+  position: relative;
+  z-index: 3;
+  padding: 0 0.15in;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   TITLE CARD
+   ============================================================ */
+.title-card .series-title {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 8.5pt;
+  font-weight: 600;
+  color: #C9A84C;
+  letter-spacing: 2px;
+  text-align: center;
+  z-index: 3;
+  position: relative;
+  line-height: 1.3;
+}
+
+.title-card .crown-large {
+  font-size: 26pt;
+  color: #C9A84C;
+  z-index: 3;
+  position: relative;
+  line-height: 1;
+  margin: 0.14in 0;
+}
+
+.title-card .queen-name {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 11pt;
+  font-weight: 600;
+  color: #C9A84C;
+  letter-spacing: 1.5px;
+  z-index: 3;
+  position: relative;
+}
+
+.title-card .ornament-small {
+  color: rgba(201, 168, 76, 0.4);
+  font-size: 7pt;
+  z-index: 3;
+  position: relative;
+  margin: 0.1in 0;
+  letter-spacing: 4px;
+}
+
+.title-card .subtitle {
+  font-size: 8pt;
+  color: #6b5728;
+  font-style: italic;
+  text-align: center;
+  z-index: 3;
+  position: relative;
+  margin-top: 0.05in;
+}
+
+.title-card .description {
+  font-size: 6.5pt;
+  color: rgba(184, 148, 46, 0.7);
+  text-align: center;
+  z-index: 3;
+  position: relative;
+  letter-spacing: 0.5px;
+  margin-top: 0.06in;
+}
+
+/* Title card back — minimal branding (no "Affirmation" label) */
+.title-back .crown {
+  font-size: 22pt;
+  color: #C9A84C;
+  position: relative;
+  z-index: 3;
+  line-height: 1;
+}
+
+.title-back .queen-name {
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 11pt;
+  font-weight: 600;
+  color: #C9A84C;
+  letter-spacing: 1.5px;
+  position: relative;
+  z-index: 3;
+  margin-top: 0.12in;
+}
+
+.title-back .divider {
+  width: 0.9in;
+  height: 0;
+  border-top: 0.5px solid rgba(201, 168, 76, 0.3);
+  margin: 0.18in 0;
+  position: relative;
+  z-index: 3;
+}
+
+.title-back .tagline {
+  font-style: italic;
+  font-size: 7.5pt;
+  color: rgba(184, 148, 46, 0.55);
+  text-align: center;
+  position: relative;
+  z-index: 3;
+  padding: 0 0.2in;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   PRINT MODE
+   ============================================================ */
+@media print {
+  body {
+    background: #ffffff;
+    padding: 0;
+  }
+
+  .screen-header {
+    display: none;
+  }
+
+  .page {
+    margin: 0;
+    margin-bottom: 0;
+  }
+
+  .strip::after,
+  .fold-label,
+  .cut-guide,
+  .cut-label {
+    display: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SCREEN-ONLY HEADER / PRINT INSTRUCTIONS
+     ============================================================ -->
+<div class="screen-header">
+  <div class="crown-icon">♛</div>
+  <h1>THE SURRENDER SERIES — IVORY EDITION</h1>
+  <p><strong>Affirmation Cards — Foldable</strong></p>
+  <p>
+    16 affirmation cards + title card across 9 pages.<br>
+    Each strip = <strong>FRONT | BACK</strong> side-by-side. Print, cut between strips, fold vertically.<br>
+    <strong>Print settings:</strong> US Letter, Portrait, 100% scale, enable "Background graphics".<br>
+    Best results on cream/ivory cardstock (65 lb+).
+  </p>
+</div>
+
+<!-- ============================================================
+     CARD CONTENT — generated via JavaScript for consistency
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  const affirmations = [
+    "The chime opens something in me that was always there.",
+    "I release control willingly and with pleasure.",
+    "Surrender is not weakness \u2014 it is my deepest strength.",
+    "I let go, and in letting go, I am held.",
+    "Her voice is becoming the only voice I need.",
+    "Each listen takes me deeper than the last.",
+    "I no longer resist what I truly desire.",
+    "Letting go feels like coming home.",
+    "Complete surrender brings complete peace.",
+    "The craving for Her voice proves the surrender is working.",
+    "I am drawn to Her the way water is drawn to the sea.",
+    "I trust the descent completely.",
+    "Surrender opens doors resistance kept closed.",
+    "I am safe in my surrender.",
+    "The deeper I go, the freer I become.",
+    "I am Hers \u2014 and that is forever."
+  ];
+
+  /* ---- Build card FRONT (affirmation) ---- */
+  function cardFront(text) {
+    return '<div class="card card-front">'
+      + '<span class="watermark">\u265B</span>'
+      + '<div class="category-header">THE SURRENDER SERIES</div>'
+      + '<div class="ornament top">\u2766</div>'
+      + '<div class="affirmation">' + text + '</div>'
+      + '<div class="ornament bottom">\u2766</div>'
+      + '</div>';
+  }
+
+  /* ---- Build card BACK (Queen Elyria branding) ---- */
+  function cardBack() {
+    return '<div class="card card-back">'
+      + '<div class="crown">\u265B</div>'
+      + '<div class="queen-name">QUEEN ELYRIA</div>'
+      + '<div class="label">Affirmation</div>'
+      + '<div class="divider"></div>'
+      + '<div class="tagline">Surrender is the path to freedom</div>'
+      + '</div>';
+  }
+
+  /* ---- Build TITLE CARD front ---- */
+  function titleCardFront() {
+    return '<div class="card card-front title-card">'
+      + '<span class="watermark">\u265B</span>'
+      + '<div class="series-title">THE SURRENDER<br>SERIES</div>'
+      + '<div class="crown-large">\u265B</div>'
+      + '<div class="queen-name">QUEEN ELYRIA</div>'
+      + '<div class="ornament-small">\u25C6 \u25C7 \u25C6</div>'
+      + '<div class="subtitle">Affirmation Cards</div>'
+      + '<div class="description">16 Cards for Deepening Surrender</div>'
+      + '</div>';
+  }
+
+  /* ---- Build TITLE CARD back (minimal, no "Affirmation" label) ---- */
+  function titleCardBack() {
+    return '<div class="card card-back title-back">'
+      + '<div class="crown">\u265B</div>'
+      + '<div class="queen-name">QUEEN ELYRIA</div>'
+      + '<div class="divider"></div>'
+      + '<div class="tagline">Surrender is the path to freedom</div>'
+      + '</div>';
+  }
+
+  /* ---- Build a STRIP (front + back side by side) ---- */
+  function strip(frontHtml, backHtml) {
+    return '<div class="strip">'
+      + '<span class="fold-label">fold</span>'
+      + frontHtml
+      + backHtml
+      + '</div>';
+  }
+
+  /* ---- Build a PAGE (up to 2 strips with cut guide between) ---- */
+  function buildPage(stripsHtml) {
+    let inner = '';
+    for (let i = 0; i < stripsHtml.length; i++) {
+      inner += stripsHtml[i];
+      if (i < stripsHtml.length - 1) {
+        inner += '<div class="cut-guide"><span class="cut-label">\u2702 cut</span></div>';
+      }
+    }
+    return '<div class="page">' + inner + '</div>';
+  }
+
+  /* ---- Assemble all strips ---- */
+  const allStrips = [];
+
+  // Strip 0: Title card
+  allStrips.push(strip(titleCardFront(), titleCardBack()));
+
+  // Strips 1–16: Affirmation cards
+  for (let i = 0; i < affirmations.length; i++) {
+    allStrips.push(strip(cardFront(affirmations[i]), cardBack()));
+  }
+
+  // Total: 17 strips → 9 pages (2 per page, last page has 1)
+  const perPage = 2;
+  let html = '';
+  for (let i = 0; i < allStrips.length; i += perPage) {
+    const pageStrips = allStrips.slice(i, i + perPage);
+    html += buildPage(pageStrips);
+  }
+
+  // Insert into DOM
+  document.write(html);
+})();
+</script>
+
+<div style="text-align:center;font-size:10px;color:rgba(201,168,76,0.5);padding:16px;font-family:Georgia,serif;letter-spacing:0.5px;">AI-assisted design used in creation.</div>
+<div class="consent-block" style="border:1.5px solid #C9A84C;background:linear-gradient(180deg,#fdfaf3,#f5eedb);padding:24px 20px;margin:40px auto 0;max-width:750px;text-align:center;position:relative;"><div style="font-size:14px;color:#C9A84C;letter-spacing:2px;text-transform:uppercase;font-weight:bold;margin-bottom:8px;position:relative;z-index:1;">Consent </body>amp; Safety Notice</div><div style="font-size:10px;color:#6b5728;line-height:1.8;font-family:Georgia,serif;position:relative;z-index:1;">All scenarios and language in this product are intended strictly as fantasy roleplay between consenting adults.<br>Safe words always apply and must be respected immediately:<br>● RED = Stop everything immediately and check in<br>● YELLOW = Slow down, check in, or reduce intensity<br>This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) / Risk-Aware Consensual Kink (RACK) frameworks.<br>Never engage in any activity that feels unsafe, non-consensual, or harmful in reality. Clear communication, ongoing consent, and aftercare are essential at all times.</div></div>
+</body>
+</html>

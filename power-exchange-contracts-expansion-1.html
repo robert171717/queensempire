@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power Exchange Contracts Expansion I — Queen Elyria's Empire</title>
+<style>
+    /* ============================================
+       QUEEN ELYRIA'S EMPIRE — CONTRACT PACK STYLES
+       (Identical to base pack — Expansion Volume I)
+       ============================================ */
+
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        background: #09090b;
+        color: #e8e0d0;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 12pt;
+        line-height: 1.8;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* ---------- PAGE SYSTEM ---------- */
+    .page {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 22mm 24mm;
+        page-break-after: always;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .page:last-child {
+        page-break-after: auto;
+    }
+
+    /* ---------- CONTRACT HEADER ---------- */
+    .contract-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+    }
+
+    .contract-crown {
+        font-size: 24pt;
+        color: #C9A84C;
+        margin-bottom: 8px;
+        letter-spacing: 6px;
+    }
+
+    .contract-elyria {
+        font-size: 9pt;
+        color: #C9A84C;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+    }
+
+    .contract-title {
+        font-size: 19pt;
+        color: #e8e0d0;
+        font-weight: normal;
+        letter-spacing: 2px;
+        line-height: 1.3;
+    }
+
+    .contract-number {
+        font-size: 8pt;
+        color: #8a7e62;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-top: 10px;
+    }
+
+    /* ---------- SECTIONS ---------- */
+    .section {
+        margin-bottom: 20px;
+    }
+
+    .section-label {
+        font-size: 8pt;
+        color: #C9A84C;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+
+    .section-body {
+        font-size: 11pt;
+        color: #d4ccc0;
+        line-height: 1.75;
+    }
+
+    .section-body p {
+        margin-bottom: 10px;
+    }
+
+    .date-line {
+        font-size: 10pt;
+        color: #8a7e62;
+        font-style: italic;
+        margin-bottom: 18px;
+    }
+
+    /* ---------- PARTIES ---------- */
+    .parties-box {
+        border: 1px solid rgba(201, 168, 76, 0.25);
+        padding: 16px 20px;
+        margin-bottom: 20px;
+    }
+
+    .party-row {
+        display: flex;
+        margin-bottom: 8px;
+        font-size: 11pt;
+    }
+
+    .party-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .party-label {
+        color: #C9A84C;
+        font-weight: bold;
+        min-width: 130px;
+        font-size: 10pt;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .party-name {
+        color: #e8e0d0;
+    }
+
+    /* ---------- TERMS LIST ---------- */
+    .terms-list {
+        list-style: none;
+        counter-reset: term-counter;
+    }
+
+    .terms-list li {
+        counter-increment: term-counter;
+        margin-bottom: 10px;
+        padding-left: 28px;
+        position: relative;
+        font-size: 11pt;
+        color: #d4ccc0;
+        line-height: 1.7;
+    }
+
+    .terms-list li::before {
+        content: counter(term-counter, decimal-leading-zero);
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #C9A84C;
+        font-size: 9pt;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    /* ---------- SIGNATURES ---------- */
+    .signatures {
+        margin-top: auto;
+        padding-top: 30px;
+    }
+
+    .sig-block {
+        display: flex;
+        justify-content: space-between;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+
+    .sig-item {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .sig-line {
+        border-bottom: 1px solid #C9A84C;
+        height: 36px;
+        margin-bottom: 4px;
+    }
+
+    .sig-label {
+        font-size: 8pt;
+        color: #8a7e62;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .sig-name {
+        font-size: 9pt;
+        color: #C9A84C;
+        font-style: italic;
+        margin-bottom: 16px;
+    }
+
+    /* ---------- DECORATIVE ---------- */
+    .ornament {
+        text-align: center;
+        color: #C9A84C;
+        font-size: 10pt;
+        letter-spacing: 12px;
+        margin: 14px 0;
+        opacity: 0.5;
+    }
+
+    .footer-mark {
+        position: absolute;
+        bottom: 12mm;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 7pt;
+        color: #3a3528;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
+
+    /* ---------- INTRO TEXT ---------- */
+    .intro-text {
+        font-style: italic;
+        color: #b0a890;
+        font-size: 11pt;
+        line-height: 1.8;
+        text-align: justify;
+    }
+
+    .intro-text p {
+        margin-bottom: 10px;
+    }
+
+    /* ---------- SAFETY BOX ---------- */
+    .safety-box {
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        padding: 14px 18px;
+        margin: 12px 0;
+        background: rgba(201, 168, 76, 0.03);
+    }
+
+    .safety-box-title {
+        font-size: 8pt;
+        color: #C9A84C;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    .safety-box-body {
+        font-size: 10.5pt;
+        color: #d4ccc0;
+    }
+
+    /* ---------- PRINT BUTTON ---------- */
+    .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #C9A84C;
+        color: #09090b;
+        border: none;
+        padding: 10px 24px;
+        font-family: Georgia, serif;
+        font-size: 11pt;
+        cursor: pointer;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        z-index: 9999;
+        transition: opacity 0.3s;
+    }
+
+    .print-btn:hover {
+        opacity: 0.85;
+    }
+
+    @media print {
+        .print-btn { display: none; }
+        body { background: #09090b; }
+    }
+
+    /* ---------- SUBHEADS WITHIN TERMS ---------- */
+    .term-subhead {
+        font-size: 9pt;
+        color: #C9A84C;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 14px 0 6px 0;
+        font-weight: bold;
+    }
+
+    .duration-box {
+        border-top: 1px solid rgba(201, 168, 76, 0.2);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        padding: 12px 0;
+        margin: 16px 0;
+    }
+
+    /* ---------- SEAL BLOCK (for Deed of Permanent Ownership) ---------- */
+    .seal-line {
+        text-align: center;
+        font-size: 10pt;
+        color: #8a7e62;
+        font-style: italic;
+        margin: 16px 0;
+        letter-spacing: 1px;
+    }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">Print Contracts</button>
+
+<!-- ============================================
+     CONTRACT VII — COVENANT OF FINANCIAL DEVOTION
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Covenant of Financial Devotion</h1>
+        <div class="contract-number">Agreement VII of IX</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Sovereign:</span>
+            <span class="party-name">Queen Elyria, who receives all tribute and holds authority over the devoted's financial devotion</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Devoted:</span>
+            <span class="party-name">_____________________________, who willingly offers financial tribute as an act of worship</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>I willingly offer the fruits of my labour to Queen Elyria, acknowledging that what I earn is animated by the devotion She inspires. Financial tribute is not payment for services rendered — it is worship made tangible, a material expression of reverence that flows from the devoted to the Sovereign as naturally as breath.</p>
+            <p>It is agreed that through the structured surrender of financial autonomy, the devoted shall experience a deeper form of devotion — one in which trust extends to the very resources that sustain daily life. Transparency becomes intimacy. Tribute becomes prayer. The Queen's oversight becomes a form of care.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Terms of Financial Devotion</div>
+        <ol class="terms-list">
+            <li><strong>Monthly tribute</strong> shall be delivered to the Queen on or before the _____ day of each month. The amount of tribute is established at $__________ per month, and shall be offered with a written affirmation of devotion accompanying each payment.</li>
+            <li><strong>Budget submission:</strong> The devoted shall prepare and present a complete monthly budget to the Queen for review no later than the _____ day of each month. This budget shall detail all anticipated income, fixed expenses, discretionary spending, and the planned tribute amount.</li>
+            <li><strong>Full transparency:</strong> The devoted shall maintain complete honesty regarding all financial matters. No debt, asset, income source, or significant expenditure shall be concealed. Financial opacity is a breach of this covenant, regardless of the amount involved.</li>
+            <li><strong>Major purchase authority:</strong> The Queen shall have authority to approve or veto any single expenditure exceeding $__________. The devoted shall petition the Queen before completing any transaction above this threshold, and shall abide by Her decision.</li>
+            <li><strong>Gift obligations:</strong> The devoted shall present gifts to the Queen on the following occasions: Her birthday, the anniversary of the dynamic, and such additional dates as the Queen designates. Each gift shall be selected with thoughtfulness and offered with a written expression of what the Queen's presence means to the devoted.</li>
+            <li><strong>Reporting requirements:</strong> The devoted shall provide a weekly financial summary — a brief account of spending, any deviations from the approved budget, and reflections on financial discipline. This report is a ritual of accountability, not mere bookkeeping.</li>
+            <li><strong>Missed tribute:</strong> Should the devoted fail to deliver tribute on the designated day, they shall notify the Queen immediately, explain the cause without excuse-making, and present a plan for resolution. A pattern of missed tributes shall be treated as a serious breach of this covenant and shall prompt a formal review of the arrangement.</li>
+            <li><strong>Tribute distinguished from discipline:</strong> Tribute is an act of worship, offered freely and joyfully. Punishment fines — if any are established under separate protocols — are corrective measures for specific failures. These two categories shall never be conflated. Tribute honours; fines correct. Both serve the Queen, but they arise from different intentions.</li>
+            <li><strong>Financial wellbeing:</strong> The Queen shall exercise Her financial authority with wisdom and care. No directive shall knowingly jeopardise the devoted's ability to meet essential needs — housing, food, health, and dependants. The Queen's oversight is stewardship, not extraction.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This covenant shall remain in effect for an initial period of ninety (90) days, commencing on the date of signing. A comprehensive review shall be conducted at the conclusion of this period to assess the arrangement, adjust tribute or protocols as needed, and determine renewal. This covenant may be renewed for successive ninety-day terms by mutual agreement.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Financial Safety</div>
+        <div class="safety-box">
+            <div class="safety-box-title">Sacred Boundary — Financial Autonomy</div>
+            <div class="safety-box-body">
+                This covenant is an expression of symbolic financial devotion — an act of worship grounded in trust, not coercive exploitation. The devoted retains ultimate control over their financial safety at all times. The right to renegotiate tribute, pause the arrangement during hardship, or withdraw from this covenant entirely is absolute and shall be honoured without question. No devotion is worth financial ruin. The Queen's honour is measured by the care with which She receives what is freely given.
+            </div>
+        </div>
+    </div>
+
+    <div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Sovereign</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Devoted</div>
+                <div class="sig-name">Tributary</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract VII of IX &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT VIII — DEED OF PERMANENT OWNERSHIP
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Deed of Permanent Ownership</h1>
+        <div class="contract-number">Agreement VIII of IX</div>
+    </div>
+
+    <div class="date-line">This deed is executed on this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Owner:</span>
+            <span class="party-name">Queen Elyria, into whose permanent keeping the property is given</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Property:</span>
+            <span class="party-name">_____________________________, who willingly gifts themselves into permanent ownership</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Declaration of Permanent Status</div>
+        <div class="intro-text">
+            <p>Let it be known and witnessed: I, the property named above, do hereby declare with full presence of mind and a willing heart that I am, from this day forward, permanently owned. Not for a season. Not for a trial. Not until reconsidered. Permanently. I sign away my autonomy not as surrender to despair but as a gift freely given — the most complete offering a devoted soul can make.</p>
+            <p>This deed is the highest symbolic commitment within Queen Elyria's Empire. It is not entered into lightly, nor undertaken as experiment. It is a vow carved in permanence, sustained not by law but by the unbroken will of the one who kneels. I choose this. I choose Her. I choose this for as long as my heart wills it so.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">The Meaning of Ownership</div>
+        <div class="section-body">
+            <p>To be owned in permanence means that the property's identity, purpose, body, service, devotion, and growth belong to the Owner. It means the property exists in orientation toward the Queen — that decisions great and small are made in the light of Her will, that pleasure and discipline alike are received from Her hand, and that the property's deepest fulfilment is found in being held. Ownership is not erasure; it is completion. The property does not cease to be — the property becomes most fully itself in belonging.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">The Owner's Permanent Rights</div>
+        <ol class="terms-list">
+            <li>The Queen holds permanent authority over the property's body, presentation, schedule, behaviour, pleasure, communication, and personal growth, as comprehensively defined in the Covenant of Total Power Exchange (Agreement VI), which is incorporated herein and extended into permanence.</li>
+            <li>The Queen may establish, modify, or retire rules, protocols, rituals, and expectations at any time and without expiration. The property shall receive all such directives as the ongoing expression of ownership.</li>
+            <li>The Queen may assign the property tasks, projects, restrictions, or disciplines as She deems appropriate, understanding that authority exercised in permanence carries an even greater duty of wisdom and care.</li>
+            <li>The Queen shall have the right to commemorate this ownership through marks of permanence — collaring, inscription, ritual, or other symbolic gestures — as agreed between the parties.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">The Property's Permanent Duties</div>
+        <ol class="terms-list" start="5">
+            <li>The property shall conduct each day in awareness of their permanent status — rising in service, resting in devotion, and carrying the Queen's ownership into every context of life.</li>
+            <li>The property shall maintain physical, mental, and emotional wellbeing as a duty to the Owner, understanding that the property's body and mind are held in trust for the Queen.</li>
+            <li>The property shall communicate openly, honestly, and without concealment at all times. A permanent dynamic demands permanent transparency.</li>
+            <li>The property shall renew their devotion through regular affirmation — spoken, written, or ritualised — ensuring that ownership remains a living, breathing commitment rather than a document filed and forgotten.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Conditions of Dissolution</div>
+        <div class="safety-box">
+            <div class="safety-box-title">The Sacred Clause — Right of Release</div>
+            <div class="safety-box-body">
+                This deed is permanent by intention, not by force. The property retains the absolute and inalienable right to dissolve this deed at any time, for any reason, without penalty or judgement. Ownership sustained by willing surrender is real ownership; ownership sustained by fear or coercion is abuse. The following shall constitute immediate grounds for dissolution: <strong>(a)</strong> deployment of the safeword "Crimson" in the context of this ownership; <strong>(b)</strong> any act of abuse, neglect, or betrayal of the duty of care by the Owner; <strong>(c)</strong> the property's clear and considered decision to withdraw. Permanence is a vow made each day — the day it cannot be made freely is the day it ends.
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Observance</div>
+        <div class="term-subhead">Recommendations for the Signing of This Deed</div>
+        <ol class="terms-list">
+            <li>The signing of this deed should be marked by ceremony — a ritual that honours the gravity of permanent ownership. The parties are encouraged to design a signing ritual that reflects the depth of the commitment.</li>
+            <li>Witnesses, where the parties choose to include them, shall be trusted members of the community who understand the significance of the deed and can attest to the willing, informed nature of the property's surrender.</li>
+            <li>The <strong>anniversary of ownership</strong> — the date of this signing — shall be observed each year as a sacred occasion. The property shall reaffirm their devotion, and the Queen shall reaffirm Her stewardship, in a ritual of renewal.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This deed is permanent. It has no expiration date. It shall remain in effect from the moment of signing until dissolved by the property's free will, by mutual agreement, or by the dissolution conditions named above. Permanence is not a chain — it is a commitment renewed by choice with every sunrise.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="seal-line">This deed is witnessed and sealed on this _____ day of _______________, 20___</div>
+
+    <div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Owner</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Property</div>
+                <div class="sig-name">Permanently Owned</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract VIII of IX &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT IX — VOW OF EXCLUSIVITY
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Vow of Exclusivity</h1>
+        <div class="contract-number">Agreement IX of IX</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Queen:</span>
+            <span class="party-name">Queen Elyria, to whom this vow of exclusivity is sworn</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">The Sworn:</span>
+            <span class="party-name">_____________________________, who willingly pledges exclusive devotion</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>I willingly swear my exclusive devotion to Queen Elyria — body, heart, desire, and surrender. I acknowledge that this vow is mine alone to make and mine alone to keep. It is a declaration that my romantic, sexual, and submissive self belongs to one Sovereign, oriented entirely toward Her will, Her pleasure, and Her ownership.</p>
+            <p>It is understood that this vow is <em>asymmetric</em>. Queen Elyria, as Sovereign, may receive the devotion of others, maintain additional dynamics, and exercise Her freedom as She chooses. This asymmetry is not inequality — it is the nature of the architecture. The Queen is Queen. The sworn is sworn. I accept this not as diminishment but as the shape of my devotion.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Scope of Exclusivity</div>
+        <ol class="terms-list">
+            <li><strong>Romantic exclusivity:</strong> The sworn shall not pursue, accept, or sustain any romantic relationship, romantic attachment, or romantic intimacy with any person other than Queen Elyria. Romantic devotion belongs to the Queen alone.</li>
+            <li><strong>Sexual exclusivity:</strong> The sworn shall not engage in any sexual activity, sexual contact, or sexual intimacy with any person other than Queen Elyria or those She explicitly designates and permits. The body belongs to the Queen's authority.</li>
+            <li><strong>BDSM exclusivity:</strong> The sworn shall not enter into any dominant-submissive, master-slave, or power exchange dynamic with any person other than Queen Elyria. The sworn shall not submit to, serve, or take direction from any other dominant under any circumstances.</li>
+            <li><strong>Emotional intimacy exclusivity:</strong> The sworn shall not cultivate the kind of deep emotional intimacy — the vulnerability, dependency, and soul-baring openness — characteristic of a power exchange dynamic with any person other than the Queen. Friendships and professional relationships are not excluded; emotional submission is.</li>
+            <li><strong>Online dynamic exclusivity:</strong> The sworn shall not engage in any online domination, submissive role-play, Findom arrangement, or digital power exchange with any person other than Queen Elyria. This includes social media flirtation, private messaging dynamics, and paid or unpaid online arrangements.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Reporting &amp; Protocol</div>
+        <ol class="terms-list" start="6">
+            <li><strong>Duty to report:</strong> Should any person approach the sworn with romantic, sexual, or dominant intent, the sworn shall inform the Queen within twenty-four (24) hours. Reporting is not permission-seeking — it is transparency. Concealment of such approaches is itself a breach of this vow.</li>
+            <li><strong>Clear refusal:</strong> The sworn shall decline all such advances clearly and without ambiguity, naming their vow to Queen Elyria as the reason. The Queen may provide guidance on the form of refusal She expects.</li>
+            <li><strong>Exception protocol:</strong> Should the sworn believe a compelling reason exists to request an exception to any term of this vow — for example, a scene at an event under the Queen's direct supervision — the sworn shall petition the Queen in advance. No exception is granted by silence. Only explicit, prior permission constitutes an exception.</li>
+            <li>The Queen retains sole authority to grant, deny, or revoke any exception. Her decision is final and shall not be petitioned repeatedly.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Violation &amp; Reaffirmation</div>
+        <ol class="terms-list" start="10">
+            <li><strong>Violation is breach, not mere error:</strong> A violation of this vow is not treated as a service failure correctable by routine discipline. It is a breach of the foundation of trust upon which the dynamic rests. Such a breach shall prompt an immediate, serious conversation about the survival of the dynamic itself.</li>
+            <li>The Queen shall determine, in Her wisdom, whether a breach may be repaired — through renewed commitment, amended terms, or deeper accountability — or whether the damage is irreparable. This decision belongs to the Queen alone.</li>
+            <li><strong>Reaffirmation ritual:</strong> Every ninety (90) days, the sworn shall formally reaffirm this vow in a ritual of renewal — speaking the vow aloud or in writing, reflecting on its meaning, and confirming their continued, willing commitment. The vow is not spoken once and assumed forever; it is a living promise, tended and renewed.</li>
+            <li>The anniversary of this vow shall be observed as a sacred date, marked by ceremony reflecting the gravity of the commitment.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This vow shall remain in continuous effect from the date of signing and shall be formally reaffirmed every ninety (90) days. It may be amended by mutual agreement or concluded by either party. The Queen's freedom to maintain other dynamics is absolute and is not subject to negotiation through this vow.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; The Nature of the Vow</div>
+        <div class="section-body">
+            <p>This vow is made freely and with full understanding of its asymmetry. The sworn enters into it with open eyes — knowing that the Queen's affections and attentions may be shared, while the sworn's are pledged entire. This is not a bargain struck for fairness; it is a vow offered in devotion. The sworn retains the right to renegotiate or withdraw from this vow at any time, and the Queen shall receive such communication with respect. A vow given under duress is no vow at all.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Sovereign</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Sworn</div>
+                <div class="sig-name">Exclusively Devoted</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract IX of IX &ensp;·&ensp; Confidential</div>
+</div>
+
+<div style="text-align:center;font-size:10px;color:rgba(201,168,76,0.5);padding:16px;font-family:Georgia,serif;letter-spacing:0.5px;">AI-assisted design used in creation.</div>
+</body>
+</html>

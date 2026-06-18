@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queen's Empire — Etsy Image Slide Templates</title>
+<style>
+  /* ============================================
+     QUEEN'S EMPIRE — PREMIUM IMAGE SLIDE TEMPLATES
+     Screenshot each slide (1000x1000) for Etsy listing images
+     Brand: #09090b black | #C9A84C gold | #e8d5b0 cream
+     ============================================ */
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a1a1a;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    padding: 40px 0;
+  }
+
+  .slide {
+    width: 1000px;
+    height: 1000px;
+    background: #09090b;
+    margin: 0 auto 60px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+  }
+
+  /* Subtle gold grain texture overlay */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(201, 168, 76, 0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 100%, rgba(201, 168, 76, 0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Outer gold border */
+  .slide::after {
+    content: '';
+    position: absolute;
+    top: 30px; left: 30px; right: 30px; bottom: 30px;
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .slide > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Crown emblem */
+  .crown {
+    width: 60px;
+    height: 40px;
+    margin: 0 auto 24px;
+    opacity: 0.9;
+  }
+
+  .crown svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Typography */
+  .slide-label {
+    font-size: 13px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: rgba(201, 168, 76, 0.5);
+    margin-bottom: 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  .slide-title {
+    font-size: 38px;
+    color: #C9A84C;
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    font-weight: normal;
+    line-height: 1.3;
+  }
+
+  .slide-subtitle {
+    font-size: 18px;
+    color: #e8d5b0;
+    opacity: 0.7;
+    text-align: center;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* Ornamental divider */
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 20px 0;
+    width: 300px;
+  }
+
+  .ornament-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.4), transparent);
+  }
+
+  .ornament-diamond {
+    width: 8px;
+    height: 8px;
+    background: #C9A84C;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* Feature list */
+  .feature-list {
+    list-style: none;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .feature-list li {
+    font-size: 24px;
+    color: #e8d5b0;
+    padding: 14px 0;
+    letter-spacing: 0.5px;
+  }
+
+  .feature-list li .gold-accent {
+    color: #C9A84C;
+  }
+
+  /* Step circles */
+  .steps {
+    display: flex;
+    gap: 0;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 30px;
+    width: 100%;
+  }
+
+  .step {
+    text-align: center;
+    flex: 1;
+    padding: 0 10px;
+  }
+
+  .step-number {
+    width: 70px;
+    height: 70px;
+    border: 2px solid #C9A84C;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: #C9A84C;
+    margin: 0 auto 20px;
+    font-family: 'Georgia', serif;
+  }
+
+  .step-title {
+    font-size: 20px;
+    color: #C9A84C;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  .step-desc {
+    font-size: 15px;
+    color: #e8d5b0;
+    opacity: 0.6;
+    line-height: 1.5;
+  }
+
+  .step-divider {
+    width: 1px;
+    height: 70px;
+    background: rgba(201, 168, 76, 0.2);
+    margin-top: 0;
+  }
+
+  /* Info rows */
+  .info-rows {
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+  }
+
+  .info-row:last-child {
+    border-bottom: none;
+  }
+
+  .info-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #C9A84C;
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
+
+  .info-content {
+    flex: 1;
+  }
+
+  .info-label {
+    font-size: 18px;
+    color: #C9A84C;
+    margin-bottom: 4px;
+  }
+
+  .info-value {
+    font-size: 15px;
+    color: #e8d5b0;
+    opacity: 0.6;
+  }
+
+  /* Cross-sell grid */
+  .cross-sell {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 700px;
+    margin-top: 20px;
+  }
+
+  .cross-sell-item {
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    padding: 30px 16px;
+    text-align: center;
+    background: rgba(201, 168, 76, 0.03);
+  }
+
+  .cross-sell-icon {
+    font-size: 32px;
+    color: #C9A84C;
+    margin-bottom: 12px;
+  }
+
+  .cross-sell-name {
+    font-size: 14px;
+    color: #e8d5b0;
+    opacity: 0.8;
+    letter-spacing: 0.5px;
+  }
+
+  .cross-sell-price {
+    font-size: 16px;
+    color: #C9A84C;
+    margin-top: 6px;
+  }
+
+  /* Brand footer */
+  .brand-footer {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 1;
+  }
+
+  .brand-footer-text {
+    font-size: 13px;
+    color: rgba(201, 168, 76, 0.4);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* FAQ items */
+  .faq-item {
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 24px;
+  }
+
+  .faq-q {
+    font-size: 19px;
+    color: #C9A84C;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .faq-a {
+    font-size: 15px;
+    color: #e8d5b0;
+    opacity: 0.65;
+    line-height: 1.6;
+  }
+
+  /* Tagline */
+  .tagline {
+    font-size: 22px;
+    color: #e8d5b0;
+    opacity: 0.8;
+    text-align: center;
+    line-height: 1.6;
+    max-width: 650px;
+    margin: 10px 0 30px;
+    font-style: italic;
+  }
+
+  /* Page indicator (for screenshot reference) */
+  .page-indicator {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     SLIDE 1: FEATURE CALLOUT
+     Use for: Image slot 4 — Key features at a glance
+     Works for: All products (swap the feature list)
+     ============================================ -->
+<div class="page-indicator">— Slide 1: Feature Callout —</div>
+<div class="slide">
+  <div class="crown">
+    <svg viewBox="0 0 60 40" fill="none">
+      <path d="M5 35 L10 12 L20 25 L30 8 L40 25 L50 12 L55 35 Z" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+      <circle cx="10" cy="12" r="2" fill="#C9A84C"/>
+      <circle cx="30" cy="8" r="2.5" fill="#C9A84C"/>
+      <circle cx="50" cy="12" r="2" fill="#C9A84C"/>
+      <line x1="5" y1="35" x2="55" y2="35" stroke="#C9A84C" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="slide-label">Key Features</div>
+  <div class="slide-title">Everything You Need</div>
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line"></div>
+  </div>
+  <ul class="feature-list">
+    <li>—30-Day Interactive Calendar</li>
+    <li>—Daily Queen's Verdicts</li>
+    <li>—Streak & Completion Tracking</li>
+    <li>—Works Completely Offline</li>
+    <li>—Desktop, Tablet & Mobile</li>
+    <li>—Instant Digital Download</li>
+  </ul>
+  <div class="brand-footer">
+    <div class="brand-footer-text">Queen's Empire</div>
+  </div>
+</div>
+
+<!-- ============================================
+     SLIDE 2: WHAT'S INCLUDED
+     Use for: Image slot 6 — Format & details
+     ============================================ -->
+<div class="page-indicator">— Slide 2: What's Included —</div>
+<div class="slide">
+  <div class="crown">
+    <svg viewBox="0 0 60 40" fill="none">
+      <path d="M5 35 L10 12 L20 25 L30 8 L40 25 L50 12 L55 35 Z" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+      <circle cx="10" cy="12" r="2" fill="#C9A84C"/>
+      <circle cx="30" cy="8" r="2.5" fill="#C9A84C"/>
+      <circle cx="50" cy="12" r="2" fill="#C9A84C"/>
+      <line x1="5" y1="35" x2="55" y2="35" stroke="#C9A84C" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="slide-label">Product Details</div>
+  <div class="slide-title">What's Included</div>
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line"></div>
+  </div>
+  <div class="info-rows">
+    <div class="info-row">
+      <div class="info-icon">▢</div>
+      <div class="info-content">
+        <div class="info-label">Interactive HTML File</div>
+        <div class="info-value">Self-contained — opens in any browser, no internet needed</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">▥</div>
+      <div class="info-content">
+        <div class="info-label">Print-Ready PDF Backup</div>
+        <div class="info-value">3-page companion — print on cardstock or dark paper</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">⚙</div>
+      <div class="info-content">
+        <div class="info-label">Usage Instructions</div>
+        <div class="info-value">Clear guide — set up in under 2 minutes</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">↓</div>
+      <div class="info-content">
+        <div class="info-label">Instant Download</div>
+        <div class="info-value">Available immediately after purchase — no shipping</div>
+      </div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <div class="brand-footer-text">Queen's Empire</div>
+  </div>
+</div>
+
+<!-- ============================================
+     SLIDE 3: HOW TO USE
+     Use for: Image slot 8 — Simple 3-step guide
+     ============================================ -->
+<div class="page-indicator">— Slide 3: How to Use —</div>
+<div class="slide">
+  <div class="crown">
+    <svg viewBox="0 0 60 40" fill="none">
+      <path d="M5 35 L10 12 L20 25 L30 8 L40 25 L50 12 L55 35 Z" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+      <circle cx="10" cy="12" r="2" fill="#C9A84C"/>
+      <circle cx="30" cy="8" r="2.5" fill="#C9A84C"/>
+      <circle cx="50" cy="12" r="2" fill="#C9A84C"/>
+      <line x1="5" y1="35" x2="55" y2="35" stroke="#C9A84C" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="slide-label">Quick Start</div>
+  <div class="slide-title">Begin in 3 Steps</div>
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line"></div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-title">Download</div>
+      <div class="step-desc">Receive your files instantly after purchase</div>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-title">Open</div>
+      <div class="step-desc">Double-click the HTML file — opens in any browser</div>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-title">Begin</div>
+      <div class="step-desc">Start your journey — everything saves automatically</div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <div class="brand-footer-text">Queen's Empire</div>
+  </div>
+</div>
+
+<!-- ============================================
+     SLIDE 4: CROSS-SELL / COLLECTION
+     Use for: Image slot 7 — Drive browsing
+     ============================================ -->
+<div class="page-indicator">— Slide 4: Cross-Sell Collection —</div>
+<div class="slide">
+  <div class="crown">
+    <svg viewBox="0 0 60 40" fill="none">
+      <path d="M5 35 L10 12 L20 25 L30 8 L40 25 L50 12 L55 35 Z" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+      <circle cx="10" cy="12" r="2" fill="#C9A84C"/>
+      <circle cx="30" cy="8" r="2.5" fill="#C9A84C"/>
+      <circle cx="50" cy="12" r="2" fill="#C9A84C"/>
+      <line x1="5" y1="35" x2="55" y2="35" stroke="#C9A84C" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="slide-label">Explore the Collection</div>
+  <div class="slide-title">Build Your Dynamic</div>
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line"></div>
+  </div>
+  <div class="cross-sell">
+    <div class="cross-sell-item">
+      <div class="cross-sell-icon">▦</div>
+      <div class="cross-sell-name">Interactive Trackers</div>
+      <div class="cross-sell-price">$24.99</div>
+    </div>
+    <div class="cross-sell-item">
+      <div class="cross-sell-icon">▥</div>
+      <div class="cross-sell-name">Note Card Decks</div>
+      <div class="cross-sell-price">$14.99</div>
+    </div>
+    <div class="cross-sell-item">
+      <div class="cross-sell-icon">⬕</div>
+      <div class="cross-sell-name">Complete Bundles</div>
+      <div class="cross-sell-price">$29.99+</div>
+    </div>
+    <div class="cross-sell-item">
+      <div class="cross-sell-icon">☰</div>
+      <div class="cross-sell-name">Contracts & Journals</div>
+      <div class="cross-sell-price">$24.99</div>
+    </div>
+    <div class="cross-sell-item">
+      <div class="cross-sell-icon">♢</div>
+      <div class="cross-sell-name">Affirmation Cards</div>
+      <div class="cross-sell-price">$14.99</div>
+    </div>
+    <div class="cross-sell-item">
+      <div class="cross-sell-icon">★</div>
+      <div class="cross-sell-name">Master Collection</div>
+      <div class="cross-sell-price">$64.99</div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <div class="brand-footer-text">Queen's Empire — Browse Our Shop</div>
+  </div>
+</div>
+
+<!-- ============================================
+     SLIDE 5: FAQ / POLICIES
+     Use for: Image slot 9 or 10
+     ============================================ -->
+<div class="page-indicator">— Slide 5: FAQ & Policies —</div>
+<div class="slide">
+  <div class="crown">
+    <svg viewBox="0 0 60 40" fill="none">
+      <path d="M5 35 L10 12 L20 25 L30 8 L40 25 L50 12 L55 35 Z" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+      <circle cx="10" cy="12" r="2" fill="#C9A84C"/>
+      <circle cx="30" cy="8" r="2.5" fill="#C9A84C"/>
+      <circle cx="50" cy="12" r="2" fill="#C9A84C"/>
+      <line x1="5" y1="35" x2="55" y2="35" stroke="#C9A84C" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="slide-label">Good to Know</div>
+  <div class="slide-title">Frequently Asked</div>
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line"></div>
+  </div>
+  <div style="width: 100%; max-width: 700px;">
+    <div class="faq-item">
+      <div class="faq-q">Is this a physical product?</div>
+      <div class="faq-a">No — this is a digital download. No physical items are shipped. You receive files instantly after purchase.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What devices does it work on?</div>
+      <div class="faq-a">Desktop, laptop, tablet, and mobile. Any modern browser (Chrome, Safari, Firefox, Edge). Works completely offline after download.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I need special software?</div>
+      <div class="faq-a">No. The interactive HTML opens in any web browser. The PDF backup opens in any PDF reader. That's it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is this for adults only?</div>
+      <div class="faq-a">Yes — for consenting adults 18+ only. All scenarios are fantasy/roleplay. Safe words always apply — RED = Stop, YELLOW = Check-in.</div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <div class="brand-footer-text">Queen's Empire</div>
+  </div>
+</div>
+
+<!-- ============================================
+     SLIDE 6: BRAND IDENTITY
+     Use for: Image slot 10 — Brand trust/credibility
+     ============================================ -->
+<div class="page-indicator">— Slide 6: Brand Identity —</div>
+<div class="slide">
+  <div class="crown">
+    <svg viewBox="0 0 60 40" fill="none">
+      <path d="M5 35 L10 12 L20 25 L30 8 L40 25 L50 12 L55 35 Z" stroke="#C9A84C" stroke-width="2" fill="rgba(201,168,76,0.08)"/>
+      <circle cx="10" cy="12" r="2" fill="#C9A84C"/>
+      <circle cx="30" cy="8" r="2.5" fill="#C9A84C"/>
+      <circle cx="50" cy="12" r="2" fill="#C9A84C"/>
+      <line x1="5" y1="35" x2="55" y2="35" stroke="#C9A84C" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="slide-title" style="font-size: 42px; margin-top: 20px;">Queen's Empire</div>
+  <div class="slide-subtitle">Premium BDSM Digital Tools</div>
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line"></div>
+  </div>
+  <div class="tagline">
+    Where structure meets surrender.<br>
+    Luxury tools for those who take power exchange seriously.
+  </div>
+  <ul class="feature-list" style="font-size: 18px;">
+    <li>—Interactive HTML Experiences</li>
+    <li>—Luxury Printable Collections</li>
+    <li>—Designed for Consenting Adults 18+</li>
+  </ul>
+  <div class="brand-footer">
+    <div class="brand-footer-text">Black & Gold · Est. 2026</div>
+  </div>
+</div>
+
+<!-- ============================================
+     SLIDE 7: NOTE CARD SPECIFIC — VERSIONS
+     Use for: Note card listings (slot 4)
+     ============================================ -->
+<div class="page-indicator">— Slide 7: Note Card Versions (Note Card Decks Only) —</div>
+<div class="slide">
+  <div class="crown">
+    <svg viewBox="0 0 60 40" fill="none">
+      <path d="M5 35 L10 12 L20 25 L30 8 L40 25 L50 12 L55 35 Z" stroke="#C9A84C" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+      <circle cx="10" cy="12" r="2" fill="#C9A84C"/>
+      <circle cx="30" cy="8" r="2.5" fill="#C9A84C"/>
+      <circle cx="50" cy="12" r="2" fill="#C9A84C"/>
+      <line x1="5" y1="35" x2="55" y2="35" stroke="#C9A84C" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="slide-label">6 Escalating Versions</div>
+  <div class="slide-title">From Gentle to Eternal</div>
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line"></div>
+  </div>
+  <div style="width: 100%; max-width: 700px;">
+    <div class="info-row">
+      <div class="info-icon">1</div>
+      <div class="info-content"><div class="info-label">Gentle Denial</div><div class="info-value">Soft introduction to the dynamic</div></div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">2</div>
+      <div class="info-content"><div class="info-label">Firm Control</div><div class="info-value">Clear expectations, steady authority</div></div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">3</div>
+      <div class="info-content"><div class="info-label">Strict Protocol</div><div class="info-value">Detailed rules, structured submission</div></div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">4</div>
+      <div class="info-content"><div class="info-label">Extended Sentence</div><div class="info-value">Deepening control, longer commitment</div></div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">5</div>
+      <div class="info-content"><div class="info-label">Permanent Lockdown</div><div class="info-value">Total authority, complete surrender</div></div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">6</div>
+      <div class="info-content"><div class="info-label">Total Ownership</div><div class="info-value">Absolute power, eternal devotion</div></div>
+    </div>
+  </div>
+  <div class="brand-footer">
+    <div class="brand-footer-text">90 Lines · 3-Page PDF · Instant Download</div>
+  </div>
+</div>
+
+<div style="text-align:center;font-size:10px;color:rgba(201,168,76,0.5);padding:16px;font-family:Georgia,serif;letter-spacing:0.5px;">AI-assisted design used in creation.</div>
+</body>
+</html>

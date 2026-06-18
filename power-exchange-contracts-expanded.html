@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power Exchange Contracts — Queen Elyria's Empire</title>
+<style>
+    /* ============================================
+       QUEEN ELYRIA'S EMPIRE — CONTRACT PACK STYLES
+       ============================================ */
+
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        background: #09090b;
+        color: #e8e0d0;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 12pt;
+        line-height: 1.8;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* ---------- PAGE SYSTEM ---------- */
+    .page {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 22mm 24mm;
+        page-break-after: always;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .page:last-child {
+        page-break-after: auto;
+    }
+
+    /* ---------- COVER PAGE ---------- */
+    .cover {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: #09090b;
+    }
+
+    .cover-frame {
+        border: 1.5px solid #C9A84C;
+        padding: 60px 50px;
+        max-width: 480px;
+        position: relative;
+    }
+
+    .cover-frame::before,
+    .cover-frame::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 1px;
+        background: #C9A84C;
+    }
+
+    .cover-frame::before { top: -1px; }
+    .cover-frame::after { bottom: -1px; }
+
+    .crown {
+        font-size: 48pt;
+        color: #C9A84C;
+        line-height: 1;
+        margin-bottom: 20px;
+        letter-spacing: 8px;
+    }
+
+    .cover-title {
+        font-size: 26pt;
+        color: #C9A84C;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-weight: normal;
+        margin-bottom: 8px;
+        line-height: 1.3;
+    }
+
+    .cover-subtitle {
+        font-size: 11pt;
+        color: #8a7e62;
+        font-style: italic;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+    }
+
+    .cover-divider {
+        width: 120px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+        margin: 20px auto;
+    }
+
+    .cover-tagline {
+        font-size: 14pt;
+        color: #e8e0d0;
+        font-style: italic;
+        letter-spacing: 1px;
+        margin-top: 15px;
+    }
+
+    .cover-attribution {
+        font-size: 9pt;
+        color: #5a5345;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-top: 35px;
+    }
+
+    /* ---------- CONTRACT HEADER ---------- */
+    .contract-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+    }
+
+    .contract-crown {
+        font-size: 24pt;
+        color: #C9A84C;
+        margin-bottom: 8px;
+        letter-spacing: 6px;
+    }
+
+    .contract-elyria {
+        font-size: 9pt;
+        color: #C9A84C;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+    }
+
+    .contract-title {
+        font-size: 19pt;
+        color: #e8e0d0;
+        font-weight: normal;
+        letter-spacing: 2px;
+        line-height: 1.3;
+    }
+
+    .contract-number {
+        font-size: 8pt;
+        color: #8a7e62;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-top: 10px;
+    }
+
+    /* ---------- SECTIONS ---------- */
+    .section {
+        margin-bottom: 20px;
+    }
+
+    .section-label {
+        font-size: 8pt;
+        color: #C9A84C;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+
+    .section-body {
+        font-size: 11pt;
+        color: #d4ccc0;
+        line-height: 1.75;
+    }
+
+    .section-body p {
+        margin-bottom: 10px;
+    }
+
+    .date-line {
+        font-size: 10pt;
+        color: #8a7e62;
+        font-style: italic;
+        margin-bottom: 18px;
+    }
+
+    /* ---------- PARTIES ---------- */
+    .parties-box {
+        border: 1px solid rgba(201, 168, 76, 0.25);
+        padding: 16px 20px;
+        margin-bottom: 20px;
+    }
+
+    .party-row {
+        display: flex;
+        margin-bottom: 8px;
+        font-size: 11pt;
+    }
+
+    .party-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .party-label {
+        color: #C9A84C;
+        font-weight: bold;
+        min-width: 130px;
+        font-size: 10pt;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .party-name {
+        color: #e8e0d0;
+    }
+
+    /* ---------- TERMS LIST ---------- */
+    .terms-list {
+        list-style: none;
+        counter-reset: term-counter;
+    }
+
+    .terms-list li {
+        counter-increment: term-counter;
+        margin-bottom: 10px;
+        padding-left: 28px;
+        position: relative;
+        font-size: 11pt;
+        color: #d4ccc0;
+        line-height: 1.7;
+    }
+
+    .terms-list li::before {
+        content: counter(term-counter, decimal-leading-zero);
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #C9A84C;
+        font-size: 9pt;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    /* ---------- SIGNATURES ---------- */
+    .signatures {
+        margin-top: auto;
+        padding-top: 30px;
+    }
+
+    .sig-block {
+        display: flex;
+        justify-content: space-between;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+
+    .sig-item {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .sig-line {
+        border-bottom: 1px solid #C9A84C;
+        height: 36px;
+        margin-bottom: 4px;
+    }
+
+    .sig-label {
+        font-size: 8pt;
+        color: #8a7e62;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .sig-name {
+        font-size: 9pt;
+        color: #C9A84C;
+        font-style: italic;
+        margin-bottom: 16px;
+    }
+
+    /* ---------- DECORATIVE ---------- */
+    .ornament {
+        text-align: center;
+        color: #C9A84C;
+        font-size: 10pt;
+        letter-spacing: 12px;
+        margin: 14px 0;
+        opacity: 0.5;
+    }
+
+    .footer-mark {
+        position: absolute;
+        bottom: 12mm;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 7pt;
+        color: #3a3528;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
+
+    /* ---------- INTRO TEXT ---------- */
+    .intro-text {
+        font-style: italic;
+        color: #b0a890;
+        font-size: 11pt;
+        line-height: 1.8;
+        text-align: justify;
+    }
+
+    .intro-text p {
+        margin-bottom: 10px;
+    }
+
+    /* ---------- SAFETY BOX ---------- */
+    .safety-box {
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        padding: 14px 18px;
+        margin: 12px 0;
+        background: rgba(201, 168, 76, 0.03);
+    }
+
+    .safety-box-title {
+        font-size: 8pt;
+        color: #C9A84C;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    .safety-box-body {
+        font-size: 10.5pt;
+        color: #d4ccc0;
+    }
+
+    /* ---------- PRINT BUTTON ---------- */
+    .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #C9A84C;
+        color: #09090b;
+        border: none;
+        padding: 10px 24px;
+        font-family: Georgia, serif;
+        font-size: 11pt;
+        cursor: pointer;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        z-index: 9999;
+        transition: opacity 0.3s;
+    }
+
+    .print-btn:hover {
+        opacity: 0.85;
+    }
+
+    @media print {
+        .print-btn { display: none; }
+        body { background: #09090b; }
+    }
+
+    /* ---------- SUBHEADS WITHIN TERMS ---------- */
+    .term-subhead {
+        font-size: 9pt;
+        color: #C9A84C;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 14px 0 6px 0;
+        font-weight: bold;
+    }
+
+    .duration-box {
+        border-top: 1px solid rgba(201, 168, 76, 0.2);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        padding: 12px 0;
+        margin: 16px 0;
+    }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">Print Contracts</button>
+
+<!-- ============================================
+     COVER PAGE
+     ============================================ -->
+<div class="page cover">
+    <div class="cover-frame">
+        <div class="crown">♛</div>
+        <div class="cover-title">Power Exchange<br>Contracts</div>
+        <div class="cover-divider"></div>
+        <div class="cover-subtitle">Queen Elyria's Empire</div>
+        <div class="cover-tagline">Twelve agreements for the deeply devoted.</div>
+        <div class="cover-divider"></div>
+        <div class="cover-attribution">Sealed in Trust &ensp;·&ensp; Bound by Devotion</div>
+    </div>
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT I — SERVICE AGREEMENT
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Contract of Service</h1>
+        <div class="contract-number">Agreement I of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Dominant:</span>
+            <span class="party-name">Queen Elyria, hereinafter referred to as "the Queen"</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">submissive:</span>
+            <span class="party-name">_____________________________, hereinafter referred to as "the devoted"</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>This agreement is entered into with full presence of mind by both parties. The devoted willingly offers their service, attention, and devotion to Queen Elyria, acknowledging that service is not merely task but privilege — a daily expression of surrender, reverence, and care.</p>
+            <p>It is agreed that through structured service, the devoted shall find purpose, and through purpose, the Queen's pleasure shall be served. This contract defines the expectations, protocols, and rhythms by which daily devotion is given and received.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Core Terms of Service</div>
+        <ol class="terms-list">
+            <li>The devoted shall complete each assigned task to the best of their ability, with attentiveness, timeliness, and care for detail. Service is to be performed as an act of devotion, not obligation.</li>
+            <li><strong>Daily service</strong> shall include a morning check-in message upon waking, communication of the day's intentions, and an evening reflection delivered before sleep. These communications are sacred and shall not be missed without prior permission.</li>
+            <li><strong>Weekly service review</strong> shall occur at a time designated by the Queen. During this review, the devoted shall account for their service, receive feedback, and discuss any adjustments to protocols or expectations.</li>
+            <li>The devoted shall maintain personal standards of health, grooming, and presentation as directed by the Queen, understanding that the body and presentation of the devoted reflect upon Her Empire.</li>
+            <li>Communication shall be prompt, honest, and respectful at all times. The devoted shall inform the Queen of any scheduling conflicts, emotional difficulties, or circumstances that affect service.</li>
+            <li>The devoted shall anticipate the Queen's needs wherever possible, striving not merely to obey commands but to attune to Her preferences, rhythms, and desires.</li>
+            <li>Failure to meet service expectations shall be addressed through reflection, correction, and renewed commitment, as determined by the Queen.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This agreement shall remain in effect for an initial period of ninety (90) days, commencing on the date of signing. A comprehensive review shall be conducted at the conclusion of this period, and the agreement may be renewed, amended, or concluded by mutual decision. Either party may request an interim review at any time.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Negotiation</div>
+        <div class="section-body">
+            <p>This agreement is entered into freely and without coercion. Both parties retain the right to renegotiate terms at any time. The devoted's right to withdraw consent at any point, for any reason, is absolute and shall be honoured without question.</p>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Dominant</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Devoted</div>
+                <div class="sig-name">submissive</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract I of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT II — CHASTITY CONTRACT
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Covenant of Chastity</h1>
+        <div class="contract-number">Agreement II of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Keyholder:</span>
+            <span class="party-name">Queen Elyria, sole holder of the key and all authority regarding release</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Chaste:</span>
+            <span class="party-name">_____________________________, who willingly surrenders all access</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>I willingly offer the most intimate control of my body to Queen Elyria, acknowledging that my pleasure is not my own but belongs to Her discretion. Chastity is not punishment but devotion — a physical and psychological expression of surrender that deepens with each day of restraint.</p>
+            <p>It is agreed that by surrendering access to my own desire, I shall learn patience, focus, and the profound pleasure of existing for another's will rather than my own.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Terms of Chastity</div>
+        <ol class="terms-list">
+            <li>The chaste shall wear a chastity device as directed and approved by the Queen. The device shall remain secured at all times unless the Queen grants explicit permission for removal.</li>
+            <li>The Queen holds absolute and sole authority over all matters of release. No request, plea, or negotiation from the chaste shall obligate the Queen to grant release. The Queen's decision in all matters is final.</li>
+            <li><strong>Release conditions</strong> are determined solely by the Queen and may include, but are not limited to: demonstrated good service, special occasions at the Queen's discretion, health requirements, or as reward. Release is never earned, only granted.</li>
+            <li>The chaste shall maintain the device in clean and hygienic condition, following all cleaning protocols established by the Queen. Any discomfort, chafing, or health concern shall be reported immediately.</li>
+            <li>The chaste shall not attempt to circumvent, remove, or tamper with the device under any circumstances. Any violation shall be regarded as a serious breach of trust.</li>
+            <li><strong>Teasing and denial</strong> are privileges of the Queen. The chate shall submit to any form of teasing, arousal, or denial the Queen chooses to employ, understanding that this reinforces the dynamic and deepens devotion.</li>
+            <li>The Queen may impose additional conditions — such as daily affirmation messages, edging protocols, or behavioural requirements — as part of the chastity arrangement.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This covenant shall remain in effect for an initial period of sixty (60) days, commencing upon signing. A review shall be conducted at the end of this period to assess the experience, discuss adjustments, and determine continuation. Emergency release for medical reasons is always available without penalty.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Negotiation</div>
+        <div class="section-body">
+            <p>This covenant is entered into willingly and with full understanding of its terms. The chaste retains the absolute right to request release from the arrangement at any time. Health and safety shall never be compromised for the sake of the dynamic. Open communication regarding physical or emotional wellbeing is expected and honoured.</p>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Keyholder</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Chaste</div>
+                <div class="sig-name">Devoted</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract II of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT III — ORGASM DENIAL AGREEMENT
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Agreement of Orgasm Denial</h1>
+        <div class="contract-number">Agreement III of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Authority:</span>
+            <span class="party-name">Queen Elyria, who holds sole authority over all matters of pleasure</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Denied:</span>
+            <span class="party-name">_____________________________, who willingly surrenders all autonomous release</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>With full presence of mind, I willingly surrender the most private dimension of my autonomy — the right to my own release. I acknowledge that my pleasure, my arousal, and my climax exist now under the sovereign will of Queen Elyria. Denial is not deprivation but refinement; it sharpens devotion, redirects energy, and deepens the architecture of surrender.</p>
+            <p>It is agreed that through the controlled denial of climax, I shall be trained to channel desire into service, and longing into reverence. My body becomes an instrument tuned by the Queen's hand.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Denial Terms</div>
+        <ol class="terms-list">
+            <li>The denied shall not achieve orgasm under any circumstance without the explicit, prior permission of the Queen. This applies whether alone or in the Queen's presence.</li>
+            <li>The Queen shall determine the duration of each denial period. No minimum or maximum duration is guaranteed. The denied accepts that periods may extend days, weeks, or longer at the Queen's sole discretion.</li>
+            <li><strong>Permission protocol:</strong> The denied may request release by formal petition to the Queen. The Queen is under no obligation to respond, grant, or explain Her decision. Silence is itself an answer.</li>
+            <li><strong>Training schedule:</strong> The Queen may implement edging protocols — bringing the denied to the edge of climax and withholding release — on a schedule of Her design. These sessions are training, not reward, and shall be accepted as such.</li>
+            <li>The denied shall report all spontaneous arousal, wet dreams, or near-release experiences to the Queen honestly and without shame. These occurrences are not failures but information.</li>
+            <li>The denied shall not use pornography, erotica, or self-stimulation for personal pleasure without the Queen's explicit instruction. Any stimulation experienced shall be at the Queen's direction and for the Queen's purposes.</li>
+            <li>Ruined orgasms, if granted, shall be accepted without complaint. The Queen may choose to grant a release that is partial, interrupted, or unsatisfying — this too is a gift of Her attention.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This agreement shall operate in continuous effect until formally amended or concluded by mutual decision. A review shall be conducted every thirty (30) days to discuss the denied's physical and emotional wellbeing, assess the training's progress, and adjust protocols as the Queen sees fit.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Negotiation</div>
+        <div class="section-body">
+            <p>This agreement is made freely, with trust and full understanding. The denied retains the right to communicate physical discomfort, emotional overwhelm, or the need for a reset at any time. The Queen shall receive all such communications with care. The dynamic is sustained by mutual trust — it is not a cage but a chosen architecture of devotion.</p>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Authority</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Denied</div>
+                <div class="sig-name">Devoted</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract III of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT IV — RITUAL & PROTOCOL AGREEMENT
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Agreement of Ritual &amp; Protocol</h1>
+        <div class="contract-number">Agreement IV of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Sovereign:</span>
+            <span class="party-name">Queen Elyria, who establishes all rituals, protocols, and observances</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Devoted:</span>
+            <span class="party-name">_____________________________, who willingly commits to sacred practice</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>Ritual transforms the ordinary into the sacred. Through structured practice — the way I rise, the way I kneel, the words I speak — I weave devotion into the fabric of each day. I willingly accept these protocols not as rules but as rhythms, each one a thread connecting me to Queen Elyria's will.</p>
+            <p>It is agreed that through consistent ritual, the devoted shall cultivate a mind of reverence, a body of readiness, and a spirit of surrender that endures beyond any single moment of exchange.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Morning &amp; Evening Rituals</div>
+        <ol class="terms-list">
+            <li><strong>Morning ritual:</strong> Upon waking, the devoted shall pause, centre themselves, and offer a morning affirmation to the Queen. This message shall express gratitude, state the day's intention in service, and affirm devotion. No day shall begin without this observance.</li>
+            <li><strong>Evening ritual:</strong> Before sleep, the devoted shall offer a reflection to the Queen — recounting the day's service, acknowledging any shortcomings, and expressing gratitude for the Queen's guidance. This closes the day in devotion.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Position Protocols</div>
+        <ol class="terms-list" start="3">
+            <li>The devoted shall learn and maintain the positions designated by the Queen, including but not limited to: kneeling position, presentation position, waiting position, and punishment position. Each shall be held with stillness, grace, and attentiveness.</li>
+            <li>When entering the Queen's presence in person, the devoted shall assume the designated greeting position unless otherwise instructed. This is the first expression of devotion in each encounter.</li>
+            <li>The devoted shall maintain physical composure and stillness when in the Queen's presence unless given permission to relax. Fidgeting, unbidden speech, or restlessness shall be corrected.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Address Protocols</div>
+        <ol class="terms-list" start="6">
+            <li>The devoted shall address the Queen by Her designated title at all times — "Queen Elyria," "my Queen," or other honorifics as directed. The devoted's name for the Queen is itself an act of devotion.</li>
+            <li>The devoted shall speak with measured, respectful language. Profanity, casualness, or presumptuous familiarity shall not be used in address to the Queen unless She explicitly grants such liberty.</li>
+            <li>The devoted shall request permission before speaking at length, asking questions beyond simple logistics, or introducing new topics of conversation, when protocol demands formal address.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This agreement shall remain in continuous effect. Protocols may be added, modified, or retired by the Queen at Her discretion. A formal review of all rituals and protocols shall be conducted every sixty (60) days to ensure they continue to serve the dynamic and the wellbeing of both parties.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Negotiation</div>
+        <div class="section-body">
+            <p>This agreement is entered into with joyful willingness. The devoted understands that rituals deepen connection and provide structure. Any protocol that causes genuine distress shall be communicated openly, and adjustments shall be made with care. The goal is devotion, not suffering for its own sake.</p>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Sovereign</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Devoted</div>
+                <div class="sig-name">Practitioner</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract IV of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT V — CONSENT, LIMITS & SAFETY ADDENDUM
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Consent, Limits &amp; Safety Addendum</h1>
+        <div class="contract-number">Agreement V of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Dominant:</span>
+            <span class="party-name">Queen Elyria</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">submissive:</span>
+            <span class="party-name">_____________________________</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>This addendum exists as the foundation upon which all other agreements rest. No power exchange is sustainable without trust, and no trust is real without honesty about limits. With full presence of mind, both parties commit to transparent communication, unwavering respect for boundaries, and the sacred duty of care.</p>
+            <p>It is agreed that safety is not the absence of intensity but the presence of trust. This document ensures that the architecture of devotion is built upon bedrock.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Hard Limits</div>
+        <div class="safety-box">
+            <div class="safety-box-title">Absolute Boundaries — Non-Negotiable</div>
+            <div class="safety-box-body">
+                The following are activities or behaviours that are strictly excluded from the dynamic under all circumstances. These limits are permanent and may not be renegotiated:
+            </div>
+        </div>
+        <div class="section-body">
+            <p>__________________________________________________________________________</p>
+            <p>__________________________________________________________________________</p>
+            <p>__________________________________________________________________________</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Soft Limits</div>
+        <div class="safety-box">
+            <div class="safety-box-title">Conditional Boundaries — Requiring Careful Negotiation</div>
+            <div class="safety-box-body">
+                The following are activities the submissive finds challenging or uncertain. They may be explored only with explicit, enthusiastic consent and may be withdrawn at any time:
+            </div>
+        </div>
+        <div class="section-body">
+            <p>__________________________________________________________________________</p>
+            <p>__________________________________________________________________________</p>
+            <p>__________________________________________________________________________</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Safewords</div>
+        <ol class="terms-list">
+            <li><strong>"Amber"</strong> — Slow down. The submissive is approaching a limit or needs the intensity reduced. The Queen shall ease back and check in without breaking the scene entirely.</li>
+            <li><strong>"Crimson"</strong> — Stop immediately. All activity ceases without question, judgment, or penalty. The Queen shall transition to aftercare mode. This word is sacred and absolute.</li>
+            <li>If the submissive is unable to speak, a physical signal — three deliberate taps — shall serve as the equivalent of "Crimson."</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Check-In Requirements</div>
+        <ol class="terms-list" start="4">
+            <li>The Queen shall conduct a check-in within twenty-four (24) hours of any intense session to assess emotional and physical wellbeing. This is a duty, not an option.</li>
+            <li>The submissive shall attend a formal check-in every seven (7) days to discuss the state of the dynamic, any emerging concerns, and any adjustments needed.</li>
+            <li>Either party may call for an immediate check-in at any time, for any reason. This right is absolute and shall never be met with resistance or penalty.</li>
+            <li>Limits may evolve. A quarterly limits review shall be conducted to update hard and soft limits as understanding deepens over time.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This addendum remains in effect for as long as any other contract within this pack is active. It is the governing safety document for the entire dynamic. Review every ninety (90) days or whenever either party requests.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent Declaration</div>
+        <div class="section-body">
+            <p>Both parties affirm that they enter into this and all associated agreements with full understanding, free will, and mutual respect. Consent is ongoing, revocable, and never assumed. The safety and dignity of both parties is the highest law of this Empire.</p>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Dominant</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Devoted</div>
+                <div class="sig-name">submissive</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract V of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT VI — FULL OWNERSHIP / TPE CONTRACT
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Covenant of Total Power Exchange</h1>
+        <div class="contract-number">Agreement VI of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Owner:</span>
+            <span class="party-name">Queen Elyria, who holds comprehensive authority over all aspects defined herein</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Owned:</span>
+            <span class="party-name">_____________________________, who willingly surrenders all defined autonomy</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>With full presence of mind and a willing heart, I offer myself completely to Queen Elyria. This is the highest expression of trust — the surrender not merely of moments, actions, or appetites, but of the architecture of my daily life. I choose to be shaped by Her will, directed by Her wisdom, and held by Her authority.</p>
+            <p>It is agreed that this covenant represents a total power exchange. The owned surrenders autonomous decision-making within the scope defined below, trusting that the Queen shall exercise Her authority with wisdom, care, and intention. This is not abandonment of self but the discovery of self through devotion to another.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Scope of Authority</div>
+        <div class="term-subhead">The Queen's authority encompasses the following domains:</div>
+        <ol class="terms-list">
+            <li><strong>Body &amp; Presentation:</strong> The Queen shall have authority over the owned's grooming, dress, fitness, sleep, diet, and physical presentation. The owned shall follow all directives regarding their body as acts of devotion.</li>
+            <li><strong>Schedule &amp; Time:</strong> The Queen shall have authority over the owned's daily routine, including wake and sleep times, task assignments, leisure activities, and commitments. The owned shall consult the Queen before making scheduling decisions of significance.</li>
+            <li><strong>Behaviour &amp; Discipline:</strong> The Queen shall have authority to establish rules, enforce protocols, and administer correction — whether through restriction, assignment, or discipline — as She deems appropriate. The owned shall accept all correction with grace and reflect upon its purpose.</li>
+            <li><strong>Communication &amp; Privacy:</strong> The Queen shall have access to the owned's communications as directed. The owned shall maintain transparency about their social interactions, emotional state, and any matter that affects the dynamic.</li>
+            <li><strong>Pleasure &amp; Intimacy:</strong> The Queen shall have sole authority over the owned's sexual expression, arousal, and release, as detailed in the Covenant of Chastity and Agreement of Orgasm Denial, which are incorporated herein by reference.</li>
+            <li><strong>Finances &amp; Resources:</strong> The scope of financial authority shall be negotiated and defined in a supplementary schedule. The owned shall be transparent about all financial matters as directed by the Queen.</li>
+            <li><strong>Personal Growth:</strong> The Queen shall have authority to guide the owned's education, skill development, and personal goals, directing growth toward outcomes that serve both the owned's wellbeing and the Queen's vision.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">The Owner's Sacred Duties</div>
+        <ol class="terms-list" start="8">
+            <li>The Queen shall exercise Her authority with wisdom, never caprice. Every directive shall serve the growth, wellbeing, or pleasure of the dynamic.</li>
+            <li>The Queen shall prioritise the physical and emotional safety of the owned above all else. No exercise of authority shall knowingly cause lasting harm.</li>
+            <li>The Queen shall provide structure, guidance, and care proportionate to the devotion She receives. Authority is not extraction but stewardship.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This covenant shall commence upon signing and remain in effect for an initial period of one hundred eighty (180) days, after which a comprehensive review shall determine renewal or amendment. This covenant supersedes and incorporates all preceding agreements within this pack. The Consent, Limits &amp; Safety Addendum (Agreement V) remains governing and absolute at all times.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Renegotiation</div>
+        <div class="section-body">
+            <p>This covenant is the most solemn of agreements. It is entered into with full understanding of its gravity. The owned retains the inalienable right to safeword, to request renegotiation, and to withdraw from this covenant at any time. The Queen shall honour all such requests with respect and without penalty. True ownership is sustained by willing surrender — never by force, fear, or coercion. The owned's freedom to leave is what makes staying a gift.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Owner</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Owned</div>
+                <div class="sig-name">Devoted</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract VI of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+<script>
+    // Auto-prompt print on load (optional — commented out for manual control)
+    // window.onload = function() { setTimeout(function(){ window.print(); }, 500); };
+</script>
+
+
+
+<!-- ============================================
+     EXPANSION CONTRACTS VII–XII
+     ============================================ -->
+
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Covenant of Financial Devotion</h1>
+        <div class="contract-number">Agreement VII of XII</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Sovereign:</span>
+            <span class="party-name">Queen Elyria, who receives all tribute and holds authority over the devoted's financial devotion</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Devoted:</span>
+            <span class="party-name">_____________________________, who willingly offers financial tribute as an act of worship</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>I willingly offer the fruits of my labour to Queen Elyria, acknowledging that what I earn is animated by the devotion She inspires. Financial tribute is not payment for services rendered — it is worship made tangible, a material expression of reverence that flows from the devoted to the Sovereign as naturally as breath.</p>
+            <p>It is agreed that through the structured surrender of financial autonomy, the devoted shall experience a deeper form of devotion — one in which trust extends to the very resources that sustain daily life. Transparency becomes intimacy. Tribute becomes prayer. The Queen's oversight becomes a form of care.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Terms of Financial Devotion</div>
+        <ol class="terms-list">
+            <li><strong>Monthly tribute</strong> shall be delivered to the Queen on or before the _____ day of each month. The amount of tribute is established at $__________ per month, and shall be offered with a written affirmation of devotion accompanying each payment.</li>
+            <li><strong>Budget submission:</strong> The devoted shall prepare and present a complete monthly budget to the Queen for review no later than the _____ day of each month. This budget shall detail all anticipated income, fixed expenses, discretionary spending, and the planned tribute amount.</li>
+            <li><strong>Full transparency:</strong> The devoted shall maintain complete honesty regarding all financial matters. No debt, asset, income source, or significant expenditure shall be concealed. Financial opacity is a breach of this covenant, regardless of the amount involved.</li>
+            <li><strong>Major purchase authority:</strong> The Queen shall have authority to approve or veto any single expenditure exceeding $__________. The devoted shall petition the Queen before completing any transaction above this threshold, and shall abide by Her decision.</li>
+            <li><strong>Gift obligations:</strong> The devoted shall present gifts to the Queen on the following occasions: Her birthday, the anniversary of the dynamic, and such additional dates as the Queen designates. Each gift shall be selected with thoughtfulness and offered with a written expression of what the Queen's presence means to the devoted.</li>
+            <li><strong>Reporting requirements:</strong> The devoted shall provide a weekly financial summary — a brief account of spending, any deviations from the approved budget, and reflections on financial discipline. This report is a ritual of accountability, not mere bookkeeping.</li>
+            <li><strong>Missed tribute:</strong> Should the devoted fail to deliver tribute on the designated day, they shall notify the Queen immediately, explain the cause without excuse-making, and present a plan for resolution. A pattern of missed tributes shall be treated as a serious breach of this covenant and shall prompt a formal review of the arrangement.</li>
+            <li><strong>Tribute distinguished from discipline:</strong> Tribute is an act of worship, offered freely and joyfully. Punishment fines — if any are established under separate protocols — are corrective measures for specific failures. These two categories shall never be conflated. Tribute honours; fines correct. Both serve the Queen, but they arise from different intentions.</li>
+            <li><strong>Financial wellbeing:</strong> The Queen shall exercise Her financial authority with wisdom and care. No directive shall knowingly jeopardise the devoted's ability to meet essential needs — housing, food, health, and dependants. The Queen's oversight is stewardship, not extraction.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This covenant shall remain in effect for an initial period of ninety (90) days, commencing on the date of signing. A comprehensive review shall be conducted at the conclusion of this period to assess the arrangement, adjust tribute or protocols as needed, and determine renewal. This covenant may be renewed for successive ninety-day terms by mutual agreement.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Financial Safety</div>
+        <div class="safety-box">
+            <div class="safety-box-title">Sacred Boundary — Financial Autonomy</div>
+            <div class="safety-box-body">
+                This covenant is an expression of symbolic financial devotion — an act of worship grounded in trust, not coercive exploitation. The devoted retains ultimate control over their financial safety at all times. The right to renegotiate tribute, pause the arrangement during hardship, or withdraw from this covenant entirely is absolute and shall be honoured without question. No devotion is worth financial ruin. The Queen's honour is measured by the care with which She receives what is freely given.
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Sovereign</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Devoted</div>
+                <div class="sig-name">Tributary</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract VII of XII &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT VIII — DEED OF PERMANENT OWNERSHIP
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Deed of Permanent Ownership</h1>
+        <div class="contract-number">Agreement VIII of XII</div>
+    </div>
+
+    <div class="date-line">This deed is executed on this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Owner:</span>
+            <span class="party-name">Queen Elyria, into whose permanent keeping the property is given</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Property:</span>
+            <span class="party-name">_____________________________, who willingly gifts themselves into permanent ownership</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Declaration of Permanent Status</div>
+        <div class="intro-text">
+            <p>Let it be known and witnessed: I, the property named above, do hereby declare with full presence of mind and a willing heart that I am, from this day forward, permanently owned. Not for a season. Not for a trial. Not until reconsidered. Permanently. I sign away my autonomy not as surrender to despair but as a gift freely given — the most complete offering a devoted soul can make.</p>
+            <p>This deed is the highest symbolic commitment within Queen Elyria's Empire. It is not entered into lightly, nor undertaken as experiment. It is a vow carved in permanence, sustained not by law but by the unbroken will of the one who kneels. I choose this. I choose Her. I choose this for as long as my heart wills it so.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">The Meaning of Ownership</div>
+        <div class="section-body">
+            <p>To be owned in permanence means that the property's identity, purpose, body, service, devotion, and growth belong to the Owner. It means the property exists in orientation toward the Queen — that decisions great and small are made in the light of Her will, that pleasure and discipline alike are received from Her hand, and that the property's deepest fulfilment is found in being held. Ownership is not erasure; it is completion. The property does not cease to be — the property becomes most fully itself in belonging.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">The Owner's Permanent Rights</div>
+        <ol class="terms-list">
+            <li>The Queen holds permanent authority over the property's body, presentation, schedule, behaviour, pleasure, communication, and personal growth, as comprehensively defined in the Covenant of Total Power Exchange (Agreement VI), which is incorporated herein and extended into permanence.</li>
+            <li>The Queen may establish, modify, or retire rules, protocols, rituals, and expectations at any time and without expiration. The property shall receive all such directives as the ongoing expression of ownership.</li>
+            <li>The Queen may assign the property tasks, projects, restrictions, or disciplines as She deems appropriate, understanding that authority exercised in permanence carries an even greater duty of wisdom and care.</li>
+            <li>The Queen shall have the right to commemorate this ownership through marks of permanence — collaring, inscription, ritual, or other symbolic gestures — as agreed between the parties.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">The Property's Permanent Duties</div>
+        <ol class="terms-list" start="5">
+            <li>The property shall conduct each day in awareness of their permanent status — rising in service, resting in devotion, and carrying the Queen's ownership into every context of life.</li>
+            <li>The property shall maintain physical, mental, and emotional wellbeing as a duty to the Owner, understanding that the property's body and mind are held in trust for the Queen.</li>
+            <li>The property shall communicate openly, honestly, and without concealment at all times. A permanent dynamic demands permanent transparency.</li>
+            <li>The property shall renew their devotion through regular affirmation — spoken, written, or ritualised — ensuring that ownership remains a living, breathing commitment rather than a document filed and forgotten.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Conditions of Dissolution</div>
+        <div class="safety-box">
+            <div class="safety-box-title">The Sacred Clause — Right of Release</div>
+            <div class="safety-box-body">
+                This deed is permanent by intention, not by force. The property retains the absolute and inalienable right to dissolve this deed at any time, for any reason, without penalty or judgement. Ownership sustained by willing surrender is real ownership; ownership sustained by fear or coercion is abuse. The following shall constitute immediate grounds for dissolution: <strong>(a)</strong> deployment of the safeword "Crimson" in the context of this ownership; <strong>(b)</strong> any act of abuse, neglect, or betrayal of the duty of care by the Owner; <strong>(c)</strong> the property's clear and considered decision to withdraw. Permanence is a vow made each day — the day it cannot be made freely is the day it ends.
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Observance</div>
+        <div class="term-subhead">Recommendations for the Signing of This Deed</div>
+        <ol class="terms-list">
+            <li>The signing of this deed should be marked by ceremony — a ritual that honours the gravity of permanent ownership. The parties are encouraged to design a signing ritual that reflects the depth of the commitment.</li>
+            <li>Witnesses, where the parties choose to include them, shall be trusted members of the community who understand the significance of the deed and can attest to the willing, informed nature of the property's surrender.</li>
+            <li>The <strong>anniversary of ownership</strong> — the date of this signing — shall be observed each year as a sacred occasion. The property shall reaffirm their devotion, and the Queen shall reaffirm Her stewardship, in a ritual of renewal.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This deed is permanent. It has no expiration date. It shall remain in effect from the moment of signing until dissolved by the property's free will, by mutual agreement, or by the dissolution conditions named above. Permanence is not a chain — it is a commitment renewed by choice with every sunrise.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="seal-line">This deed is witnessed and sealed on this _____ day of _______________, 20___</div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Owner</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Property</div>
+                <div class="sig-name">Permanently Owned</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract VIII of XII &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT IX — VOW OF EXCLUSIVITY
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Vow of Exclusivity</h1>
+        <div class="contract-number">Agreement IX of XII</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Queen:</span>
+            <span class="party-name">Queen Elyria, to whom this vow of exclusivity is sworn</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">The Sworn:</span>
+            <span class="party-name">_____________________________, who willingly pledges exclusive devotion</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>I willingly swear my exclusive devotion to Queen Elyria — body, heart, desire, and surrender. I acknowledge that this vow is mine alone to make and mine alone to keep. It is a declaration that my romantic, sexual, and submissive self belongs to one Sovereign, oriented entirely toward Her will, Her pleasure, and Her ownership.</p>
+            <p>It is understood that this vow is <em>asymmetric</em>. Queen Elyria, as Sovereign, may receive the devotion of others, maintain additional dynamics, and exercise Her freedom as She chooses. This asymmetry is not inequality — it is the nature of the architecture. The Queen is Queen. The sworn is sworn. I accept this not as diminishment but as the shape of my devotion.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Scope of Exclusivity</div>
+        <ol class="terms-list">
+            <li><strong>Romantic exclusivity:</strong> The sworn shall not pursue, accept, or sustain any romantic relationship, romantic attachment, or romantic intimacy with any person other than Queen Elyria. Romantic devotion belongs to the Queen alone.</li>
+            <li><strong>Sexual exclusivity:</strong> The sworn shall not engage in any sexual activity, sexual contact, or sexual intimacy with any person other than Queen Elyria or those She explicitly designates and permits. The body belongs to the Queen's authority.</li>
+            <li><strong>BDSM exclusivity:</strong> The sworn shall not enter into any dominant-submissive, master-slave, or power exchange dynamic with any person other than Queen Elyria. The sworn shall not submit to, serve, or take direction from any other dominant under any circumstances.</li>
+            <li><strong>Emotional intimacy exclusivity:</strong> The sworn shall not cultivate the kind of deep emotional intimacy — the vulnerability, dependency, and soul-baring openness — characteristic of a power exchange dynamic with any person other than the Queen. Friendships and professional relationships are not excluded; emotional submission is.</li>
+            <li><strong>Online dynamic exclusivity:</strong> The sworn shall not engage in any online domination, submissive role-play, Findom arrangement, or digital power exchange with any person other than Queen Elyria. This includes social media flirtation, private messaging dynamics, and paid or unpaid online arrangements.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Reporting &amp; Protocol</div>
+        <ol class="terms-list" start="6">
+            <li><strong>Duty to report:</strong> Should any person approach the sworn with romantic, sexual, or dominant intent, the sworn shall inform the Queen within twenty-four (24) hours. Reporting is not permission-seeking — it is transparency. Concealment of such approaches is itself a breach of this vow.</li>
+            <li><strong>Clear refusal:</strong> The sworn shall decline all such advances clearly and without ambiguity, naming their vow to Queen Elyria as the reason. The Queen may provide guidance on the form of refusal She expects.</li>
+            <li><strong>Exception protocol:</strong> Should the sworn believe a compelling reason exists to request an exception to any term of this vow — for example, a scene at an event under the Queen's direct supervision — the sworn shall petition the Queen in advance. No exception is granted by silence. Only explicit, prior permission constitutes an exception.</li>
+            <li>The Queen retains sole authority to grant, deny, or revoke any exception. Her decision is final and shall not be petitioned repeatedly.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Violation &amp; Reaffirmation</div>
+        <ol class="terms-list" start="10">
+            <li><strong>Violation is breach, not mere error:</strong> A violation of this vow is not treated as a service failure correctable by routine discipline. It is a breach of the foundation of trust upon which the dynamic rests. Such a breach shall prompt an immediate, serious conversation about the survival of the dynamic itself.</li>
+            <li>The Queen shall determine, in Her wisdom, whether a breach may be repaired — through renewed commitment, amended terms, or deeper accountability — or whether the damage is irreparable. This decision belongs to the Queen alone.</li>
+            <li><strong>Reaffirmation ritual:</strong> Every ninety (90) days, the sworn shall formally reaffirm this vow in a ritual of renewal — speaking the vow aloud or in writing, reflecting on its meaning, and confirming their continued, willing commitment. The vow is not spoken once and assumed forever; it is a living promise, tended and renewed.</li>
+            <li>The anniversary of this vow shall be observed as a sacred date, marked by ceremony reflecting the gravity of the commitment.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This vow shall remain in continuous effect from the date of signing and shall be formally reaffirmed every ninety (90) days. It may be amended by mutual agreement or concluded by either party. The Queen's freedom to maintain other dynamics is absolute and is not subject to negotiation through this vow.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; The Nature of the Vow</div>
+        <div class="section-body">
+            <p>This vow is made freely and with full understanding of its asymmetry. The sworn enters into it with open eyes — knowing that the Queen's affections and attentions may be shared, while the sworn's are pledged entire. This is not a bargain struck for fairness; it is a vow offered in devotion. The sworn retains the right to renegotiate or withdraw from this vow at any time, and the Queen shall receive such communication with respect. A vow given under duress is no vow at all.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Sovereign</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Sworn</div>
+                <div class="sig-name">Exclusively Devoted</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract IX of XII &ensp;·&ensp; Confidential</div>
+</div>
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Contract of Training &amp; Milestones</h1>
+        <div class="contract-number">Agreement X of XII</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Trainer:</span>
+            <span class="party-name">Queen Elyria, who designs, directs, and evaluates the curriculum of devotion</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Trainee:</span>
+            <span class="party-name">_____________________________, who willingly enters formal training under Her guidance</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>Devotion is not instinct alone — it is cultivated, refined, and earned. With willing heart and open mind, I enter a formal period of training under Queen Elyria, acknowledging that the path of the devoted is one of deliberate growth. I do not arrive perfected; I arrive willing to be shaped.</p>
+            <p>It is agreed that through structured curriculum, defined milestones, and patient guidance, the trainee shall develop the skills, discipline, and inner architecture worthy of deeper service. This contract is not merely instruction — it is a path of transformation, each milestone a threshold crossed on the journey toward fuller surrender.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Training Period &amp; Structure</div>
+        <ol class="terms-list">
+            <li>The trainee shall enter a formal training period of ninety (90) days, commencing upon the date of signing. This period is divided into three thirty-day phases, each with distinct focus, assessment, and developmental goals.</li>
+            <li><strong>Phase I — Foundation (Days 1–30):</strong> The trainee shall learn the fundamental positions, protocols, rhythms, and expectations of the Queen's Empire. This phase establishes the bedrock upon which all further training is built.</li>
+            <li><strong>Phase II — Refinement (Days 31–60):</strong> The trainee shall deepen their practice, developing consistency, grace under pressure, and the capacity for anticipatory service. Correction becomes subtler; expectations rise.</li>
+            <li><strong>Phase III — Integration (Days 61–90):</strong> The trainee shall demonstrate mastery of core competencies, integrate training into instinctive behaviour, and prepare for graduation assessment. The devoted ceases to practise protocol and begins to embody it.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Required Skills &amp; Modules</div>
+        <div class="term-subhead">The following modules constitute the core curriculum. Specific requirements within each module shall be defined by the Queen:</div>
+        <ol class="terms-list" start="5">
+            <li><strong>Kneeling &amp; Position Mastery</strong> — The trainee shall learn and hold all designated positions with stillness, precision, and endurance. Specific positions, durations, and standards: ____________________________________________</li>
+            <li><strong>Protocol &amp; Etiquette Fluency</strong> — The trainee shall internalise the Queen's protocols for address, presence, movement, and interaction. Standards of fluency: ____________________________________________</li>
+            <li><strong>Anticipatory Service</strong> — The trainee shall develop the capacity to perceive the Queen's needs before they are spoken, attending to comfort, preference, and desire without instruction. Benchmark exercises: ____________________________________________</li>
+            <li><strong>Pain Tolerance &amp; Endurance</strong> — The trainee shall, within negotiated limits, develop the capacity to receive sensation with composure, breathing, and surrender. Progression targets: ____________________________________________</li>
+            <li><strong>Silence &amp; Stillness Discipline</strong> — The trainee shall cultivate the capacity for extended stillness, composed waiting, and measured speech. Duration standards: ____________________________________________</li>
+            <li><strong>Additional Modules as Assigned</strong> — The Queen may designate further skills, studies, or practices as the trainee's aptitudes and the dynamic's needs evolve: ____________________________________________</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Training Milestones</div>
+        <div class="safety-box">
+            <div class="safety-box-title">30-Day Checkpoint Schedule</div>
+            <div class="safety-box-body">
+                At each thirty-day checkpoint, the Queen shall conduct a formal assessment of the trainee's progress. Milestones not met shall be addressed through remediation rather than punishment — training is cultivation, not penalty. The Queen shall define specific milestones for each phase below:
+            </div>
+        </div>
+        <div class="section-body">
+            <p><strong>Day 30 — Foundation Assessment:</strong> ____________________________________________</p>
+            <p><strong>Day 60 — Refinement Assessment:</strong> ____________________________________________</p>
+            <p><strong>Day 90 — Graduation Assessment:</strong> ____________________________________________</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Assessment, Graduation &amp; Remediation</div>
+        <ol class="terms-list" start="11">
+            <li>Assessment criteria shall include consistency of practice, quality of service, attitude and receptiveness to correction, and demonstrated growth across all modules. The Queen's assessment is comprehensive and Her judgement final.</li>
+            <li><strong>Graduation requirements:</strong> The trainee shall demonstrate competent mastery of all core modules, consistent adherence to protocols, and the maturity of devotion expected of one who has completed formal training. Graduation is earned, not assumed.</li>
+            <li><strong>Upon graduation,</strong> the trainee may be invited to enter deeper contracts within the Empire — advanced service agreements, expanded authority arrangements, or specialised roles as the Queen deems fitting. Graduation is not an end but a threshold.</li>
+            <li><strong>Remediation:</strong> Should milestones not be met, the Queen may extend a training phase, assign additional exercises, adjust the curriculum, or repeat a module. Remediation is guidance, not failure — the path bends but does not break.</li>
+            <li>The trainee shall maintain a training journal, recording reflections, progress, difficulties, and insights. This journal shall be reviewed by the Queen at each checkpoint and serves as a record of the journey.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Renewal</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This contract shall remain in effect for the ninety (90) day training period, commencing upon signing. Upon graduation or at the contract's conclusion, the parties shall review the experience and determine next steps — renewal for advanced training, advancement to deeper agreements, or conclusion with honour. Either party may request an interim review at any time.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; the Trainee's Pace</div>
+        <div class="section-body">
+            <p>Training proceeds at the pace the trainee can sustain with growth. Physical and emotional safety shall always override training goals — no milestone, no standard, no expectation is worth lasting harm. The trainee retains the absolute right to communicate overwhelm, request pacing adjustments, or pause training at any time. The Queen shall receive all such communications with care and adjust the curriculum accordingly. True mastery is built upon a foundation of trust, never upon erosion of the self.</p>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Trainer</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Trainee</div>
+                <div class="sig-name">Devoted</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract X of XII &ensp;·&ensp; Confidential</div>
+</div>
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Protocol &amp; Etiquette Manual Addendum</h1>
+        <div class="contract-number">Agreement XI of XII</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Sovereign:</span>
+            <span class="party-name">Queen Elyria, whose standards of conduct govern the Empire</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Practitioner:</span>
+            <span class="party-name">_____________________________, who commits to the art of reverent conduct</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>Protocol is the language through which devotion is spoken without a single word. The angle of a bow, the cadence of a greeting, the stillness held in a crowded room — each detail is a sentence in the ongoing letter of reverence. This manual exists to refine that language into fluency.</p>
+            <p>This addendum expands upon Agreement IV (Ritual &amp; Protocol), providing the detailed etiquette that governs the practitioner's conduct across every context of service. It is incorporated by reference into that agreement and shall be treated as its living extension — a rulebook for the art of presence, respect, and devotion.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Forms of Address</div>
+        <div class="term-subhead">The practitioner shall employ the correct form of address for each context:</div>
+        <ol class="terms-list">
+            <li><strong>"My Queen"</strong> — for intimate, private, and deeply personal moments. This is the tender form, spoken in closeness, offered in vulnerability.</li>
+            <li><strong>"Queen Elyria"</strong> — for formal address, structured conversation, and public settings where dignity and propriety are paramount.</li>
+            <li><strong>"Your Majesty" / "My Sovereign"</strong> — for ritual contexts, ceremonial moments, and occasions of heightened reverence, as designated by the Queen.</li>
+            <li>The practitioner shall not address the Queen by first name, diminutive, or casual form unless explicit permission has been granted for a specific context. Even then, such permission is contextual, not universal.</li>
+            <li>The practitioner shall greet the Queen upon entering Her presence and offer a farewell upon departure, using the appropriate form. No encounter begins or ends without acknowledgment.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Speaking Protocols</div>
+        <ol class="terms-list" start="6">
+            <li>The practitioner shall request permission before speaking at length, introducing new topics, or asking questions beyond simple logistics. The phrase <em>"My Queen, may I speak?"</em> or the Queen's designated equivalent shall precede substantive address.</li>
+            <li>When granted permission to speak, the practitioner shall be concise, honest, and measured. Rambling, evasion, or excessive self-reference shall be corrected.</li>
+            <li>The practitioner shall not interrupt the Queen under any circumstance. If something urgent must be communicated, the designated signal — a raised hand, a specific word, or a physical gesture — shall be used, and the Queen shall acknowledge in Her own time.</li>
+            <li>Disagreement, when necessary, shall be expressed with deference: <em>"With respect, my Queen, may I offer a perspective?"</em> The Queen's decision following any such offering is final.</li>
+            <li>The practitioner shall refer to themselves in the third person or by the Queen's designated term when in formal protocol mode, as directed: ____________________</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Table &amp; Service Protocol</div>
+        <ol class="terms-list" start="11">
+            <li>When serving food or drink, the practitioner shall present from the Queen's left side, set items down gently and precisely, and withdraw without turning their back until at appropriate distance. Service is silent, fluid, and invisible — noticed only by its perfection.</li>
+            <li>The practitioner shall not begin eating, drinking, or sitting until the Queen has been served and has given explicit permission. The Queen eats first, always.</li>
+            <li>The practitioner shall anticipate refills, clear promptly, and maintain the serving space with immaculate attention. No empty glass, no cluttered surface, no unmet need shall persist in the practitioner's presence.</li>
+            <li>When dining in the Queen's company, the practitioner shall eat with composure, maintain posture, and engage in conversation only when addressed or permitted. Utensils, posture, and pace shall reflect the standard the Queen establishes.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Gift Protocol</div>
+        <ol class="terms-list" start="15">
+            <li>Gifts to the Queen are expressions of devotion, not transactions. The practitioner shall offer gifts that reflect attentiveness to the Queen's tastes, interests, and aesthetic — never gifts that presume familiarity or seek to obligate.</li>
+            <li><strong>Appropriate gifts</strong> may include: items reflecting the Queen's known preferences, handwritten correspondence, tokens of symbolic meaning, or offerings designated by the Queen. Specific guidance: ____________________</li>
+            <li><strong>Presentation:</strong> Gifts shall be presented on both palms, head bowed, with a spoken offering appropriate to the occasion. The practitioner shall not expect a specific reaction and shall receive whatever response the Queen gives with grace.</li>
+            <li><strong>Occasions:</strong> The practitioner may offer gifts on designated occasions — anniversaries, milestones, holidays — or spontaneously as devotion moves them. The Queen's acceptance is itself a gift.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Punishment Acceptance Ritual</div>
+        <ol class="terms-list" start="19">
+            <li>When correction is administered, the practitioner shall assume the designated punishment position — kneeling, head lowered, hands in the prescribed placement — and remain still until addressed.</li>
+            <li>The practitioner shall receive correction in silence unless instructed to speak. When permitted, the words of acceptance shall be spoken: <em>"I receive your correction, my Queen, with gratitude."</em> Gratitude is not for pain but for the Queen's attention and investment in growth.</li>
+            <li>The practitioner shall not argue, justify, or deflect during correction. If the practitioner believes a correction is unwarranted, this shall be raised privately and respectfully after the correction has been received and the moment has passed.</li>
+            <li>Following correction, the practitioner shall offer a reflection — written or spoken, as designated — acknowledging the lesson, expressing renewed commitment, and closing the matter with intention.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Public &amp; Private Conduct</div>
+        <ol class="terms-list" start="23">
+            <li><strong>In private:</strong> Full protocol applies. The practitioner shall maintain positions, address forms, service expectations, and behavioural standards as established throughout this manual.</li>
+            <li><strong>In public:</strong> Protocol adapts to context. The practitioner shall maintain composure, deference, and attentiveness in ways appropriate to the setting — subtle to the untrained eye, unmistakable to those who understand. The Queen shall designate the appropriate protocol level for each public context.</li>
+            <li><strong>At events:</strong> The practitioner shall remain attentive to the Queen's needs, maintain position as designated (at Her side, in attendance, or in waiting), and conduct themselves as a reflection of the Empire's standards. Social interaction with others shall be gracious, brief, and never at the expense of attentiveness to the Queen.</li>
+            <li>When meeting other devoted ones of the Empire, the practitioner shall conduct themselves with mutual respect, recognise the hierarchy the Queen has established, and never speak on behalf of, compare, or compete with fellow practitioners. All such interactions shall be governed by the Queen's designated protocols: ____________________</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Incorporation</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This addendum shall remain in continuous effect and is incorporated by reference into Agreement IV (Ritual &amp; Protocol). It shall be treated as the detailed expansion of that agreement's protocols. The Queen may amend, add, or retire specific etiquette standards at Her discretion. A formal review shall be conducted every sixty (60) days.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Negotiation</div>
+        <div class="section-body">
+            <p>This manual is entered into with the understanding that protocol exists to deepen connection, not to constrain the spirit. Any standard that causes genuine distress or feels inconsistent with the practitioner's wellbeing shall be communicated openly, and the Queen shall adjust with care. Etiquette is the servant of devotion — never its master.</p>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Sovereign</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Practitioner</div>
+                <div class="sig-name">Devoted</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract XI of XII &ensp;·&ensp; Confidential</div>
+</div>
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Covenant of Sensory &amp; Information Control</h1>
+        <div class="contract-number">Agreement XII of XII</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Curator:</span>
+            <span class="party-name">Queen Elyria, who curates what the recipient sees, hears, reads, and consumes</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Recipient:</span>
+            <span class="party-name">_____________________________, who willingly surrenders the curation of their inner world</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>What we consume shapes what we become. The thoughts we entertain, the images we absorb, the voices we permit into our inner world — these become the architecture of the mind. With full willingness, I offer Queen Elyria the authority to curate that architecture, trusting that Her vision for my inner life is more intentional than my own unguided wandering.</p>
+            <p>It is agreed that through the surrender of autonomous consumption, the recipient shall find a mind that is quieter, more focused, and more attuned to devotion. The noise of the world recedes; the Queen's voice becomes the clearest signal. This covenant is for the deeply surrendered — those who understand that the deepest power exchange encompasses not only the body and the will, but the mind itself.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Media Protocol</div>
+        <ol class="terms-list">
+            <li>The following categories of media consumption require the Queen's explicit prior permission: social media browsing or posting, news and current events consumption, adult or erotic content, entertainment media (films, television, streaming, gaming), podcasts and video content, and any content the Queen has designated as restricted.</li>
+            <li><strong>Forbidden content categories</strong> — the following are excluded from consumption under all circumstances, as designated by the Queen: ______________________________</li>
+            <li><strong>Permitted content categories</strong> — the following may be consumed without individual approval, as designated by the Queen: ______________________________</li>
+            <li>The recipient shall not consume media in secret, in private without disclosure, or through means intended to circumvent this covenant. All consumption is transparent.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Reading &amp; Listening Assignments</div>
+        <ol class="terms-list" start="5">
+            <li>The Queen may assign specific reading materials, audio content, or studies for the recipient to complete. These assignments are curated to shape the recipient's mind toward focus, devotion, growth, or perspective as the Queen intends.</li>
+            <li>The recipient shall complete all assigned materials within the timeframe designated and offer a reflection — written or spoken — on what was absorbed. Reflection demonstrates not merely consumption but integration.</li>
+            <li>The Queen may designate a daily or weekly reading/listening schedule as the recipient's mental nourishment. This curated diet replaces unguided consumption as the primary source of intellectual and emotional input.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Digital Device Protocol</div>
+        <ol class="terms-list" start="8">
+            <li>The recipient's digital devices — phone, computer, tablet — shall be used only during designated periods and for designated purposes, as the Queen directs. Specific permitted usage windows: ______________________________</li>
+            <li>The Queen shall determine which applications, platforms, and digital spaces are permitted. The recipient shall not access restricted applications or create accounts on platforms not approved.</li>
+            <li><strong>Device-free periods:</strong> The Queen may designate periods during which all devices are surrendered, stored, or powered down. These periods of digital silence are opportunities for presence, reflection, and connection to the immediate.</li>
+            <li>The recipient shall not delete, hide, or obscure browsing history, message logs, or consumption records. The Queen retains the right to inspect the recipient's digital activity at any time, and the recipient shall maintain all records with transparency.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Information Fasting &amp; Sensory Direction</div>
+        <ol class="terms-list" start="12">
+            <li><strong>Information fasts:</strong> The Queen may designate periods — hours, days, or longer — during which the recipient consumes no external information whatsoever. No news, no social media, no entertainment. These fasts clear the mind and create space for the Queen's voice to be heard most clearly.</li>
+            <li><strong>Sensory enrichment:</strong> Conversely, the Queen may direct specific sensory input — music, ambient sound, visual environments, scents — to shape the recipient's inner atmosphere. The recipient shall accept and immerse in these environments as directed.</li>
+            <li><strong>Sensory restriction:</strong> The Queen may, within negotiated limits, direct periods of sensory reduction — blindfolds, earplugs, silence, stillness — as practice in presence, patience, and surrender to the unknown. These practices deepen the recipient's capacity to exist within the Queen's will without the distraction of autonomous input.</li>
+            <li>The recipient shall report the effects of all sensory direction — mental state, emotional response, physical sensation — honestly and in detail. This information guides the Queen's ongoing curation.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Renewal</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This covenant shall remain in effect for an initial period of sixty (60) days, commencing upon signing. A thorough review shall be conducted at the end of this period to assess the recipient's experience, mental and emotional wellbeing, and the effects of the curated environment. The covenant may be renewed, adjusted, or concluded by mutual decision.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Consent — Psychological Edge Play</div>
+        <div class="safety-box">
+            <div class="safety-box-title">Sacred Carve-Out — Emergency &amp; Essential Access</div>
+            <div class="safety-box-body">
+                <p>This covenant governs the recipient's voluntary media and information environment. It does not govern and shall never restrict the recipient's access to: emergency communications and services, medical and health information, communications from family and dependents, legal or financial notifications, or any information necessary for the recipient's safety, rights, or responsibilities. These channels remain accessible at all times, without permission, without delay, without exception.</p>
+            </div>
+        </div>
+        <div class="section-body">
+            <p>This covenant is recognised as psychological edge play. The surrender of one's mental environment is among the most intimate forms of power exchange, and its effects can be profound. The recipient retains the absolute right to communicate overwhelm, mental fatigue, or the need for re-expansion of access at any time. The Covenant of Safety (Agreement V) — consent, limits, safewords, and check-in requirements — governs this covenant absolutely. The Queen shall exercise Her curatorial authority with wisdom, monitoring the recipient's mental and emotional state with care, and adjusting the environment to serve growth rather than erosion. A curated mind is a gift offered — never a prison imposed.</p>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <div class="section-label">Ceremony &amp; Documentation</div>
+        <div class="section-body">
+            <p>The signing of this agreement is itself an act of devotion. Both parties are encouraged to treat the moment with the gravity it deserves. Prepare a quiet, private space — candles, stillness, a clear mind. Read the agreement aloud before signing. The devoted may kneel. The Queen may speak words of acceptance.</p>
+            <p><strong>On recording the ceremony:</strong> Some choose to document the signing as a form of accountability and remembrance. A recording captures not merely the words but the tone, the presence, the weight of the moment — a record both parties may return to. However, recording carries risk: any intimate documentation, if stored without care or shared without consent, can compromise the privacy and safety of both parties. <strong>Our counsel:</strong> If both parties consent freely and without reservation, a recording is a meaningful artifact of devotion. It must be stored encrypted, never uploaded to any cloud or platform, and treated with the same sanctity as the agreement itself. If either party is uncertain, do not record. The memory of the moment, held privately, is sufficient.</p>
+            <p>After signing, both parties may wish to observe a moment of stillness together — a breath, a touch, a silent acknowledgment that something has shifted. The ceremony closes when the Queen dismisses the devoted. A signed copy of this agreement shall be retained by each party.</p>
+        </div>
+    </div>
+<div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Curator</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Recipient</div>
+                <div class="sig-name">Devoted</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="margin-top: 20px;">
+        <div class="section-label" style="font-size: 7pt; letter-spacing: 2px;">Important Notice</div>
+        <div class="section-body" style="font-size: 8pt; color: #6b5e45; font-style: italic; line-height: 1.5;">
+            <p>This document is a fantasy roleplay aid intended exclusively for consenting adults engaged in fictional power exchange dynamics. It carries no legal weight and is not legally enforceable in any jurisdiction. All parties retain their full legal, civil, and human rights at all times. Participation is entirely voluntary and may be withdrawn at any time without penalty. Queen Elyria / Queen's Empire is a fictional persona created for entertainment purposes and assumes no liability for any use of this document. This material is provided for entertainment, personal exploration, and education within Safe, Sane, and Consensual (SSC) and Risk-Aware Consensual Kink (RACK) frameworks. Nothing herein constitutes legal or professional advice.</p>
+        </div>
+    </div>
+
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract XII of XII &ensp;·&ensp; Confidential</div>
+</div>
+<div style="text-align:center;font-size:10px;color:rgba(201,168,76,0.5);padding:16px;font-family:Georgia,serif;letter-spacing:0.5px;">AI-assisted design used in creation.</div>
+</body>
+</html>

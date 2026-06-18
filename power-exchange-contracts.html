@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power Exchange Contracts — Queen Elyria's Empire</title>
+<style>
+    /* ============================================
+       QUEEN ELYRIA'S EMPIRE — CONTRACT PACK STYLES
+       ============================================ */
+
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html, body {
+        background: #09090b;
+        color: #e8e0d0;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 12pt;
+        line-height: 1.8;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* ---------- PAGE SYSTEM ---------- */
+    .page {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 22mm 24mm;
+        page-break-after: always;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .page:last-child {
+        page-break-after: auto;
+    }
+
+    /* ---------- COVER PAGE ---------- */
+    .cover {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: #09090b;
+    }
+
+    .cover-frame {
+        border: 1.5px solid #C9A84C;
+        padding: 60px 50px;
+        max-width: 480px;
+        position: relative;
+    }
+
+    .cover-frame::before,
+    .cover-frame::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 1px;
+        background: #C9A84C;
+    }
+
+    .cover-frame::before { top: -1px; }
+    .cover-frame::after { bottom: -1px; }
+
+    .crown {
+        font-size: 48pt;
+        color: #C9A84C;
+        line-height: 1;
+        margin-bottom: 20px;
+        letter-spacing: 8px;
+    }
+
+    .cover-title {
+        font-size: 26pt;
+        color: #C9A84C;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-weight: normal;
+        margin-bottom: 8px;
+        line-height: 1.3;
+    }
+
+    .cover-subtitle {
+        font-size: 11pt;
+        color: #8a7e62;
+        font-style: italic;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+    }
+
+    .cover-divider {
+        width: 120px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+        margin: 20px auto;
+    }
+
+    .cover-tagline {
+        font-size: 14pt;
+        color: #e8e0d0;
+        font-style: italic;
+        letter-spacing: 1px;
+        margin-top: 15px;
+    }
+
+    .cover-attribution {
+        font-size: 9pt;
+        color: #5a5345;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-top: 35px;
+    }
+
+    /* ---------- CONTRACT HEADER ---------- */
+    .contract-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+    }
+
+    .contract-crown {
+        font-size: 24pt;
+        color: #C9A84C;
+        margin-bottom: 8px;
+        letter-spacing: 6px;
+    }
+
+    .contract-elyria {
+        font-size: 9pt;
+        color: #C9A84C;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+    }
+
+    .contract-title {
+        font-size: 19pt;
+        color: #e8e0d0;
+        font-weight: normal;
+        letter-spacing: 2px;
+        line-height: 1.3;
+    }
+
+    .contract-number {
+        font-size: 8pt;
+        color: #8a7e62;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-top: 10px;
+    }
+
+    /* ---------- SECTIONS ---------- */
+    .section {
+        margin-bottom: 20px;
+    }
+
+    .section-label {
+        font-size: 8pt;
+        color: #C9A84C;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+
+    .section-body {
+        font-size: 11pt;
+        color: #d4ccc0;
+        line-height: 1.75;
+    }
+
+    .section-body p {
+        margin-bottom: 10px;
+    }
+
+    .date-line {
+        font-size: 10pt;
+        color: #8a7e62;
+        font-style: italic;
+        margin-bottom: 18px;
+    }
+
+    /* ---------- PARTIES ---------- */
+    .parties-box {
+        border: 1px solid rgba(201, 168, 76, 0.25);
+        padding: 16px 20px;
+        margin-bottom: 20px;
+    }
+
+    .party-row {
+        display: flex;
+        margin-bottom: 8px;
+        font-size: 11pt;
+    }
+
+    .party-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .party-label {
+        color: #C9A84C;
+        font-weight: bold;
+        min-width: 130px;
+        font-size: 10pt;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .party-name {
+        color: #e8e0d0;
+    }
+
+    /* ---------- TERMS LIST ---------- */
+    .terms-list {
+        list-style: none;
+        counter-reset: term-counter;
+    }
+
+    .terms-list li {
+        counter-increment: term-counter;
+        margin-bottom: 10px;
+        padding-left: 28px;
+        position: relative;
+        font-size: 11pt;
+        color: #d4ccc0;
+        line-height: 1.7;
+    }
+
+    .terms-list li::before {
+        content: counter(term-counter, decimal-leading-zero);
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #C9A84C;
+        font-size: 9pt;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    /* ---------- SIGNATURES ---------- */
+    .signatures {
+        margin-top: auto;
+        padding-top: 30px;
+    }
+
+    .sig-block {
+        display: flex;
+        justify-content: space-between;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+
+    .sig-item {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .sig-line {
+        border-bottom: 1px solid #C9A84C;
+        height: 36px;
+        margin-bottom: 4px;
+    }
+
+    .sig-label {
+        font-size: 8pt;
+        color: #8a7e62;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .sig-name {
+        font-size: 9pt;
+        color: #C9A84C;
+        font-style: italic;
+        margin-bottom: 16px;
+    }
+
+    /* ---------- DECORATIVE ---------- */
+    .ornament {
+        text-align: center;
+        color: #C9A84C;
+        font-size: 10pt;
+        letter-spacing: 12px;
+        margin: 14px 0;
+        opacity: 0.5;
+    }
+
+    .footer-mark {
+        position: absolute;
+        bottom: 12mm;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 7pt;
+        color: #3a3528;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
+
+    /* ---------- INTRO TEXT ---------- */
+    .intro-text {
+        font-style: italic;
+        color: #b0a890;
+        font-size: 11pt;
+        line-height: 1.8;
+        text-align: justify;
+    }
+
+    .intro-text p {
+        margin-bottom: 10px;
+    }
+
+    /* ---------- SAFETY BOX ---------- */
+    .safety-box {
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        padding: 14px 18px;
+        margin: 12px 0;
+        background: rgba(201, 168, 76, 0.03);
+    }
+
+    .safety-box-title {
+        font-size: 8pt;
+        color: #C9A84C;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    .safety-box-body {
+        font-size: 10.5pt;
+        color: #d4ccc0;
+    }
+
+    /* ---------- PRINT BUTTON ---------- */
+    .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #C9A84C;
+        color: #09090b;
+        border: none;
+        padding: 10px 24px;
+        font-family: Georgia, serif;
+        font-size: 11pt;
+        cursor: pointer;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        z-index: 9999;
+        transition: opacity 0.3s;
+    }
+
+    .print-btn:hover {
+        opacity: 0.85;
+    }
+
+    @media print {
+        .print-btn { display: none; }
+        body { background: #09090b; }
+    }
+
+    /* ---------- SUBHEADS WITHIN TERMS ---------- */
+    .term-subhead {
+        font-size: 9pt;
+        color: #C9A84C;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 14px 0 6px 0;
+        font-weight: bold;
+    }
+
+    .duration-box {
+        border-top: 1px solid rgba(201, 168, 76, 0.2);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        padding: 12px 0;
+        margin: 16px 0;
+    }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">Print Contracts</button>
+
+<!-- ============================================
+     COVER PAGE
+     ============================================ -->
+<div class="page cover">
+    <div class="cover-frame">
+        <div class="crown">♛</div>
+        <div class="cover-title">Power Exchange<br>Contracts</div>
+        <div class="cover-divider"></div>
+        <div class="cover-subtitle">Queen Elyria's Empire</div>
+        <div class="cover-tagline">Six agreements for the devoted.</div>
+        <div class="cover-divider"></div>
+        <div class="cover-attribution">Sealed in Trust &ensp;·&ensp; Bound by Devotion</div>
+    </div>
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT I — SERVICE AGREEMENT
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Contract of Service</h1>
+        <div class="contract-number">Agreement I of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Dominant:</span>
+            <span class="party-name">Queen Elyria, hereinafter referred to as "the Queen"</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">submissive:</span>
+            <span class="party-name">_____________________________, hereinafter referred to as "the devoted"</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>This agreement is entered into with full presence of mind by both parties. The devoted willingly offers their service, attention, and devotion to Queen Elyria, acknowledging that service is not merely task but privilege — a daily expression of surrender, reverence, and care.</p>
+            <p>It is agreed that through structured service, the devoted shall find purpose, and through purpose, the Queen's pleasure shall be served. This contract defines the expectations, protocols, and rhythms by which daily devotion is given and received.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Core Terms of Service</div>
+        <ol class="terms-list">
+            <li>The devoted shall complete each assigned task to the best of their ability, with attentiveness, timeliness, and care for detail. Service is to be performed as an act of devotion, not obligation.</li>
+            <li><strong>Daily service</strong> shall include a morning check-in message upon waking, communication of the day's intentions, and an evening reflection delivered before sleep. These communications are sacred and shall not be missed without prior permission.</li>
+            <li><strong>Weekly service review</strong> shall occur at a time designated by the Queen. During this review, the devoted shall account for their service, receive feedback, and discuss any adjustments to protocols or expectations.</li>
+            <li>The devoted shall maintain personal standards of health, grooming, and presentation as directed by the Queen, understanding that the body and presentation of the devoted reflect upon Her Empire.</li>
+            <li>Communication shall be prompt, honest, and respectful at all times. The devoted shall inform the Queen of any scheduling conflicts, emotional difficulties, or circumstances that affect service.</li>
+            <li>The devoted shall anticipate the Queen's needs wherever possible, striving not merely to obey commands but to attune to Her preferences, rhythms, and desires.</li>
+            <li>Failure to meet service expectations shall be addressed through reflection, correction, and renewed commitment, as determined by the Queen.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This agreement shall remain in effect for an initial period of ninety (90) days, commencing on the date of signing. A comprehensive review shall be conducted at the conclusion of this period, and the agreement may be renewed, amended, or concluded by mutual decision. Either party may request an interim review at any time.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Negotiation</div>
+        <div class="section-body">
+            <p>This agreement is entered into freely and without coercion. Both parties retain the right to renegotiate terms at any time. The devoted's right to withdraw consent at any point, for any reason, is absolute and shall be honoured without question.</p>
+        </div>
+    </div>
+
+    <div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Dominant</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Devoted</div>
+                <div class="sig-name">submissive</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract I of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT II — CHASTITY CONTRACT
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Covenant of Chastity</h1>
+        <div class="contract-number">Agreement II of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Keyholder:</span>
+            <span class="party-name">Queen Elyria, sole holder of the key and all authority regarding release</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Chaste:</span>
+            <span class="party-name">_____________________________, who willingly surrenders all access</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>I willingly offer the most intimate control of my body to Queen Elyria, acknowledging that my pleasure is not my own but belongs to Her discretion. Chastity is not punishment but devotion — a physical and psychological expression of surrender that deepens with each day of restraint.</p>
+            <p>It is agreed that by surrendering access to my own desire, I shall learn patience, focus, and the profound pleasure of existing for another's will rather than my own.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Terms of Chastity</div>
+        <ol class="terms-list">
+            <li>The chaste shall wear a chastity device as directed and approved by the Queen. The device shall remain secured at all times unless the Queen grants explicit permission for removal.</li>
+            <li>The Queen holds absolute and sole authority over all matters of release. No request, plea, or negotiation from the chaste shall obligate the Queen to grant release. The Queen's decision in all matters is final.</li>
+            <li><strong>Release conditions</strong> are determined solely by the Queen and may include, but are not limited to: demonstrated good service, special occasions at the Queen's discretion, health requirements, or as reward. Release is never earned, only granted.</li>
+            <li>The chaste shall maintain the device in clean and hygienic condition, following all cleaning protocols established by the Queen. Any discomfort, chafing, or health concern shall be reported immediately.</li>
+            <li>The chaste shall not attempt to circumvent, remove, or tamper with the device under any circumstances. Any violation shall be regarded as a serious breach of trust.</li>
+            <li><strong>Teasing and denial</strong> are privileges of the Queen. The chate shall submit to any form of teasing, arousal, or denial the Queen chooses to employ, understanding that this reinforces the dynamic and deepens devotion.</li>
+            <li>The Queen may impose additional conditions — such as daily affirmation messages, edging protocols, or behavioural requirements — as part of the chastity arrangement.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This covenant shall remain in effect for an initial period of sixty (60) days, commencing upon signing. A review shall be conducted at the end of this period to assess the experience, discuss adjustments, and determine continuation. Emergency release for medical reasons is always available without penalty.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Negotiation</div>
+        <div class="section-body">
+            <p>This covenant is entered into willingly and with full understanding of its terms. The chaste retains the absolute right to request release from the arrangement at any time. Health and safety shall never be compromised for the sake of the dynamic. Open communication regarding physical or emotional wellbeing is expected and honoured.</p>
+        </div>
+    </div>
+
+    <div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Keyholder</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Chaste</div>
+                <div class="sig-name">Devoted</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract II of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT III — ORGASM DENIAL AGREEMENT
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Agreement of Orgasm Denial</h1>
+        <div class="contract-number">Agreement III of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Authority:</span>
+            <span class="party-name">Queen Elyria, who holds sole authority over all matters of pleasure</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Denied:</span>
+            <span class="party-name">_____________________________, who willingly surrenders all autonomous release</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>With full presence of mind, I willingly surrender the most private dimension of my autonomy — the right to my own release. I acknowledge that my pleasure, my arousal, and my climax exist now under the sovereign will of Queen Elyria. Denial is not deprivation but refinement; it sharpens devotion, redirects energy, and deepens the architecture of surrender.</p>
+            <p>It is agreed that through the controlled denial of climax, I shall be trained to channel desire into service, and longing into reverence. My body becomes an instrument tuned by the Queen's hand.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Denial Terms</div>
+        <ol class="terms-list">
+            <li>The denied shall not achieve orgasm under any circumstance without the explicit, prior permission of the Queen. This applies whether alone or in the Queen's presence.</li>
+            <li>The Queen shall determine the duration of each denial period. No minimum or maximum duration is guaranteed. The denied accepts that periods may extend days, weeks, or longer at the Queen's sole discretion.</li>
+            <li><strong>Permission protocol:</strong> The denied may request release by formal petition to the Queen. The Queen is under no obligation to respond, grant, or explain Her decision. Silence is itself an answer.</li>
+            <li><strong>Training schedule:</strong> The Queen may implement edging protocols — bringing the denied to the edge of climax and withholding release — on a schedule of Her design. These sessions are training, not reward, and shall be accepted as such.</li>
+            <li>The denied shall report all spontaneous arousal, wet dreams, or near-release experiences to the Queen honestly and without shame. These occurrences are not failures but information.</li>
+            <li>The denied shall not use pornography, erotica, or self-stimulation for personal pleasure without the Queen's explicit instruction. Any stimulation experienced shall be at the Queen's direction and for the Queen's purposes.</li>
+            <li>Ruined orgasms, if granted, shall be accepted without complaint. The Queen may choose to grant a release that is partial, interrupted, or unsatisfying — this too is a gift of Her attention.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This agreement shall operate in continuous effect until formally amended or concluded by mutual decision. A review shall be conducted every thirty (30) days to discuss the denied's physical and emotional wellbeing, assess the training's progress, and adjust protocols as the Queen sees fit.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Negotiation</div>
+        <div class="section-body">
+            <p>This agreement is made freely, with trust and full understanding. The denied retains the right to communicate physical discomfort, emotional overwhelm, or the need for a reset at any time. The Queen shall receive all such communications with care. The dynamic is sustained by mutual trust — it is not a cage but a chosen architecture of devotion.</p>
+        </div>
+    </div>
+
+    <div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Authority</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Denied</div>
+                <div class="sig-name">Devoted</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract III of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT IV — RITUAL & PROTOCOL AGREEMENT
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Agreement of Ritual &amp; Protocol</h1>
+        <div class="contract-number">Agreement IV of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Sovereign:</span>
+            <span class="party-name">Queen Elyria, who establishes all rituals, protocols, and observances</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Devoted:</span>
+            <span class="party-name">_____________________________, who willingly commits to sacred practice</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>Ritual transforms the ordinary into the sacred. Through structured practice — the way I rise, the way I kneel, the words I speak — I weave devotion into the fabric of each day. I willingly accept these protocols not as rules but as rhythms, each one a thread connecting me to Queen Elyria's will.</p>
+            <p>It is agreed that through consistent ritual, the devoted shall cultivate a mind of reverence, a body of readiness, and a spirit of surrender that endures beyond any single moment of exchange.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Morning &amp; Evening Rituals</div>
+        <ol class="terms-list">
+            <li><strong>Morning ritual:</strong> Upon waking, the devoted shall pause, centre themselves, and offer a morning affirmation to the Queen. This message shall express gratitude, state the day's intention in service, and affirm devotion. No day shall begin without this observance.</li>
+            <li><strong>Evening ritual:</strong> Before sleep, the devoted shall offer a reflection to the Queen — recounting the day's service, acknowledging any shortcomings, and expressing gratitude for the Queen's guidance. This closes the day in devotion.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Position Protocols</div>
+        <ol class="terms-list" start="3">
+            <li>The devoted shall learn and maintain the positions designated by the Queen, including but not limited to: kneeling position, presentation position, waiting position, and punishment position. Each shall be held with stillness, grace, and attentiveness.</li>
+            <li>When entering the Queen's presence in person, the devoted shall assume the designated greeting position unless otherwise instructed. This is the first expression of devotion in each encounter.</li>
+            <li>The devoted shall maintain physical composure and stillness when in the Queen's presence unless given permission to relax. Fidgeting, unbidden speech, or restlessness shall be corrected.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Address Protocols</div>
+        <ol class="terms-list" start="6">
+            <li>The devoted shall address the Queen by Her designated title at all times — "Queen Elyria," "my Queen," or other honorifics as directed. The devoted's name for the Queen is itself an act of devotion.</li>
+            <li>The devoted shall speak with measured, respectful language. Profanity, casualness, or presumptuous familiarity shall not be used in address to the Queen unless She explicitly grants such liberty.</li>
+            <li>The devoted shall request permission before speaking at length, asking questions beyond simple logistics, or introducing new topics of conversation, when protocol demands formal address.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This agreement shall remain in continuous effect. Protocols may be added, modified, or retired by the Queen at Her discretion. A formal review of all rituals and protocols shall be conducted every sixty (60) days to ensure they continue to serve the dynamic and the wellbeing of both parties.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Negotiation</div>
+        <div class="section-body">
+            <p>This agreement is entered into with joyful willingness. The devoted understands that rituals deepen connection and provide structure. Any protocol that causes genuine distress shall be communicated openly, and adjustments shall be made with care. The goal is devotion, not suffering for its own sake.</p>
+        </div>
+    </div>
+
+    <div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Sovereign</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Devoted</div>
+                <div class="sig-name">Practitioner</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract IV of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT V — CONSENT, LIMITS & SAFETY ADDENDUM
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Consent, Limits &amp; Safety Addendum</h1>
+        <div class="contract-number">Agreement V of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Dominant:</span>
+            <span class="party-name">Queen Elyria</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">submissive:</span>
+            <span class="party-name">_____________________________</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>This addendum exists as the foundation upon which all other agreements rest. No power exchange is sustainable without trust, and no trust is real without honesty about limits. With full presence of mind, both parties commit to transparent communication, unwavering respect for boundaries, and the sacred duty of care.</p>
+            <p>It is agreed that safety is not the absence of intensity but the presence of trust. This document ensures that the architecture of devotion is built upon bedrock.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Hard Limits</div>
+        <div class="safety-box">
+            <div class="safety-box-title">Absolute Boundaries — Non-Negotiable</div>
+            <div class="safety-box-body">
+                The following are activities or behaviours that are strictly excluded from the dynamic under all circumstances. These limits are permanent and may not be renegotiated:
+            </div>
+        </div>
+        <div class="section-body">
+            <p>__________________________________________________________________________</p>
+            <p>__________________________________________________________________________</p>
+            <p>__________________________________________________________________________</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Soft Limits</div>
+        <div class="safety-box">
+            <div class="safety-box-title">Conditional Boundaries — Requiring Careful Negotiation</div>
+            <div class="safety-box-body">
+                The following are activities the submissive finds challenging or uncertain. They may be explored only with explicit, enthusiastic consent and may be withdrawn at any time:
+            </div>
+        </div>
+        <div class="section-body">
+            <p>__________________________________________________________________________</p>
+            <p>__________________________________________________________________________</p>
+            <p>__________________________________________________________________________</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Safewords</div>
+        <ol class="terms-list">
+            <li><strong>"Amber"</strong> — Slow down. The submissive is approaching a limit or needs the intensity reduced. The Queen shall ease back and check in without breaking the scene entirely.</li>
+            <li><strong>"Crimson"</strong> — Stop immediately. All activity ceases without question, judgment, or penalty. The Queen shall transition to aftercare mode. This word is sacred and absolute.</li>
+            <li>If the submissive is unable to speak, a physical signal — three deliberate taps — shall serve as the equivalent of "Crimson."</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Check-In Requirements</div>
+        <ol class="terms-list" start="4">
+            <li>The Queen shall conduct a check-in within twenty-four (24) hours of any intense session to assess emotional and physical wellbeing. This is a duty, not an option.</li>
+            <li>The submissive shall attend a formal check-in every seven (7) days to discuss the state of the dynamic, any emerging concerns, and any adjustments needed.</li>
+            <li>Either party may call for an immediate check-in at any time, for any reason. This right is absolute and shall never be met with resistance or penalty.</li>
+            <li>Limits may evolve. A quarterly limits review shall be conducted to update hard and soft limits as understanding deepens over time.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This addendum remains in effect for as long as any other contract within this pack is active. It is the governing safety document for the entire dynamic. Review every ninety (90) days or whenever either party requests.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent Declaration</div>
+        <div class="section-body">
+            <p>Both parties affirm that they enter into this and all associated agreements with full understanding, free will, and mutual respect. Consent is ongoing, revocable, and never assumed. The safety and dignity of both parties is the highest law of this Empire.</p>
+        </div>
+    </div>
+
+    <div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Dominant</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Devoted</div>
+                <div class="sig-name">submissive</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract V of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+
+<!-- ============================================
+     CONTRACT VI — FULL OWNERSHIP / TPE CONTRACT
+     ============================================ -->
+<div class="page">
+    <div class="contract-header">
+        <div class="contract-crown">♛</div>
+        <div class="contract-elyria">Queen Elyria's Empire</div>
+        <h1 class="contract-title">Covenant of Total Power Exchange</h1>
+        <div class="contract-number">Agreement VI of VI</div>
+    </div>
+
+    <div class="date-line">Dated this _____ day of _______________, 20____</div>
+
+    <div class="parties-box">
+        <div class="party-row">
+            <span class="party-label">Owner:</span>
+            <span class="party-name">Queen Elyria, who holds comprehensive authority over all aspects defined herein</span>
+        </div>
+        <div class="party-row">
+            <span class="party-label">Owned:</span>
+            <span class="party-name">_____________________________, who willingly surrenders all defined autonomy</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Purpose &amp; Intention</div>
+        <div class="intro-text">
+            <p>With full presence of mind and a willing heart, I offer myself completely to Queen Elyria. This is the highest expression of trust — the surrender not merely of moments, actions, or appetites, but of the architecture of my daily life. I choose to be shaped by Her will, directed by Her wisdom, and held by Her authority.</p>
+            <p>It is agreed that this covenant represents a total power exchange. The owned surrenders autonomous decision-making within the scope defined below, trusting that the Queen shall exercise Her authority with wisdom, care, and intention. This is not abandonment of self but the discovery of self through devotion to another.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="section">
+        <div class="section-label">Scope of Authority</div>
+        <div class="term-subhead">The Queen's authority encompasses the following domains:</div>
+        <ol class="terms-list">
+            <li><strong>Body &amp; Presentation:</strong> The Queen shall have authority over the owned's grooming, dress, fitness, sleep, diet, and physical presentation. The owned shall follow all directives regarding their body as acts of devotion.</li>
+            <li><strong>Schedule &amp; Time:</strong> The Queen shall have authority over the owned's daily routine, including wake and sleep times, task assignments, leisure activities, and commitments. The owned shall consult the Queen before making scheduling decisions of significance.</li>
+            <li><strong>Behaviour &amp; Discipline:</strong> The Queen shall have authority to establish rules, enforce protocols, and administer correction — whether through restriction, assignment, or discipline — as She deems appropriate. The owned shall accept all correction with grace and reflect upon its purpose.</li>
+            <li><strong>Communication &amp; Privacy:</strong> The Queen shall have access to the owned's communications as directed. The owned shall maintain transparency about their social interactions, emotional state, and any matter that affects the dynamic.</li>
+            <li><strong>Pleasure &amp; Intimacy:</strong> The Queen shall have sole authority over the owned's sexual expression, arousal, and release, as detailed in the Covenant of Chastity and Agreement of Orgasm Denial, which are incorporated herein by reference.</li>
+            <li><strong>Finances &amp; Resources:</strong> The scope of financial authority shall be negotiated and defined in a supplementary schedule. The owned shall be transparent about all financial matters as directed by the Queen.</li>
+            <li><strong>Personal Growth:</strong> The Queen shall have authority to guide the owned's education, skill development, and personal goals, directing growth toward outcomes that serve both the owned's wellbeing and the Queen's vision.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">The Owner's Sacred Duties</div>
+        <ol class="terms-list" start="8">
+            <li>The Queen shall exercise Her authority with wisdom, never caprice. Every directive shall serve the growth, wellbeing, or pleasure of the dynamic.</li>
+            <li>The Queen shall prioritise the physical and emotional safety of the owned above all else. No exercise of authority shall knowingly cause lasting harm.</li>
+            <li>The Queen shall provide structure, guidance, and care proportionate to the devotion She receives. Authority is not extraction but stewardship.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Duration &amp; Review</div>
+        <div class="duration-box">
+            <div class="section-body">
+                <p>This covenant shall commence upon signing and remain in effect for an initial period of one hundred eighty (180) days, after which a comprehensive review shall determine renewal or amendment. This covenant supersedes and incorporates all preceding agreements within this pack. The Consent, Limits &amp; Safety Addendum (Agreement V) remains governing and absolute at all times.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-label">Consent &amp; Renegotiation</div>
+        <div class="section-body">
+            <p>This covenant is the most solemn of agreements. It is entered into with full understanding of its gravity. The owned retains the inalienable right to safeword, to request renegotiation, and to withdraw from this covenant at any time. The Queen shall honour all such requests with respect and without penalty. True ownership is sustained by willing surrender — never by force, fear, or coercion. The owned's freedom to leave is what makes staying a gift.</p>
+        </div>
+    </div>
+
+    <div class="ornament">· · ·</div>
+
+    <div class="signatures">
+        <div class="sig-block">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Queen Elyria</div>
+                <div class="sig-name">Owner</div>
+            </div>
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">The Owned</div>
+                <div class="sig-name">Devoted</div>
+            </div>
+        </div>
+        <div class="sig-block" style="margin-top: 16px;">
+            <div class="sig-item">
+                <div class="sig-line"></div>
+                <div class="sig-label">Witness</div>
+                <div class="sig-name">Optional</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-mark">Queen Elyria's Empire &ensp;·&ensp; Contract VI of VI &ensp;·&ensp; Confidential</div>
+</div>
+
+<script>
+    // Auto-prompt print on load (optional — commented out for manual control)
+    // window.onload = function() { setTimeout(function(){ window.print(); }, 500); };
+</script>
+
+<div style="text-align:center;font-size:10px;color:rgba(201,168,76,0.5);padding:16px;font-family:Georgia,serif;letter-spacing:0.5px;">AI-assisted design used in creation.</div>
+</body>
+</html>
